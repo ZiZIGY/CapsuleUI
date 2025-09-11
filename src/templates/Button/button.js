@@ -113,12 +113,10 @@ export class RippleButton extends HTMLElement {
     this.addEventListener('pointerleave', this._fadeRipple.bind(this));
     this.addEventListener('pointercancel', this._fadeRipple.bind(this));
 
-    // Добавляем обработку клавиатуры
     this.addEventListener('keydown', this._handleKeydown.bind(this));
     this.addEventListener('keyup', this._handleKeyup.bind(this));
     this.addEventListener('blur', this._handleBlur.bind(this));
 
-    // Добавляем обработчик клика для формы
     this.addEventListener('click', this._handleClick.bind(this));
   }
 
@@ -152,8 +150,6 @@ export class RippleButton extends HTMLElement {
       this._isKeyPressed = false;
       this._fadeRipple();
 
-      // Просто вызываем click(), а handleFormSubmission
-      // будет вызван автоматически через обработчик click события
       this.click();
     }
   }
