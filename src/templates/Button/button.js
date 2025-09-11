@@ -1,4 +1,4 @@
-export class RippleButton extends HTMLElement {
+class Button extends HTMLElement {
   static formAssociated = true;
 
   constructor() {
@@ -174,4 +174,4 @@ export class RippleButton extends HTMLElement {
   }
 }
 
-customElements.define('__PREFIX__-__COMPONENT__', RippleButton);
+customElements.define('__PREFIX__-__COMPONENT__', Button);
