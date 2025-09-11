@@ -1,17 +1,19 @@
 __PREFIX__-__COMPONENT__ {
-  display: block;
+  display: flex;
   margin: 0.5rem 0;
   padding: 0;
   border: none;
   background-color: #e5e7eb;
-  width: 100%;
+  flex-shrink: 0;
+}
+
+__PREFIX__-__COMPONENT__,
+__PREFIX__-__COMPONENT__[orientation="horizontal"] {
   height: 1px;
+  width: 100%;
 }
 
 __PREFIX__-__COMPONENT__[orientation='vertical'] {
   width: 1px;
   height: 100%;
-  margin: 0 0.5rem;
-  display: inline-block;
-  vertical-align: middle;
 }
