@@ -1,0 +1,40 @@
+/* Стили для __PREFIX__-__COMPONENT__ компонента */
+__PREFIX__-__COMPONENT__ {
+  display: block;
+  background-color: #e5e7eb;
+  border-radius: 0.25rem;
+  animation: skeleton-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes skeleton-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+__PREFIX__-__COMPONENT__,
+__PREFIX__-__COMPONENT__[variant="rectangular"] {
+  width: 100%;
+  height: 4rem;
+}
+
+/* Варианты размеров */
+__PREFIX__-__COMPONENT__[variant="text"] {
+  height: 1rem;
+  width: 100%;
+}
+
+__PREFIX__-__COMPONENT__[variant="circular"] {
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+}
+
+__PREFIX__-__COMPONENT__[variant="rounded"] {
+  border-radius: 0.5rem;
+  width: 100%;
+  height: 2rem;
+}
