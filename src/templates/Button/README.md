@@ -1,8 +1,8 @@
-# **PREFIX**-**COMPONENT** Component
+# __PREFIX__-__COMPONENT__ Component
 
-Кастомный элемент кнопки с ripple эффектом.
+Custom button element with ripple effect.
 
-## Использование
+## Usage
 
 ### HTML
 
@@ -11,99 +11,75 @@
 <script src="__PREFIX__-__COMPONENT__.js"></script>
 
 <__PREFIX__-__COMPONENT__ size="lg" variant="primary">
-  Моя кнопка
+  My Button
 </__PREFIX__-__COMPONENT__>
 ```
 
-### TypeScript Support
+## Attributes
 
-Для получения автодополнения и проверки типов в VSCode/других редакторах:
+| Attribute  | Type                                    | Default     | Description      |
+| ---------- | --------------------------------------- | ----------- | ---------------- |
+| `size`     | `'xs' \| 'sm' \| 'md' \| 'lg'`          | `'md'`      | Button size      |
+| `variant`  | `'primary' \| 'secondary' \| 'outline'` | `'primary'` | Button variant   |
+| `disabled` | `boolean`                               | `false`     | Whether disabled |
+| `type`     | `'button' \| 'submit' \| 'reset'`       | `'button'`  | Button type      |
 
-#### 1. TypeScript проекты
+## Events
 
-Добавьте файл `__PREFIX__-__COMPONENT__.d.ts` в ваш проект и включите его в `tsconfig.json`:
+| Event          | Description                         |
+| -------------- | ----------------------------------- |
+| `button-click` | Custom event when button is clicked |
+| `click`        | Standard click event                |
+| `focus`        | Focus event                         |
+| `blur`         | Blur event                          |
 
-```json
-{
-  "compilerOptions": {
-    "types": ["./path/to/__PREFIX__-__COMPONENT__.d.ts"]
-  }
-}
-```
+## Examples
 
-#### 2. React проекты
-
-Используйте файл `__PREFIX__-__COMPONENT__.d.ts` - он содержит JSX определения.
-
-#### 3. Обычные HTML проекты
-
-Используйте файл `__PREFIX__-__COMPONENT__.html.d.ts` для базовой поддержки типов.
-
-## Атрибуты
-
-| Атрибут    | Тип                                     | По умолчанию | Описание            |
-| ---------- | --------------------------------------- | ------------ | ------------------- |
-| `size`     | `'xs' \| 'sm' \| 'md' \| 'lg'`          | `'md'`       | Размер кнопки       |
-| `variant`  | `'primary' \| 'secondary' \| 'outline'` | `'primary'`  | Вариант кнопки      |
-| `disabled` | `boolean`                               | `false`      | Отключена ли кнопка |
-| `type`     | `'button' \| 'submit' \| 'reset'`       | `'button'`   | Тип кнопки          |
-
-## События
-
-| Событие        | Описание                              |
-| -------------- | ------------------------------------- |
-| `button-click` | Кастомное событие при клике на кнопку |
-| `click`        | Стандартное событие клика             |
-| `focus`        | Получение фокуса                      |
-| `blur`         | Потеря фокуса                         |
-
-## Примеры
-
-### Базовое использование
+### Basic Usage
 
 ```html
-<__PREFIX__-__COMPONENT__>Кнопка</__PREFIX__-__COMPONENT__>
+<__PREFIX__-__COMPONENT__>Button</__PREFIX__-__COMPONENT__>
 ```
 
-### С атрибутами
+### With Attributes
 
 ```html
 <__PREFIX__-__COMPONENT__ size="lg" variant="outline" disabled>
-  Большая отключенная кнопка
+  Large Disabled Button
 </__PREFIX__-__COMPONENT__>
 ```
 
-### С обработчиком событий
+### With Event Handler
 
 ```html
 <__PREFIX__-__COMPONENT__
   size="md"
   variant="primary"
   onclick="handleClick(event)">
-  Кнопка с обработчиком
+  Button with Handler
 </__PREFIX__-__COMPONENT__>
 ```
 
-### Программное управление
+### Programmatic Control
 
 ```javascript
 const button = document.querySelector('__PREFIX__-__COMPONENT__');
 
-// Изменение атрибутов
+// Change attributes
 button.size = 'lg';
 button.variant = 'secondary';
 button.disabled = true;
 
-// Программный клик
+// Programmatic click
 button.click();
 
-// Установка фокуса
+// Set focus
 button.focus();
 ```
 
-## Стилизация
+## Styling
 
-Компонент использует CSS-переменные для кастомизации:
+The component uses CSS variables for customization:
 
 ```css
 __PREFIX__-__COMPONENT__ {
@@ -111,10 +87,10 @@ __PREFIX__-__COMPONENT__ {
 }
 ```
 
-Вы также можете добавить свои CSS классы через атрибут `class`:
+You can also add your own CSS classes through the `class` attribute:
 
 ```html
 <__PREFIX__-__COMPONENT__ class="my-custom-class" size="md">
-  Кастомная кнопка
+  Custom Button
 </__PREFIX__-__COMPONENT__>
 ```

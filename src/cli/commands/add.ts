@@ -177,10 +177,6 @@ export const add = {
         );
         const hostCssFile = renamedFiles.find((f) => f.endsWith('.host.css'));
         const styleFile = renamedFiles.find((f) => f.endsWith('.style.css'));
-        const typesFile = renamedFiles.find((f) => f.endsWith('.d.ts'));
-        const htmlTypesFile = renamedFiles.find((f) =>
-          f.endsWith('.html.d.ts')
-        );
         const readmeFile = renamedFiles.find((f) => f.endsWith('.md'));
 
         if (!jsFile) throw new Error('Не найден основной js-файл компонента');
@@ -213,25 +209,12 @@ export const add = {
         // Обработка обычного style.css - оставляем как отдельный файл
         if (styleFile) {
           // Оставляем style.css как есть - пользователь получит его отдельно
-          console.log(`CSS файл сохранен: ${styleFile}`);
-        }
-
-        // Обработка TypeScript определений - оставляем как есть
-        if (typesFile) {
-          // Оставляем .d.ts как есть - пользователь получит его отдельно
-          console.log(`TypeScript определения сохранены: ${typesFile}`);
-        }
-
-        if (htmlTypesFile) {
-          // Оставляем .html.d.ts как есть - пользователь получит его отдельно
-          console.log(
-            `HTML TypeScript определения сохранены: ${htmlTypesFile}`
-          );
+          console.log(`CSS file saved: ${styleFile}`);
         }
 
         if (readmeFile) {
           // Оставляем README.md как есть - пользователь получит его отдельно
-          console.log(`Документация сохранена: ${readmeFile}`);
+          console.log(`Documentation saved: ${readmeFile}`);
         }
 
         // Удалить import/export для native сборки
