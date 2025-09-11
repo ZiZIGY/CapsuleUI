@@ -27,7 +27,6 @@ export class RippleButton extends HTMLElement {
     }
   }
 
-  // Остальной код без изменений...
   get disabled() {
     return this.hasAttribute('disabled');
   }

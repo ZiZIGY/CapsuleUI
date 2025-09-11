@@ -44,7 +44,6 @@ __PREFIX__-__COMPONENT__[size='lg'] {
   font-size: 1.125rem;
 }
 
-/* Варианты */
 __PREFIX__-__COMPONENT__[variant='primary'] {
   background-color: #2563eb;
   color: white;
