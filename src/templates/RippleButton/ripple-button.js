@@ -31,9 +31,10 @@ export class RippleButton extends HTMLElement {
     const size = this.getAttribute('size') || rippleButtonVariants.default.size;
     const variant =
       this.getAttribute('variant') || rippleButtonVariants.default.variant;
+    const baseClass = rippleButtonVariants.base || '';
     const sizeClass = rippleButtonVariants.size[size] || '';
     const variantClass = rippleButtonVariants.variant[variant] || '';
-    this.className = `${sizeClass} ${variantClass}`;
+    this.className = `${baseClass} ${sizeClass} ${variantClass}`.trim();
   }
 
   _render() {

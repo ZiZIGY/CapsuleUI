@@ -1,4 +1,8 @@
 export const rippleButtonVariants = {
+  base: `inline-flex
+        disabled:pointer-events-none
+        disabled:opacity-50 relative overflow-hidden select-none
+  `,
   size: {
     xs: 'px-2 py-1 text-xs',
     sm: 'px-3 py-1.5 text-sm',
