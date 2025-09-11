@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
-import { fileURLToPath } from 'url';
-import path from 'path';
-import { getPackageVersion } from './utils';
 import { commands } from './commands';
+import { fileURLToPath } from 'url';
+import { getPackageVersion } from './utils';
+import path from 'path';
 
 // Get __dirname in ESM module
 const __filename = fileURLToPath(import.meta.url);
@@ -17,8 +17,8 @@ const version = getPackageVersion(__dirname);
 const program = new Command();
 
 program
-  .name('@vue-dnd-kit/components')
-  .description('CLI for installing Vue DnD Kit components')
+  .name('CapsuleUI')
+  .description('CLI for installing WebComponent')
   .version(version);
 
 // Register all commands
