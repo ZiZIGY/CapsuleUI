@@ -57,9 +57,7 @@ export class RippleButton extends HTMLElement {
 
   click() {
     if (this.disabled) return;
-
     this.dispatchEvent(new MouseEvent('click', { bubbles: true }));
-    this._handleFormSubmission(); // Вызываем обработку формы здесь
   }
 
   static get observedAttributes() {
@@ -154,6 +152,8 @@ export class RippleButton extends HTMLElement {
       this._isKeyPressed = false;
       this._fadeRipple();
 
+      // Просто вызываем click(), а handleFormSubmission
+      // будет вызван автоматически через обработчик click события
       this.click();
     }
   }
