@@ -1,20 +1,13 @@
-/* Стили для __PREFIX__-__COMPONENT__ компонента */
 __PREFIX__-__COMPONENT__ {
   display: block;
-  margin: 0;
+  margin: 0.5rem 0;
   padding: 0;
   border: none;
-  background: transparent;
-}
-
-/* Горизонтальный разделитель */
-__PREFIX__-__COMPONENT__[orientation='horizontal'] {
+  background-color: #e5e7eb;
   width: 100%;
   height: 1px;
-  margin: 0.5rem 0;
 }
 
-/* Вертикальный разделитель */
 __PREFIX__-__COMPONENT__[orientation='vertical'] {
   width: 1px;
   height: 100%;

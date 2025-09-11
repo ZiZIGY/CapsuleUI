@@ -1,9 +1,7 @@
-export class Divider extends HTMLElement {
+class Divider extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
-    this._render();
-    this._applyHostStyles();
   }
 
   connectedCallback() {
@@ -23,18 +21,6 @@ export class Divider extends HTMLElement {
     if (name === 'orientation') {
       this._updateAriaOrientation();
     }
-  }
-
-  _render() {
-    this.shadowRoot.innerHTML = `
-      <div class="divider"></div>
-    `;
-  }
-
-  _applyHostStyles() {
-    const style = document.createElement('style');
-    style.textContent = `__HOST_STYLE__`;
-    this.shadowRoot.appendChild(style);
   }
 
   _updateAriaOrientation() {
