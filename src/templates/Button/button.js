@@ -1,5 +1,3 @@
-import { buttonVariants } from './button.variants.js';
-
 export class RippleButton extends HTMLElement {
   static formAssociated = true;
 
@@ -8,7 +6,6 @@ export class RippleButton extends HTMLElement {
     this._$rippleContainer = null;
     this._internals = this.attachInternals();
     this._isKeyPressed = false;
-    this._userClasses = ''; // Храним пользовательские классы
 
     this.attachShadow({ mode: 'open' });
     this._render();
@@ -19,11 +16,7 @@ export class RippleButton extends HTMLElement {
     this._internals.role = 'button';
     this._updateAriaDisabled();
 
-    // Сохраняем пользовательские классы при первом подключении
-    this._saveUserClasses();
-
     this._setupEventListeners();
-    this._updateClassNames();
 
     if (!this.hasAttribute('type')) {
       this.setAttribute('type', 'button');
@@ -32,33 +25,6 @@ export class RippleButton extends HTMLElement {
     if (!this.hasAttribute('tabindex')) {
       this.tabIndex = 0;
     }
-  }
-
-  // Сохраняем пользовательские классы
-  _saveUserClasses() {
-    const allClasses = this.className.split(' ');
-    const variantClasses = Object.values(buttonVariants).flatMap((v) =>
-      typeof v === 'string' ? v.split(' ') : []
-    );
-
-    // Фильтруем только пользовательские классы (не из variants)
-    this._userClasses = allClasses
-      .filter((className) => !variantClasses.includes(className))
-      .join(' ')
-      .trim();
-  }
-
-  _updateClassNames() {
-    const size = this.getAttribute('size') || buttonVariants.default.size;
-    const variant =
-      this.getAttribute('variant') || buttonVariants.default.variant;
-    const baseClass = buttonVariants.base || '';
-    const sizeClass = buttonVariants.size[size] || '';
-    const variantClass = buttonVariants.variant[variant] || '';
-
-    // Сохраняем пользовательские классы + добавляем классы из variants
-    this.className =
-      `${this._userClasses} ${baseClass} ${sizeClass} ${variantClass}`.trim();
   }
 
   // Остальной код без изменений...
@@ -93,13 +59,11 @@ export class RippleButton extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ['disabled', 'type', 'size', 'variant'];
+    return ['disabled', 'type'];
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
-    if (['size', 'variant'].includes(name)) {
-      this._updateClassNames();
-    } else if (name === 'disabled') {
+    if (name === 'disabled') {
       this._updateAriaDisabled();
     }
   }
@@ -125,7 +89,7 @@ export class RippleButton extends HTMLElement {
 
   _applyStyles() {
     const style = document.createElement('style');
-    style.textContent = `__STYLE__`;
+    style.textContent = `__HOST_STYLE__`;
     this.shadowRoot.appendChild(style);
   }
 

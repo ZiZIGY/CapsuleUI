@@ -39,14 +39,8 @@ export const add = {
       defaultValue: '',
     },
     {
-      flags: '-n, --native',
-      description:
-        'Собрать компонент в один нативный js-файл без import/export',
-      defaultValue: false,
-    },
-    {
       flags: '-m, --minify',
-      description: 'Минифицировать итоговый JS (актуально для --native)',
+      description: 'Минифицировать итоговый JS',
       defaultValue: false,
     },
   ],
@@ -55,7 +49,6 @@ export const add = {
     options: {
       dir: string;
       prefix?: string;
-      native?: boolean;
       minify?: boolean;
     }
   ) => {
@@ -171,92 +164,76 @@ export const add = {
         }
         // После переименования обновим список файлов
         const renamedFiles = fs.readdirSync(destComponentDir);
-        // Универсально: инлайн стилей через плейсхолдер __STYLE__ (для обоих режимов)
-        const jsMain = renamedFiles.find(
+
+        // Новая логика: всегда native сборка
+        const jsFile = renamedFiles.find(
           (f) =>
             f.endsWith('.js') &&
             !f.endsWith('.variants.js') &&
             !f.endsWith('index.js')
         );
-        const cssMain = renamedFiles.find((f) => f.endsWith('.style.css'));
-        if (jsMain && cssMain) {
-          const jsMainPath = path.join(destComponentDir, jsMain);
-          const cssMainPath = path.join(destComponentDir, cssMain);
-          let jsContent = fs.readFileSync(jsMainPath, 'utf8');
-          const cssContent = fs.readFileSync(cssMainPath, 'utf8');
-          if (jsContent.includes('__STYLE__')) {
-            jsContent = jsContent.replace(
-              '__STYLE__',
-              cssContent.replace(/`/g, '\\`')
+        const variantsFile = renamedFiles.find((f) =>
+          f.endsWith('.variants.js')
+        );
+        const hostCssFile = renamedFiles.find((f) => f.endsWith('.host.css'));
+        const styleFile = renamedFiles.find((f) => f.endsWith('.style.css'));
+
+        if (!jsFile) throw new Error('Не найден основной js-файл компонента');
+
+        const jsPath = path.join(destComponentDir, jsFile);
+        let jsCode = fs.readFileSync(jsPath, 'utf8');
+
+        // Вставить variants (как const ...) если есть
+        if (variantsFile) {
+          const variantsPath = path.join(destComponentDir, variantsFile);
+          let variantsCode = fs.readFileSync(variantsPath, 'utf8');
+          variantsCode = variantsCode.replace(/export\s+const\s+/, 'const ');
+          jsCode = variantsCode + '\n\n' + jsCode;
+        }
+
+        // Обработка host.css - инлайним в JS
+        if (hostCssFile) {
+          const hostCssPath = path.join(destComponentDir, hostCssFile);
+          const hostCssContent = fs.readFileSync(hostCssPath, 'utf8');
+          if (jsCode.includes('__HOST_STYLE__')) {
+            jsCode = jsCode.replace(
+              '__HOST_STYLE__',
+              hostCssContent.replace(/`/g, '\\`')
             );
-            fs.writeFileSync(jsMainPath, jsContent, 'utf8');
           }
+          // Удаляем host.css файл после инлайнинга
+          fs.unlinkSync(hostCssPath);
         }
-        // --- Новый блок: режим native ---
-        if (options.native) {
-          // Найти итоговые файлы (уже ПЕРЕИМЕНОВАННЫЕ)
-          const jsFile = renamedFiles.find(
-            (f) =>
-              f.endsWith('.js') &&
-              !f.endsWith('.variants.js') &&
-              !f.endsWith('index.js')
-          );
-          const variantsFile = renamedFiles.find((f) =>
-            f.endsWith('.variants.js')
-          );
-          const styleFile = renamedFiles.find((f) => f.endsWith('.style.css'));
-          if (!jsFile) throw new Error('Не найден основной js-файл компонента');
-          const jsPath = path.join(destComponentDir, jsFile);
-          let jsCode = fs.readFileSync(jsPath, 'utf8');
-          // Вставить variants (как const ...)
-          if (variantsFile) {
-            const variantsPath = path.join(destComponentDir, variantsFile);
-            let variantsCode = fs.readFileSync(variantsPath, 'utf8');
-            variantsCode = variantsCode.replace(/export\s+const\s+/, 'const ');
-            jsCode = variantsCode + '\n\n' + jsCode;
-          }
-          // Стили: если плейсхолдер уже инлайнен – ничего не делаем.
-          // Если по какой-то причине плейсхолдера нет, вставим перед appendChild.
-          if (styleFile) {
-            const stylePath = path.join(destComponentDir, styleFile);
-            const styleCode = fs.readFileSync(stylePath, 'utf8');
-            if (!/style\.textContent\s*=\s*`/.test(jsCode)) {
-              jsCode = jsCode.replace(
-                /(this\.shadowRoot\.appendChild\(style\);)/,
-                `style.textContent=\`${styleCode.replace(/`/g, '\\`')}\`;\n$1`
-              );
-            }
-          }
-          // Удалить import/export
-          jsCode = jsCode
-            .replace(/import[^;]+;?/g, '')
-            .replace(/export\s+/g, '');
-          // Минифицировать, если указан флаг
-          if (options.minify) {
-            jsCode = minifyJs(jsCode);
-          }
-          // Перезаписать итоговый js-файл
-          fs.writeFileSync(jsPath, jsCode, 'utf8');
-          // Удалить лишние файлы
-          if (variantsFile)
-            fs.unlinkSync(path.join(destComponentDir, variantsFile));
-          if (styleFile) fs.unlinkSync(path.join(destComponentDir, styleFile));
-          // Можно удалить index.js, если он есть
-          const indexPath = path.join(destComponentDir, 'index.js');
-          if (fs.existsSync(indexPath)) fs.unlinkSync(indexPath);
+
+        // Обработка обычного style.css - оставляем как отдельный файл
+        if (styleFile) {
+          // Оставляем style.css как есть - пользователь получит его отдельно
+          console.log(`CSS файл сохранен: ${styleFile}`);
         }
-        // --- Конец блока native ---
+
+        // Удалить import/export для native сборки
+        jsCode = jsCode.replace(/import[^;]+;?/g, '').replace(/export\s+/g, '');
+
+        // Минифицировать, если указан флаг
+        if (options.minify) {
+          jsCode = minifyJs(jsCode);
+        }
+
+        // Перезаписать итоговый js-файл
+        fs.writeFileSync(jsPath, jsCode, 'utf8');
+
+        // Удалить лишние файлы
+        if (variantsFile)
+          fs.unlinkSync(path.join(destComponentDir, variantsFile));
+        const indexPath = path.join(destComponentDir, 'index.js');
+        if (fs.existsSync(indexPath)) fs.unlinkSync(indexPath);
         spinner.succeed(
           `Component ${colors.green(
             component
           )} successfully installed in ${colors.blue(
             options.dir + '/' + prefix + '-' + kebabComponent
           )} with prefix ${colors.cyan(prefix)}${
-            options.native
-              ? options.minify
-                ? ' (native, minified)'
-                : ' (native)'
-              : ''
+            options.minify ? ' (minified)' : ''
           }`
         );
       } catch (error) {
