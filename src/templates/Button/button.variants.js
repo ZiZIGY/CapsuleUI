@@ -1,4 +1,4 @@
-export const rippleButtonVariants = {
+export const buttonVariants = {
   base: `inline-flex
         disabled:pointer-events-none
         disabled:opacity-50 relative overflow-hidden select-none

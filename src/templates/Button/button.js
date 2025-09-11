@@ -1,4 +1,4 @@
-import { rippleButtonVariants } from './ripple-button.variants.js';
+import { buttonVariants } from './button.variants.js';
 
 export class RippleButton extends HTMLElement {
   constructor() {
@@ -83,12 +83,12 @@ export class RippleButton extends HTMLElement {
   }
 
   _updateClassNames() {
-    const size = this.getAttribute('size') || rippleButtonVariants.default.size;
+    const size = this.getAttribute('size') || buttonVariants.default.size;
     const variant =
-      this.getAttribute('variant') || rippleButtonVariants.default.variant;
-    const baseClass = rippleButtonVariants.base || '';
-    const sizeClass = rippleButtonVariants.size[size] || '';
-    const variantClass = rippleButtonVariants.variant[variant] || '';
+      this.getAttribute('variant') || buttonVariants.default.variant;
+    const baseClass = buttonVariants.base || '';
+    const sizeClass = buttonVariants.size[size] || '';
+    const variantClass = buttonVariants.variant[variant] || '';
     this.className = `${baseClass} ${sizeClass} ${variantClass}`.trim();
   }
 
