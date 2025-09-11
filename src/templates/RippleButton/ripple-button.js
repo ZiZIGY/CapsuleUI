@@ -46,7 +46,7 @@ export class RippleButton extends HTMLElement {
 
   _applyStyles() {
     const style = document.createElement('style');
-    style.textContent = ``;
+    style.textContent = `__STYLE__`;
     this.shadowRoot.appendChild(style);
   }
 

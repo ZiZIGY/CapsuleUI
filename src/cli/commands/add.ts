@@ -137,50 +137,63 @@ export const add = {
             fs.renameSync(oldPath, newPath);
           }
         }
+        // После переименования обновим список файлов
+        const renamedFiles = fs.readdirSync(destComponentDir);
+        // Универсально: инлайн стилей через плейсхолдер __STYLE__ (для обоих режимов)
+        const jsMain = renamedFiles.find(
+          (f) =>
+            f.endsWith('.js') &&
+            !f.endsWith('.variants.js') &&
+            !f.endsWith('index.js')
+        );
+        const cssMain = renamedFiles.find((f) => f.endsWith('.style.css'));
+        if (jsMain && cssMain) {
+          const jsMainPath = path.join(destComponentDir, jsMain);
+          const cssMainPath = path.join(destComponentDir, cssMain);
+          let jsContent = fs.readFileSync(jsMainPath, 'utf8');
+          const cssContent = fs.readFileSync(cssMainPath, 'utf8');
+          if (jsContent.includes('__STYLE__')) {
+            jsContent = jsContent.replace(
+              '__STYLE__',
+              cssContent.replace(/`/g, '\\`')
+            );
+            fs.writeFileSync(jsMainPath, jsContent, 'utf8');
+          }
+        }
         // --- Новый блок: режим native ---
         if (options.native) {
-          // Найти итоговый js-файл, variants.js и style.css
-          const jsFile = files.find(
+          // Найти итоговые файлы (уже ПЕРЕИМЕНОВАННЫЕ)
+          const jsFile = renamedFiles.find(
             (f) =>
               f.endsWith('.js') &&
               !f.endsWith('.variants.js') &&
               !f.endsWith('index.js')
           );
-          const variantsFile = files.find((f) => f.endsWith('.variants.js'));
-          const styleFile = files.find((f) => f.endsWith('.style.css'));
-          if (!jsFile) throw new Error('Не найден основной js-файл компонента');
-          const jsPath = path.join(
-            destComponentDir,
-            jsFile.replace(kebabComponent, `${prefix}-${kebabComponent}`)
+          const variantsFile = renamedFiles.find((f) =>
+            f.endsWith('.variants.js')
           );
+          const styleFile = renamedFiles.find((f) => f.endsWith('.style.css'));
+          if (!jsFile) throw new Error('Не найден основной js-файл компонента');
+          const jsPath = path.join(destComponentDir, jsFile);
           let jsCode = fs.readFileSync(jsPath, 'utf8');
-          // Вставить variants
+          // Вставить variants (как const ...)
           if (variantsFile) {
-            const variantsPath = path.join(
-              destComponentDir,
-              variantsFile.replace(
-                kebabComponent,
-                `${prefix}-${kebabComponent}`
-              )
-            );
+            const variantsPath = path.join(destComponentDir, variantsFile);
             let variantsCode = fs.readFileSync(variantsPath, 'utf8');
-            // Удалить export
             variantsCode = variantsCode.replace(/export\s+const\s+/, 'const ');
             jsCode = variantsCode + '\n\n' + jsCode;
           }
-          // Вставить style
+          // Стили: если плейсхолдер уже инлайнен – ничего не делаем.
+          // Если по какой-то причине плейсхолдера нет, вставим перед appendChild.
           if (styleFile) {
-            const stylePath = path.join(
-              destComponentDir,
-              styleFile.replace(kebabComponent, `${prefix}-${kebabComponent}`)
-            );
-            let styleCode = fs.readFileSync(stylePath, 'utf8');
-            // Вставить styleCode в _applyStyles()
-            jsCode = jsCode.replace(
-              /(this\.shadowRoot\.appendChild\(style\);)/,
-              `style.textContent = \
-\`${styleCode}\`\;\n    $1`
-            );
+            const stylePath = path.join(destComponentDir, styleFile);
+            const styleCode = fs.readFileSync(stylePath, 'utf8');
+            if (!/style\.textContent\s*=\s*`/.test(jsCode)) {
+              jsCode = jsCode.replace(
+                /(this\.shadowRoot\.appendChild\(style\);)/,
+                `style.textContent=\`${styleCode.replace(/`/g, '\\`')}\`;\n$1`
+              );
+            }
           }
           // Удалить import/export
           jsCode = jsCode
@@ -190,22 +203,8 @@ export const add = {
           fs.writeFileSync(jsPath, jsCode, 'utf8');
           // Удалить лишние файлы
           if (variantsFile)
-            fs.unlinkSync(
-              path.join(
-                destComponentDir,
-                variantsFile.replace(
-                  kebabComponent,
-                  `${prefix}-${kebabComponent}`
-                )
-              )
-            );
-          if (styleFile)
-            fs.unlinkSync(
-              path.join(
-                destComponentDir,
-                styleFile.replace(kebabComponent, `${prefix}-${kebabComponent}`)
-              )
-            );
+            fs.unlinkSync(path.join(destComponentDir, variantsFile));
+          if (styleFile) fs.unlinkSync(path.join(destComponentDir, styleFile));
           // Можно удалить index.js, если он есть
           const indexPath = path.join(destComponentDir, 'index.js');
           if (fs.existsSync(indexPath)) fs.unlinkSync(indexPath);
