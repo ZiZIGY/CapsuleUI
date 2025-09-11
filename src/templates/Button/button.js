@@ -1,11 +1,13 @@
 import { buttonVariants } from './button.variants.js';
 
 export class RippleButton extends HTMLElement {
+  static formAssociated = true;
+
   constructor() {
     super();
     this._$rippleContainer = null;
     this._internals = this.attachInternals();
-    this._isKeyPressed = false; // Флаг для отслеживания зажатия клавиши
+    this._isKeyPressed = false;
 
     this.attachShadow({ mode: 'open' });
     this._render();
@@ -54,9 +56,10 @@ export class RippleButton extends HTMLElement {
   }
 
   click() {
-    if (!this.disabled) {
-      this.dispatchEvent(new MouseEvent('click', { bubbles: true }));
-    }
+    if (this.disabled) return;
+
+    this.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    this._handleFormSubmission(); // Вызываем обработку формы здесь
   }
 
   static get observedAttributes() {
@@ -116,6 +119,24 @@ export class RippleButton extends HTMLElement {
     this.addEventListener('keydown', this._handleKeydown.bind(this));
     this.addEventListener('keyup', this._handleKeyup.bind(this));
     this.addEventListener('blur', this._handleBlur.bind(this));
+
+    // Добавляем обработчик клика для формы
+    this.addEventListener('click', this._handleClick.bind(this));
+  }
+
+  _handleClick(event) {
+    if (this.disabled) {
+      event.preventDefault();
+      event.stopPropagation();
+      return;
+    }
+    this._handleFormSubmission();
+  }
+
+  _handleFormSubmission() {
+    if (!this.form || this.type === 'button') return;
+    if (this.type === 'reset') this.form.reset();
+    if (this.type === 'submit') this.form.requestSubmit();
   }
 
   _handleKeydown(event) {
