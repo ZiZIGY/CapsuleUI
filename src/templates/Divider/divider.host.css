@@ -1,0 +1,14 @@
+.divider {
+  background-color: #e5e7eb;
+  border: none;
+}
+
+:host([orientation="horizontal"]) .divider {
+  width: 100%;
+  height: 1px;
+}
+
+:host([orientation="vertical"]) .divider {
+  width: 1px;
+  height: 100%;
+}
