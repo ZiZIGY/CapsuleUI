@@ -44,14 +44,46 @@ export const add = {
         'Собрать компонент в один нативный js-файл без import/export',
       defaultValue: false,
     },
+    {
+      flags: '-m, --minify',
+      description: 'Минифицировать итоговый JS (актуально для --native)',
+      defaultValue: false,
+    },
   ],
   action: async (
     component: string,
-    options: { dir: string; prefix?: string; native?: boolean }
+    options: {
+      dir: string;
+      prefix?: string;
+      native?: boolean;
+      minify?: boolean;
+    }
   ) => {
     const spinner = createSpinner(
       `Installing component ${colors.blue(component)}...`
     );
+
+    // Простая минификация JS (без внешних зависимостей)
+    function minifyJs(source: string): string {
+      try {
+        let code = source;
+        // удалить блок-комментарии
+        code = code.replace(/\/\*[\s\S]*?\*\//g, '');
+        // удалить строковые комментарии (не в URL)
+        code = code.replace(/(^|[^:])\/\/.*$/gm, '$1');
+        // удалить лишние переводы строк
+        code = code.replace(/\r?\n+/g, '\n');
+        // убрать отступы в началах строк
+        code = code.replace(/^\s+/gm, '');
+        // схлопнуть множественные пробелы
+        code = code.replace(/\s{2,}/g, ' ');
+        // убрать пробелы вокруг символов
+        code = code.replace(/\s*([{}();,:])\s*/g, '$1');
+        return code.trim();
+      } catch {
+        return source;
+      }
+    }
 
     (async function () {
       try {
@@ -199,6 +231,10 @@ export const add = {
           jsCode = jsCode
             .replace(/import[^;]+;?/g, '')
             .replace(/export\s+/g, '');
+          // Минифицировать, если указан флаг
+          if (options.minify) {
+            jsCode = minifyJs(jsCode);
+          }
           // Перезаписать итоговый js-файл
           fs.writeFileSync(jsPath, jsCode, 'utf8');
           // Удалить лишние файлы
@@ -216,7 +252,11 @@ export const add = {
           )} successfully installed in ${colors.blue(
             options.dir + '/' + prefix + '-' + kebabComponent
           )} with prefix ${colors.cyan(prefix)}${
-            options.native ? ' (native)' : ''
+            options.native
+              ? options.minify
+                ? ' (native, minified)'
+                : ' (native)'
+              : ''
           }`
         );
       } catch (error) {
