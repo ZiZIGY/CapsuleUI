@@ -8,6 +8,7 @@ export class RippleButton extends HTMLElement {
     this._$rippleContainer = null;
     this._internals = this.attachInternals();
     this._isKeyPressed = false;
+    this._userClasses = ''; // Храним пользовательские классы
 
     this.attachShadow({ mode: 'open' });
     this._render();
@@ -17,6 +18,9 @@ export class RippleButton extends HTMLElement {
   connectedCallback() {
     this._internals.role = 'button';
     this._updateAriaDisabled();
+
+    // Сохраняем пользовательские классы при первом подключении
+    this._saveUserClasses();
 
     this._setupEventListeners();
     this._updateClassNames();
@@ -30,6 +34,34 @@ export class RippleButton extends HTMLElement {
     }
   }
 
+  // Сохраняем пользовательские классы
+  _saveUserClasses() {
+    const allClasses = this.className.split(' ');
+    const variantClasses = Object.values(buttonVariants).flatMap((v) =>
+      typeof v === 'string' ? v.split(' ') : []
+    );
+
+    // Фильтруем только пользовательские классы (не из variants)
+    this._userClasses = allClasses
+      .filter((className) => !variantClasses.includes(className))
+      .join(' ')
+      .trim();
+  }
+
+  _updateClassNames() {
+    const size = this.getAttribute('size') || buttonVariants.default.size;
+    const variant =
+      this.getAttribute('variant') || buttonVariants.default.variant;
+    const baseClass = buttonVariants.base || '';
+    const sizeClass = buttonVariants.size[size] || '';
+    const variantClass = buttonVariants.variant[variant] || '';
+
+    // Сохраняем пользовательские классы + добавляем классы из variants
+    this.className =
+      `${this._userClasses} ${baseClass} ${sizeClass} ${variantClass}`.trim();
+  }
+
+  // Остальной код без изменений...
   get disabled() {
     return this.hasAttribute('disabled');
   }
@@ -81,16 +113,6 @@ export class RippleButton extends HTMLElement {
       this.removeAttribute('aria-disabled');
       this.tabIndex = 0;
     }
-  }
-
-  _updateClassNames() {
-    const size = this.getAttribute('size') || buttonVariants.default.size;
-    const variant =
-      this.getAttribute('variant') || buttonVariants.default.variant;
-    const baseClass = buttonVariants.base || '';
-    const sizeClass = buttonVariants.size[size] || '';
-    const variantClass = buttonVariants.variant[variant] || '';
-    this.className = `${baseClass} ${sizeClass} ${variantClass}`.trim();
   }
 
   _render() {
