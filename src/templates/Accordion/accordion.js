@@ -11,10 +11,6 @@ class Accordion extends HTMLElement {
     this._setDefaultOpenState();
   }
 
-  disconnectedCallback() {
-    this._cleanup();
-  }
-
   static get observedAttributes() {
     return ['type', 'collapsible'];
   }
@@ -36,15 +32,9 @@ class Accordion extends HTMLElement {
   }
 
   _setupEventListeners() {
-    // Listen for accordion item events
     this.addEventListener('accordion-item-toggle', this._handleItemToggle.bind(this));
   }
 
-  _cleanup() {
-    // No cleanup needed since we don't store references
-  }
-
-  // Dynamic method to get current items
   _getItems() {
     return Array.from(this.querySelectorAll('__PREFIX__-__COMPONENT__-item'));
   }
@@ -56,30 +46,24 @@ class Accordion extends HTMLElement {
     const collapsible = this.hasAttribute('collapsible');
 
     if (type === 'single') {
-      // Get current items dynamically
       const items = this._getItems();
-      
-      // Close all other items
+
       items.forEach(otherItem => {
         if (otherItem !== item && otherItem.hasAttribute('open')) {
           otherItem.removeAttribute('open');
         }
       });
       
-      // Toggle current item
-      if (isOpen && !collapsible) {
-        // Don't close if not collapsible
+      if (isOpen && !collapsible) {  
         return;
       }
       item.toggleAttribute('open');
     } else if (type === 'multiple') {
-      // Multiple mode - just toggle the current item
       item.toggleAttribute('open');
     }
   }
 
   _handleTypeChange() {
-    // If switching from multiple to single, close all but first
     const type = this.getAttribute('type') || 'single';
     if (type === 'single') {
       const items = this._getItems();
@@ -89,7 +73,6 @@ class Accordion extends HTMLElement {
           item.removeAttribute('open');
         });
       }
-      // Ensure first item is open if not collapsible
       this._setDefaultOpenState();
     }
   }
@@ -105,8 +88,6 @@ class Accordion extends HTMLElement {
     const collapsible = this.hasAttribute('collapsible');
     const items = this._getItems();
 
-    // If not collapsible and single mode, open first item by default
-    // BUT only if no other item has 'open' attribute
     if (!collapsible && type === 'single' && items.length > 0) {
       const hasAnyOpenItem = items.some(item => item.hasAttribute('open'));
       
@@ -117,7 +98,6 @@ class Accordion extends HTMLElement {
     }
   }
 
-  // Public methods - now use dynamic item finding
   openItem(index) {
     const items = this._getItems();
     const item = items[index];
