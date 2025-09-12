@@ -81,15 +81,6 @@ class AccordionItem extends HTMLElement {
     }
   }
 
-  open() {
-    this.setAttribute('open', '');
-    
-  }
-
-  close() {
-    this.removeAttribute('open');
-  }
-
   toggle() {
     this._toggle();
   }

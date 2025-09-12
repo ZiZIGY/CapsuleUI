@@ -63,7 +63,6 @@ class Accordion extends HTMLElement {
       items.forEach(otherItem => {
         if (otherItem !== item && otherItem.hasAttribute('open')) {
           otherItem.removeAttribute('open');
-          otherItem._hideContent();
         }
       });
       
@@ -73,19 +72,9 @@ class Accordion extends HTMLElement {
         return;
       }
       item.toggleAttribute('open');
-      if (item.hasAttribute('open')) {
-        item._showContent();
-      } else {
-        item._hideContent();
-      }
     } else if (type === 'multiple') {
       // Multiple mode - just toggle the current item
       item.toggleAttribute('open');
-      if (item.hasAttribute('open')) {
-        item._showContent();
-      } else {
-        item._hideContent();
-      }
     }
   }
 
@@ -98,7 +87,6 @@ class Accordion extends HTMLElement {
       if (openItems.length > 1) {
         openItems.slice(1).forEach(item => {
           item.removeAttribute('open');
-          item._hideContent();
         });
       }
       // Ensure first item is open if not collapsible
@@ -125,7 +113,6 @@ class Accordion extends HTMLElement {
       if (!hasAnyOpenItem) {
         const firstItem = items[0];
         firstItem.setAttribute('open', '');
-        firstItem._showContent();
       }
     }
   }
@@ -136,7 +123,6 @@ class Accordion extends HTMLElement {
     const item = items[index];
     if (item) {
       item.setAttribute('open', '');
-      item._showContent();
     }
   }
 
@@ -145,7 +131,6 @@ class Accordion extends HTMLElement {
     const item = items[index];
     if (item) {
       item.removeAttribute('open');
-      item._hideContent();
     }
   }
 
@@ -154,11 +139,6 @@ class Accordion extends HTMLElement {
     const item = items[index];
     if (item) {
       item.toggleAttribute('open');
-      if (item.hasAttribute('open')) {
-        item._showContent();
-      } else {
-        item._hideContent();
-      }
     }
   }
 
@@ -166,7 +146,6 @@ class Accordion extends HTMLElement {
     const items = this._getItems();
     items.forEach(item => {
       item.setAttribute('open', '');
-      item._showContent();
     });
   }
 
@@ -174,7 +153,6 @@ class Accordion extends HTMLElement {
     const items = this._getItems();
     items.forEach(item => {
       item.removeAttribute('open');
-      item._hideContent();
     });
   }
 
