@@ -1,0 +1,77 @@
+/* Стили для __PREFIX__-__COMPONENT__ */
+__PREFIX__-__COMPONENT__ {
+  display: grid;
+  grid-template-rows: min-content 1fr;
+  width: 100%;
+  min-height: 200px;
+}
+
+/* Стили для header части */
+__PREFIX__-__COMPONENT__::part(header) {
+  display: block;
+}
+
+/* Стили для контейнера панелей */
+__PREFIX__-__COMPONENT__::part(panels-container) {
+  display: grid;
+  grid-template-columns: 1fr;
+  overflow: hidden;
+  position: relative;
+}
+
+__PREFIX__-__COMPONENT__-list {
+  display: flex;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 1rem;
+}
+
+/* Стили для __PREFIX__-__COMPONENT__-trigger */
+__PREFIX__-__COMPONENT__-trigger::part(trigger) {
+  background: none;
+  border: none;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  color: #6b7280;
+  font-weight: 500;
+  transition: all 150ms ease-in-out;
+}
+
+__PREFIX__-__COMPONENT__-trigger::part(trigger):hover {
+  color: #374151;
+  background-color: #f9fafb;
+}
+
+__PREFIX__-__COMPONENT__-trigger[active]::part(trigger) {
+  color: #2563eb;
+  border-bottom-color: #2563eb;
+  background-color: #f8fafc;
+}
+
+/* Стили для __PREFIX__-__COMPONENT__-panel */
+__PREFIX__-__COMPONENT__-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 400ms ease-in-out;
+  overflow: hidden;
+}
+
+__PREFIX__-__COMPONENT__-panel[active] {
+  grid-template-rows: 1fr;
+}
+
+__PREFIX__-__COMPONENT__-panel::part(panel) {
+  overflow: hidden;
+  min-height: 0;
+  height: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: height 400ms, visibility 0s 400ms;
+}
+
+__PREFIX__-__COMPONENT__-panel[active]::part(panel) {
+  height: auto;
+  visibility: visible;
+  pointer-events: auto;
+  transition: height 400ms, visibility 0s;
+}
