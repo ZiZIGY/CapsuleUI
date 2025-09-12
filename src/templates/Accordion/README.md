@@ -217,6 +217,30 @@ __PREFIX__-__COMPONENT__-item {
 }
 ```
 
+## Styling & Animation
+
+The accordion uses CSS Grid for smooth height animations:
+
+```css
+/* Animation is handled by CSS Grid */
+__PREFIX__-__COMPONENT__-item {
+  display: grid;
+  grid-template-rows: min-content 0fr;
+  transition: grid-template-rows 300ms ease-in-out;
+}
+
+__PREFIX__-__COMPONENT__-item[open] {
+  grid-template-rows: min-content 1fr;
+}
+```
+
+### Visual Features
+
+- **Smooth height transitions** - 300ms ease-in-out animation
+- **Rotating arrow indicator** - Shows open/closed state
+- **Hover effects** - Interactive feedback on trigger elements
+- **Clean styling** - Modern design with subtle borders and backgrounds
+
 ## Reactivity & Framework Compatibility
 
 The accordion is designed to work seamlessly with reactive frameworks:
@@ -225,6 +249,7 @@ The accordion is designed to work seamlessly with reactive frameworks:
 - **React/Vue friendly** - Works with virtual DOM and component re-renders
 - **Dynamic item handling** - Automatically adapts when items are added/removed
 - **Event-driven architecture** - Uses DOM events instead of stored references
+- **Smooth animations** - CSS Grid-based height transitions (300ms ease-in-out)
 
 ### Framework Examples
 
