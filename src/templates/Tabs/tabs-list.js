@@ -11,10 +11,6 @@ class TabsList extends HTMLElement {
 
   _render() {
     this.shadowRoot.innerHTML = `
-      <style>
-        __HOST_STYLE__
-      </style>
-      
       <div part="list">
         <slot></slot>
       </div>

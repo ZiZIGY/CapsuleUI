@@ -42,7 +42,9 @@ class Tabs extends HTMLElement {
   }
 
   _getTabsPanels() {
-    return Array.from(this.querySelectorAll('__PREFIX__-__COMPONENT__-panel'));
+    const panelsContainer = this.querySelector('__PREFIX__-__COMPONENT__-panels');
+    if (!panelsContainer) return [];
+    return Array.from(panelsContainer.querySelectorAll('__PREFIX__-__COMPONENT__-panel'));
   }
 
   _getTabsTriggers() {

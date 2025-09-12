@@ -200,8 +200,10 @@ function TabsComponent() {
         <ui-tabs-trigger value="tab1">Tab 1</ui-tabs-trigger>
         <ui-tabs-trigger value="tab2">Tab 2</ui-tabs-trigger>
       </ui-tabs-list>
-      <ui-tabs-panel value="tab1">Content 1</ui-tabs-panel>
-      <ui-tabs-panel value="tab2">Content 2</ui-tabs-panel>
+      <ui-tabs-panels>
+        <ui-tabs-panel value="tab1">Content 1</ui-tabs-panel>
+        <ui-tabs-panel value="tab2">Content 2</ui-tabs-panel>
+      </ui-tabs-panels>
     </ui-tabs>
   );
 }
@@ -216,8 +218,10 @@ function TabsComponent() {
       <ui-tabs-trigger value="tab1">Tab 1</ui-tabs-trigger>
       <ui-tabs-trigger value="tab2">Tab 2</ui-tabs-trigger>
     </ui-tabs-list>
-    <ui-tabs-panel value="tab1">Content 1</ui-tabs-panel>
-    <ui-tabs-panel value="tab2">Content 2</ui-tabs-panel>
+    <ui-tabs-panels>
+      <ui-tabs-panel value="tab1">Content 1</ui-tabs-panel>
+      <ui-tabs-panel value="tab2">Content 2</ui-tabs-panel>
+    </ui-tabs-panels>
   </ui-tabs>
 </template>
 
