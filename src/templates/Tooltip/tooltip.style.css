@@ -10,6 +10,16 @@ __PREFIX__-__COMPONENT__::part(tooltip) {
   opacity: 0;
   transform: translate(-50%, 10px) scale(0.95);
   transition: all 0.2s ease-out;
+  pointer-events: none; /* Добавляем здесь */
+}
+
+/* Отключаем тултип для disabled состояния */
+__PREFIX__-__COMPONENT__[disabled]::part(tooltip),
+__PREFIX__-__COMPONENT__[disabled]:hover::part(tooltip),
+__PREFIX__-__COMPONENT__[disabled]:focus-within::part(tooltip) {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transform: translate(-50%, 10px) scale(0.95) !important;
 }
 
 __PREFIX__-__COMPONENT__:hover::part(tooltip),
@@ -26,6 +36,7 @@ __PREFIX__-__COMPONENT__[placement="top"]::part(tooltip) {
   transform: translate(-50%, 10px) scale(0.95);
   margin-bottom: 0.5rem;
 }
+
 __PREFIX__-__COMPONENT__:hover::part(tooltip),
 __PREFIX__-__COMPONENT__:focus-within::part(tooltip),
 __PREFIX__-__COMPONENT__[placement="top"]:hover::part(tooltip),
