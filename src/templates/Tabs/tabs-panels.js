@@ -6,9 +6,7 @@ class TabsPanels extends HTMLElement {
 
   connectedCallback() {
     this.shadowRoot.innerHTML = `
-      <div part="panels">
         <slot></slot>
-      </div>
     `;
   }
 }

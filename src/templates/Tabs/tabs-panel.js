@@ -21,9 +21,7 @@ class TabsPanel extends HTMLElement {
 
   _render() {
     this.shadowRoot.innerHTML = `
-      <div part="panel">
         <slot></slot>
-      </div>
     `;
   }
 

@@ -48,47 +48,40 @@ __PREFIX__-__COMPONENT__-trigger[active]::part(trigger) {
   background-color: #f8fafc;
 }
 
-/* Стили для __PREFIX__-__COMPONENT__-panel */
 __PREFIX__-__COMPONENT__-panel {
-  display: grid;
-  grid-template-rows: 0fr;
-  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: all 0.4s;
+  transform: translateX(100%);
+  opacity: 0;
 }
 
 __PREFIX__-__COMPONENT__-panel[active] {
-  grid-template-rows: 1fr;
+  transform: translateX(0);
+  opacity: 1;
 }
 
-__PREFIX__-__COMPONENT__-panel::part(panel) {
-  display: none;
-  min-height: 0;
-  overflow: hidden;
-  padding: 1.5rem;
-  background: #fff;
+__PREFIX__-__COMPONENT__-panel[active] ~ __PREFIX__-__COMPONENT__-panel {
+  transform: translateX(100%);
+  opacity: 0;
 }
 
-__PREFIX__-__COMPONENT__-panel[active]::part(panel) {
-  display: block;
+__PREFIX__-__COMPONENT__-panel:not([active]) {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+__PREFIX__-__COMPONENT__-panel[active] ~ __PREFIX__-__COMPONENT__-panel:not([active]) {
+  transform: translateX(100%);
+  opacity: 0;
 }
 
 __PREFIX__-__COMPONENT__-panels {
-  display: grid;
-  grid-template-rows: 1fr;
   position: relative;
-  min-height: 200px;
+  overflow: hidden;
 }
 
-__PREFIX__-__COMPONENT__-panels::part(panels) {
-  width: 100%;
-  height: 100%;
-}
 
-__PREFIX__-__COMPONENT__-panel {
-  grid-row: 1;
-  grid-column: 1;
-  display: none;
-}
-
-__PREFIX__-__COMPONENT__-panel[active] {
-  display: block;
-}
