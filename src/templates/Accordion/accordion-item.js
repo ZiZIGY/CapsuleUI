@@ -81,15 +81,6 @@ class AccordionItem extends HTMLElement {
     }
   }
 
-  _showContent() {
-    this._content?.classList.add('show');
-  }
-
-  _hideContent() {
-    this._content?.classList.remove('show');
-  }
-
-  // Public API
   open() {
     this.setAttribute('open', '');
     
@@ -97,7 +88,6 @@ class AccordionItem extends HTMLElement {
 
   close() {
     this.removeAttribute('open');
-    this._hideContent();
   }
 
   toggle() {

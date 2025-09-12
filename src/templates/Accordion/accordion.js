@@ -178,12 +178,10 @@ class Accordion extends HTMLElement {
     });
   }
 
-  // New method to get current item count
   getItemCount() {
     return this._getItems().length;
   }
 
-  // New method to get all open items
   getOpenItems() {
     return this._getItems().filter(item => item.hasAttribute('open'));
   }
