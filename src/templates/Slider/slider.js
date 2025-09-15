@@ -1,8 +1,12 @@
 class Slider extends HTMLElement {
-  static get observedAttributes() {
-    return ['min', 'max', 'step', 'decimals', 'values'];
-  }
-
+  static observedAttributes = [
+    'min',
+    'max',
+    'step',
+    'decimals',
+    'values',
+    'orientation',
+  ];
   static formAssociated = true;
 
   constructor() {
@@ -14,40 +18,37 @@ class Slider extends HTMLElement {
     this._step = 1;
     this._decimals = 0;
     this._values = [25, 75];
+    this._orientation = 'horizontal';
     this._thumbs = [];
     this._activeThumb = null;
-    this._activeThumbIndex = null;
 
-    // Bind methods for event listeners
-    this._onThumbPointerDown = this._onThumbPointerDown.bind(this);
-    this._onSliderPointerDown = this._onSliderPointerDown.bind(this);
-    this._onPointerMove = this._onPointerMove.bind(this);
-    this._onPointerUp = this._onPointerUp.bind(this);
+    // Bind methods
+    [
+      '_onThumbPointerDown',
+      '_onSliderPointerDown',
+      '_onPointerMove',
+      '_onPointerUp',
+    ].forEach((method) => (this[method] = this[method].bind(this)));
   }
 
   connectedCallback() {
     this._parseAttributes();
     this._render();
-    this._initThumbs();
-    this._updateRange();
-    this._bindEvents();
-    this._updateFormValue();
+    this._init();
   }
 
   disconnectedCallback() {
     this._unbindEvents();
   }
 
-  attributeChangedCallback() {
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (name === 'orientation' && oldValue === newValue) return;
+
     this._parseAttributes();
-    this._render();
-    this._initThumbs();
-    this._updateRange();
-    this._bindEvents();
-    this._updateFormValue();
+    name === 'orientation' ? this._updateRange() : this._fullUpdate();
   }
 
-  // Form-associated custom element methods
+  // Form methods
   formAssociatedCallback(form) {
     console.log('Form associated:', form);
   }
@@ -59,75 +60,70 @@ class Slider extends HTMLElement {
 
   formResetCallback() {
     this._resetToEvenlyDistributedValues();
-    this._render();
+    this._fullUpdate();
+  }
+
+  // Private methods
+  _parseAttributes() {
+    this._min = parseFloat(this.getAttribute('min'));
+    this._max = parseFloat(this.getAttribute('max'));
+    this._step = parseFloat(this.getAttribute('step')) || 1;
+    this._decimals = parseInt(this.getAttribute('decimals')) || 0;
+    this._orientation =
+      this.getAttribute('orientation') === 'vertical'
+        ? 'vertical'
+        : 'horizontal';
+
+    const valuesAttr = this.getAttribute('values');
+    this._values = valuesAttr ? this._parseValues(valuesAttr) : [25, 75];
+
+    this._calculateMinMax();
+    this._validateValues();
+  }
+
+  _parseValues(valuesAttr) {
+    try {
+      return JSON.parse(valuesAttr);
+    } catch {
+      return [25, 75];
+    }
+  }
+
+  _calculateMinMax() {
+    if (this._min == null) this._min = Math.min(...this._values);
+    if (this._max == null) this._max = Math.max(...this._values);
+    if (this._min == null) this._min = 0;
+    if (this._max == null) this._max = 100;
+    if (this._min === this._max) this._max = this._min + 100;
+  }
+
+  _validateValues() {
+    this._values = this._values
+      .map((v) => Math.max(this._min, Math.min(v, this._max)))
+      .sort((a, b) => a - b);
+
+    if (this._values.length === 0) this._values = [this._min, this._max];
+  }
+
+  _render() {
+    this.shadowRoot.innerHTML = `<div part="track"></div><div part="range"></div>`;
+    this._track = this.shadowRoot.querySelector('[part="track"]');
+    this._range = this.shadowRoot.querySelector('[part="range"]');
+  }
+
+  _init() {
     this._initThumbs();
     this._updateRange();
     this._bindEvents();
     this._updateFormValue();
   }
 
-  _resetToEvenlyDistributedValues() {
-    const numValues = this._values.length;
-
-    if (numValues === 1) {
-      this._values = [this._min + (this._max - this._min) / 2];
-    } else if (numValues === 2) {
-      this._values = [this._min, this._max];
-    } else {
-      this._values = [];
-      const step = (this._max - this._min) / (numValues - 1);
-
-      for (let i = 0; i < numValues; i++) {
-        let value = this._min + step * i;
-
-        value = Math.round(value / this._step) * this._step;
-        value = parseFloat(value.toFixed(6));
-        value = parseFloat(value.toFixed(this._decimals));
-        value = Math.max(this._min, Math.min(value, this._max));
-
-        this._values.push(value);
-      }
-    }
-
-    this._values.sort((a, b) => a - b);
-  }
-
-  _updateFormValue() {
-    this.internals_.setFormValue(JSON.stringify(this._values));
-  }
-
-  _parseAttributes() {
-    this._min = parseFloat(this.getAttribute('min')) || 0;
-    this._max = parseFloat(this.getAttribute('max')) || 100;
-    this._step = parseFloat(this.getAttribute('step')) || 1;
-    this._decimals = parseInt(this.getAttribute('decimals')) || 0;
-    const valuesAttr = this.getAttribute('values');
-    if (valuesAttr) {
-      try {
-        this._values = JSON.parse(valuesAttr);
-      } catch {
-        this._values = [25, 75];
-      }
-    }
-    if (!this._values || this._values.length < 2) {
-      this._values = [25, 75];
-    }
-    this._values = this._values
-      .map((v) => Math.max(this._min, Math.min(v, this._max)))
-      .sort((a, b) => a - b);
-  }
-
-  _render() {
-    this.shadowRoot.innerHTML = `
-      <div part="track"></div>
-      <div part="range"></div>
-    `;
-    this._track = this.shadowRoot.querySelector('[part="track"]');
-    this._range = this.shadowRoot.querySelector('[part="range"]');
+  _fullUpdate() {
+    this._render();
+    this._init();
   }
 
   _initThumbs() {
-    // Удаляем старые ползунки
     this.shadowRoot
       .querySelectorAll('[part="thumb"]')
       .forEach((t) => t.remove());
@@ -151,12 +147,13 @@ class Slider extends HTMLElement {
 
   _positionThumb(index) {
     const thumb = this._thumbs[index];
+    const label = thumb.querySelector('[part="label"]');
     const percentage =
       ((this._values[index] - this._min) / (this._max - this._min)) * 100;
-    thumb.style.left = `${percentage}%`;
-    thumb.querySelector('[part="label"]').textContent = this._formatValue(
-      this._values[index]
-    );
+    const axis = this._orientation === 'horizontal' ? 'left' : 'bottom';
+
+    thumb.style[axis] = label.style[axis] = `${percentage}%`;
+    label.textContent = this._formatValue(this._values[index]);
   }
 
   _formatValue(value) {
@@ -168,24 +165,29 @@ class Slider extends HTMLElement {
       ((Math.min(...this._values) - this._min) / (this._max - this._min)) * 100;
     const maxPercent =
       ((Math.max(...this._values) - this._min) / (this._max - this._min)) * 100;
-    this._range.style.left = `${minPercent}%`;
-    this._range.style.width = `${maxPercent - minPercent}%`;
+
+    if (this._orientation === 'horizontal') {
+      this._range.style.left = `${minPercent}%`;
+      this._range.style.width = `${maxPercent - minPercent}%`;
+    } else {
+      this._range.style.setProperty('--top', `${100 - maxPercent}%`);
+      this._range.style.setProperty('--height', `${maxPercent - minPercent}%`);
+    }
   }
 
   _bindEvents() {
-    this._thumbs.forEach((thumb) => {
-      thumb.addEventListener('pointerdown', this._onThumbPointerDown);
-    });
+    this._thumbs.forEach((thumb) =>
+      thumb.addEventListener('pointerdown', this._onThumbPointerDown)
+    );
     this.addEventListener('pointerdown', this._onSliderPointerDown);
   }
 
   _unbindEvents() {
     document.removeEventListener('pointermove', this._onPointerMove);
     document.removeEventListener('pointerup', this._onPointerUp);
-
-    this._thumbs.forEach((thumb) => {
-      thumb.removeEventListener('pointerdown', this._onThumbPointerDown);
-    });
+    this._thumbs.forEach((thumb) =>
+      thumb.removeEventListener('pointerdown', this._onThumbPointerDown)
+    );
     this.removeEventListener('pointerdown', this._onSliderPointerDown);
   }
 
@@ -206,20 +208,21 @@ class Slider extends HTMLElement {
     this._activeThumbIndex = parseInt(this._activeThumb.dataset.index);
     this._activeThumb.setAttribute('data-active', 'true');
     this._activeThumb.setPointerCapture(e.pointerId);
-
     this._bindGlobalEvents();
   }
 
   _onSliderPointerDown(e) {
     if (e.target.closest('[part="thumb"]')) return;
-
     e.preventDefault();
-    const rect = this.getBoundingClientRect();
-    let x = e.clientX - rect.left;
-    x = Math.max(0, Math.min(x, rect.width));
 
-    this._findClosestThumb(x);
-    this._updateThumbPosition(x);
+    const rect = this.getBoundingClientRect();
+    const isVertical = this._orientation === 'vertical';
+    const position = isVertical ? e.clientY - rect.top : e.clientX - rect.left;
+    const size = isVertical ? rect.height : rect.width;
+    const clampedPosition = Math.max(0, Math.min(position, size));
+
+    this._findClosestThumb(clampedPosition, size, isVertical);
+    this._updateThumbPosition(clampedPosition, size, isVertical);
 
     if (this._activeThumb) {
       this._activeThumb.setPointerCapture(e.pointerId);
@@ -227,20 +230,17 @@ class Slider extends HTMLElement {
     }
   }
 
-  _findClosestThumb(x) {
-    const percentage = x / this.offsetWidth;
+  _findClosestThumb(position, size, isVertical) {
+    const percentage = isVertical ? 1 - position / size : position / size;
     const targetValue = this._min + percentage * (this._max - this._min);
 
-    let closestIndex = 0;
-    let minDistance = Math.abs(this._values[0] - targetValue);
-
-    for (let i = 1; i < this._values.length; i++) {
-      const distance = Math.abs(this._values[i] - targetValue);
-      if (distance < minDistance) {
-        minDistance = distance;
-        closestIndex = i;
-      }
-    }
+    const closestIndex = this._values.reduce(
+      (closest, value, index) => {
+        const distance = Math.abs(value - targetValue);
+        return distance < closest.distance ? { index, distance } : closest;
+      },
+      { index: 0, distance: Math.abs(this._values[0] - targetValue) }
+    ).index;
 
     this._activeThumbIndex = closestIndex;
     this._activeThumb = this._thumbs[closestIndex];
@@ -251,14 +251,16 @@ class Slider extends HTMLElement {
     if (!this._activeThumb) return;
 
     const rect = this.getBoundingClientRect();
-    let x = e.clientX - rect.left;
-    x = Math.max(0, Math.min(x, rect.width));
+    const isVertical = this._orientation === 'vertical';
+    const position = isVertical ? e.clientY - rect.top : e.clientX - rect.left;
+    const size = isVertical ? rect.height : rect.width;
+    const clampedPosition = Math.max(0, Math.min(position, size));
 
-    this._updateThumbPosition(x);
+    this._updateThumbPosition(clampedPosition, size, isVertical);
   }
 
-  _updateThumbPosition(x) {
-    const percentage = x / this.offsetWidth;
+  _updateThumbPosition(position, size, isVertical) {
+    const percentage = isVertical ? 1 - position / size : position / size;
     let value = this._min + percentage * (this._max - this._min);
 
     value = Math.round(value / this._step) * this._step;
@@ -269,10 +271,7 @@ class Slider extends HTMLElement {
     this._values[this._activeThumbIndex] = value;
     this._preventOverlap();
 
-    this._values.forEach((_, index) => {
-      this._positionThumb(index);
-    });
-
+    this._values.forEach((_, index) => this._positionThumb(index));
     this._updateRange();
     this._updateFormValue();
 
@@ -285,15 +284,11 @@ class Slider extends HTMLElement {
 
   _preventOverlap() {
     const sortedValues = [...this._values].sort((a, b) => a - b);
-    const oldValues = [...this._values];
+    const activeValue = this._values[this._activeThumbIndex];
+
     this._values = sortedValues;
-
-    const activeValue = oldValues[this._activeThumbIndex];
     this._activeThumbIndex = sortedValues.indexOf(activeValue);
-
-    this._thumbs.forEach((thumb, index) => {
-      thumb.dataset.index = index;
-    });
+    this._thumbs.forEach((thumb, index) => (thumb.dataset.index = index));
   }
 
   _onPointerUp(e) {
@@ -302,61 +297,63 @@ class Slider extends HTMLElement {
       this._activeThumb.releasePointerCapture(e.pointerId);
       this._activeThumb = null;
       this._activeThumbIndex = null;
-
       this._unbindGlobalEvents();
     }
   }
 
-  updateValues(options, reset = false) {
-    this._min = options.min !== undefined ? options.min : this._min;
-    this._max = options.max !== undefined ? options.max : this._max;
-    this._step = options.step !== undefined ? options.step : this._step;
-    this._decimals =
-      options.decimals !== undefined ? options.decimals : this._decimals;
-
-    if (reset) {
-      const numValues = options.values
-        ? options.values.length
-        : this._values.length;
-      this._values = this._getEvenlyDistributedValues(numValues);
-    } else {
-      this._values = (options.values || this._values)
-        .map((val) => {
-          return Math.max(this._min, Math.min(val, this._max));
-        })
-        .sort((a, b) => a - b);
-    }
-
-    this._render();
-    this._initThumbs();
-    this._updateRange();
-    this._bindEvents();
-    this._updateFormValue();
+  _updateFormValue() {
+    this.internals_.setFormValue(JSON.stringify(this._values));
   }
 
-  _getEvenlyDistributedValues(numValues) {
-    const values = [];
+  _resetToEvenlyDistributedValues() {
+    const numValues = this._values.length;
 
     if (numValues === 1) {
-      values.push(this._min + (this._max - this._min) / 2);
+      this._values = [this._min + (this._max - this._min) / 2];
     } else if (numValues === 2) {
-      values.push(this._min, this._max);
+      this._values = [this._min, this._max];
     } else {
       const step = (this._max - this._min) / (numValues - 1);
-
-      for (let i = 0; i < numValues; i++) {
+      this._values = Array.from({ length: numValues }, (_, i) => {
         let value = this._min + step * i;
-
         value = Math.round(value / this._step) * this._step;
-        value = parseFloat(value.toFixed(6));
         value = parseFloat(value.toFixed(this._decimals));
-        value = Math.max(this._min, Math.min(value, this._max));
-
-        values.push(value);
-      }
+        return Math.max(this._min, Math.min(value, this._max));
+      });
     }
 
-    return values.sort((a, b) => a - b);
+    this._values.sort((a, b) => a - b);
+  }
+
+  // Public methods
+  updateValues(options, reset = false) {
+    this._min = options.min ?? this._min;
+    this._max = options.max ?? this._max;
+    this._step = options.step ?? this._step;
+    this._decimals = options.decimals ?? this._decimals;
+    this._orientation =
+      options.orientation === 'vertical' ? 'vertical' : this._orientation;
+
+    this._values = reset
+      ? this._getEvenlyDistributedValues(options.values?.length)
+      : (options.values ?? this._values)
+          .map((v) => Math.max(this._min, Math.min(v, this._max)))
+          .sort((a, b) => a - b);
+
+    this._fullUpdate();
+  }
+
+  _getEvenlyDistributedValues(numValues = this._values.length) {
+    if (numValues === 1) return [this._min + (this._max - this._min) / 2];
+    if (numValues === 2) return [this._min, this._max];
+
+    const step = (this._max - this._min) / (numValues - 1);
+    return Array.from({ length: numValues }, (_, i) => {
+      let value = this._min + step * i;
+      value = Math.round(value / this._step) * this._step;
+      value = parseFloat(value.toFixed(this._decimals));
+      return Math.max(this._min, Math.min(value, this._max));
+    }).sort((a, b) => a - b);
   }
 
   getValues() {
@@ -370,6 +367,7 @@ class Slider extends HTMLElement {
       step: this._step,
       decimals: this._decimals,
       values: this._values,
+      orientation: this._orientation,
     };
   }
 }

@@ -8,6 +8,11 @@ __PREFIX__-__COMPONENT__ {
   touch-action: none;
 }
 
+__PREFIX__-__COMPONENT__[orientation='vertical'] {
+  width: 48px;
+  height: 200px;
+}
+
 __PREFIX__-__COMPONENT__::part(track) {
   position: absolute;
   top: 50%;
@@ -19,6 +24,14 @@ __PREFIX__-__COMPONENT__::part(track) {
   border-radius: 2px;
 }
 
+__PREFIX__-__COMPONENT__[orientation='vertical']::part(track) {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 100%;
+}
+
 __PREFIX__-__COMPONENT__::part(range) {
   position: absolute;
   top: 50%;
@@ -27,6 +40,14 @@ __PREFIX__-__COMPONENT__::part(range) {
   background: #2196f3;
   border-radius: 2px;
   transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+__PREFIX__-__COMPONENT__[orientation='vertical']::part(range) {
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  top: var(--top);
+  height: var(--height);
 }
 
 __PREFIX__-__COMPONENT__::part(thumb) {
@@ -42,6 +63,12 @@ __PREFIX__-__COMPONENT__::part(thumb) {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
   transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
   touch-action: none;
+}
+
+__PREFIX__-__COMPONENT__[orientation='vertical']::part(thumb) {
+  top: auto;
+  left: 50%;
+  transform: translate(-50%, 50%);
 }
 
 __PREFIX__-__COMPONENT__::part(thumb):hover {
@@ -71,6 +98,12 @@ __PREFIX__-__COMPONENT__::part(label) {
   transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
+__PREFIX__-__COMPONENT__[orientation='vertical']::part(label) {
+  top: auto;
+  left: 36px;
+  transform: translateY(-50%);
+}
+
 __PREFIX__-__COMPONENT__::part(label)::after {
   content: '';
   position: absolute;
@@ -82,4 +115,15 @@ __PREFIX__-__COMPONENT__::part(label)::after {
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
   border-top: 5px solid #2196f3;
+}
+
+__PREFIX__-__COMPONENT__[orientation='vertical']::part(label)::after {
+  bottom: auto;
+  left: -5px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-right: 5px solid #2196f3;
+  border-left: none;
 }
