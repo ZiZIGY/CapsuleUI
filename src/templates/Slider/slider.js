@@ -14,6 +14,11 @@ class Slider extends HTMLElement {
     this._thumbs = [];
     this._activeThumb = null;
     this._activeThumbIndex = null;
+    
+    this._onThumbPointerDown = this._onThumbPointerDown.bind(this);
+    this._onSliderPointerDown = this._onSliderPointerDown.bind(this);
+    this._onPointerMove = this._onPointerMove.bind(this);
+    this._onPointerUp = this._onPointerUp.bind(this);
   }
 
   connectedCallback() {
@@ -22,6 +27,10 @@ class Slider extends HTMLElement {
     this._initThumbs();
     this._updateRange();
     this._bindEvents();
+  }
+
+  disconnectedCallback() {
+    this._unbindEvents();
   }
 
   attributeChangedCallback() {
@@ -63,17 +72,19 @@ class Slider extends HTMLElement {
   }
 
   _initThumbs() {
-    // Удаляем старые
     this._container.querySelectorAll('[part="thumb"]').forEach(t => t.remove());
     this._thumbs = [];
+    
     this._values.forEach((value, index) => {
       const thumb = document.createElement('div');
       thumb.setAttribute('part', 'thumb');
       thumb.dataset.index = index;
+      
       const label = document.createElement('div');
       label.setAttribute('part', 'label');
       label.textContent = this._formatValue(value);
       thumb.appendChild(label);
+      
       this._container.appendChild(thumb);
       this._thumbs[index] = thumb;
       this._positionThumb(index);
@@ -100,60 +111,106 @@ class Slider extends HTMLElement {
 
   _bindEvents() {
     this._thumbs.forEach(thumb => {
-      thumb.addEventListener('mousedown', this._onMouseDown.bind(this));
-      thumb.addEventListener('touchstart', this._onTouchStart.bind(this), { passive: false });
+      thumb.addEventListener('pointerdown', this._onThumbPointerDown);
     });
-    document.addEventListener('mousemove', this._onMouseMove.bind(this));
-    document.addEventListener('mouseup', this._onMouseUp.bind(this));
-    document.addEventListener('touchmove', this._onTouchMove.bind(this), { passive: false });
-    document.addEventListener('touchend', this._onTouchEnd.bind(this));
+    this._container.addEventListener('pointerdown', this._onSliderPointerDown);
   }
 
-  _onMouseDown(e) {
+  _unbindEvents() {
+    document.removeEventListener('pointermove', this._onPointerMove);
+    document.removeEventListener('pointerup', this._onPointerUp);
+    
+    this._thumbs.forEach(thumb => {
+      thumb.removeEventListener('pointerdown', this._onThumbPointerDown);
+    });
+    this._container.removeEventListener('pointerdown', this._onSliderPointerDown);
+  }
+
+  _bindGlobalEvents() {
+    document.addEventListener('pointermove', this._onPointerMove);
+    document.addEventListener('pointerup', this._onPointerUp);
+  }
+
+  _unbindGlobalEvents() {
+    document.removeEventListener('pointermove', this._onPointerMove);
+    document.removeEventListener('pointerup', this._onPointerUp);
+  }
+
+  _onThumbPointerDown(e) {
     e.preventDefault();
+    e.stopPropagation();
     this._activeThumb = e.target.closest('[part="thumb"]');
     this._activeThumbIndex = parseInt(this._activeThumb.dataset.index);
     this._activeThumb.setAttribute('data-active', 'true');
+    this._activeThumb.setPointerCapture(e.pointerId);
+    this._bindGlobalEvents();
   }
 
-  _onTouchStart(e) {
+  _onSliderPointerDown(e) {
+    if (e.target.closest('[part="thumb"]')) return;
+    
     e.preventDefault();
-    this._activeThumb = e.target.closest('[part="thumb"]');
-    this._activeThumbIndex = parseInt(this._activeThumb.dataset.index);
-    this._activeThumb.setAttribute('data-active', 'true');
-  }
-
-  _onMouseMove(e) {
-    if (!this._activeThumb) return;
     const rect = this._container.getBoundingClientRect();
     let x = e.clientX - rect.left;
     x = Math.max(0, Math.min(x, rect.width));
+    
+    this._findClosestThumb(x);
     this._updateThumbPosition(x);
+    
+    if (this._activeThumb) {
+      this._activeThumb.setPointerCapture(e.pointerId);
+      this._bindGlobalEvents();
+    }
   }
 
-  _onTouchMove(e) {
+  _findClosestThumb(x) {
+    const percentage = (x / this._container.offsetWidth);
+    const targetValue = this._min + (percentage * (this._max - this._min));
+    
+    let closestIndex = 0;
+    let minDistance = Math.abs(this._values[0] - targetValue);
+    
+    for (let i = 1; i < this._values.length; i++) {
+      const distance = Math.abs(this._values[i] - targetValue);
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestIndex = i;
+      }
+    }
+    
+    this._activeThumbIndex = closestIndex;
+    this._activeThumb = this._thumbs[closestIndex];
+    this._activeThumb.setAttribute('data-active', 'true');
+  }
+
+  _onPointerMove(e) {
     if (!this._activeThumb) return;
-    e.preventDefault();
-    const touch = e.touches[0];
+    
     const rect = this._container.getBoundingClientRect();
-    let x = touch.clientX - rect.left;
+    let x = e.clientX - rect.left;
     x = Math.max(0, Math.min(x, rect.width));
+    
     this._updateThumbPosition(x);
   }
 
   _updateThumbPosition(x) {
     const percentage = (x / this._container.offsetWidth);
     let value = this._min + (percentage * (this._max - this._min));
+    
     value = Math.round(value / this._step) * this._step;
     value = parseFloat(value.toFixed(6));
     value = parseFloat(value.toFixed(this._decimals));
     value = Math.max(this._min, Math.min(value, this._max));
+    
     this._values[this._activeThumbIndex] = value;
     this._preventOverlap();
+    
     this._values.forEach((_, index) => {
       this._positionThumb(index);
     });
+    
     this._updateRange();
+    
     this.dispatchEvent(new CustomEvent('sliderChange', {
       detail: { values: this._values }
     }));
@@ -163,26 +220,22 @@ class Slider extends HTMLElement {
     const sortedValues = [...this._values].sort((a, b) => a - b);
     const oldValues = [...this._values];
     this._values = sortedValues;
+    
     const activeValue = oldValues[this._activeThumbIndex];
     this._activeThumbIndex = sortedValues.indexOf(activeValue);
+    
     this._thumbs.forEach((thumb, index) => {
       thumb.dataset.index = index;
     });
   }
 
-  _onMouseUp() {
+  _onPointerUp(e) {
     if (this._activeThumb) {
       this._activeThumb.removeAttribute('data-active');
+      this._activeThumb.releasePointerCapture(e.pointerId);
       this._activeThumb = null;
       this._activeThumbIndex = null;
-    }
-  }
-
-  _onTouchEnd() {
-    if (this._activeThumb) {
-      this._activeThumb.removeAttribute('data-active');
-      this._activeThumb = null;
-      this._activeThumbIndex = null;
+      this._unbindGlobalEvents();
     }
   }
 
@@ -191,7 +244,11 @@ class Slider extends HTMLElement {
     this._max = options.max !== undefined ? options.max : this._max;
     this._step = options.step !== undefined ? options.step : this._step;
     this._decimals = options.decimals !== undefined ? options.decimals : this._decimals;
-    this._values = (options.values || this._values).map(val => Math.max(this._min, Math.min(val, this._max))).sort((a, b) => a - b);
+    
+    this._values = (options.values || this._values).map(val => {
+      return Math.max(this._min, Math.min(val, this._max));
+    }).sort((a, b) => a - b);
+    
     this._render();
     this._initThumbs();
     this._updateRange();
