@@ -90,7 +90,7 @@ __PREFIX__-__COMPONENT__[orientation='vertical']::part(tick) {
   height: 2px;
 }
 
-__PREFIX__-__COMPONENT__[orientation='vertical']::part(tick):nth-child(5n) {
+__PREFIX__-__COMPONENT__[orientation='vertical']::part(tick) {
   width: 12px;
   height: 3px;
 }
