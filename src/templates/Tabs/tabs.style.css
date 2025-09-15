@@ -1,19 +1,9 @@
-/* Стили для __PREFIX__-__COMPONENT__ */
 __PREFIX__-__COMPONENT__ {
-  display: block;
   width: 100%;
   overflow: hidden;
 }
 
-/* Стили для header части */
-__PREFIX__-__COMPONENT__::part(header) {
-  display: block;
-}
-
-/* Стили для контейнера панелей */
 __PREFIX__-__COMPONENT__::part(panels-container) {
-  display: grid;
-  grid-template-columns: 1fr;
   overflow: hidden;
   position: relative;
 }
@@ -52,25 +42,24 @@ __PREFIX__-__COMPONENT__-panels {
   position: relative;
   overflow: hidden;
   width: 100%;
+  display: flex;
 }
 
 __PREFIX__-__COMPONENT__-panel {
   display: block;
   width: 100%;
   transition: transform 0.4s, opacity 0.4s, height 0.4s;
-  opacity: 0;
   pointer-events: none;
-  height: 0;
   overflow: hidden;
-  visibility: hidden;
+  position: absolute;
 }
 
 /* Активная панель */
 __PREFIX__-__COMPONENT__-panel[active] {
   opacity: 1;
   pointer-events: auto;
-  height: auto;
-  visibility: visible;
+  position: relative;
+  
 }
 
 /* X-анимация с братьями */
