@@ -175,7 +175,6 @@ export const add = {
         const variantsFile = renamedFiles.find((f) =>
           f.endsWith('.variants.js')
         );
-        const hostCssFile = renamedFiles.find((f) => f.endsWith('.host.css'));
         const styleFile = renamedFiles.find((f) => f.endsWith('.style.css'));
         const readmeFile = renamedFiles.find((f) => f.endsWith('.md'));
 
@@ -192,20 +191,6 @@ export const add = {
           jsCode = variantsCode + '\n\n' + jsCode;
         }
 
-        // Обработка host.css - инлайним в JS
-        if (hostCssFile) {
-          const hostCssPath = path.join(destComponentDir, hostCssFile);
-          const hostCssContent = fs.readFileSync(hostCssPath, 'utf8');
-          if (jsCode.includes('__HOST_STYLE__')) {
-            jsCode = jsCode.replace(
-              '__HOST_STYLE__',
-              hostCssContent.replace(/`/g, '\\`')
-            );
-          }
-          // Удаляем host.css файл после инлайнинга
-          fs.unlinkSync(hostCssPath);
-        }
-
         // Обработка обычного style.css - оставляем как отдельный файл
         if (styleFile) {
           // Оставляем style.css как есть - пользователь получит его отдельно
@@ -217,15 +202,14 @@ export const add = {
           console.log(`Documentation saved: ${readmeFile}`);
         }
 
-        // Удалить import/export для native сборки
+        // Удалить import/export для native build
         jsCode = jsCode.replace(/import[^;]+;?/g, '').replace(/export\s+/g, '');
 
-        // Минифицировать, если указан флаг
+        // Минификация если указано
         if (options.minify) {
           jsCode = minifyJs(jsCode);
         }
 
-        // Перезаписать итоговый js-файл
         fs.writeFileSync(jsPath, jsCode, 'utf8');
 
         // Удалить лишние файлы
