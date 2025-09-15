@@ -6,6 +6,8 @@ class Slider extends HTMLElement {
     'decimals',
     'values',
     'orientation',
+    'show-ticks',
+    'ticks-density',
   ];
   static formAssociated = true;
 
@@ -19,6 +21,8 @@ class Slider extends HTMLElement {
     this._decimals = 0;
     this._values = [25, 75];
     this._orientation = 'horizontal';
+    this._showTicks = false;
+    this._ticksDensity = 1;
     this._thumbs = [];
     this._activeThumb = null;
 
@@ -45,7 +49,12 @@ class Slider extends HTMLElement {
     if (name === 'orientation' && oldValue === newValue) return;
 
     this._parseAttributes();
-    name === 'orientation' ? this._updateRange() : this._fullUpdate();
+
+    if (['orientation', 'show-ticks', 'ticks-density'].includes(name)) {
+      this._fullUpdate();
+    } else {
+      name === 'orientation' ? this._updateRange() : this._fullUpdate();
+    }
   }
 
   // Form methods
@@ -73,6 +82,8 @@ class Slider extends HTMLElement {
       this.getAttribute('orientation') === 'vertical'
         ? 'vertical'
         : 'horizontal';
+    this._showTicks = this.hasAttribute('show-ticks');
+    this._ticksDensity = parseInt(this.getAttribute('ticks-density')) || 1;
 
     const valuesAttr = this.getAttribute('values');
     this._values = valuesAttr ? this._parseValues(valuesAttr) : [25, 75];
@@ -106,9 +117,44 @@ class Slider extends HTMLElement {
   }
 
   _render() {
-    this.shadowRoot.innerHTML = `<div part="track"></div><div part="range"></div>`;
+    this.shadowRoot.innerHTML = `
+      <div part="track"></div>
+      <div part="range"></div>
+      ${this._showTicks ? '<div part="ticks"></div>' : ''}
+    `;
     this._track = this.shadowRoot.querySelector('[part="track"]');
     this._range = this.shadowRoot.querySelector('[part="range"]');
+    this._ticksContainer = this.shadowRoot.querySelector('[part="ticks"]');
+
+    if (this._showTicks) {
+      this._renderTicks();
+    }
+  }
+
+  _renderTicks() {
+    if (!this._showTicks || !this._ticksContainer) return;
+
+    const ticksCount = Math.floor(
+      (this._max - this._min) / this._step / this._ticksDensity
+    );
+    this._ticksContainer.innerHTML = '';
+
+    for (let i = 0; i <= ticksCount; i++) {
+      const value = this._min + i * this._step * this._ticksDensity;
+      if (value > this._max) break;
+
+      const tick = document.createElement('div');
+      tick.setAttribute('part', 'tick');
+      const percentage = ((value - this._min) / (this._max - this._min)) * 100;
+
+      if (this._orientation === 'horizontal') {
+        tick.style.left = `${percentage}%`;
+      } else {
+        tick.style.bottom = `${percentage}%`;
+      }
+
+      this._ticksContainer.appendChild(tick);
+    }
   }
 
   _init() {
@@ -333,6 +379,8 @@ class Slider extends HTMLElement {
     this._decimals = options.decimals ?? this._decimals;
     this._orientation =
       options.orientation === 'vertical' ? 'vertical' : this._orientation;
+    this._showTicks = options.showTicks ?? this._showTicks;
+    this._ticksDensity = options.ticksDensity ?? this._ticksDensity;
 
     this._values = reset
       ? this._getEvenlyDistributedValues(options.values?.length)
@@ -368,6 +416,8 @@ class Slider extends HTMLElement {
       decimals: this._decimals,
       values: this._values,
       orientation: this._orientation,
+      showTicks: this._showTicks,
+      ticksDensity: this._ticksDensity,
     };
   }
 }
