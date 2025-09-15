@@ -53,8 +53,8 @@ class Slider extends HTMLElement {
   }
 
   formDisabledCallback(disabled) {
-    this._container.style.opacity = disabled ? '0.5' : '1';
-    this._container.style.pointerEvents = disabled ? 'none' : 'auto';
+    this.style.opacity = disabled ? '0.5' : '1';
+    this.style.pointerEvents = disabled ? 'none' : 'auto';
   }
 
   formResetCallback() {
@@ -119,17 +119,16 @@ class Slider extends HTMLElement {
 
   _render() {
     this.shadowRoot.innerHTML = `
-      <div part="container">
-        <div part="track"></div>
-        <div part="range"></div>
-      </div>
+      <div part="track"></div>
+      <div part="range"></div>
     `;
-    this._container = this.shadowRoot.querySelector('[part="container"]');
+    this._track = this.shadowRoot.querySelector('[part="track"]');
     this._range = this.shadowRoot.querySelector('[part="range"]');
   }
 
   _initThumbs() {
-    this._container
+    // Удаляем старые ползунки
+    this.shadowRoot
       .querySelectorAll('[part="thumb"]')
       .forEach((t) => t.remove());
     this._thumbs = [];
@@ -144,7 +143,7 @@ class Slider extends HTMLElement {
       label.textContent = this._formatValue(value);
       thumb.appendChild(label);
 
-      this._container.appendChild(thumb);
+      this.shadowRoot.appendChild(thumb);
       this._thumbs[index] = thumb;
       this._positionThumb(index);
     });
@@ -177,7 +176,7 @@ class Slider extends HTMLElement {
     this._thumbs.forEach((thumb) => {
       thumb.addEventListener('pointerdown', this._onThumbPointerDown);
     });
-    this._container.addEventListener('pointerdown', this._onSliderPointerDown);
+    this.addEventListener('pointerdown', this._onSliderPointerDown);
   }
 
   _unbindEvents() {
@@ -187,10 +186,7 @@ class Slider extends HTMLElement {
     this._thumbs.forEach((thumb) => {
       thumb.removeEventListener('pointerdown', this._onThumbPointerDown);
     });
-    this._container.removeEventListener(
-      'pointerdown',
-      this._onSliderPointerDown
-    );
+    this.removeEventListener('pointerdown', this._onSliderPointerDown);
   }
 
   _bindGlobalEvents() {
@@ -218,7 +214,7 @@ class Slider extends HTMLElement {
     if (e.target.closest('[part="thumb"]')) return;
 
     e.preventDefault();
-    const rect = this._container.getBoundingClientRect();
+    const rect = this.getBoundingClientRect();
     let x = e.clientX - rect.left;
     x = Math.max(0, Math.min(x, rect.width));
 
@@ -232,7 +228,7 @@ class Slider extends HTMLElement {
   }
 
   _findClosestThumb(x) {
-    const percentage = x / this._container.offsetWidth;
+    const percentage = x / this.offsetWidth;
     const targetValue = this._min + percentage * (this._max - this._min);
 
     let closestIndex = 0;
@@ -254,7 +250,7 @@ class Slider extends HTMLElement {
   _onPointerMove(e) {
     if (!this._activeThumb) return;
 
-    const rect = this._container.getBoundingClientRect();
+    const rect = this.getBoundingClientRect();
     let x = e.clientX - rect.left;
     x = Math.max(0, Math.min(x, rect.width));
 
@@ -262,7 +258,7 @@ class Slider extends HTMLElement {
   }
 
   _updateThumbPosition(x) {
-    const percentage = x / this._container.offsetWidth;
+    const percentage = x / this.offsetWidth;
     let value = this._min + percentage * (this._max - this._min);
 
     value = Math.round(value / this._step) * this._step;
