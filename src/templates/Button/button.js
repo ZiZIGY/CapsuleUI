@@ -9,7 +9,6 @@ class Button extends HTMLElement {
 
     this.attachShadow({ mode: 'open' });
     this._render();
-    this._applyStyles();
   }
 
   connectedCallback() {
@@ -81,15 +80,9 @@ class Button extends HTMLElement {
   _render() {
     this.shadowRoot.innerHTML = `
       <slot></slot>
-      <div class="ripple-container"></div>
+      <div part="ripples"></div>
     `;
-    this._$rippleContainer = this.shadowRoot.querySelector('.ripple-container');
-  }
-
-  _applyStyles() {
-    const style = document.createElement('style');
-    style.textContent = `__HOST_STYLE__`;
-    this.shadowRoot.appendChild(style);
+    this._$rippleContainer = this.shadowRoot.querySelector('[part="ripples"]');
   }
 
   _setupEventListeners() {
@@ -153,8 +146,8 @@ class Button extends HTMLElement {
     const ripple = document.createElement('span');
     const radius = diameter / 2;
     const rect = this.getBoundingClientRect();
-
-    ripple.classList.add('ripple', 'grow');
+    
+    ripple.part.add('ripple', 'grow')
 
     ripple.style.left = `${event.clientX - rect.left - radius}px`;
     ripple.style.top = `${event.clientY - rect.top - radius}px`;
@@ -164,9 +157,9 @@ class Button extends HTMLElement {
   }
 
   _fadeRipple() {
-    const ripple = this._$rippleContainer.querySelector('.ripple:last-child');
+    const ripple = this._$rippleContainer.querySelector('*:last-child');
     if (ripple) {
-      ripple.classList.add('fade');
+      ripple.part.add('fade')
       ripple.addEventListener('transitionend', () => ripple.remove(), {
         once: true,
       });

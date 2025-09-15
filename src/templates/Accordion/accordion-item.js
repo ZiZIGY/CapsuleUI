@@ -26,10 +26,6 @@ class AccordionItem extends HTMLElement {
 
   _render() {
     this.shadowRoot.innerHTML = `
-      <style>
-        __HOST_STYLE__
-      </style>
-      
       <slot name="trigger"></slot>
       <div class="content" part="content">
         <slot name="content"></slot>

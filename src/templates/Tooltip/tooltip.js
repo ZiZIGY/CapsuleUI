@@ -18,17 +18,13 @@ class Tooltip extends HTMLElement {
 
   _render() {
     this.shadowRoot.innerHTML = `
-      <style>
-        __HOST_STYLE__
-      </style>
-      
       <slot></slot>
       <div part="tooltip" role="tooltip">
         <slot name="content"></slot>
       </div>
     `;
 
-    this._tooltip = this.shadowRoot.querySelector('.tooltip');
+    this._tooltip = this.shadowRoot.querySelector('[part="tooltip"]');
     this._trigger = this.shadowRoot.querySelector('slot[name="trigger"]');
   }
 }

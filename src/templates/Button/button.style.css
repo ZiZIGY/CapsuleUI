@@ -71,3 +71,45 @@ __PREFIX__-__COMPONENT__[variant='outline'] {
 __PREFIX__-__COMPONENT__[variant='outline']:hover:not([disabled]) {
   background-color: #f9fafb;
 }
+
+
+__PREFIX__-__COMPONENT__::part(ripples) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+__PREFIX__-__COMPONENT__::part(ripple) {
+  position: absolute;
+  border-radius: 50%;
+  background-color: var(--ripple-color, rgba(255, 255, 255, 0.5));
+  pointer-events: none;
+  transform: scale(0);
+  transition: 0.3s linear;
+}
+
+__PREFIX__-__COMPONENT__::part(ripple grow) {
+  transform: scale(0);
+  animation: ripple-grow 1s ease-out forwards;
+}
+
+__PREFIX__-__COMPONENT__::part(ripple fade) {
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
+}
+
+@keyframes ripple-grow {
+  to {
+    transform: scale(4);
+  }
+}
+
+@keyframes ripple-fade {
+  to {
+    opacity: 0;
+  }
+}

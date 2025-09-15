@@ -11,9 +11,7 @@ class TabsList extends HTMLElement {
 
   _render() {
     this.shadowRoot.innerHTML = `
-      <div part="list">
         <slot></slot>
-      </div>
     `;
   }
 

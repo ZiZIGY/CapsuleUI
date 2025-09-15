@@ -23,10 +23,6 @@ class Accordion extends HTMLElement {
 
   _render() {
     this.shadowRoot.innerHTML = `
-      <style>
-        __HOST_STYLE__
-      </style>
-      
       <slot></slot>
     `;
   }

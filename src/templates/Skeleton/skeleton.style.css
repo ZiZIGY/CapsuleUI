@@ -1,4 +1,3 @@
-/* Стили для __PREFIX__-__COMPONENT__ компонента */
 __PREFIX__-__COMPONENT__ {
   display: block;
   background-color: #e5e7eb;
@@ -21,7 +20,6 @@ __PREFIX__-__COMPONENT__[variant="rectangular"] {
   height: 4rem;
 }
 
-/* Варианты размеров */
 __PREFIX__-__COMPONENT__[variant="text"] {
   height: 1rem;
   width: 100%;

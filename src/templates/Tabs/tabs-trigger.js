@@ -22,10 +22,6 @@ class TabsTrigger extends HTMLElement {
 
   _render() {
     this.shadowRoot.innerHTML = `
-      <style>
-        __HOST_STYLE__
-      </style>
-      
       <slot part="trigger"></slot>
     `;
   }
