@@ -128,4 +128,4 @@ class Button extends HTMLElement {
   }
 }
 
-customElements.define('ui-button', Button);
+customElements.define('test-button', Button);

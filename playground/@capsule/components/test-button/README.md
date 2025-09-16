@@ -1,4 +1,4 @@
-# ui-button Component
+# test-button Component
 
 Custom button element with ripple effect.
 
@@ -7,12 +7,12 @@ Custom button element with ripple effect.
 ### HTML
 
 ```html
-<link rel="stylesheet" href="ui-button.style.css">
-<script src="ui-button.js"></script>
+<link rel="stylesheet" href="test-button.style.css">
+<script src="test-button.js"></script>
 
-<ui-button size="lg" variant="primary">
+<test-button size="lg" variant="primary">
   My Button
-</ui-button>
+</test-button>
 ```
 
 ## Attributes
@@ -38,32 +38,32 @@ Custom button element with ripple effect.
 ### Basic Usage
 
 ```html
-<ui-button>Button</ui-button>
+<test-button>Button</test-button>
 ```
 
 ### With Attributes
 
 ```html
-<ui-button size="lg" variant="outline" disabled>
+<test-button size="lg" variant="outline" disabled>
   Large Disabled Button
-</ui-button>
+</test-button>
 ```
 
 ### With Event Handler
 
 ```html
-<ui-button
+<test-button
   size="md"
   variant="primary"
   onclick="handleClick(event)">
   Button with Handler
-</ui-button>
+</test-button>
 ```
 
 ### Programmatic Control
 
 ```javascript
-const button = document.querySelector('ui-button');
+const button = document.querySelector('test-button');
 
 // Change attributes
 button.size = 'lg';
@@ -82,7 +82,7 @@ button.focus();
 The component uses CSS variables for customization:
 
 ```css
-ui-button {
+test-button {
   --ripple-color: rgba(255, 255, 255, 0.5);
 }
 ```
@@ -90,7 +90,7 @@ ui-button {
 You can also add your own CSS classes through the `class` attribute:
 
 ```html
-<ui-button class="my-custom-class" size="md">
+<test-button class="my-custom-class" size="md">
   Custom Button
-</ui-button>
+</test-button>
 ```

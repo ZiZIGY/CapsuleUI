@@ -11,7 +11,6 @@ class Ripple extends HTMLElement {
   }
 
   _render() {
-    const style = document.createElement('style');
     this.shadowRoot.innerHTML = `
       <style>
         :host {
@@ -52,8 +51,6 @@ class Ripple extends HTMLElement {
         }
       </style>
     `;
-
-    this.shadowRoot.appendChild(style);
   }
 
   connectedCallback() {
