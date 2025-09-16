@@ -2,6 +2,8 @@
   --capsule-color-primary: #4f46e5;
   --capsule-radius: 8px;
   --capsule-gap: 8px;
+
+  --capsule-ripple-color: #ffffff80;
 }
 
 *,

@@ -142,3 +142,8 @@ ui-slider::part(thumb)[data-active='true']::part(surface) {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
   background: #1976d2;
 }
+
+ui-slider::part(ripples) {
+  background-color: red;
+  border-radius: 50%;
+}

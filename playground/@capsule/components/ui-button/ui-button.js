@@ -128,4 +128,4 @@ class Button extends HTMLElement {
   }
 }
 
-customElements.define('__PREFIX__-__COMPONENT__', Button);
+customElements.define('ui-button', Button);

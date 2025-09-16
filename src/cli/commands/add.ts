@@ -236,20 +236,8 @@ export const add = {
               if (!alreadyImported) {
                 const importLine = `@import url('${importPath}');`;
                 const lines = globalCss.split(/\r?\n/);
-                // Найти позицию для вставки: после последнего существующего @import
-                let insertIdx = 0;
-                for (let i = 0; i < lines.length; i++) {
-                  const t = lines[i].trim();
-                  if (t.startsWith('@import')) insertIdx = i + 1;
-                  else if (
-                    t.length > 0 &&
-                    !t.startsWith('/*') &&
-                    !t.startsWith('//')
-                  ) {
-                    // как только встретили первую содержательную строку не @import — выходим
-                    break;
-                  }
-                }
+
+                const insertIdx = 0;
                 lines.splice(insertIdx, 0, importLine);
                 globalCss = lines.join('\n');
                 if (!globalCss.endsWith('\n')) globalCss += '\n';
