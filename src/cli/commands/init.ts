@@ -17,14 +17,14 @@ export const init = {
   action: async (options: { dir?: string }) => {
     const projectDir = process.cwd();
 
-    // Locate template folder: prefer src/@capsule, fallback to project root/@capsule
-    let templateCapsuleDir = path.join(projectDir, 'src', '@capsule');
+    // Locate template folder: prefer src/@template, fallback to project root/@template
+    let templateCapsuleDir = path.join(projectDir, 'src', '@template');
     if (!fs.existsSync(templateCapsuleDir)) {
-      templateCapsuleDir = path.join(projectDir, '@capsule');
+      templateCapsuleDir = path.join(projectDir, '@template');
     }
     if (!fs.existsSync(templateCapsuleDir)) {
       console.error(
-        'Template folder @capsule/ not found in src/ or project root!'
+        'Template folder @template/ not found in src/ or project root!'
       );
       process.exit(1);
     }

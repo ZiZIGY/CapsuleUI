@@ -1,3 +1,5 @@
+@import './components/ui-slider/ui-slider.style.css';
+
 :root {
   --capsule-color-primary: #4f46e5;
   --capsule-color-bg: #fff;

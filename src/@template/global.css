@@ -1,0 +1,17 @@
+:root {
+  --capsule-color-primary: #4f46e5;
+  --capsule-color-bg: #fff;
+  --capsule-radius: 8px;
+  --capsule-gap: 8px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: inherit;
+}
+@import url('./components/ui-slider/ui-slider.style.css');

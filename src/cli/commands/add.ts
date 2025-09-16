@@ -229,13 +229,30 @@ export const add = {
               let globalCss = fs.readFileSync(globalCssPath, 'utf8');
               const alreadyImported = new RegExp(
                 String.raw`@import\s+url\(['\"]?${importPath.replace(
-                  /[-/\\.^$*+?()|\[\]{}]/g,
+                  /[-\/\\.^$*+?()|\[\]{}]/g,
                   (r) => r
                 )}['\"]?\)\s*;`
               ).test(globalCss);
               if (!alreadyImported) {
-                const line = `@import url('${importPath}');\n`;
-                globalCss += (globalCss.endsWith('\n') ? '' : '\n') + line;
+                const importLine = `@import url('${importPath}');`;
+                const lines = globalCss.split(/\r?\n/);
+                // Найти позицию для вставки: после последнего существующего @import
+                let insertIdx = 0;
+                for (let i = 0; i < lines.length; i++) {
+                  const t = lines[i].trim();
+                  if (t.startsWith('@import')) insertIdx = i + 1;
+                  else if (
+                    t.length > 0 &&
+                    !t.startsWith('/*') &&
+                    !t.startsWith('//')
+                  ) {
+                    // как только встретили первую содержательную строку не @import — выходим
+                    break;
+                  }
+                }
+                lines.splice(insertIdx, 0, importLine);
+                globalCss = lines.join('\n');
+                if (!globalCss.endsWith('\n')) globalCss += '\n';
                 fs.writeFileSync(globalCssPath, globalCss, 'utf8');
                 console.log(
                   `Injected import into @capsule/global.css: ${importPath}`
@@ -254,6 +271,45 @@ export const add = {
               (e as Error).message
             );
           }
+        }
+
+        // Auto-import component JS into @capsule/components/init.js
+        try {
+          const initJsDir = path.join(capsuleRoot, 'components');
+          const initJsPath = path.join(initJsDir, 'init.js');
+          ensureDir(initJsDir);
+          const importJsPath = `./${prefix}-${kebabComponent}/${jsFile}`;
+          let initContent = '';
+          if (fs.existsSync(initJsPath)) {
+            initContent = fs.readFileSync(initJsPath, 'utf8');
+          } else {
+            initContent = `// CapsuleUI components entry\n`;
+          }
+          const alreadyHasImport = new RegExp(
+            String.raw`^\s*import\s+['\"]${importJsPath.replace(
+              /[-\/\\.^$*+?()|\[\]{}]/g,
+              (r) => r
+            )}['\"];?\s*$`,
+            'm'
+          ).test(initContent);
+          if (!alreadyHasImport) {
+            initContent +=
+              (initContent.endsWith('\n') ? '' : '\n') +
+              `import '${importJsPath}';\n`;
+            fs.writeFileSync(initJsPath, initContent, 'utf8');
+            console.log(
+              `Injected import into @capsule/components/init.js: ${importJsPath}`
+            );
+          } else {
+            console.log(
+              'Import already present in @capsule/components/init.js'
+            );
+          }
+        } catch (e) {
+          console.log(
+            'Warning: failed to update @capsule/components/init.js:',
+            (e as Error).message
+          );
         }
 
         if (readmeFile) {
