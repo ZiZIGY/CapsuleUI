@@ -219,8 +219,41 @@ export const add = {
 
         // Обработка обычного style.css - оставляем как отдельный файл
         if (styleFile) {
-          // Оставляем style.css как есть - пользователь получит его отдельно
           console.log(`CSS file saved: ${styleFile}`);
+
+          // Auto-import component styles into @capsule/global.css
+          try {
+            const globalCssPath = path.join(capsuleRoot, 'global.css');
+            if (fs.existsSync(globalCssPath)) {
+              const importPath = `./components/${prefix}-${kebabComponent}/${styleFile}`;
+              let globalCss = fs.readFileSync(globalCssPath, 'utf8');
+              const alreadyImported = new RegExp(
+                String.raw`@import\s+url\(['\"]?${importPath.replace(
+                  /[-/\\.^$*+?()|\[\]{}]/g,
+                  (r) => r
+                )}['\"]?\)\s*;`
+              ).test(globalCss);
+              if (!alreadyImported) {
+                const line = `@import url('${importPath}');\n`;
+                globalCss += (globalCss.endsWith('\n') ? '' : '\n') + line;
+                fs.writeFileSync(globalCssPath, globalCss, 'utf8');
+                console.log(
+                  `Injected import into @capsule/global.css: ${importPath}`
+                );
+              } else {
+                console.log('Import already present in @capsule/global.css');
+              }
+            } else {
+              console.log(
+                'Warning: @capsule/global.css not found. Skipped auto-import.'
+              );
+            }
+          } catch (e) {
+            console.log(
+              'Warning: failed to update @capsule/global.css:',
+              (e as Error).message
+            );
+          }
         }
 
         if (readmeFile) {
@@ -228,8 +261,10 @@ export const add = {
           console.log(`Documentation saved: ${readmeFile}`);
         }
 
+        // Удалить import/export для native build
         jsCode = jsCode.replace(/import[^;]+;?/g, '').replace(/export\s+/g, '');
 
+        // Минификация если указано
         if (options.minify) {
           jsCode = minifyJs(jsCode);
         }
