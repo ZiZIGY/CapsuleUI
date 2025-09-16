@@ -51,6 +51,11 @@ __PREFIX__-__COMPONENT__[orientation='vertical']::part(range) {
   height: var(--height);
 }
 
+/* Ripples container */
+__PREFIX__-__COMPONENT__::part(ripples) {
+  background-color: #ffffff40;
+}
+
 /* Ticks container */
 __PREFIX__-__COMPONENT__::part(ticks) {
   position: absolute;

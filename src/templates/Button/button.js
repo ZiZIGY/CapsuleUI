@@ -4,8 +4,8 @@ class Button extends HTMLElement {
   constructor() {
     super();
     this._$rippleContainer = null;
-    this._internals = this.attachInternals();
     this._isKeyPressed = false;
+    this._internals = this.attachInternals();
 
     this.attachShadow({ mode: 'open' });
     this._render();
@@ -17,13 +17,8 @@ class Button extends HTMLElement {
 
     this._setupEventListeners();
 
-    if (!this.hasAttribute('type')) {
-      this.setAttribute('type', 'button');
-    }
-
-    if (!this.hasAttribute('tabindex')) {
-      this.tabIndex = 0;
-    }
+    if (!this.hasAttribute('type')) this.setAttribute('type', 'button');
+    if (!this.hasAttribute('tabindex')) this.tabIndex = 0;
   }
 
   get disabled() {
@@ -61,9 +56,7 @@ class Button extends HTMLElement {
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
-    if (name === 'disabled') {
-      this._updateAriaDisabled();
-    }
+    if (name === 'disabled') this._updateAriaDisabled();
   }
 
   _updateAriaDisabled() {
@@ -138,16 +131,14 @@ class Button extends HTMLElement {
   }
 
   _createRipple(event, isKeyboardEvent = false) {
-    if (this.disabled) {
-      return;
-    }
+    if (this.disabled) return;
 
     const diameter = Math.max(this.clientWidth, this.clientHeight);
     const ripple = document.createElement('span');
     const radius = diameter / 2;
     const rect = this.getBoundingClientRect();
-    
-    ripple.part.add('ripple', 'grow')
+
+    ripple.part.add('ripple', 'grow');
 
     ripple.style.left = `${event.clientX - rect.left - radius}px`;
     ripple.style.top = `${event.clientY - rect.top - radius}px`;
@@ -159,7 +150,7 @@ class Button extends HTMLElement {
   _fadeRipple() {
     const ripple = this._$rippleContainer.querySelector('*:last-child');
     if (ripple) {
-      ripple.part.add('fade')
+      ripple.part.add('fade');
       ripple.addEventListener('transitionend', () => ripple.remove(), {
         once: true,
       });

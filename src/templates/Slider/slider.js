@@ -118,9 +118,15 @@ class Slider extends HTMLElement {
 
   _render() {
     this.shadowRoot.innerHTML = `
+      <style>
+        .thumb:hover > [part="ripples"],
+        .thumb[data-active] > [part="ripples"] {
+          transform: scale(2);
+        }
+      </style>
       <div part="track"></div>
       <div part="range"></div>
-      ${this._showTicks ? '<div part="ticks"></div>' : ''}
+      <div part="ticks"></div>
     `;
     this._track = this.shadowRoot.querySelector('[part="track"]');
     this._range = this.shadowRoot.querySelector('[part="range"]');
@@ -137,14 +143,14 @@ class Slider extends HTMLElement {
     const ticksCount = Math.floor(
       (this._max - this._min) / this._step / this._ticksDensity
     );
-    this._ticksContainer.innerHTML = '';
 
     for (let i = 0; i <= ticksCount; i++) {
       const value = this._min + i * this._step * this._ticksDensity;
       if (value > this._max) break;
 
       const tick = document.createElement('div');
-      tick.setAttribute('part', 'tick');
+      tick.part.add('tick');
+
       const percentage = ((value - this._min) / (this._max - this._min)) * 100;
 
       if (this._orientation === 'horizontal') {
@@ -170,19 +176,22 @@ class Slider extends HTMLElement {
   }
 
   _initThumbs() {
-    this.shadowRoot
-      .querySelectorAll('[part="thumb"]')
-      .forEach((t) => t.remove());
     this._thumbs = [];
 
     this._values.forEach((value, index) => {
       const thumb = document.createElement('div');
-      thumb.setAttribute('part', 'thumb');
+      thumb.classList.add('thumb');
+      thumb.part.add('thumb');
       thumb.dataset.index = index;
 
+      const rippleContainer = document.createElement('div');
+      rippleContainer.part.add('ripples');
+
       const label = document.createElement('div');
-      label.setAttribute('part', 'label');
+      label.part.add('label');
       label.textContent = this._formatValue(value);
+
+      thumb.appendChild(rippleContainer);
       thumb.appendChild(label);
 
       this.shadowRoot.appendChild(thumb);

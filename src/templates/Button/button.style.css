@@ -72,7 +72,6 @@ __PREFIX__-__COMPONENT__[variant='outline']:hover:not([disabled]) {
   background-color: #f9fafb;
 }
 
-
 __PREFIX__-__COMPONENT__::part(ripples) {
   position: absolute;
   top: 0;
