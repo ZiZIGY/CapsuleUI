@@ -338,12 +338,38 @@ class Slider extends HTMLElement {
   }
 
   _preventOverlap() {
-    const sortedValues = [...this._values].sort((a, b) => a - b);
+    const step = this._step;
+    const min = this._min;
+    const max = this._max;
+    const n = this._values.length;
     const activeValue = this._values[this._activeThumbIndex];
+    let values = [...this._values];
 
-    this._values = sortedValues;
-    this._activeThumbIndex = sortedValues.indexOf(activeValue);
-    this._thumbs.forEach((thumb, index) => (thumb.dataset.index = index));
+    // Сортируем, чтобы проще было проверять
+    values.sort((a, b) => a - b);
+
+    // Крайний левый не может быть ближе к следующему, чем step, и не может быть меньше min
+    values[0] = Math.max(min, values[0]);
+    for (let i = 1; i < n; i++) {
+      values[i] = Math.max(values[i], values[i - 1] + step);
+    }
+    // Крайний правый не может быть больше max
+    values[n - 1] = Math.min(max, values[n - 1]);
+    for (let i = n - 2; i >= 0; i--) {
+      values[i] = Math.min(values[i], values[i + 1] - step);
+    }
+    // Округляем все значения к step
+    values = values.map((v) =>
+      parseFloat(
+        (Math.round((v - min) / step) * step + min).toFixed(this._decimals)
+      )
+    );
+
+    this._values = values;
+    this._activeThumbIndex = values.indexOf(activeValue);
+    this._thumbs.forEach((thumb, index) => {
+      thumb.dataset.index = index;
+    });
   }
 
   _onPointerUp(e) {
