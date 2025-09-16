@@ -345,20 +345,19 @@ class Slider extends HTMLElement {
     const activeValue = this._values[this._activeThumbIndex];
     let values = [...this._values];
 
-    // Сортируем, чтобы проще было проверять
     values.sort((a, b) => a - b);
 
-    // Крайний левый не может быть ближе к следующему, чем step, и не может быть меньше min
     values[0] = Math.max(min, values[0]);
+
     for (let i = 1; i < n; i++) {
       values[i] = Math.max(values[i], values[i - 1] + step);
     }
-    // Крайний правый не может быть больше max
     values[n - 1] = Math.min(max, values[n - 1]);
+
     for (let i = n - 2; i >= 0; i--) {
       values[i] = Math.min(values[i], values[i + 1] - step);
     }
-    // Округляем все значения к step
+
     values = values.map((v) =>
       parseFloat(
         (Math.round((v - min) / step) * step + min).toFixed(this._decimals)
@@ -406,7 +405,6 @@ class Slider extends HTMLElement {
     this._values.sort((a, b) => a - b);
   }
 
-  // Public methods
   updateValues(options, reset = false) {
     this._min = options.min ?? this._min;
     this._max = options.max ?? this._max;
