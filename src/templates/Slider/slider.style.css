@@ -53,7 +53,9 @@ __PREFIX__-__COMPONENT__[orientation='vertical']::part(range) {
 
 /* Ripples container */
 __PREFIX__-__COMPONENT__::part(ripples) {
-  background-color: #ffffff40;
+  background-color: var(--ripple-bg);
+  border-radius: 50%;
+  transition: 0.3s linear;
 }
 
 /* Ticks container */
@@ -132,18 +134,6 @@ __PREFIX__-__COMPONENT__::part(surface) {
   z-index: 2;
 }
 
-__PREFIX__-__COMPONENT__::part(thumb):hover::part(surface) {
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
-}
-
-__PREFIX__-__COMPONENT__::part(thumb)[data-active='true']::part(surface) {
-  width: 24px;
-  height: 24px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-  background: #1976d2;
-}
-
-__PREFIX__-__COMPONENT__::part(ripples) {
-  background-color: red;
-  border-radius: 50%;
+__PREFIX__-__COMPONENT__::part(thumb):hover {
+  --ripple-bg: var(--capsule-ripple-bg);
 }
