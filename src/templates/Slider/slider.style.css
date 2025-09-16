@@ -105,15 +105,15 @@ __PREFIX__-__COMPONENT__::part(thumb) {
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 20px;
-  height: 20px;
-  background: #2196f3;
-  border-radius: 50%;
+  width: 40px;
+  height: 40px;
   cursor: pointer;
   z-index: 2;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
   touch-action: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 __PREFIX__-__COMPONENT__[orientation='vertical']::part(thumb) {
@@ -122,61 +122,23 @@ __PREFIX__-__COMPONENT__[orientation='vertical']::part(thumb) {
   transform: translate(-50%, 50%);
 }
 
-__PREFIX__-__COMPONENT__::part(thumb):hover {
+/* Surface - основной кружок */
+__PREFIX__-__COMPONENT__::part(surface) {
+  width: 20px;
+  height: 20px;
+  background: #2196f3;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+
+__PREFIX__-__COMPONENT__::part(thumb):hover::part(surface) {
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
 }
 
-__PREFIX__-__COMPONENT__::part(thumb)[data-active='true'] {
+__PREFIX__-__COMPONENT__::part(thumb)[data-active='true']::part(surface) {
   width: 24px;
   height: 24px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
   background: #1976d2;
-}
-
-/* Label styles */
-__PREFIX__-__COMPONENT__::part(label) {
-  position: absolute;
-  top: -36px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #2196f3;
-  color: white;
-  padding: 8px 12px;
-  border-radius: 4px;
-  font-size: 14px;
-  font-weight: 500;
-  white-space: nowrap;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
-  z-index: 3;
-}
-
-__PREFIX__-__COMPONENT__[orientation='vertical']::part(label) {
-  top: auto;
-  left: 36px;
-  transform: translateY(-50%);
-}
-
-__PREFIX__-__COMPONENT__::part(label)::after {
-  content: '';
-  position: absolute;
-  bottom: -5px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 5px solid #2196f3;
-}
-
-__PREFIX__-__COMPONENT__[orientation='vertical']::part(label)::after {
-  bottom: auto;
-  left: -5px;
-  top: 50%;
-  transform: translateY(-50%);
-  border-top: 5px solid transparent;
-  border-bottom: 5px solid transparent;
-  border-right: 5px solid #2196f3;
-  border-left: none;
 }

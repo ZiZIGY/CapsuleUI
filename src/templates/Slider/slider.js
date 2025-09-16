@@ -118,12 +118,6 @@ class Slider extends HTMLElement {
 
   _render() {
     this.shadowRoot.innerHTML = `
-      <style>
-        .thumb:hover > [part="ripples"],
-        .thumb[data-active] > [part="ripples"] {
-          transform: scale(2);
-        }
-      </style>
       <div part="track"></div>
       <div part="range"></div>
       <div part="ticks"></div>
@@ -184,15 +178,15 @@ class Slider extends HTMLElement {
       thumb.part.add('thumb');
       thumb.dataset.index = index;
 
-      const rippleContainer = document.createElement('div');
-      rippleContainer.part.add('ripples');
+      const surface = document.createElement('div');
+      surface.part.add('surface');
 
-      const label = document.createElement('div');
-      label.part.add('label');
-      label.textContent = this._formatValue(value);
+      // const label = document.createElement('div');
+      // label.part.add('label');
+      // label.textContent = this._formatValue(value);
 
-      thumb.appendChild(rippleContainer);
-      thumb.appendChild(label);
+      thumb.appendChild(surface);
+      // thumb.appendChild(label);
 
       this.shadowRoot.appendChild(thumb);
       this._thumbs[index] = thumb;
@@ -202,13 +196,14 @@ class Slider extends HTMLElement {
 
   _positionThumb(index) {
     const thumb = this._thumbs[index];
-    const label = thumb.querySelector('[part="label"]');
+    // const label = thumb.querySelector('[part="label"]');
     const percentage =
       ((this._values[index] - this._min) / (this._max - this._min)) * 100;
     const axis = this._orientation === 'horizontal' ? 'left' : 'bottom';
 
-    thumb.style[axis] = label.style[axis] = `${percentage}%`;
-    label.textContent = this._formatValue(this._values[index]);
+    // label.style[axis] = `${percentage}%`;
+    thumb.style[axis] = `${percentage}%`;
+    // label.textContent = this._formatValue(this._values[index]);
   }
 
   _formatValue(value) {

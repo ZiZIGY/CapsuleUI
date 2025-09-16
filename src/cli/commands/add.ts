@@ -29,25 +29,19 @@ export const add = {
   description: 'Add a component to your project',
   options: [
     {
-      flags: '-d, --dir <directory>',
-      description: 'Directory to install the component',
-      defaultValue: 'src/components',
-    },
-    {
       flags: '-p, --prefix <prefix>',
-      description: 'Custom element prefix (например: ui)',
+      description: 'Custom element prefix (e.g. ui)',
       defaultValue: '',
     },
     {
       flags: '-m, --minify',
-      description: 'Минифицировать итоговый JS',
+      description: 'Minify resulting JS',
       defaultValue: false,
     },
   ],
   action: async (
     component: string,
     options: {
-      dir: string;
       prefix?: string;
       minify?: boolean;
     }
@@ -106,7 +100,39 @@ export const add = {
 
           process.exit(1);
         }
-        const destDir = path.join(projectDir, options.dir);
+
+        // Find @capsule folder anywhere in the project (ignore heavy/system dirs)
+        function findCapsuleRoot(root: string): string | null {
+          const skip = new Set(['.git', 'node_modules', 'dist', 'build']);
+          const stack: string[] = [root];
+          while (stack.length) {
+            const current = stack.pop() as string;
+            let entries: fs.Dirent[] = [];
+            try {
+              entries = fs.readdirSync(current, { withFileTypes: true });
+            } catch {
+              continue;
+            }
+            for (const entry of entries) {
+              if (!entry.isDirectory()) continue;
+              if (skip.has(entry.name)) continue;
+              const full = path.join(current, entry.name);
+              if (entry.name === '@capsule') return full;
+              stack.push(full);
+            }
+          }
+          return null;
+        }
+
+        const capsuleRoot = findCapsuleRoot(projectDir);
+        if (!capsuleRoot) {
+          spinner.fail(
+            `Could not find '@capsule' folder in the project. Run 'capsule init' first.`
+          );
+          process.exit(1);
+        }
+
+        const destDir = path.join(capsuleRoot, 'components');
         ensureDir(destDir);
         let prefix = options.prefix;
         if (!prefix) {
@@ -116,7 +142,7 @@ export const add = {
               output: process.stdout,
             });
             rl.question(
-              'Введите префикс для custom element (например: ui): ',
+              'Enter custom element prefix (e.g. ui): ',
               (answer: string) => {
                 rl.close();
                 resolve(answer.trim() || 'ui');
@@ -202,10 +228,8 @@ export const add = {
           console.log(`Documentation saved: ${readmeFile}`);
         }
 
-        // Удалить import/export для native build
         jsCode = jsCode.replace(/import[^;]+;?/g, '').replace(/export\s+/g, '');
 
-        // Минификация если указано
         if (options.minify) {
           jsCode = minifyJs(jsCode);
         }
@@ -221,7 +245,7 @@ export const add = {
           `Component ${colors.green(
             component
           )} successfully installed in ${colors.blue(
-            options.dir + '/' + prefix + '-' + kebabComponent
+            path.join('@capsule', 'components', `${prefix}-${kebabComponent}`)
           )} with prefix ${colors.cyan(prefix)}${
             options.minify ? ' (minified)' : ''
           }`
