@@ -1,7 +1,5 @@
 capsule-switch {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--capsule-margin-sm);
+  display: inline-block;
   cursor: pointer;
   user-select: none;
   outline: none;
@@ -14,6 +12,7 @@ capsule-switch[disabled] {
   cursor: not-allowed;
 }
 
+/* Switch track - растягивается на весь компонент */
 capsule-switch::part(track) {
   position: relative;
   width: 100%;
@@ -60,25 +59,24 @@ capsule-switch[checked]:focus-visible::part(track) {
   box-shadow: var(--capsule-shadow-focus), var(--capsule-shadow-md);
 }
 
-/* Switch thumb - квадратный с aspect ratio */
+/* Switch thumb - квадратный с плавной анимацией */
 capsule-switch::part(thumb) {
   position: absolute;
-  top: 50%;
+  top: 2px;
   left: 2px;
+
   height: calc(100% - 4px);
-  aspect-ratio: 1;
+  aspect-ratio: 1/1;
   background: linear-gradient(135deg, #ffffff, #f9fafb);
   border-radius: var(--capsule-radius-full);
   box-shadow: var(--capsule-shadow);
   transition: var(--capsule-transition);
-  transform: translateY(-50%);
   z-index: 2;
 }
 
-/* Позиционирование thumb для checked состояния */
+/* Плавная анимация через transform */
 capsule-switch[checked]::part(thumb) {
-  left: auto;
-  right: 2px;
+  transform: translateX(calc(100% - 4px));
 }
 
 capsule-switch:hover:not([disabled])::part(thumb) {
@@ -92,20 +90,18 @@ capsule-switch:active:not([disabled])::part(thumb) {
 }
 
 capsule-switch[checked]:active:not([disabled])::part(thumb) {
-  right: 3px;
+  transform: translateX(calc(100% - 6px));
 }
 
 /* Sizes */
 capsule-switch[size='sm'] {
   width: 40px;
   height: 24px;
-  gap: var(--capsule-margin-xs);
 }
 
 capsule-switch[size='lg'] {
   width: 64px;
   height: 40px;
-  gap: var(--capsule-margin);
 }
 
 /* Active state indicator */

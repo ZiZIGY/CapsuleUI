@@ -2,7 +2,6 @@ class Ripple extends HTMLElement {
   constructor() {
     super();
     this._bound = false;
-    this._keyActive = false;
     this._onDown = this._onDown.bind(this);
     this._onUp = this._onUp.bind(this);
 
@@ -83,18 +82,6 @@ class Ripple extends HTMLElement {
     parent.addEventListener('pointerup', this._onUp);
     parent.addEventListener('pointerleave', this._onUp);
     parent.addEventListener('pointercancel', this._onUp);
-    parent.addEventListener('keydown', (e) => {
-      if ((e.key === 'Enter' || e.key === ' ') && !this._keyActive) {
-        this._keyActive = true;
-        this._onDown(e, true);
-      }
-    });
-    parent.addEventListener('keyup', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        this._keyActive = false;
-        this._onUp();
-      }
-    });
     this._bound = true;
   }
 
