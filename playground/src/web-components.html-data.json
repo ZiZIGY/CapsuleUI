@@ -1,0 +1,29 @@
+{
+  "version": 1.1,
+  "tags": [
+    {
+      "name": "my-component",
+      "description": "My custom component. Here is its [documentation](https://github.com/microsoft/vscode-custom-data/blob/master/samples/webcomponents/src/components/my-component/docs.md).\nUse it like this:\n```html\n<my-component type='text'></my-component>\n<my-component\n  type='color'\n  color='#00bb00'\n></my-component>\n```",
+      "attributes": [
+        {
+          "name": "variant",
+          "description": "Type of the component. Can be either `text` or `color`.\nIf type is `color`, it needs to have a `color` attribute as well.",
+          "values": [
+            {
+              "name": "primary",
+              "description": "For textual content."
+            },
+            {
+              "name": "secondary",
+              "description": "For colorful content."
+            }
+          ]
+        },
+        {
+          "name": "color",
+          "description": "Color of the component. Only applies when `type` is `color`."
+        }
+      ]
+    }
+  ]
+}

@@ -191,63 +191,77 @@ export const add = {
         // После переименования обновим список файлов
         const renamedFiles = fs.readdirSync(destComponentDir);
 
-        // Новая логика: всегда native сборка
-        const jsFile = renamedFiles.find(
+        // Собираем все JS и CSS файлы для автоимпорта
+        const jsFiles = renamedFiles.filter(
           (f) =>
-            f.endsWith('.js') &&
-            !f.endsWith('.variants.js') &&
-            !f.endsWith('index.js')
+            f.endsWith('.js') && !f.endsWith('.variants.js') && f !== 'index.js'
         );
+        const cssFiles = renamedFiles.filter((f) => f.endsWith('.style.css'));
         const variantsFile = renamedFiles.find((f) =>
           f.endsWith('.variants.js')
         );
-        const styleFile = renamedFiles.find((f) => f.endsWith('.style.css'));
         const readmeFile = renamedFiles.find((f) => f.endsWith('.md'));
 
-        if (!jsFile) throw new Error('Не найден основной js-файл компонента');
+        if (jsFiles.length === 0)
+          throw new Error('Не найден основной js-файл компонента');
 
-        const jsPath = path.join(destComponentDir, jsFile);
-        let jsCode = fs.readFileSync(jsPath, 'utf8');
+        // Для объединения variants внутрь каждого JS (если есть общий variants)
+        for (const jf of jsFiles) {
+          const jsPath = path.join(destComponentDir, jf);
+          let jsCode = fs.readFileSync(jsPath, 'utf8');
 
-        // Вставить variants (как const ...) если есть
-        if (variantsFile) {
-          const variantsPath = path.join(destComponentDir, variantsFile);
-          let variantsCode = fs.readFileSync(variantsPath, 'utf8');
-          variantsCode = variantsCode.replace(/export\s+const\s+/, 'const ');
-          jsCode = variantsCode + '\n\n' + jsCode;
+          if (variantsFile) {
+            const variantsPath = path.join(destComponentDir, variantsFile);
+            let variantsCode = fs.readFileSync(variantsPath, 'utf8');
+            variantsCode = variantsCode.replace(/export\s+const\s+/, 'const ');
+            jsCode = variantsCode + '\n\n' + jsCode;
+          }
+
+          // Удалить import/export для native build
+          jsCode = jsCode
+            .replace(/import[^;]+;?/g, '')
+            .replace(/export\s+/g, '');
+
+          // Минификация если указано
+          if (options.minify) {
+            jsCode = minifyJs(jsCode);
+          }
+
+          fs.writeFileSync(jsPath, jsCode, 'utf8');
         }
 
-        // Обработка обычного style.css - оставляем как отдельный файл
-        if (styleFile) {
-          console.log(`CSS file saved: ${styleFile}`);
-
-          // Auto-import component styles into @capsule/global.css
+        // Обработка CSS: логируем и автоимпортируем все style.css
+        if (cssFiles.length > 0) {
+          console.log(`CSS files saved: ${cssFiles.join(', ')}`);
           try {
             const globalCssPath = path.join(capsuleRoot, 'global.css');
             if (fs.existsSync(globalCssPath)) {
-              const importPath = `./components/${prefix}-${kebabComponent}/${styleFile}`;
               let globalCss = fs.readFileSync(globalCssPath, 'utf8');
-              const alreadyImported = new RegExp(
-                String.raw`@import\s+url\(['\"]?${importPath.replace(
-                  /[-\/\\.^$*+?()|\[\]{}]/g,
-                  (r) => r
-                )}['\"]?\)\s*;`
-              ).test(globalCss);
-              if (!alreadyImported) {
-                const importLine = `@import url('${importPath}');`;
-                const lines = globalCss.split(/\r?\n/);
 
-                const insertIdx = 0;
-                lines.splice(insertIdx, 0, importLine);
-                globalCss = lines.join('\n');
-                if (!globalCss.endsWith('\n')) globalCss += '\n';
-                fs.writeFileSync(globalCssPath, globalCss, 'utf8');
-                console.log(
-                  `Injected import into @capsule/global.css: ${importPath}`
-                );
-              } else {
-                console.log('Import already present in @capsule/global.css');
+              // Вставляем каждый импорт первой строкой (в обратном порядке, чтобы итоговый порядок совпал с исходным списком)
+              for (let i = cssFiles.length - 1; i >= 0; i--) {
+                const cssf = cssFiles[i];
+                const importPath = `./components/${prefix}-${kebabComponent}/${cssf}`;
+                const alreadyImported = new RegExp(
+                  String.raw`@import\s+url\(['\"]?${importPath.replace(
+                    /[-\/\\.^$*+?()|\[\]{}]/g,
+                    (r) => r
+                  )}['\"]?\)\s*;`
+                ).test(globalCss);
+                if (!alreadyImported) {
+                  const importLine = `@import url('${importPath}');`;
+                  const lines = globalCss.split(/\r?\n/);
+                  lines.splice(0, 0, importLine);
+                  globalCss = lines.join('\n');
+                }
               }
+              if (!globalCss.endsWith('\n')) globalCss += '\n';
+              fs.writeFileSync(globalCssPath, globalCss, 'utf8');
+              console.log(
+                `Injected imports into @capsule/global.css for: ${cssFiles.join(
+                  ', '
+                )}`
+              );
             } else {
               console.log(
                 'Warning: @capsule/global.css not found. Skipped auto-import.'
@@ -261,36 +275,54 @@ export const add = {
           }
         }
 
-        // Auto-import component JS into @capsule/components/init.js
+        if (readmeFile) {
+          console.log(`Documentation saved: ${readmeFile}`);
+        }
+
+        // Удалить лишние файлы
+        if (variantsFile)
+          fs.unlinkSync(path.join(destComponentDir, variantsFile));
+        const indexPath = path.join(destComponentDir, 'index.js');
+        if (fs.existsSync(indexPath)) fs.unlinkSync(indexPath);
+
+        // Автоимпорт всех JS файлов компонента в @capsule/components/init.js
         try {
           const initJsDir = path.join(capsuleRoot, 'components');
           const initJsPath = path.join(initJsDir, 'init.js');
           ensureDir(initJsDir);
-          const importJsPath = `./${prefix}-${kebabComponent}/${jsFile}`;
           let initContent = '';
           if (fs.existsSync(initJsPath)) {
             initContent = fs.readFileSync(initJsPath, 'utf8');
           } else {
             initContent = `// CapsuleUI components entry\n`;
           }
-          const alreadyHasImport = new RegExp(
-            String.raw`^\s*import\s+['\"]${importJsPath.replace(
-              /[-\/\\.^$*+?()|\[\]{}]/g,
-              (r) => r
-            )}['\"];?\s*$`,
-            'm'
-          ).test(initContent);
-          if (!alreadyHasImport) {
-            initContent +=
-              (initContent.endsWith('\n') ? '' : '\n') +
-              `import '${importJsPath}';\n`;
+          let updated = false;
+          for (const jf of jsFiles) {
+            const importJsPath = `./${prefix}-${kebabComponent}/${jf}`;
+            const alreadyHasImport = new RegExp(
+              String.raw`^\s*import\s+['\"]${importJsPath.replace(
+                /[-\/\\.^$*+?()|\[\]{}]/g,
+                (r) => r
+              )}['\"];?\s*$`,
+              'm'
+            ).test(initContent);
+            if (!alreadyHasImport) {
+              initContent +=
+                (initContent.endsWith('\n') ? '' : '\n') +
+                `import '${importJsPath}';\n`;
+              updated = true;
+            }
+          }
+          if (updated) {
             fs.writeFileSync(initJsPath, initContent, 'utf8');
             console.log(
-              `Injected import into @capsule/components/init.js: ${importJsPath}`
+              `Injected imports into @capsule/components/init.js for: ${jsFiles.join(
+                ', '
+              )}`
             );
           } else {
             console.log(
-              'Import already present in @capsule/components/init.js'
+              'Imports already present in @capsule/components/init.js'
             );
           }
         } catch (e) {
@@ -300,26 +332,6 @@ export const add = {
           );
         }
 
-        if (readmeFile) {
-          // Оставляем README.md как есть - пользователь получит его отдельно
-          console.log(`Documentation saved: ${readmeFile}`);
-        }
-
-        // Удалить import/export для native build
-        jsCode = jsCode.replace(/import[^;]+;?/g, '').replace(/export\s+/g, '');
-
-        // Минификация если указано
-        if (options.minify) {
-          jsCode = minifyJs(jsCode);
-        }
-
-        fs.writeFileSync(jsPath, jsCode, 'utf8');
-
-        // Удалить лишние файлы
-        if (variantsFile)
-          fs.unlinkSync(path.join(destComponentDir, variantsFile));
-        const indexPath = path.join(destComponentDir, 'index.js');
-        if (fs.existsSync(indexPath)) fs.unlinkSync(indexPath);
         spinner.succeed(
           `Component ${colors.green(
             component
