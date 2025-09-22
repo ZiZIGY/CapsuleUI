@@ -1,0 +1,44 @@
+{
+  "version": 1.1,
+  "tags": [
+    {
+      "name": "ui-button",
+      "description": "CapsuleUI Button web component. Accessible by default. Supports disabled, size, variant and button types.",
+      "attributes": [
+        {
+          "name": "disabled",
+          "description": "Disables the button and prevents interaction.",
+          "valueSet": "v"
+        },
+        {
+          "name": "type",
+          "description": "Button type attribute.",
+          "values": [
+            { "name": "button" },
+            { "name": "submit" },
+            { "name": "reset" }
+          ]
+        },
+        {
+          "name": "size",
+          "description": "Visual size of the button.",
+          "values": [
+            { "name": "xs" },
+            { "name": "sm" },
+            { "name": "md" },
+            { "name": "lg" }
+          ]
+        },
+        {
+          "name": "variant",
+          "description": "Visual style variant.",
+          "values": [
+            { "name": "primary" },
+            { "name": "secondary" },
+            { "name": "outline" }
+          ]
+        }
+      ]
+    }
+  ]
+}

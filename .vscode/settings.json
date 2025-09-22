@@ -1,3 +1,5 @@
 {
-  "html.customData": ["./playground/src/web-components.html-data.json"]
+  "html.customData": [
+    "playground/@capsule/components/ui-button/vscode.data.json"
+  ]
 }
