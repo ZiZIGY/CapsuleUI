@@ -1,5 +1,2 @@
-
-import './ui-slider/ui-slider.js';
-import './test-button/test-button.js';
-import './ui-accordion/ui-accordion-item.js';
+// CapsuleUI components entry
 import './ui-button/ui-button.js';
