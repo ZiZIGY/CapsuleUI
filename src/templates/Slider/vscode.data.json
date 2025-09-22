@@ -1,0 +1,51 @@
+{
+  "version": 1.1,
+  "tags": [
+    {
+      "name": "__PREFIX__-__COMPONENT__",
+      "description": "CapsuleUI Slider component. Supports single or multiple thumbs via values attribute.",
+      "attributes": [
+        {
+          "name": "min",
+          "description": "Minimum value of the range.",
+          "values": [{ "name": "number" }]
+        },
+        {
+          "name": "max",
+          "description": "Maximum value of the range.",
+          "values": [{ "name": "number" }]
+        },
+        {
+          "name": "step",
+          "description": "Step between values.",
+          "values": [{ "name": "number" }]
+        },
+        {
+          "name": "decimals",
+          "description": "Number of decimal places to format labels.",
+          "values": [{ "name": "number" }]
+        },
+        {
+          "name": "values",
+          "description": "Initial values as JSON array, e.g. [25,75] or [50].",
+          "values": [{ "name": "JSON" }]
+        },
+        {
+          "name": "orientation",
+          "description": "Slider orientation.",
+          "values": [{ "name": "horizontal" }, { "name": "vertical" }]
+        },
+        {
+          "name": "show-ticks",
+          "description": "Show tick marks along the track (boolean attribute).",
+          "valueSet": "v"
+        },
+        {
+          "name": "ticks-density",
+          "description": "Density multiplier for tick marks (1 shows every step).",
+          "values": [{ "name": "number" }]
+        }
+      ]
+    }
+  ]
+}

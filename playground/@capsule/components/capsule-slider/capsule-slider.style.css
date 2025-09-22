@@ -1,4 +1,4 @@
-__PREFIX__-__COMPONENT__ {
+capsule-slider {
   display: block;
   position: relative;
   width: 100%;
@@ -7,12 +7,12 @@ __PREFIX__-__COMPONENT__ {
   touch-action: none;
 }
 
-__PREFIX__-__COMPONENT__[orientation='vertical'] {
+capsule-slider[orientation='vertical'] {
   width: 48px;
   height: 200px;
 }
 
-__PREFIX__-__COMPONENT__::part(track) {
+capsule-slider::part(track) {
   position: absolute;
   top: 50%;
   left: 0;
@@ -23,7 +23,7 @@ __PREFIX__-__COMPONENT__::part(track) {
   border-radius: var(--capsule-radius-full);
 }
 
-__PREFIX__-__COMPONENT__[orientation='vertical']::part(track) {
+capsule-slider[orientation='vertical']::part(track) {
   top: 0;
   left: 50%;
   transform: translateX(-50%);
@@ -31,7 +31,7 @@ __PREFIX__-__COMPONENT__[orientation='vertical']::part(track) {
   height: 100%;
 }
 
-__PREFIX__-__COMPONENT__::part(range) {
+capsule-slider::part(range) {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -42,7 +42,7 @@ __PREFIX__-__COMPONENT__::part(range) {
   z-index: 1;
 }
 
-__PREFIX__-__COMPONENT__[orientation='vertical']::part(range) {
+capsule-slider[orientation='vertical']::part(range) {
   left: 50%;
   transform: translateX(-50%);
   width: 4px;
@@ -50,14 +50,14 @@ __PREFIX__-__COMPONENT__[orientation='vertical']::part(range) {
   height: var(--height);
 }
 
-__PREFIX__-__COMPONENT__::part(ripples) {
+capsule-slider::part(ripples) {
   background-color: var(--capsule-ripple-bg);
   border-radius: var(--capsule-radius-full);
   transition: var(--capsule-transition-slow);
   transform: scale(var(--capsule-ripples-size));
 }
 
-__PREFIX__-__COMPONENT__::part(ticks) {
+capsule-slider::part(ticks) {
   position: absolute;
   top: 50%;
   left: 0;
@@ -68,7 +68,7 @@ __PREFIX__-__COMPONENT__::part(ticks) {
   z-index: 0;
 }
 
-__PREFIX__-__COMPONENT__[orientation='vertical']::part(ticks) {
+capsule-slider[orientation='vertical']::part(ticks) {
   top: 0;
   left: 50%;
   transform: translateX(-50%);
@@ -76,7 +76,7 @@ __PREFIX__-__COMPONENT__[orientation='vertical']::part(ticks) {
   height: 100%;
 }
 
-__PREFIX__-__COMPONENT__::part(tick) {
+capsule-slider::part(tick) {
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -87,7 +87,7 @@ __PREFIX__-__COMPONENT__::part(tick) {
   opacity: 0.6;
 }
 
-__PREFIX__-__COMPONENT__[orientation='vertical']::part(tick) {
+capsule-slider[orientation='vertical']::part(tick) {
   top: auto;
   left: 50%;
   transform: translate(-50%, 50%);
@@ -95,12 +95,12 @@ __PREFIX__-__COMPONENT__[orientation='vertical']::part(tick) {
   height: 2px;
 }
 
-__PREFIX__-__COMPONENT__[orientation='vertical']::part(tick) {
+capsule-slider[orientation='vertical']::part(tick) {
   width: 12px;
   height: 3px;
 }
 
-__PREFIX__-__COMPONENT__::part(thumb) {
+capsule-slider::part(thumb) {
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -120,13 +120,13 @@ capsule-slider::part(thumb):hover {
   --capsule-ripples-size: 1;
 }
 
-__PREFIX__-__COMPONENT__[orientation='vertical']::part(thumb) {
+capsule-slider[orientation='vertical']::part(thumb) {
   top: auto;
   left: 50%;
   transform: translate(-50%, 50%);
 }
 
-__PREFIX__-__COMPONENT__::part(surface) {
+capsule-slider::part(surface) {
   width: 20px;
   height: 20px;
   background: var(--capsule-color-primary);
@@ -136,30 +136,30 @@ __PREFIX__-__COMPONENT__::part(surface) {
   transition: var(--capsule-transition);
 }
 
-__PREFIX__-__COMPONENT__::part(thumb):hover::part(surface) {
+capsule-slider::part(thumb):hover::part(surface) {
   transform: scale(1.1);
   box-shadow: var(--capsule-shadow-lg);
 }
 
-__PREFIX__-__COMPONENT__::part(thumb):active::part(surface) {
+capsule-slider::part(thumb):active::part(surface) {
   transform: scale(1.2);
 }
 
-__PREFIX__-__COMPONENT__[disabled] {
+capsule-slider[disabled] {
   pointer-events: none;
   opacity: 0.5;
   cursor: not-allowed;
 }
 
-__PREFIX__-__COMPONENT__[disabled]::part(track) {
+capsule-slider[disabled]::part(track) {
   background: var(--capsule-color-outline-border);
 }
 
-__PREFIX__-__COMPONENT__[disabled]::part(range) {
+capsule-slider[disabled]::part(range) {
   background: var(--capsule-color-text-secondary);
 }
 
-__PREFIX__-__COMPONENT__[disabled]::part(surface) {
+capsule-slider[disabled]::part(surface) {
   background: var(--capsule-color-text-secondary);
   box-shadow: var(--capsule-shadow-sm);
 }
