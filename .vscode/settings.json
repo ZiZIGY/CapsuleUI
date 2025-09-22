@@ -1,6 +1,7 @@
 {
   "html.customData": [
     "playground/@capsule/components/capsule-button/vscode.data.json",
-    "playground/@capsule/components/capsule-divider/vscode.data.json"
+    "playground/@capsule/components/capsule-divider/vscode.data.json",
+    "playground/@capsule/components/capsule-skeleton/vscode.data.json"
   ]
 }
