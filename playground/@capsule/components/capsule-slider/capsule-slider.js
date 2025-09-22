@@ -74,8 +74,25 @@ class Slider extends HTMLElement {
 
   // Private methods
   _parseAttributes() {
+    // Сначала получаем min/max
     this._min = parseFloat(this.getAttribute('min'));
     this._max = parseFloat(this.getAttribute('max'));
+
+    // Если min/max не указаны или некорректны - ставим дефолтные
+    if (isNaN(this._min)) this._min = 0;
+    if (isNaN(this._max)) this._max = 100;
+    if (this._min >= this._max) this._max = this._min + 100;
+
+    // Теперь получаем values
+    const valuesAttr = this.getAttribute('values');
+    this._values = valuesAttr
+      ? this._parseValues(valuesAttr)
+      : [this._min, this._max];
+
+    // Валидируем values в пределах min/max
+    this._validateValues();
+
+    // Остальные параметры
     this._step = parseFloat(this.getAttribute('step')) || 1;
     this._decimals = parseInt(this.getAttribute('decimals')) || 0;
     this._orientation =
@@ -84,19 +101,35 @@ class Slider extends HTMLElement {
         : 'horizontal';
     this._showTicks = this.hasAttribute('show-ticks');
     this._ticksDensity = parseInt(this.getAttribute('ticks-density')) || 1;
-
-    const valuesAttr = this.getAttribute('values');
-    this._values = valuesAttr ? this._parseValues(valuesAttr) : [25, 75];
-
-    this._calculateMinMax();
-    this._validateValues();
   }
 
   _parseValues(valuesAttr) {
     try {
-      return JSON.parse(valuesAttr);
+      const parsed = JSON.parse(valuesAttr);
+      if (!Array.isArray(parsed) || parsed.length === 0) {
+        // Если values некорректны - используем min/max
+        return [this._min, this._max];
+      }
+      return parsed;
     } catch {
-      return [25, 75];
+      return [this._min, this._max];
+    }
+  }
+
+  _validateValues() {
+    this._values = this._values
+      .map((v) => {
+        const num = parseFloat(v);
+        return isNaN(num)
+          ? this._min
+          : Math.max(this._min, Math.min(num, this._max));
+      })
+      .sort((a, b) => a - b);
+
+    // Если values пустой - создаем дефолтные на основе min/max
+    if (this._values.length === 0) {
+      this._values =
+        this._values.length === 1 ? [this._min] : [this._min, this._max];
     }
   }
 
@@ -106,14 +139,6 @@ class Slider extends HTMLElement {
     if (this._min == null) this._min = 0;
     if (this._max == null) this._max = 100;
     if (this._min === this._max) this._max = this._min + 100;
-  }
-
-  _validateValues() {
-    this._values = this._values
-      .map((v) => Math.max(this._min, Math.min(v, this._max)))
-      .sort((a, b) => a - b);
-
-    if (this._values.length === 0) this._values = [this._min, this._max];
   }
 
   _render() {
@@ -184,13 +209,8 @@ class Slider extends HTMLElement {
       const ripple = document.createElement('capsule-ripple');
       ripple.part.add('ripples');
 
-      // const label = document.createElement('div');
-      // label.part.add('label');
-      // label.textContent = this._formatValue(value);\
-
       thumb.appendChild(ripple);
       thumb.appendChild(surface);
-      // thumb.appendChild(label);
 
       this.shadowRoot.appendChild(thumb);
       this._thumbs[index] = thumb;
@@ -200,14 +220,12 @@ class Slider extends HTMLElement {
 
   _positionThumb(index) {
     const thumb = this._thumbs[index];
-    // const label = thumb.querySelector('[part="label"]');
+
     const percentage =
       ((this._values[index] - this._min) / (this._max - this._min)) * 100;
     const axis = this._orientation === 'horizontal' ? 'left' : 'bottom';
 
-    // label.style[axis] = `${percentage}%`;
     thumb.style[axis] = `${percentage}%`;
-    // label.textContent = this._formatValue(this._values[index]);
   }
 
   _formatValue(value) {
@@ -215,17 +233,34 @@ class Slider extends HTMLElement {
   }
 
   _updateRange() {
-    const minPercent =
-      ((Math.min(...this._values) - this._min) / (this._max - this._min)) * 100;
-    const maxPercent =
-      ((Math.max(...this._values) - this._min) / (this._max - this._min)) * 100;
+    if (this._values.length === 0) return;
+
+    let startPercent, endPercent;
+
+    if (this._values.length === 1) {
+      // Для одного значения - range от min до этого значения
+      startPercent = 0;
+      endPercent =
+        ((this._values[0] - this._min) / (this._max - this._min)) * 100;
+    } else {
+      // Для нескольких значений - range от min до max значения
+      startPercent =
+        ((Math.min(...this._values) - this._min) / (this._max - this._min)) *
+        100;
+      endPercent =
+        ((Math.max(...this._values) - this._min) / (this._max - this._min)) *
+        100;
+    }
 
     if (this._orientation === 'horizontal') {
-      this._range.style.left = `${minPercent}%`;
-      this._range.style.width = `${maxPercent - minPercent}%`;
+      this._range.style.left = `${startPercent}%`;
+      this._range.style.width = `${endPercent - startPercent}%`;
     } else {
-      this._range.style.setProperty('--top', `${100 - maxPercent}%`);
-      this._range.style.setProperty('--height', `${maxPercent - minPercent}%`);
+      this._range.style.setProperty('--top', `${100 - endPercent}%`);
+      this._range.style.setProperty(
+        '--height',
+        `${endPercent - startPercent}%`
+      );
     }
   }
 
