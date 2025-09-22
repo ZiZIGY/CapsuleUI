@@ -1,4 +1,4 @@
-__PREFIX__-__COMPONENT__ {
+capsule-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -16,23 +16,23 @@ __PREFIX__-__COMPONENT__ {
   gap: 0.5rem;
 }
 
-__PREFIX__-__COMPONENT__:hover:not([disabled]) {
+capsule-button:hover:not([disabled]) {
   transform: translateY(-1px);
   box-shadow: var(--capsule-shadow-md);
 }
 
-__PREFIX__-__COMPONENT__:active:not([disabled]) {
+capsule-button:active:not([disabled]) {
   transform: translateY(0);
   box-shadow: var(--capsule-shadow-sm);
   transition: var(--capsule-transition-fast);
 }
 
-__PREFIX__-__COMPONENT__:focus-visible {
+capsule-button:focus-visible {
   outline: none;
   box-shadow: var(--capsule-shadow-focus), var(--capsule-shadow);
 }
 
-__PREFIX__-__COMPONENT__[disabled] {
+capsule-button[disabled] {
   pointer-events: none;
   opacity: 0.6;
   cursor: not-allowed;
@@ -40,39 +40,39 @@ __PREFIX__-__COMPONENT__[disabled] {
   box-shadow: var(--capsule-shadow-sm);
 }
 
-__PREFIX__-__COMPONENT__[size='xs'] {
+capsule-button[size='xs'] {
   padding: var(--capsule-padding-xs);
   font-size: var(--capsule-font-size-xs);
   gap: 0.25rem;
 }
 
-__PREFIX__-__COMPONENT__[size='sm'] {
+capsule-button[size='sm'] {
   padding: var(--capsule-padding-sm);
   font-size: var(--capsule-font-size-sm);
   gap: 0.375rem;
 }
 
-__PREFIX__-__COMPONENT__:not([size]),
-__PREFIX__-__COMPONENT__[size='md'] {
+capsule-button:not([size]),
+capsule-button[size='md'] {
   padding: var(--capsule-padding-md);
   font-size: var(--capsule-font-size);
   gap: 0.5rem;
 }
 
-__PREFIX__-__COMPONENT__[size='lg'] {
+capsule-button[size='lg'] {
   padding: var(--capsule-padding-lg);
   font-size: var(--capsule-font-size-lg);
   gap: 0.625rem;
 }
 
-__PREFIX__-__COMPONENT__:not([variant]),
-__PREFIX__-__COMPONENT__[variant='primary'] {
+capsule-button:not([variant]),
+capsule-button[variant='primary'] {
   background: linear-gradient(135deg, var(--capsule-color-primary), #3b82f6);
   color: var(--capsule-color-white);
 }
 
-__PREFIX__-__COMPONENT__:not([variant]):hover:not([disabled]),
-__PREFIX__-__COMPONENT__[variant='primary']:hover:not([disabled]) {
+capsule-button:not([variant]):hover:not([disabled]),
+capsule-button[variant='primary']:hover:not([disabled]) {
   background: linear-gradient(
     135deg,
     var(--capsule-color-primary-hover),
@@ -80,8 +80,8 @@ __PREFIX__-__COMPONENT__[variant='primary']:hover:not([disabled]) {
   );
 }
 
-__PREFIX__-__COMPONENT__:not([variant]):active:not([disabled]),
-__PREFIX__-__COMPONENT__[variant='primary']:active:not([disabled]) {
+capsule-button:not([variant]):active:not([disabled]),
+capsule-button[variant='primary']:active:not([disabled]) {
   background: linear-gradient(
     135deg,
     var(--capsule-color-primary-press),
@@ -89,32 +89,32 @@ __PREFIX__-__COMPONENT__[variant='primary']:active:not([disabled]) {
   );
 }
 
-__PREFIX__-__COMPONENT__[variant='secondary'] {
+capsule-button[variant='secondary'] {
   background: var(--capsule-color-white);
   color: var(--capsule-color-text);
   border: 1px solid var(--capsule-color-outline-border);
 }
 
-__PREFIX__-__COMPONENT__[variant='secondary']:hover:not([disabled]) {
+capsule-button[variant='secondary']:hover:not([disabled]) {
   background: var(--capsule-color-secondary-hover);
 }
 
-__PREFIX__-__COMPONENT__[variant='secondary']:active:not([disabled]) {
+capsule-button[variant='secondary']:active:not([disabled]) {
   background: var(--capsule-color-secondary-press);
 }
 
-__PREFIX__-__COMPONENT__[variant='outline'] {
+capsule-button[variant='outline'] {
   background: transparent;
   color: var(--capsule-color-text);
   border: 1.5px solid var(--capsule-color-outline-border);
   box-shadow: none;
 }
 
-__PREFIX__-__COMPONENT__[variant='outline']:hover:not([disabled]) {
+capsule-button[variant='outline']:hover:not([disabled]) {
   background: var(--capsule-color-outline-hover);
   box-shadow: var(--capsule-shadow);
 }
 
-__PREFIX__-__COMPONENT__[variant='outline']:active:not([disabled]) {
+capsule-button[variant='outline']:active:not([disabled]) {
   background: var(--capsule-color-secondary);
 }

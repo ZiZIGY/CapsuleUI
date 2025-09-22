@@ -1,0 +1,16 @@
+{
+  "version": 1.1,
+  "tags": [
+    {
+      "name": "capsule-divider",
+      "description": "CapsuleUI Divider component. Semantic separator with horizontal/vertical orientation.",
+      "attributes": [
+        {
+          "name": "orientation",
+          "description": "Visual/semantic orientation of the divider.",
+          "values": [{ "name": "horizontal" }, { "name": "vertical" }]
+        }
+      ]
+    }
+  ]
+}

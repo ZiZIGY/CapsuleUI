@@ -1,2 +1,3 @@
-// CapsuleUI components entry
-import './ui-button/ui-button.js';
+
+import './capsule-button/capsule-button.js';
+import './capsule-divider/capsule-divider.js';

@@ -2,7 +2,7 @@
   "version": 1.1,
   "tags": [
     {
-      "name": "ui-button",
+      "name": "capsule-button",
       "description": "CapsuleUI Button web component. Accessible by default. Supports disabled, size, variant and button types.",
       "attributes": [
         {

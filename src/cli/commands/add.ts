@@ -134,22 +134,7 @@ export const add = {
 
         const destDir = path.join(capsuleRoot, 'components');
         ensureDir(destDir);
-        let prefix = options.prefix;
-        if (!prefix) {
-          prefix = await new Promise<string>((resolve) => {
-            const rl = require('readline').createInterface({
-              input: process.stdin,
-              output: process.stdout,
-            });
-            rl.question(
-              'Enter custom element prefix (e.g. ui): ',
-              (answer: string) => {
-                rl.close();
-                resolve(answer.trim() || 'ui');
-              }
-            );
-          });
-        }
+        const prefix = (options.prefix && options.prefix.trim()) || 'capsule';
         const kebabComponent = toKebabCase(component);
         const destComponentDir = path.join(
           destDir,
@@ -160,7 +145,7 @@ export const add = {
         function replacePlaceholdersInFile(filePath: string) {
           if (!fs.statSync(filePath).isFile()) return;
           let content = fs.readFileSync(filePath, 'utf8');
-          content = content.replace(/__PREFIX__/g, prefix || 'ui');
+          content = content.replace(/__PREFIX__/g, prefix || 'capsule');
           content = content.replace(/__COMPONENT__/g, kebabComponent);
           fs.writeFileSync(filePath, content, 'utf8');
         }

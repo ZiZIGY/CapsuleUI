@@ -129,7 +129,8 @@ class Ripple extends HTMLElement {
   }
 
   _onUp() {
-    const ripple = this.shadowRoot.querySelector('*:last-child');
+    let ripple = this.shadowRoot.querySelector('*:last-child');
+
     if (ripple) {
       ripple.part.add('fade');
       ripple.setAttribute('data-fade', '');

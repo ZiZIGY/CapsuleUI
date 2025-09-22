@@ -1,4 +1,4 @@
-__PREFIX__-__COMPONENT__ {
+capsule-divider {
   display: flex;
   margin: var(--capsule-margin-sm) 0;
   padding: 0;
@@ -7,13 +7,13 @@ __PREFIX__-__COMPONENT__ {
   flex-shrink: 0;
 }
 
-__PREFIX__-__COMPONENT__,
-__PREFIX__-__COMPONENT__[orientation='horizontal'] {
+capsule-divider,
+capsule-divider[orientation='horizontal'] {
   height: 1px;
   width: 100%;
 }
 
-__PREFIX__-__COMPONENT__[orientation='vertical'] {
+capsule-divider[orientation='vertical'] {
   width: 1px;
   height: 100%;
   margin: 0 var(--capsule-margin-sm);
