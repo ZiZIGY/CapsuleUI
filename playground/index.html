@@ -18,26 +18,33 @@
     ></script>
   </head>
   <body>
-    <capsule-button
-      variant="primary"
-      type="button"
-    >
-      тест
-    </capsule-button>
+    <capsule-button variant="primary"> тест </capsule-button>
 
-    <capsule-divider></capsule-divider>
-
-    <capsule-button
-      variant="primary"
-      type="button"
-    >
-      Кек
-    </capsule-button>
     <capsule-skeleton variant="rectangular"></capsule-skeleton>
-    <capsule-slider
-      show-ticks
-      step="10"
-    >
-    </capsule-slider>
+    <form id="form">
+      <capsule-slider
+        show-ticks
+        step="10"
+        name="test"
+      >
+      </capsule-slider>
+
+      <capsule-switch name="kek"></capsule-switch>
+
+      <capsule-divider></capsule-divider>
+
+      <capsule-button
+        variant="primary"
+        type="submit"
+      >
+        Кек
+      </capsule-button>
+    </form>
+    <script defer>
+      form.onsubmit = (e) => {
+        e.preventDefault();
+        console.log(new FormData(e.currentTarget));
+      };
+    </script>
   </body>
 </html>

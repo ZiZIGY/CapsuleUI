@@ -1,0 +1,26 @@
+{
+  "version": 1.1,
+  "tags": [
+    {
+      "name": "capsule-switch",
+      "description": "CapsuleUI Switch component (toggle). Form-associated, accessible, supports sizes.",
+      "attributes": [
+        {
+          "name": "checked",
+          "description": "Checked state (boolean attribute).",
+          "valueSet": "v"
+        },
+        {
+          "name": "disabled",
+          "description": "Disable the switch.",
+          "valueSet": "v"
+        },
+        {
+          "name": "size",
+          "description": "Visual size variant.",
+          "values": [{ "name": "sm" }, { "name": "md" }, { "name": "lg" }]
+        }
+      ]
+    }
+  ]
+}
