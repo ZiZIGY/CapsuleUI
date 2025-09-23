@@ -4,8 +4,6 @@ class Pagination extends HTMLElement {
     'total-pages',
     'items-per-page',
     'visible-pages',
-    'show-ellipsis',
-    'show-first-last',
   ];
 
   constructor() {
@@ -26,20 +24,23 @@ class Pagination extends HTMLElement {
     const page = parseInt(this.getAttribute('page')) || 1;
     const totalPages = parseInt(this.getAttribute('total-pages')) || 1;
     const visiblePages = parseInt(this.getAttribute('visible-pages')) || 5;
-    const showEllipsis = this.hasAttribute('show-ellipsis');
-    const showFirstLast = this.hasAttribute('show-first-last');
+
+    // Проверяем есть ли контент в слотах
+    const hasEllipsis = this._hasSlotContent('ellipsis');
+    const hasFirst = this._hasSlotContent('first');
+    const hasLast = this._hasSlotContent('last');
 
     const pages = this._generatePages(
       page,
       totalPages,
       visiblePages,
-      showEllipsis
+      hasEllipsis
     );
 
     this.shadowRoot.innerHTML = `
       <nav class="pagination" part="pagination" aria-label="Pagination">
         ${
-          showFirstLast
+          hasFirst
             ? `
           <div class="page-item first" part="first-item">
             <slot name="first"></slot>
@@ -56,7 +57,13 @@ class Pagination extends HTMLElement {
           ${pages
             .map((page) => {
               if (page === 'ellipsis') {
-                return `<div class="ellipsis" part="ellipsis"><slot name="ellipsis">…</slot></div>`;
+                return hasEllipsis
+                  ? `
+                <div class="ellipsis" part="ellipsis">
+                  <slot name="ellipsis"></slot>
+                </div>
+              `
+                  : '';
               }
               const isActive = page === parseInt(this.getAttribute('page'));
               return `
@@ -75,7 +82,7 @@ class Pagination extends HTMLElement {
         </div>
 
         ${
-          showFirstLast
+          hasLast
             ? `
           <div class="page-item last" part="last-item">
             <slot name="last"></slot>
@@ -89,6 +96,11 @@ class Pagination extends HTMLElement {
     this._bindPageEvents();
   }
 
+  _hasSlotContent(slotName) {
+    // Проверяем есть ли элементы в светлом DOM для этого слота
+    return this.querySelector(`[slot="${slotName}"]`) !== null;
+  }
+
   _bindPageEvents() {
     const pageButtons = this.shadowRoot.querySelectorAll('button[data-page]');
     pageButtons.forEach((button) => {
@@ -100,8 +112,12 @@ class Pagination extends HTMLElement {
   }
 
   _attachEvents() {
-    if (this.hasAttribute('show-first-last')) {
+    // Биндим события только если есть контент в слотах
+    if (this._hasSlotContent('first')) {
       this._bindSlotEvent('first', () => this._goToFirst());
+    }
+
+    if (this._hasSlotContent('last')) {
       this._bindSlotEvent('last', () => this._goToLast());
     }
 
@@ -140,25 +156,23 @@ class Pagination extends HTMLElement {
       startPage = Math.max(1, endPage - visiblePages + 1);
     }
 
-    if (showEllipsis) {
-      if (startPage > 1) {
-        pages.push(1);
-        if (startPage > 2) pages.push('ellipsis');
+    // Всегда показываем первую и последнюю страницу
+    if (startPage > 1) {
+      pages.push(1);
+      if (startPage > 2 && showEllipsis) {
+        pages.push('ellipsis');
       }
+    }
 
-      for (let i = startPage; i <= endPage; i++) {
-        pages.push(i);
-      }
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(i);
+    }
 
-      if (endPage < totalPages) {
-        if (endPage < totalPages - 1) pages.push('ellipsis');
-        pages.push(totalPages);
+    if (endPage < totalPages) {
+      if (endPage < totalPages - 1 && showEllipsis) {
+        pages.push('ellipsis');
       }
-    } else {
-      // Без эллипсиса - просто видимый диапазон
-      for (let i = startPage; i <= endPage; i++) {
-        pages.push(i);
-      }
+      pages.push(totalPages);
     }
 
     return pages;
@@ -222,4 +236,4 @@ class Pagination extends HTMLElement {
   }
 }
 
-customElements.define('__PREFIX__-__COMPONENT__', Pagination);
+customElements.define('capsule-pagination', Pagination);

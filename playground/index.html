@@ -53,6 +53,33 @@
       </capsule-chip>
       <capsule-chip size="sm">Small Chip</capsule-chip>
 
+      <!-- Без эллипсиса и без first/last -->
+      <capsule-pagination
+        page="5"
+        total-pages="30"
+        visible-pages="7"
+      >
+        <button slot="previous">‹</button>
+        <button slot="next">›</button>
+        <button slot="first">«</button>
+        <button slot="last">»</button>
+        <span slot="ellipsis">...</span>
+      </capsule-pagination>
+
+      <!-- С эллипсисом и first/last -->
+      <!-- <capsule-pagination
+        page="5"
+        total-pages="30"
+        show-ellipsis
+        show-first-last
+      >
+        <button slot="first">«</button>
+        <button slot="previous">‹</button>
+        <span slot="ellipsis">...</span>
+        <button slot="next">›</button>
+        <button slot="last">»</button>
+      </capsule-pagination> -->
+
       <capsule-divider></capsule-divider>
     </form>
     <script defer>
