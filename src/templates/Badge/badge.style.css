@@ -4,7 +4,6 @@ __PREFIX__-__COMPONENT__ {
   vertical-align: middle;
 }
 
-/* Base badge styles */
 __PREFIX__-__COMPONENT__::after {
   content: attr(data-value);
   display: flex;
@@ -29,7 +28,6 @@ __PREFIX__-__COMPONENT__::after {
   white-space: nowrap;
 }
 
-/* Dot variant - должен быть ПЕРВЫМ */
 __PREFIX__-__COMPONENT__[variant='dot']::after {
   content: '';
   width: 8px;
@@ -40,14 +38,12 @@ __PREFIX__-__COMPONENT__[variant='dot']::after {
   border: none;
 }
 
-/* Outline variant - ДО цветов */
 __PREFIX__-__COMPONENT__[variant='outline']::after {
   background: transparent !important;
   border: 1px solid var(--capsule-color-primary) !important;
   color: var(--capsule-color-primary) !important;
 }
 
-/* Colors for outline - ОТДЕЛЬНО */
 __PREFIX__-__COMPONENT__[variant='outline'][color='secondary']::after {
   border-color: var(--capsule-color-secondary) !important;
   color: var(--capsule-color-secondary) !important;
@@ -68,7 +64,6 @@ __PREFIX__-__COMPONENT__[variant='outline'][color='success']::after {
   color: var(--capsule-color-success) !important;
 }
 
-/* Colors for standard/dot - ПОСЛЕ outline */
 __PREFIX__-__COMPONENT__[color='secondary']::after {
   background: var(--capsule-color-secondary);
   color: var(--capsule-color-secondary-text);
@@ -89,7 +84,6 @@ __PREFIX__-__COMPONENT__[color='success']::after {
   color: var(--capsule-color-white);
 }
 
-/* Dot colors */
 __PREFIX__-__COMPONENT__[variant='dot'][color='secondary']::after {
   background: var(--capsule-color-secondary);
 }
@@ -106,7 +100,6 @@ __PREFIX__-__COMPONENT__[variant='dot'][color='success']::after {
   background: var(--capsule-color-success);
 }
 
-/* Positions */
 __PREFIX__-__COMPONENT__[position='top-left']::after {
   top: 0;
   left: 0;
@@ -129,7 +122,6 @@ __PREFIX__-__COMPONENT__[position='bottom-left']::after {
   transform: translate(-50%, 50%);
 }
 
-/* Invisible */
 __PREFIX__-__COMPONENT__[invisible]::after {
   display: none;
 }

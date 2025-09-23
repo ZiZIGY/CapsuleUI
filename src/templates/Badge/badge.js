@@ -1,5 +1,5 @@
 class Badge extends HTMLElement {
-  static observedAttributes = ['value', 'max', 'variant'];
+  static observedAttributes = ['value', 'max'];
 
   constructor() {
     super();
@@ -10,7 +10,7 @@ class Badge extends HTMLElement {
   }
 
   attributeChangedCallback(name) {
-    if (name === 'value' || name === 'max' || name === 'variant') {
+    if (name === 'value' || name === 'max') {
       this._updateDisplayValue();
     }
   }
@@ -18,12 +18,6 @@ class Badge extends HTMLElement {
   _updateDisplayValue() {
     const value = this.getAttribute('value') || '0';
     const max = this.getAttribute('max');
-    const variant = this.getAttribute('variant');
-
-    if (variant === 'dot') {
-      this.dataset.displayValue = '';
-      return;
-    }
 
     if (max && value !== '') {
       const numericValue = parseInt(value);

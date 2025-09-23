@@ -5,3 +5,4 @@ import './capsule-skeleton/capsule-skeleton.js';
 import './capsule-slider/capsule-slider.js';
 import './capsule-switch/capsule-switch.js';
 import './capsule-badge/capsule-badge.js';
+import './capsule-chip/capsule-chip.js';

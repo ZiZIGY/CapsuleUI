@@ -28,7 +28,6 @@ capsule-switch::part(track) {
   background: var(--capsule-color-outline-border);
   border-radius: var(--capsule-radius-full);
   transition: var(--capsule-transition);
-  overflow: hidden;
 }
 
 capsule-switch[checked]::part(track) {
