@@ -13,7 +13,6 @@ class Slider extends HTMLElement {
 
   constructor() {
     super();
-    this._render();
     this.attachShadow({ mode: 'open' });
     this.internals_ = this.attachInternals();
     this._min = 0;
@@ -37,6 +36,7 @@ class Slider extends HTMLElement {
 
   connectedCallback() {
     this._parseAttributes();
+    this._render();
     this._init();
   }
 

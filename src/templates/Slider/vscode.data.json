@@ -36,6 +36,31 @@
           "values": [{ "name": "horizontal" }, { "name": "vertical" }]
         },
         {
+          "name": "size",
+          "description": "Slider height/width preset.",
+          "values": [{ "name": "sm" }, { "name": "md" }, { "name": "lg" }]
+        },
+        {
+          "name": "color",
+          "description": "Active range and thumb color scheme.",
+          "values": [
+            { "name": "primary" },
+            { "name": "secondary" },
+            { "name": "error" },
+            { "name": "warning" },
+            { "name": "success" }
+          ]
+        },
+        {
+          "name": "variant",
+          "description": "Visual style variant.",
+          "values": [
+            { "name": "standard" },
+            { "name": "outline" },
+            { "name": "ghost" }
+          ]
+        },
+        {
           "name": "show-ticks",
           "description": "Show tick marks along the track (boolean attribute).",
           "valueSet": "v"
@@ -44,6 +69,11 @@
           "name": "ticks-density",
           "description": "Density multiplier for tick marks (1 shows every step).",
           "values": [{ "name": "number" }]
+        },
+        {
+          "name": "disabled",
+          "description": "Disable interactions (boolean attribute).",
+          "valueSet": "v"
         }
       ]
     }
