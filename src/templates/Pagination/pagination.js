@@ -25,22 +25,22 @@ class Pagination extends HTMLElement {
     const totalPages = parseInt(this.getAttribute('total-pages')) || 1;
     const visiblePages = parseInt(this.getAttribute('visible-pages')) || 5;
 
-    // Проверяем есть ли контент в слотах
-    const hasEllipsis = this._hasSlotContent('ellipsis');
-    const hasFirst = this._hasSlotContent('first');
-    const hasLast = this._hasSlotContent('last');
+    // Автоматически определяем что показывать на основе слотов
+    const showEllipsis = this._hasSlotContent('ellipsis');
+    const showFirstLast =
+      this._hasSlotContent('first') || this._hasSlotContent('last');
 
     const pages = this._generatePages(
       page,
       totalPages,
       visiblePages,
-      hasEllipsis
+      showEllipsis
     );
 
     this.shadowRoot.innerHTML = `
       <nav class="pagination" part="pagination" aria-label="Pagination">
         ${
-          hasFirst
+          showFirstLast
             ? `
           <div class="page-item first" part="first-item">
             <slot name="first"></slot>
@@ -57,10 +57,10 @@ class Pagination extends HTMLElement {
           ${pages
             .map((page) => {
               if (page === 'ellipsis') {
-                return hasEllipsis
+                return showEllipsis
                   ? `
                 <div class="ellipsis" part="ellipsis">
-                  <slot name="ellipsis"></slot>
+                  <slot name="ellipsis">…</slot>
                 </div>
               `
                   : '';
@@ -82,7 +82,7 @@ class Pagination extends HTMLElement {
         </div>
 
         ${
-          hasLast
+          showFirstLast
             ? `
           <div class="page-item last" part="last-item">
             <slot name="last"></slot>
@@ -97,7 +97,6 @@ class Pagination extends HTMLElement {
   }
 
   _hasSlotContent(slotName) {
-    // Проверяем есть ли элементы в светлом DOM для этого слота
     return this.querySelector(`[slot="${slotName}"]`) !== null;
   }
 
@@ -112,7 +111,7 @@ class Pagination extends HTMLElement {
   }
 
   _attachEvents() {
-    // Биндим события только если есть контент в слотах
+    // Биндим события только если есть соответствующие слоты
     if (this._hasSlotContent('first')) {
       this._bindSlotEvent('first', () => this._goToFirst());
     }
@@ -156,23 +155,25 @@ class Pagination extends HTMLElement {
       startPage = Math.max(1, endPage - visiblePages + 1);
     }
 
-    // Всегда показываем первую и последнюю страницу
-    if (startPage > 1) {
-      pages.push(1);
-      if (startPage > 2 && showEllipsis) {
-        pages.push('ellipsis');
+    if (showEllipsis) {
+      if (startPage > 1) {
+        pages.push(1);
+        if (startPage > 2) pages.push('ellipsis');
       }
-    }
 
-    for (let i = startPage; i <= endPage; i++) {
-      pages.push(i);
-    }
-
-    if (endPage < totalPages) {
-      if (endPage < totalPages - 1 && showEllipsis) {
-        pages.push('ellipsis');
+      for (let i = startPage; i <= endPage; i++) {
+        pages.push(i);
       }
-      pages.push(totalPages);
+
+      if (endPage < totalPages) {
+        if (endPage < totalPages - 1) pages.push('ellipsis');
+        pages.push(totalPages);
+      }
+    } else {
+      // Без эллипсиса - просто видимый диапазон
+      for (let i = startPage; i <= endPage; i++) {
+        pages.push(i);
+      }
     }
 
     return pages;
