@@ -4,6 +4,7 @@ capsule-badge {
   vertical-align: middle;
 }
 
+/* Base badge styles */
 capsule-badge::after {
   content: attr(data-value);
   display: flex;
@@ -26,47 +27,19 @@ capsule-badge::after {
   color: var(--capsule-color-white);
   z-index: 1;
   white-space: nowrap;
+  border: 1px solid transparent;
+  box-shadow: var(--capsule-shadow-sm);
 }
 
-capsule-badge[variant='dot']::after {
-  content: '';
-  width: 8px;
-  height: 8px;
-  padding: 0;
-  min-width: auto;
+/* Base colors */
+capsule-badge[color='primary']::after {
   background: var(--capsule-color-primary);
-  border: none;
-}
-
-capsule-badge[variant='outline']::after {
-  background: transparent;
-  border: 1px solid var(--capsule-color-primary);
-  color: var(--capsule-color-primary);
-}
-
-capsule-badge[variant='outline'][color='secondary']::after {
-  border-color: var(--capsule-color-secondary);
-  color: var(--capsule-color-secondary);
-}
-
-capsule-badge[variant='outline'][color='error']::after {
-  border-color: var(--capsule-color-error);
-  color: var(--capsule-color-error);
-}
-
-capsule-badge[variant='outline'][color='warning']::after {
-  border-color: var(--capsule-color-warning);
-  color: var(--capsule-color-warning);
-}
-
-capsule-badge[variant='outline'][color='success']::after {
-  border-color: var(--capsule-color-success);
-  color: var(--capsule-color-success);
+  color: var(--capsule-color-white);
 }
 
 capsule-badge[color='secondary']::after {
   background: var(--capsule-color-secondary);
-  color: var(--capsule-color-secondary-text);
+  color: var(--capsule-color-text);
 }
 
 capsule-badge[color='error']::after {
@@ -82,6 +55,22 @@ capsule-badge[color='warning']::after {
 capsule-badge[color='success']::after {
   background: var(--capsule-color-success);
   color: var(--capsule-color-white);
+}
+
+/* Dot variant */
+capsule-badge[variant='dot']::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  min-width: auto;
+  border: none;
+  box-shadow: var(--capsule-shadow-sm);
+}
+
+/* Dot colors */
+capsule-badge[variant='dot'][color='primary']::after {
+  background: var(--capsule-color-primary);
 }
 
 capsule-badge[variant='dot'][color='secondary']::after {
@@ -100,6 +89,80 @@ capsule-badge[variant='dot'][color='success']::after {
   background: var(--capsule-color-success);
 }
 
+/* Outline variant */
+capsule-badge[variant='outline']::after {
+  background: var(--capsule-color-background);
+  border-color: var(--capsule-color-primary);
+  color: var(--capsule-color-primary);
+}
+
+/* Outline colors */
+capsule-badge[variant='outline'][color='primary']::after {
+  border-color: var(--capsule-color-primary);
+  color: var(--capsule-color-primary);
+}
+
+capsule-badge[variant='outline'][color='secondary']::after {
+  border-color: color-mix(
+    in srgb,
+    var(--capsule-color-text-secondary) 60%,
+    transparent
+  );
+  color: var(--capsule-color-text-secondary);
+}
+
+capsule-badge[variant='outline'][color='error']::after {
+  border-color: var(--capsule-color-error);
+  color: var(--capsule-color-error);
+}
+
+capsule-badge[variant='outline'][color='warning']::after {
+  border-color: var(--capsule-color-warning);
+  color: var(--capsule-color-warning);
+}
+
+capsule-badge[variant='outline'][color='success']::after {
+  border-color: var(--capsule-color-success);
+  color: var(--capsule-color-success);
+}
+
+/* Ghost variant */
+capsule-badge[variant='ghost']::after {
+  background: color-mix(in srgb, var(--capsule-color-text) 8%, transparent);
+  color: var(--capsule-color-text);
+}
+
+/* Ghost colors */
+capsule-badge[variant='ghost'][color='primary']::after {
+  background: color-mix(in srgb, var(--capsule-color-primary) 12%, transparent);
+  color: var(--capsule-color-primary);
+}
+
+capsule-badge[variant='ghost'][color='secondary']::after {
+  background: color-mix(
+    in srgb,
+    var(--capsule-color-text) 6%,
+    var(--capsule-color-surface)
+  );
+  color: var(--capsule-color-text-secondary);
+}
+
+capsule-badge[variant='ghost'][color='error']::after {
+  background: color-mix(in srgb, var(--capsule-color-error) 12%, transparent);
+  color: var(--capsule-color-error);
+}
+
+capsule-badge[variant='ghost'][color='warning']::after {
+  background: color-mix(in srgb, var(--capsule-color-warning) 12%, transparent);
+  color: var(--capsule-color-warning);
+}
+
+capsule-badge[variant='ghost'][color='success']::after {
+  background: color-mix(in srgb, var(--capsule-color-success) 12%, transparent);
+  color: var(--capsule-color-success);
+}
+
+/* Positions */
 capsule-badge[position='top-left']::after {
   top: 0;
   left: 0;
@@ -122,6 +185,7 @@ capsule-badge[position='bottom-left']::after {
   transform: translate(-50%, 50%);
 }
 
+/* Invisible */
 capsule-badge[invisible]::after {
   display: none;
 }

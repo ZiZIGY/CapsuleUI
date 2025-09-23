@@ -1,6 +1,7 @@
 class AccordionItem extends HTMLElement {
   constructor() {
     super();
+    this._render();
     this.attachShadow({ mode: 'open' });
     this._trigger = null;
     this._content = null;
@@ -8,7 +9,6 @@ class AccordionItem extends HTMLElement {
   }
 
   connectedCallback() {
-    this._render();
     this._setupEventListeners();
     this._findAccordion();
     this._updateAriaAttributes();
@@ -39,7 +39,7 @@ class AccordionItem extends HTMLElement {
   _setupEventListeners() {
     this._trigger.addEventListener('slotchange', () => {
       const assignedElements = this._trigger.assignedElements();
-      assignedElements.forEach(element => {
+      assignedElements.forEach((element) => {
         element.addEventListener('click', this._handleTriggerClick.bind(this));
       });
     });
@@ -57,7 +57,7 @@ class AccordionItem extends HTMLElement {
   _toggle() {
     const event = new CustomEvent('accordion-item-toggle', {
       bubbles: true,
-      detail: { item: this }
+      detail: { item: this },
     });
     this.dispatchEvent(event);
   }
@@ -66,9 +66,9 @@ class AccordionItem extends HTMLElement {
     const isOpen = this.hasAttribute('open');
     this.setAttribute('role', 'region');
     this.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-    
+
     const assignedElements = this._trigger?.assignedElements();
-    assignedElements?.forEach(element => {
+    assignedElements?.forEach((element) => {
       element.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     });
 

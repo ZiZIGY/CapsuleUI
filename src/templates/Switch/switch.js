@@ -8,13 +8,12 @@ class Switch extends HTMLElement {
     this.internals_ = this.attachInternals();
     this._checked = this.hasAttribute('checked');
 
-    // Биндим методы
+    this._render();
     this._onClick = this._onClick.bind(this);
     this._onKeyDown = this._onKeyDown.bind(this);
   }
 
   connectedCallback() {
-    this._render();
     this._init();
   }
 

@@ -19,7 +19,12 @@
         {
           "name": "variant",
           "description": "Badge visual variant.",
-          "values": [{ "name": "standard" }, { "name": "dot" }]
+          "values": [
+            { "name": "standard" },
+            { "name": "dot" },
+            { "name": "outline" },
+            { "name": "ghost" }
+          ]
         },
         {
           "name": "position",
