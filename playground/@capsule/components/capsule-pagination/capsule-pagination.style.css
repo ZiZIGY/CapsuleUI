@@ -1,0 +1,153 @@
+capsule-pagination {
+  font-family: var(--capsule-font-family);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--capsule-margin-xs);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Page items */
+capsule-pagination::part(page-item) {
+  display: flex;
+}
+
+capsule-pagination::part(page-item active) {
+  background-color: red;
+}
+
+/* Navigation items (first, previous, next, last) */
+capsule-pagination::part(first-item),
+capsule-pagination::part(prev-item),
+capsule-pagination::part(next-item),
+capsule-pagination::part(last-item) {
+  display: flex;
+}
+
+/* Slotted content in navigation items */
+capsule-pagination ::slotted([slot='first']),
+capsule-pagination ::slotted([slot='previous']),
+capsule-pagination ::slotted([slot='next']),
+capsule-pagination ::slotted([slot='last']) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 var(--capsule-margin-xs);
+  border: 1px solid var(--capsule-color-outline-border);
+  background: var(--capsule-color-background);
+  color: var(--capsule-color-text);
+  border-radius: var(--capsule-radius);
+  font-family: inherit;
+  font-size: var(--capsule-font-size-sm);
+  font-weight: var(--capsule-font-weight-medium);
+  cursor: pointer;
+  transition: var(--capsule-transition);
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+capsule-pagination ::slotted([slot='first']:hover),
+capsule-pagination ::slotted([slot='previous']:hover),
+capsule-pagination ::slotted([slot='next']:hover),
+capsule-pagination ::slotted([slot='last']:hover) {
+  background: var(--capsule-color-surface);
+  border-color: var(--capsule-color-text-secondary);
+}
+
+capsule-pagination ::slotted([slot='first']:disabled),
+capsule-pagination ::slotted([slot='previous']:disabled),
+capsule-pagination ::slotted([slot='next']:disabled),
+capsule-pagination ::slotted([slot='last']:disabled) {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: var(--capsule-color-surface);
+}
+
+/* Ellipsis */
+capsule-pagination::part(ellipsis) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 var(--capsule-margin-xs);
+  color: var(--capsule-color-text-secondary);
+  font-size: var(--capsule-font-size-sm);
+}
+
+/* Slotted ellipsis content */
+capsule-pagination ::slotted([slot='ellipsis']) {
+  color: inherit;
+  font-size: inherit;
+}
+
+/* Pages container */
+capsule-pagination::part(pages-container) {
+  display: flex;
+  align-items: center;
+  gap: var(--capsule-margin-xs);
+}
+
+/* Disabled state for navigation when on first/last page */
+capsule-pagination[data-on-first-page] ::slotted([slot='first']),
+capsule-pagination[data-on-first-page] ::slotted([slot='previous']) {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: var(--capsule-color-surface);
+}
+
+capsule-pagination[data-on-last-page] ::slotted([slot='next']),
+capsule-pagination[data-on-last-page] ::slotted([slot='last']) {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: var(--capsule-color-surface);
+}
+
+capsule-pagination[size='sm'] ::slotted([slot='first']),
+capsule-pagination[size='sm'] ::slotted([slot='previous']),
+capsule-pagination[size='sm'] ::slotted([slot='next']),
+capsule-pagination[size='sm'] ::slotted([slot='last']) {
+  min-width: 28px;
+  height: 28px;
+  font-size: var(--capsule-font-size-xs);
+}
+
+capsule-pagination[size='sm']::part(ellipsis) {
+  min-width: 28px;
+  height: 28px;
+  font-size: var(--capsule-font-size-xs);
+}
+
+capsule-pagination[size='lg'] ::slotted([slot='first']),
+capsule-pagination[size='lg'] ::slotted([slot='previous']),
+capsule-pagination[size='lg'] ::slotted([slot='next']),
+capsule-pagination[size='lg'] ::slotted([slot='last']) {
+  min-width: 40px;
+  height: 40px;
+  font-size: var(--capsule-font-size);
+}
+
+capsule-pagination[size='lg']::part(ellipsis) {
+  min-width: 40px;
+  height: 40px;
+  font-size: var(--capsule-font-size);
+}
+
+capsule-pagination[variant='outline'] ::slotted([slot='first']),
+capsule-pagination[variant='outline'] ::slotted([slot='previous']),
+capsule-pagination[variant='outline'] ::slotted([slot='next']),
+capsule-pagination[variant='outline'] ::slotted([slot='last']) {
+  background: transparent;
+  border-color: var(--capsule-color-outline-border);
+}
+
+capsule-pagination[variant='ghost'] ::slotted([slot='first']),
+capsule-pagination[variant='ghost'] ::slotted([slot='previous']),
+capsule-pagination[variant='ghost'] ::slotted([slot='next']),
+capsule-pagination[variant='ghost'] ::slotted([slot='last']) {
+  background: transparent;
+  border-color: transparent;
+}

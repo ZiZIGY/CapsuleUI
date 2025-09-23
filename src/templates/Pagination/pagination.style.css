@@ -1,0 +1,38 @@
+__PREFIX__-__COMPONENT__ {
+  font-family: var(--capsule-font-family);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--capsule-margin-xs);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Page items */
+__PREFIX__-__COMPONENT__::part(page-item) {
+  display: flex;
+}
+
+__PREFIX__-__COMPONENT__::part(page-item active) {
+  background-color: red;
+}
+
+/* Navigation items (first, previous, next, last) */
+__PREFIX__-__COMPONENT__::part(first-item),
+__PREFIX__-__COMPONENT__::part(prev-item),
+__PREFIX__-__COMPONENT__::part(next-item),
+__PREFIX__-__COMPONENT__::part(last-item) {
+  display: flex;
+}
+
+/* Ellipsis */
+__PREFIX__-__COMPONENT__::part(ellipsis) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 var(--capsule-margin-xs);
+  color: var(--capsule-color-text-secondary);
+  font-size: var(--capsule-font-size-sm);
+}

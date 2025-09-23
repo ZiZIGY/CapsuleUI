@@ -4,6 +4,7 @@ class Pagination extends HTMLElement {
     'total-pages',
     'items-per-page',
     'visible-pages',
+    'show-boundary-pages',
   ];
 
   constructor() {
@@ -22,8 +23,21 @@ class Pagination extends HTMLElement {
 
   _render() {
     const page = parseInt(this.getAttribute('page')) || 1;
-    const totalPages = parseInt(this.getAttribute('total-pages')) || 1;
     const visiblePages = parseInt(this.getAttribute('visible-pages')) || 5;
+    const showBoundaryPages = this.hasAttribute('show-boundary-pages');
+    const totalPages = parseInt(this.getAttribute('total-pages')) || 1;
+
+    if (page === 1) {
+      this.setAttribute('data-on-first-page', '');
+    } else {
+      this.removeAttribute('data-on-first-page');
+    }
+
+    if (page === totalPages) {
+      this.setAttribute('data-on-last-page', '');
+    } else {
+      this.removeAttribute('data-on-last-page');
+    }
 
     // Автоматически определяем что показывать на основе слотов
     const showEllipsis = this._hasSlotContent('ellipsis');
@@ -34,11 +48,11 @@ class Pagination extends HTMLElement {
       page,
       totalPages,
       visiblePages,
-      showEllipsis
+      showEllipsis,
+      showBoundaryPages
     );
 
     this.shadowRoot.innerHTML = `
-      <nav class="pagination" part="pagination" aria-label="Pagination">
         ${
           showFirstLast
             ? `
@@ -67,11 +81,15 @@ class Pagination extends HTMLElement {
               }
               const isActive = page === parseInt(this.getAttribute('page'));
               return `
-              <div class="page-item ${
-                isActive ? 'active' : ''
-              }" part="page-item">
-                <button type="button" part="page-button" data-page="${page}">${page}</button>
-              </div>
+              
+                <button
+                  type="button"
+                  part="page-item ${isActive ? 'active' : ''}"
+                  data-page="${page}"
+                >
+                  ${page}
+                </button>
+              
             `;
             })
             .join('')}
@@ -90,7 +108,6 @@ class Pagination extends HTMLElement {
         `
             : ''
         }
-      </nav>
     `;
 
     this._bindPageEvents();
@@ -111,7 +128,6 @@ class Pagination extends HTMLElement {
   }
 
   _attachEvents() {
-    // Биндим события только если есть соответствующие слоты
     if (this._hasSlotContent('first')) {
       this._bindSlotEvent('first', () => this._goToFirst());
     }
@@ -141,7 +157,13 @@ class Pagination extends HTMLElement {
     }
   }
 
-  _generatePages(currentPage, totalPages, visiblePages, showEllipsis) {
+  _generatePages(
+    currentPage,
+    totalPages,
+    visiblePages,
+    showEllipsis,
+    showBoundaryPages
+  ) {
     if (totalPages <= visiblePages) {
       return Array.from({ length: totalPages }, (_, i) => i + 1);
     }
@@ -156,18 +178,34 @@ class Pagination extends HTMLElement {
     }
 
     if (showEllipsis) {
-      if (startPage > 1) {
-        pages.push(1);
-        if (startPage > 2) pages.push('ellipsis');
-      }
+      if (showBoundaryPages) {
+        // С граничными страницами: 1 ... 14 15 16 ... 30
+        if (startPage > 1) {
+          pages.push(1);
+          if (startPage > 2) pages.push('ellipsis');
+        }
 
-      for (let i = startPage; i <= endPage; i++) {
-        pages.push(i);
-      }
+        for (let i = startPage; i <= endPage; i++) {
+          pages.push(i);
+        }
 
-      if (endPage < totalPages) {
-        if (endPage < totalPages - 1) pages.push('ellipsis');
-        pages.push(totalPages);
+        if (endPage < totalPages) {
+          if (endPage < totalPages - 1) pages.push('ellipsis');
+          pages.push(totalPages);
+        }
+      } else {
+        // Без граничных страниц: ... 14 15 16 ...
+        if (startPage > 1) {
+          pages.push('ellipsis');
+        }
+
+        for (let i = startPage; i <= endPage; i++) {
+          pages.push(i);
+        }
+
+        if (endPage < totalPages) {
+          pages.push('ellipsis');
+        }
       }
     } else {
       // Без эллипсиса - просто видимый диапазон
