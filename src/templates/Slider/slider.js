@@ -26,7 +26,6 @@ class Slider extends HTMLElement {
     this._thumbs = [];
     this._activeThumb = null;
 
-    // Bind methods
     [
       '_onThumbPointerDown',
       '_onSliderPointerDown',
@@ -57,7 +56,6 @@ class Slider extends HTMLElement {
     }
   }
 
-  // Form methods
   formAssociatedCallback(form) {
     console.log('Form associated:', form);
   }
@@ -72,27 +70,21 @@ class Slider extends HTMLElement {
     this._fullUpdate();
   }
 
-  // Private methods
   _parseAttributes() {
-    // Сначала получаем min/max
     this._min = parseFloat(this.getAttribute('min'));
     this._max = parseFloat(this.getAttribute('max'));
 
-    // Если min/max не указаны или некорректны - ставим дефолтные
     if (isNaN(this._min)) this._min = 0;
     if (isNaN(this._max)) this._max = 100;
     if (this._min >= this._max) this._max = this._min + 100;
 
-    // Теперь получаем values
     const valuesAttr = this.getAttribute('values');
     this._values = valuesAttr
       ? this._parseValues(valuesAttr)
       : [this._min, this._max];
 
-    // Валидируем values в пределах min/max
     this._validateValues();
 
-    // Остальные параметры
     this._step = parseFloat(this.getAttribute('step')) || 1;
     this._decimals = parseInt(this.getAttribute('decimals')) || 0;
     this._orientation =
@@ -107,7 +99,6 @@ class Slider extends HTMLElement {
     try {
       const parsed = JSON.parse(valuesAttr);
       if (!Array.isArray(parsed) || parsed.length === 0) {
-        // Если values некорректны - используем min/max
         return [this._min, this._max];
       }
       return parsed;
@@ -126,7 +117,6 @@ class Slider extends HTMLElement {
       })
       .sort((a, b) => a - b);
 
-    // Если values пустой - создаем дефолтные на основе min/max
     if (this._values.length === 0) {
       this._values =
         this._values.length === 1 ? [this._min] : [this._min, this._max];
@@ -238,12 +228,10 @@ class Slider extends HTMLElement {
     let startPercent, endPercent;
 
     if (this._values.length === 1) {
-      // Для одного значения - range от min до этого значения
       startPercent = 0;
       endPercent =
         ((this._values[0] - this._min) / (this._max - this._min)) * 100;
     } else {
-      // Для нескольких значений - range от min до max значения
       startPercent =
         ((Math.min(...this._values) - this._min) / (this._max - this._min)) *
         100;

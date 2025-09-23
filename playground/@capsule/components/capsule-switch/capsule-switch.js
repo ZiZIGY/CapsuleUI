@@ -59,8 +59,9 @@ class Switch extends HTMLElement {
       <div part="track">
         <div part="thumb">
           <slot></slot>
+          <div part="surface"></div>
+          <capsule-ripple part="ripples"></capsule-ripple>
         </div>
-        <div part="ripple"></div>
       </div>
     `;
   }
@@ -68,7 +69,6 @@ class Switch extends HTMLElement {
   _init() {
     this._track = this.shadowRoot.querySelector('[part="track"]');
     this._thumb = this.shadowRoot.querySelector('[part="thumb"]');
-    this._ripple = this.shadowRoot.querySelector('[part="ripple"]');
 
     this._bindEvents();
     this._updateVisualState();
@@ -114,7 +114,8 @@ class Switch extends HTMLElement {
   }
 
   _updateFormValue() {
-    this.internals_.setFormValue(this._checked ? true : false);
+    // Используем boolean значения вместо 'on'
+    this.internals_.setFormValue(this._checked ? 'true' : 'false');
   }
 
   // Public methods
