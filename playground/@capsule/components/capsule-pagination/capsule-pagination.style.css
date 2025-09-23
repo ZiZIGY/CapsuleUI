@@ -8,29 +8,9 @@ capsule-pagination {
   padding: 0;
 }
 
-/* Page items */
+/* Page buttons */
 capsule-pagination::part(page-item) {
-  display: flex;
-}
-
-capsule-pagination::part(page-item active) {
-  background-color: red;
-}
-
-/* Navigation items (first, previous, next, last) */
-capsule-pagination::part(first-item),
-capsule-pagination::part(prev-item),
-capsule-pagination::part(next-item),
-capsule-pagination::part(last-item) {
-  display: flex;
-}
-
-/* Slotted content in navigation items */
-capsule-pagination ::slotted([slot='first']),
-capsule-pagination ::slotted([slot='previous']),
-capsule-pagination ::slotted([slot='next']),
-capsule-pagination ::slotted([slot='last']) {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   min-width: 32px;
@@ -49,26 +29,25 @@ capsule-pagination ::slotted([slot='last']) {
   box-sizing: border-box;
 }
 
-capsule-pagination ::slotted([slot='first']:hover),
-capsule-pagination ::slotted([slot='previous']:hover),
-capsule-pagination ::slotted([slot='next']:hover),
-capsule-pagination ::slotted([slot='last']:hover) {
+capsule-pagination::part(page-item):hover {
   background: var(--capsule-color-surface);
   border-color: var(--capsule-color-text-secondary);
 }
 
-capsule-pagination ::slotted([slot='first']:disabled),
-capsule-pagination ::slotted([slot='previous']:disabled),
-capsule-pagination ::slotted([slot='next']:disabled),
-capsule-pagination ::slotted([slot='last']:disabled) {
-  opacity: 0.5;
-  cursor: not-allowed;
-  background: var(--capsule-color-surface);
+capsule-pagination::part(page-item active) {
+  background: var(--capsule-color-primary);
+  border-color: var(--capsule-color-primary);
+  color: var(--capsule-color-white);
+}
+
+capsule-pagination::part(page-item active):hover {
+  background: var(--capsule-color-primary-hover);
+  border-color: var(--capsule-color-primary-hover);
 }
 
 /* Ellipsis */
 capsule-pagination::part(ellipsis) {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   min-width: 32px;
@@ -78,38 +57,8 @@ capsule-pagination::part(ellipsis) {
   font-size: var(--capsule-font-size-sm);
 }
 
-/* Slotted ellipsis content */
-capsule-pagination ::slotted([slot='ellipsis']) {
-  color: inherit;
-  font-size: inherit;
-}
-
-/* Pages container */
-capsule-pagination::part(pages-container) {
-  display: flex;
-  align-items: center;
-  gap: var(--capsule-margin-xs);
-}
-
-/* Disabled state for navigation when on first/last page */
-capsule-pagination[data-on-first-page] ::slotted([slot='first']),
-capsule-pagination[data-on-first-page] ::slotted([slot='previous']) {
-  opacity: 0.5;
-  cursor: not-allowed;
-  background: var(--capsule-color-surface);
-}
-
-capsule-pagination[data-on-last-page] ::slotted([slot='next']),
-capsule-pagination[data-on-last-page] ::slotted([slot='last']) {
-  opacity: 0.5;
-  cursor: not-allowed;
-  background: var(--capsule-color-surface);
-}
-
-capsule-pagination[size='sm'] ::slotted([slot='first']),
-capsule-pagination[size='sm'] ::slotted([slot='previous']),
-capsule-pagination[size='sm'] ::slotted([slot='next']),
-capsule-pagination[size='sm'] ::slotted([slot='last']) {
+/* Sizes */
+capsule-pagination[size='sm']::part(page-item) {
   min-width: 28px;
   height: 28px;
   font-size: var(--capsule-font-size-xs);
@@ -121,10 +70,7 @@ capsule-pagination[size='sm']::part(ellipsis) {
   font-size: var(--capsule-font-size-xs);
 }
 
-capsule-pagination[size='lg'] ::slotted([slot='first']),
-capsule-pagination[size='lg'] ::slotted([slot='previous']),
-capsule-pagination[size='lg'] ::slotted([slot='next']),
-capsule-pagination[size='lg'] ::slotted([slot='last']) {
+capsule-pagination[size='lg']::part(page-item) {
   min-width: 40px;
   height: 40px;
   font-size: var(--capsule-font-size);
@@ -136,18 +82,120 @@ capsule-pagination[size='lg']::part(ellipsis) {
   font-size: var(--capsule-font-size);
 }
 
-capsule-pagination[variant='outline'] ::slotted([slot='first']),
-capsule-pagination[variant='outline'] ::slotted([slot='previous']),
-capsule-pagination[variant='outline'] ::slotted([slot='next']),
-capsule-pagination[variant='outline'] ::slotted([slot='last']) {
+/* Variants */
+capsule-pagination[variant='outline']::part(page-item) {
   background: transparent;
   border-color: var(--capsule-color-outline-border);
 }
 
-capsule-pagination[variant='ghost'] ::slotted([slot='first']),
-capsule-pagination[variant='ghost'] ::slotted([slot='previous']),
-capsule-pagination[variant='ghost'] ::slotted([slot='next']),
-capsule-pagination[variant='ghost'] ::slotted([slot='last']) {
+capsule-pagination[variant='outline']::part(page-item active) {
+  background: transparent;
+  border-color: var(--capsule-color-primary);
+  color: var(--capsule-color-primary);
+}
+
+capsule-pagination[variant='outline']::part(page-item):hover {
+  background: var(--capsule-color-surface);
+  border-color: var(--capsule-color-text-secondary);
+}
+
+capsule-pagination[variant='ghost']::part(page-item) {
   background: transparent;
   border-color: transparent;
+}
+
+capsule-pagination[variant='ghost']::part(page-item active) {
+  background: color-mix(in srgb, var(--capsule-color-primary) 10%, transparent);
+  color: var(--capsule-color-primary);
+}
+
+capsule-pagination[variant='ghost']::part(page-item):hover {
+  background: color-mix(in srgb, var(--capsule-color-text) 5%, transparent);
+}
+
+/* Colors */
+capsule-pagination[color='secondary']::part(page-item active) {
+  background: var(--capsule-color-secondary);
+  border-color: var(--capsule-color-secondary);
+  color: var(--capsule-color-text);
+}
+
+capsule-pagination[color='error']::part(page-item active) {
+  background: var(--capsule-color-error);
+  border-color: var(--capsule-color-error);
+  color: var(--capsule-color-white);
+}
+
+capsule-pagination[color='warning']::part(page-item active) {
+  background: var(--capsule-color-warning);
+  border-color: var(--capsule-color-warning);
+  color: var(--capsule-color-white);
+}
+
+capsule-pagination[color='success']::part(page-item active) {
+  background: var(--capsule-color-success);
+  border-color: var(--capsule-color-success);
+  color: var(--capsule-color-white);
+}
+
+/* Outline colors */
+capsule-pagination[variant='outline'][color='secondary']::part(
+    page-item active
+  ) {
+  border-color: var(--capsule-color-secondary);
+  color: var(--capsule-color-secondary);
+}
+
+capsule-pagination[variant='outline'][color='error']::part(
+    page-item active
+  ) {
+  border-color: var(--capsule-color-error);
+  color: var(--capsule-color-error);
+}
+
+capsule-pagination[variant='outline'][color='warning']::part(
+    page-item active
+  ) {
+  border-color: var(--capsule-color-warning);
+  color: var(--capsule-color-warning);
+}
+
+capsule-pagination[variant='outline'][color='success']::part(
+    page-item active
+  ) {
+  border-color: var(--capsule-color-success);
+  color: var(--capsule-color-success);
+}
+
+/* Ghost colors */
+capsule-pagination[variant='ghost'][color='secondary']::part(
+    page-item active
+  ) {
+  background: color-mix(
+    in srgb,
+    var(--capsule-color-secondary) 10%,
+    transparent
+  );
+  color: var(--capsule-color-secondary);
+}
+
+capsule-pagination[variant='ghost'][color='error']::part(
+    page-item active
+  ) {
+  background: color-mix(in srgb, var(--capsule-color-error) 10%, transparent);
+  color: var(--capsule-color-error);
+}
+
+capsule-pagination[variant='ghost'][color='warning']::part(
+    page-item active
+  ) {
+  background: color-mix(in srgb, var(--capsule-color-warning) 10%, transparent);
+  color: var(--capsule-color-warning);
+}
+
+capsule-pagination[variant='ghost'][color='success']::part(
+    page-item active
+  ) {
+  background: color-mix(in srgb, var(--capsule-color-success) 10%, transparent);
+  color: var(--capsule-color-success);
 }

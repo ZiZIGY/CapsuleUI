@@ -54,16 +54,19 @@
       <capsule-chip size="sm">Small Chip</capsule-chip>
 
       <capsule-pagination
-        total-pages="30"
-        show-ellipsis
+        total-pages="20"
+        show-boundary-pages
+        items-per-page="7"
+        visible-pages="3"
+        onchange="console.log(event)"
       >
         <span slot="ellipsis">...</span>
 
-        <button slot="first">«</button>
-        <button slot="previous">‹</button>
+        <capsule-button slot="first">«</capsule-button>
+        <capsule-button slot="previous">‹</capsule-button>
 
-        <button slot="next">›</button>
-        <button slot="last">»</button>
+        <capsule-button slot="next">›</capsule-button>
+        <capsule-button slot="last">»</capsule-button>
       </capsule-pagination>
 
       <capsule-divider></capsule-divider>

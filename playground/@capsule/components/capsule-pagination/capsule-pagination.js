@@ -3,41 +3,50 @@ class Pagination extends HTMLElement {
     'page',
     'total-pages',
     'items-per-page',
-    'visible-pages',
     'show-boundary-pages',
   ];
 
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
+    this._currentPage = 1;
+    this._totalPages = 1;
   }
 
   connectedCallback() {
+    this._updateFromAttributes();
     this._render();
     this._attachEvents();
   }
 
-  attributeChangedCallback() {
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (oldValue === newValue) return;
+
+    this._updateFromAttributes();
     this._render();
   }
 
-  _render() {
-    const page = parseInt(this.getAttribute('page')) || 1;
-    const visiblePages = parseInt(this.getAttribute('visible-pages')) || 5;
-    const showBoundaryPages = this.hasAttribute('show-boundary-pages');
-    const totalPages = parseInt(this.getAttribute('total-pages')) || 1;
+  _updateFromAttributes() {
+    this._currentPage = parseInt(this.getAttribute('page')) || 1;
+    this._totalPages = parseInt(this.getAttribute('total-pages')) || 1;
 
-    if (page === 1) {
+    // Обновляем data-атрибуты без триггера render
+    if (this._currentPage === 1) {
       this.setAttribute('data-on-first-page', '');
     } else {
       this.removeAttribute('data-on-first-page');
     }
 
-    if (page === totalPages) {
+    if (this._currentPage === this._totalPages) {
       this.setAttribute('data-on-last-page', '');
     } else {
       this.removeAttribute('data-on-last-page');
     }
+  }
+
+  _render() {
+    const showBoundaryPages = this.hasAttribute('show-boundary-pages');
+    const itemsPerPage = parseInt(this.getAttribute('items-per-page')) || 5;
 
     // Автоматически определяем что показывать на основе слотов
     const showEllipsis = this._hasSlotContent('ellipsis');
@@ -45,69 +54,39 @@ class Pagination extends HTMLElement {
       this._hasSlotContent('first') || this._hasSlotContent('last');
 
     const pages = this._generatePages(
-      page,
-      totalPages,
-      visiblePages,
+      this._currentPage,
+      this._totalPages,
+      itemsPerPage,
       showEllipsis,
       showBoundaryPages
     );
 
     this.shadowRoot.innerHTML = `
-        ${
-          showFirstLast
-            ? `
-          <div class="page-item first" part="first-item">
-            <slot name="first"></slot>
-          </div>
-        `
-            : ''
-        }
-
-        <div class="page-item previous" part="prev-item">
-          <slot name="previous"></slot>
-        </div>
+        ${showFirstLast ? `<slot name="first" part="first-item"></slot>` : ''}
+        <slot name="previous" part="prev-item"></slot>
 
         <div class="pages-container" part="pages-container">
           ${pages
             .map((page) => {
               if (page === 'ellipsis') {
                 return showEllipsis
-                  ? `
-                <div class="ellipsis" part="ellipsis">
-                  <slot name="ellipsis">…</slot>
-                </div>
-              `
+                  ? `<div class="ellipsis" part="ellipsis"><slot name="ellipsis">…</slot></div>`
                   : '';
               }
-              const isActive = page === parseInt(this.getAttribute('page'));
+              const isActive = page === this._currentPage;
               return `
-              
-                <button
-                  type="button"
-                  part="page-item ${isActive ? 'active' : ''}"
-                  data-page="${page}"
-                >
+                <button type="button" part="page-item ${
+                  isActive ? 'active' : ''
+                }" data-page="${page}">
                   ${page}
                 </button>
-              
-            `;
+              `;
             })
             .join('')}
         </div>
 
-        <div class="page-item next" part="next-item">
-          <slot name="next"></slot>
-        </div>
-
-        ${
-          showFirstLast
-            ? `
-          <div class="page-item last" part="last-item">
-            <slot name="last"></slot>
-          </div>
-        `
-            : ''
-        }
+        <slot name="next" part="next-item"></slot>
+        ${showFirstLast ? `<slot name="last" part="last-item"></slot>` : ''}
     `;
 
     this._bindPageEvents();
@@ -179,7 +158,6 @@ class Pagination extends HTMLElement {
 
     if (showEllipsis) {
       if (showBoundaryPages) {
-        // С граничными страницами: 1 ... 14 15 16 ... 30
         if (startPage > 1) {
           pages.push(1);
           if (startPage > 2) pages.push('ellipsis');
@@ -194,7 +172,6 @@ class Pagination extends HTMLElement {
           pages.push(totalPages);
         }
       } else {
-        // Без граничных страниц: ... 14 15 16 ...
         if (startPage > 1) {
           pages.push('ellipsis');
         }
@@ -208,7 +185,6 @@ class Pagination extends HTMLElement {
         }
       }
     } else {
-      // Без эллипсиса - просто видимый диапазон
       for (let i = startPage; i <= endPage; i++) {
         pages.push(i);
       }
@@ -218,22 +194,22 @@ class Pagination extends HTMLElement {
   }
 
   _goToPage(page) {
-    this.setAttribute('page', page);
-    this._dispatchChangeEvent(page);
+    // Используем requestAnimationFrame чтобы избежать рекурсии
+    requestAnimationFrame(() => {
+      this.setAttribute('page', page);
+      this._dispatchChangeEvent(page);
+    });
   }
 
   _goToPrevious() {
-    const currentPage = parseInt(this.getAttribute('page')) || 1;
-    if (currentPage > 1) {
-      this._goToPage(currentPage - 1);
+    if (this._currentPage > 1) {
+      this._goToPage(this._currentPage - 1);
     }
   }
 
   _goToNext() {
-    const currentPage = parseInt(this.getAttribute('page')) || 1;
-    const totalPages = parseInt(this.getAttribute('total-pages')) || 1;
-    if (currentPage < totalPages) {
-      this._goToPage(currentPage + 1);
+    if (this._currentPage < this._totalPages) {
+      this._goToPage(this._currentPage + 1);
     }
   }
 
@@ -242,16 +218,15 @@ class Pagination extends HTMLElement {
   }
 
   _goToLast() {
-    const totalPages = parseInt(this.getAttribute('total-pages')) || 1;
-    this._goToPage(totalPages);
+    this._goToPage(this._totalPages);
   }
 
   _dispatchChangeEvent(page) {
     this.dispatchEvent(
-      new CustomEvent('page-change', {
+      new CustomEvent('change', {
         detail: {
           page,
-          totalPages: parseInt(this.getAttribute('total-pages')) || 1,
+          totalPages: this._totalPages,
           itemsPerPage: parseInt(this.getAttribute('items-per-page')) || 10,
         },
         bubbles: true,
@@ -260,8 +235,7 @@ class Pagination extends HTMLElement {
   }
 
   goToPage(page) {
-    const totalPages = parseInt(this.getAttribute('total-pages')) || 1;
-    if (page >= 1 && page <= totalPages) {
+    if (page >= 1 && page <= this._totalPages) {
       this._goToPage(page);
     }
   }

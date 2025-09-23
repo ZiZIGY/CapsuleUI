@@ -8,26 +8,46 @@ __PREFIX__-__COMPONENT__ {
   padding: 0;
 }
 
-/* Page items */
+/* Page buttons */
 __PREFIX__-__COMPONENT__::part(page-item) {
-  display: flex;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 var(--capsule-margin-xs);
+  border: 1px solid var(--capsule-color-outline-border);
+  background: var(--capsule-color-background);
+  color: var(--capsule-color-text);
+  border-radius: var(--capsule-radius);
+  font-family: inherit;
+  font-size: var(--capsule-font-size-sm);
+  font-weight: var(--capsule-font-weight-medium);
+  cursor: pointer;
+  transition: var(--capsule-transition);
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+__PREFIX__-__COMPONENT__::part(page-item):hover {
+  background: var(--capsule-color-surface);
+  border-color: var(--capsule-color-text-secondary);
 }
 
 __PREFIX__-__COMPONENT__::part(page-item active) {
-  background-color: red;
+  background: var(--capsule-color-primary);
+  border-color: var(--capsule-color-primary);
+  color: var(--capsule-color-white);
 }
 
-/* Navigation items (first, previous, next, last) */
-__PREFIX__-__COMPONENT__::part(first-item),
-__PREFIX__-__COMPONENT__::part(prev-item),
-__PREFIX__-__COMPONENT__::part(next-item),
-__PREFIX__-__COMPONENT__::part(last-item) {
-  display: flex;
+__PREFIX__-__COMPONENT__::part(page-item active):hover {
+  background: var(--capsule-color-primary-hover);
+  border-color: var(--capsule-color-primary-hover);
 }
 
 /* Ellipsis */
 __PREFIX__-__COMPONENT__::part(ellipsis) {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   min-width: 32px;
@@ -35,4 +55,147 @@ __PREFIX__-__COMPONENT__::part(ellipsis) {
   padding: 0 var(--capsule-margin-xs);
   color: var(--capsule-color-text-secondary);
   font-size: var(--capsule-font-size-sm);
+}
+
+/* Sizes */
+__PREFIX__-__COMPONENT__[size='sm']::part(page-item) {
+  min-width: 28px;
+  height: 28px;
+  font-size: var(--capsule-font-size-xs);
+}
+
+__PREFIX__-__COMPONENT__[size='sm']::part(ellipsis) {
+  min-width: 28px;
+  height: 28px;
+  font-size: var(--capsule-font-size-xs);
+}
+
+__PREFIX__-__COMPONENT__[size='lg']::part(page-item) {
+  min-width: 40px;
+  height: 40px;
+  font-size: var(--capsule-font-size);
+}
+
+__PREFIX__-__COMPONENT__[size='lg']::part(ellipsis) {
+  min-width: 40px;
+  height: 40px;
+  font-size: var(--capsule-font-size);
+}
+
+/* Variants */
+__PREFIX__-__COMPONENT__[variant='outline']::part(page-item) {
+  background: transparent;
+  border-color: var(--capsule-color-outline-border);
+}
+
+__PREFIX__-__COMPONENT__[variant='outline']::part(page-item active) {
+  background: transparent;
+  border-color: var(--capsule-color-primary);
+  color: var(--capsule-color-primary);
+}
+
+__PREFIX__-__COMPONENT__[variant='outline']::part(page-item):hover {
+  background: var(--capsule-color-surface);
+  border-color: var(--capsule-color-text-secondary);
+}
+
+__PREFIX__-__COMPONENT__[variant='ghost']::part(page-item) {
+  background: transparent;
+  border-color: transparent;
+}
+
+__PREFIX__-__COMPONENT__[variant='ghost']::part(page-item active) {
+  background: color-mix(in srgb, var(--capsule-color-primary) 10%, transparent);
+  color: var(--capsule-color-primary);
+}
+
+__PREFIX__-__COMPONENT__[variant='ghost']::part(page-item):hover {
+  background: color-mix(in srgb, var(--capsule-color-text) 5%, transparent);
+}
+
+/* Colors */
+__PREFIX__-__COMPONENT__[color='secondary']::part(page-item active) {
+  background: var(--capsule-color-secondary);
+  border-color: var(--capsule-color-secondary);
+  color: var(--capsule-color-text);
+}
+
+__PREFIX__-__COMPONENT__[color='error']::part(page-item active) {
+  background: var(--capsule-color-error);
+  border-color: var(--capsule-color-error);
+  color: var(--capsule-color-white);
+}
+
+__PREFIX__-__COMPONENT__[color='warning']::part(page-item active) {
+  background: var(--capsule-color-warning);
+  border-color: var(--capsule-color-warning);
+  color: var(--capsule-color-white);
+}
+
+__PREFIX__-__COMPONENT__[color='success']::part(page-item active) {
+  background: var(--capsule-color-success);
+  border-color: var(--capsule-color-success);
+  color: var(--capsule-color-white);
+}
+
+/* Outline colors */
+__PREFIX__-__COMPONENT__[variant='outline'][color='secondary']::part(
+    page-item active
+  ) {
+  border-color: var(--capsule-color-secondary);
+  color: var(--capsule-color-secondary);
+}
+
+__PREFIX__-__COMPONENT__[variant='outline'][color='error']::part(
+    page-item active
+  ) {
+  border-color: var(--capsule-color-error);
+  color: var(--capsule-color-error);
+}
+
+__PREFIX__-__COMPONENT__[variant='outline'][color='warning']::part(
+    page-item active
+  ) {
+  border-color: var(--capsule-color-warning);
+  color: var(--capsule-color-warning);
+}
+
+__PREFIX__-__COMPONENT__[variant='outline'][color='success']::part(
+    page-item active
+  ) {
+  border-color: var(--capsule-color-success);
+  color: var(--capsule-color-success);
+}
+
+/* Ghost colors */
+__PREFIX__-__COMPONENT__[variant='ghost'][color='secondary']::part(
+    page-item active
+  ) {
+  background: color-mix(
+    in srgb,
+    var(--capsule-color-secondary) 10%,
+    transparent
+  );
+  color: var(--capsule-color-secondary);
+}
+
+__PREFIX__-__COMPONENT__[variant='ghost'][color='error']::part(
+    page-item active
+  ) {
+  background: color-mix(in srgb, var(--capsule-color-error) 10%, transparent);
+  color: var(--capsule-color-error);
+}
+
+__PREFIX__-__COMPONENT__[variant='ghost'][color='warning']::part(
+    page-item active
+  ) {
+  background: color-mix(in srgb, var(--capsule-color-warning) 10%, transparent);
+  color: var(--capsule-color-warning);
+}
+
+__PREFIX__-__COMPONENT__[variant='ghost'][color='success']::part(
+    page-item active
+  ) {
+  background: color-mix(in srgb, var(--capsule-color-success) 10%, transparent);
+  color: var(--capsule-color-success);
 }
