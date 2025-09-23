@@ -1,0 +1,50 @@
+{
+  "version": 1.1,
+  "tags": [
+    {
+      "name": "capsule-badge",
+      "description": "CapsuleUI Badge component. Displays notifications, counts, or status indicators.",
+      "attributes": [
+        {
+          "name": "color",
+          "description": "Badge color variant.",
+          "values": [
+            { "name": "primary" },
+            { "name": "secondary" },
+            { "name": "error" },
+            { "name": "warning" },
+            { "name": "success" }
+          ]
+        },
+        {
+          "name": "variant",
+          "description": "Badge visual variant.",
+          "values": [{ "name": "standard" }, { "name": "dot" }]
+        },
+        {
+          "name": "position",
+          "description": "Badge position relative to slotted content.",
+          "values": [
+            { "name": "top-right" },
+            { "name": "top-left" },
+            { "name": "bottom-right" },
+            { "name": "bottom-left" }
+          ]
+        },
+        {
+          "name": "invisible",
+          "description": "Hide the badge (boolean attribute).",
+          "valueSet": "v"
+        },
+        {
+          "name": "max",
+          "description": "Maximum value before showing 'max+'."
+        },
+        {
+          "name": "value",
+          "description": "Badge value/content to display."
+        }
+      ]
+    }
+  ]
+}

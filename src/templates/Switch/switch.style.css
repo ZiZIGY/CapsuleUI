@@ -28,7 +28,6 @@ __PREFIX__-__COMPONENT__::part(track) {
   background: var(--capsule-color-outline-border);
   border-radius: var(--capsule-radius-full);
   transition: var(--capsule-transition);
-  overflow: hidden;
 }
 
 __PREFIX__-__COMPONENT__[checked]::part(track) {

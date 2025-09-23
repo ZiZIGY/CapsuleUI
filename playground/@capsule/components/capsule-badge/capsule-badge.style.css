@@ -1,0 +1,135 @@
+capsule-badge {
+  display: inline-flex;
+  position: relative;
+  vertical-align: middle;
+}
+
+/* Base badge styles */
+capsule-badge::after {
+  content: attr(data-value);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%);
+  box-sizing: border-box;
+  font-family: var(--capsule-font-family);
+  font-weight: var(--capsule-font-weight-medium);
+  font-size: var(--capsule-font-size-xs);
+  line-height: 1;
+  padding: 0 6px;
+  height: 20px;
+  min-width: 20px;
+  border-radius: var(--capsule-radius-full);
+  background: var(--capsule-color-primary);
+  color: var(--capsule-color-white);
+  z-index: 1;
+  white-space: nowrap;
+}
+
+/* Dot variant - должен быть ПЕРВЫМ */
+capsule-badge[variant='dot']::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  min-width: auto;
+  background: var(--capsule-color-primary);
+  border: none;
+}
+
+/* Outline variant - ДО цветов */
+capsule-badge[variant='outline']::after {
+  background: transparent !important;
+  border: 1px solid var(--capsule-color-primary) !important;
+  color: var(--capsule-color-primary) !important;
+}
+
+/* Colors for outline - ОТДЕЛЬНО */
+capsule-badge[variant='outline'][color='secondary']::after {
+  border-color: var(--capsule-color-secondary) !important;
+  color: var(--capsule-color-secondary) !important;
+}
+
+capsule-badge[variant='outline'][color='error']::after {
+  border-color: var(--capsule-color-error) !important;
+  color: var(--capsule-color-error) !important;
+}
+
+capsule-badge[variant='outline'][color='warning']::after {
+  border-color: var(--capsule-color-warning) !important;
+  color: var(--capsule-color-warning) !important;
+}
+
+capsule-badge[variant='outline'][color='success']::after {
+  border-color: var(--capsule-color-success) !important;
+  color: var(--capsule-color-success) !important;
+}
+
+/* Colors for standard/dot - ПОСЛЕ outline */
+capsule-badge[color='secondary']::after {
+  background: var(--capsule-color-secondary);
+  color: var(--capsule-color-secondary-text);
+}
+
+capsule-badge[color='error']::after {
+  background: var(--capsule-color-error);
+  color: var(--capsule-color-white);
+}
+
+capsule-badge[color='warning']::after {
+  background: var(--capsule-color-warning);
+  color: var(--capsule-color-white);
+}
+
+capsule-badge[color='success']::after {
+  background: var(--capsule-color-success);
+  color: var(--capsule-color-white);
+}
+
+/* Dot colors */
+capsule-badge[variant='dot'][color='secondary']::after {
+  background: var(--capsule-color-secondary);
+}
+
+capsule-badge[variant='dot'][color='error']::after {
+  background: var(--capsule-color-error);
+}
+
+capsule-badge[variant='dot'][color='warning']::after {
+  background: var(--capsule-color-warning);
+}
+
+capsule-badge[variant='dot'][color='success']::after {
+  background: var(--capsule-color-success);
+}
+
+/* Positions */
+capsule-badge[position='top-left']::after {
+  top: 0;
+  left: 0;
+  right: auto;
+  transform: translate(-50%, -50%);
+}
+
+capsule-badge[position='bottom-right']::after {
+  top: auto;
+  bottom: 0;
+  right: 0;
+  transform: translate(50%, 50%);
+}
+
+capsule-badge[position='bottom-left']::after {
+  top: auto;
+  bottom: 0;
+  left: 0;
+  right: auto;
+  transform: translate(-50%, 50%);
+}
+
+/* Invisible */
+capsule-badge[invisible]::after {
+  display: none;
+}
