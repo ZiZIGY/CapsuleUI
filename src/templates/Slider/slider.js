@@ -57,8 +57,7 @@ class Slider extends HTMLElement {
   }
 
   formDisabledCallback(disabled) {
-    this.style.opacity = disabled ? '0.5' : '1';
-    this.style.pointerEvents = disabled ? 'none' : 'auto';
+    this.toggleAttribute('disabled', disabled);
   }
 
   formResetCallback() {
