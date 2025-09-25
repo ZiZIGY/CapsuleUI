@@ -56,10 +56,6 @@ class Slider extends HTMLElement {
     }
   }
 
-  formAssociatedCallback(form) {
-    console.log('Form associated:', form);
-  }
-
   formDisabledCallback(disabled) {
     this.style.opacity = disabled ? '0.5' : '1';
     this.style.pointerEvents = disabled ? 'none' : 'auto';

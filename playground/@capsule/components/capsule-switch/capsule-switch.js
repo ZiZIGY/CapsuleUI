@@ -35,11 +35,6 @@ class Switch extends HTMLElement {
     }
   }
 
-  // Form methods
-  formAssociatedCallback(form) {
-    console.log('Form associated:', form);
-  }
-
   formDisabledCallback(disabled) {
     this.toggleAttribute('disabled', disabled);
   }
