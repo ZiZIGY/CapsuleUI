@@ -5,9 +5,6 @@ class Button extends HTMLElement {
     super();
     this._internals = this.attachInternals();
     this._isKeyPressed = false;
-
-    this.attachShadow({ mode: 'open' });
-    this._render();
   }
 
   connectedCallback() {
@@ -21,7 +18,7 @@ class Button extends HTMLElement {
     }
 
     if (!this.hasAttribute('tabindex')) {
-      this.tabIndex = 0;
+      this.setAttribute('tabindex', '0');
     }
   }
 
@@ -69,18 +66,11 @@ class Button extends HTMLElement {
     this._internals.ariaDisabled = this.disabled;
     if (this.disabled) {
       this.setAttribute('aria-disabled', 'true');
-      this.removeAttribute('tabindex');
+      this.setAttribute('tabindex', '-1');
     } else {
       this.removeAttribute('aria-disabled');
-      this.tabIndex = 0;
+      this.setAttribute('tabindex', '0');
     }
-  }
-
-  _render() {
-    this.shadowRoot.innerHTML = `
-      <slot></slot>
-      <capsule-ripple></capsule-ripple>
-    `;
   }
 
   _setupEventListeners() {
@@ -101,24 +91,22 @@ class Button extends HTMLElement {
   }
 
   _handleFormSubmission() {
-    if (!this.form || this.type === 'button') return;
+    if (!this.form || this.type === 'button' || this.type === 'image') return;
     if (this.type === 'reset') this.form.reset();
     if (this.type === 'submit') this.form.requestSubmit();
   }
 
   _handleKeydown(event) {
-    if (this.disabled) return;
-
-    if ((event.key === 'Enter' || event.key === ' ') && !this._isKeyPressed) {
+    if (this.disabled || event.repeat) return;
+    if (event.key === 'Enter') {
       event.preventDefault();
-      this._isKeyPressed = true;
+      this.click();
     }
   }
 
   _handleKeyup(event) {
-    if (event.key === 'Enter' || event.key === ' ') {
-      this._isKeyPressed = false;
-
+    if (this.disabled) return;
+    if (event.key === 'Enter') {
       this.click();
     }
   }

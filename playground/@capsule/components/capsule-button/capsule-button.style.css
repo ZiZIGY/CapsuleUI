@@ -67,26 +67,18 @@ capsule-button[size='lg'] {
 
 capsule-button:not([variant]),
 capsule-button[variant='primary'] {
-  background: linear-gradient(135deg, var(--capsule-color-primary), #3b82f6);
+  background: var(--capsule-color-primary);
   color: var(--capsule-color-white);
 }
 
 capsule-button:not([variant]):hover:not([disabled]),
 capsule-button[variant='primary']:hover:not([disabled]) {
-  background: linear-gradient(
-    135deg,
-    var(--capsule-color-primary-hover),
-    #2563eb
-  );
+  background: var(--capsule-color-primary-hover);
 }
 
 capsule-button:not([variant]):active:not([disabled]),
 capsule-button[variant='primary']:active:not([disabled]) {
-  background: linear-gradient(
-    135deg,
-    var(--capsule-color-primary-press),
-    #1d4ed8
-  );
+  background: var(--capsule-color-primary-press);
 }
 
 capsule-button[variant='secondary'] {

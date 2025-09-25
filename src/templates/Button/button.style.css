@@ -67,26 +67,18 @@ __PREFIX__-__COMPONENT__[size='lg'] {
 
 __PREFIX__-__COMPONENT__:not([variant]),
 __PREFIX__-__COMPONENT__[variant='primary'] {
-  background: linear-gradient(135deg, var(--capsule-color-primary), #3b82f6);
+  background: var(--capsule-color-primary);
   color: var(--capsule-color-white);
 }
 
 __PREFIX__-__COMPONENT__:not([variant]):hover:not([disabled]),
 __PREFIX__-__COMPONENT__[variant='primary']:hover:not([disabled]) {
-  background: linear-gradient(
-    135deg,
-    var(--capsule-color-primary-hover),
-    #2563eb
-  );
+  background: var(--capsule-color-primary-hover);
 }
 
 __PREFIX__-__COMPONENT__:not([variant]):active:not([disabled]),
 __PREFIX__-__COMPONENT__[variant='primary']:active:not([disabled]) {
-  background: linear-gradient(
-    135deg,
-    var(--capsule-color-primary-press),
-    #1d4ed8
-  );
+  background: var(--capsule-color-primary-press);
 }
 
 __PREFIX__-__COMPONENT__[variant='secondary'] {

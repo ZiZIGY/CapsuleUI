@@ -1,225 +1,476 @@
-class Pagination extends HTMLElement {
+class Slider extends HTMLElement {
   static observedAttributes = [
-    'page',
-    'total-pages',
-    'items-per-page',
-    'visible-pages',
-    'show-ellipsis',
-    'show-first-last',
+    'min',
+    'max',
+    'step',
+    'decimals',
+    'values',
+    'orientation',
+    'show-ticks',
+    'ticks-density',
   ];
+  static formAssociated = true;
 
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
+    this.internals_ = this.attachInternals();
+    this._min = 0;
+    this._max = 100;
+    this._step = 1;
+    this._decimals = 0;
+    this._values = [25, 75];
+    this._orientation = 'horizontal';
+    this._showTicks = false;
+    this._ticksDensity = 1;
+    this._thumbs = [];
+    this._activeThumb = null;
+
+    [
+      '_onThumbPointerDown',
+      '_onSliderPointerDown',
+      '_onPointerMove',
+      '_onPointerUp',
+    ].forEach((method) => (this[method] = this[method].bind(this)));
   }
 
   connectedCallback() {
+    this._parseAttributes();
     this._render();
-    this._attachEvents();
+    this._init();
   }
 
-  attributeChangedCallback() {
-    this._render();
+  disconnectedCallback() {
+    this._unbindEvents();
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (name === 'orientation' && oldValue === newValue) return;
+
+    this._parseAttributes();
+
+    if (['orientation', 'show-ticks', 'ticks-density'].includes(name)) {
+      this._fullUpdate();
+    } else {
+      name === 'orientation' ? this._updateRange() : this._fullUpdate();
+    }
+  }
+
+  formAssociatedCallback(form) {
+    console.log('Form associated:', form);
+  }
+
+  formDisabledCallback(disabled) {
+    this.style.opacity = disabled ? '0.5' : '1';
+    this.style.pointerEvents = disabled ? 'none' : 'auto';
+  }
+
+  formResetCallback() {
+    this._resetToEvenlyDistributedValues();
+    this._fullUpdate();
+  }
+
+  _parseAttributes() {
+    this._min = parseFloat(this.getAttribute('min'));
+    this._max = parseFloat(this.getAttribute('max'));
+
+    if (isNaN(this._min)) this._min = 0;
+    if (isNaN(this._max)) this._max = 100;
+    if (this._min >= this._max) this._max = this._min + 100;
+
+    const valuesAttr = this.getAttribute('values');
+    this._values = valuesAttr
+      ? this._parseValues(valuesAttr)
+      : [this._min, this._max];
+
+    this._validateValues();
+
+    this._step = parseFloat(this.getAttribute('step')) || 1;
+    this._decimals = parseInt(this.getAttribute('decimals')) || 0;
+    this._orientation =
+      this.getAttribute('orientation') === 'vertical'
+        ? 'vertical'
+        : 'horizontal';
+    this._showTicks = this.hasAttribute('show-ticks');
+    this._ticksDensity = parseInt(this.getAttribute('ticks-density')) || 1;
+  }
+
+  _parseValues(valuesAttr) {
+    try {
+      const parsed = JSON.parse(valuesAttr);
+      if (!Array.isArray(parsed) || parsed.length === 0) {
+        return [this._min, this._max];
+      }
+      return parsed;
+    } catch {
+      return [this._min, this._max];
+    }
+  }
+
+  _validateValues() {
+    this._values = this._values
+      .map((v) => {
+        const num = parseFloat(v);
+        return isNaN(num)
+          ? this._min
+          : Math.max(this._min, Math.min(num, this._max));
+      })
+      .sort((a, b) => a - b);
+
+    if (this._values.length === 0) {
+      this._values =
+        this._values.length === 1 ? [this._min] : [this._min, this._max];
+    }
+  }
+
+  _calculateMinMax() {
+    if (this._min == null) this._min = Math.min(...this._values);
+    if (this._max == null) this._max = Math.max(...this._values);
+    if (this._min == null) this._min = 0;
+    if (this._max == null) this._max = 100;
+    if (this._min === this._max) this._max = this._min + 100;
   }
 
   _render() {
-    const page = parseInt(this.getAttribute('page')) || 1;
-    const totalPages = parseInt(this.getAttribute('total-pages')) || 1;
-    const visiblePages = parseInt(this.getAttribute('visible-pages')) || 5;
-    const showEllipsis = this.hasAttribute('show-ellipsis');
-    const showFirstLast = this.hasAttribute('show-first-last');
-
-    const pages = this._generatePages(
-      page,
-      totalPages,
-      visiblePages,
-      showEllipsis
-    );
-
     this.shadowRoot.innerHTML = `
-      <nav class="pagination" part="pagination" aria-label="Pagination">
-        ${
-          showFirstLast
-            ? `
-          <div class="page-item first" part="first-item">
-            <slot name="first"></slot>
-          </div>
-        `
-            : ''
-        }
-
-        <div class="page-item previous" part="prev-item">
-          <slot name="previous"></slot>
-        </div>
-
-        <div class="pages-container" part="pages-container">
-          ${pages
-            .map((page) => {
-              if (page === 'ellipsis') {
-                return `<div class="ellipsis" part="ellipsis"><slot name="ellipsis">…</slot></div>`;
-              }
-              const isActive = page === parseInt(this.getAttribute('page'));
-              return `
-              <div class="page-item ${
-                isActive ? 'active' : ''
-              }" part="page-item">
-                <button type="button" part="page-button" data-page="${page}">${page}</button>
-              </div>
-            `;
-            })
-            .join('')}
-        </div>
-
-        <div class="page-item next" part="next-item">
-          <slot name="next"></slot>
-        </div>
-
-        ${
-          showFirstLast
-            ? `
-          <div class="page-item last" part="last-item">
-            <slot name="last"></slot>
-          </div>
-        `
-            : ''
-        }
-      </nav>
+      <div part="track"></div>
+      <div part="range"></div>
+      <div part="ticks"></div>
     `;
+    this._track = this.shadowRoot.querySelector('[part="track"]');
+    this._range = this.shadowRoot.querySelector('[part="range"]');
+    this._ticksContainer = this.shadowRoot.querySelector('[part="ticks"]');
 
-    this._bindPageEvents();
+    if (this._showTicks) {
+      this._renderTicks();
+    }
   }
 
-  _bindPageEvents() {
-    const pageButtons = this.shadowRoot.querySelectorAll('button[data-page]');
-    pageButtons.forEach((button) => {
-      button.addEventListener('click', () => {
-        const page = parseInt(button.dataset.page);
-        this._goToPage(page);
-      });
+  _renderTicks() {
+    if (!this._showTicks || !this._ticksContainer) return;
+
+    const ticksCount = Math.floor(
+      (this._max - this._min) / this._step / this._ticksDensity
+    );
+
+    for (let i = 0; i <= ticksCount; i++) {
+      const value = this._min + i * this._step * this._ticksDensity;
+      if (value > this._max) break;
+
+      const tick = document.createElement('div');
+      tick.part.add('tick');
+
+      const percentage = ((value - this._min) / (this._max - this._min)) * 100;
+
+      if (this._orientation === 'horizontal') {
+        tick.style.left = `${percentage}%`;
+      } else {
+        tick.style.bottom = `${percentage}%`;
+      }
+
+      this._ticksContainer.appendChild(tick);
+    }
+  }
+
+  _init() {
+    this._initThumbs();
+    this._updateRange();
+    this._bindEvents();
+    this._updateFormValue();
+  }
+
+  _fullUpdate() {
+    this._render();
+    this._init();
+  }
+
+  _initThumbs() {
+    this._thumbs = [];
+
+    this._values.forEach((value, index) => {
+      const thumb = document.createElement('div');
+      thumb.classList.add('thumb');
+      thumb.part.add('thumb');
+      thumb.dataset.index = index;
+
+      const surface = document.createElement('div');
+      surface.part.add('surface');
+
+      thumb.appendChild(surface);
+
+      this.shadowRoot.appendChild(thumb);
+      this._thumbs[index] = thumb;
+      this._positionThumb(index);
     });
   }
 
-  _attachEvents() {
-    if (this.hasAttribute('show-first-last')) {
-      this._bindSlotEvent('first', () => this._goToFirst());
-      this._bindSlotEvent('last', () => this._goToLast());
-    }
+  _positionThumb(index) {
+    const thumb = this._thumbs[index];
 
-    this._bindSlotEvent('previous', () => this._goToPrevious());
-    this._bindSlotEvent('next', () => this._goToNext());
+    const percentage =
+      ((this._values[index] - this._min) / (this._max - this._min)) * 100;
+    const axis = this._orientation === 'horizontal' ? 'left' : 'bottom';
+
+    thumb.style[axis] = `${percentage}%`;
   }
 
-  _bindSlotEvent(slotName, handler) {
-    const slot = this.shadowRoot.querySelector(`slot[name="${slotName}"]`);
-    if (slot) {
-      const bindElements = () => {
-        slot.assignedElements().forEach((element) => {
-          if (!element._bound) {
-            element.addEventListener('click', handler);
-            element._bound = true;
-          }
-        });
-      };
-
-      bindElements();
-      slot.addEventListener('slotchange', bindElements);
-    }
+  _formatValue(value) {
+    return value.toFixed(this._decimals);
   }
 
-  _generatePages(currentPage, totalPages, visiblePages, showEllipsis) {
-    if (totalPages <= visiblePages) {
-      return Array.from({ length: totalPages }, (_, i) => i + 1);
-    }
+  _updateRange() {
+    if (this._values.length === 0) return;
 
-    const pages = [];
-    const halfVisible = Math.floor(visiblePages / 2);
-    let startPage = Math.max(1, currentPage - halfVisible);
-    let endPage = Math.min(totalPages, startPage + visiblePages - 1);
+    let startPercent, endPercent;
 
-    if (endPage - startPage + 1 < visiblePages) {
-      startPage = Math.max(1, endPage - visiblePages + 1);
-    }
-
-    if (showEllipsis) {
-      if (startPage > 1) {
-        pages.push(1);
-        if (startPage > 2) pages.push('ellipsis');
-      }
-
-      for (let i = startPage; i <= endPage; i++) {
-        pages.push(i);
-      }
-
-      if (endPage < totalPages) {
-        if (endPage < totalPages - 1) pages.push('ellipsis');
-        pages.push(totalPages);
-      }
+    if (this._values.length === 1) {
+      startPercent = 0;
+      endPercent =
+        ((this._values[0] - this._min) / (this._max - this._min)) * 100;
     } else {
-      // Без эллипсиса - просто видимый диапазон
-      for (let i = startPage; i <= endPage; i++) {
-        pages.push(i);
-      }
+      startPercent =
+        ((Math.min(...this._values) - this._min) / (this._max - this._min)) *
+        100;
+      endPercent =
+        ((Math.max(...this._values) - this._min) / (this._max - this._min)) *
+        100;
     }
 
-    return pages;
-  }
-
-  _goToPage(page) {
-    this.setAttribute('page', page);
-    this._dispatchChangeEvent(page);
-  }
-
-  _goToPrevious() {
-    const currentPage = parseInt(this.getAttribute('page')) || 1;
-    if (currentPage > 1) {
-      this._goToPage(currentPage - 1);
-    }
-  }
-
-  _goToNext() {
-    const currentPage = parseInt(this.getAttribute('page')) || 1;
-    const totalPages = parseInt(this.getAttribute('total-pages')) || 1;
-    if (currentPage < totalPages) {
-      this._goToPage(currentPage + 1);
+    if (this._orientation === 'horizontal') {
+      this._range.style.left = `${startPercent}%`;
+      this._range.style.width = `${endPercent - startPercent}%`;
+    } else {
+      this._range.style.setProperty('--top', `${100 - endPercent}%`);
+      this._range.style.setProperty(
+        '--height',
+        `${endPercent - startPercent}%`
+      );
     }
   }
 
-  _goToFirst() {
-    this._goToPage(1);
+  _bindEvents() {
+    this._thumbs.forEach((thumb) =>
+      thumb.addEventListener('pointerdown', this._onThumbPointerDown)
+    );
+    this.addEventListener('pointerdown', this._onSliderPointerDown);
   }
 
-  _goToLast() {
-    const totalPages = parseInt(this.getAttribute('total-pages')) || 1;
-    this._goToPage(totalPages);
+  _unbindEvents() {
+    document.removeEventListener('pointermove', this._onPointerMove);
+    document.removeEventListener('pointerup', this._onPointerUp);
+    this._thumbs.forEach((thumb) =>
+      thumb.removeEventListener('pointerdown', this._onThumbPointerDown)
+    );
+    this.removeEventListener('pointerdown', this._onSliderPointerDown);
   }
 
-  _dispatchChangeEvent(page) {
+  _bindGlobalEvents() {
+    document.addEventListener('pointermove', this._onPointerMove);
+    document.addEventListener('pointerup', this._onPointerUp);
+  }
+
+  _unbindGlobalEvents() {
+    document.removeEventListener('pointermove', this._onPointerMove);
+    document.removeEventListener('pointerup', this._onPointerUp);
+  }
+
+  _onThumbPointerDown(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    this._activeThumb = e.target.closest('[part="thumb"]');
+    this._activeThumbIndex = parseInt(this._activeThumb.dataset.index);
+    this._activeThumb.setAttribute('data-active', 'true');
+    this._activeThumb.setPointerCapture(e.pointerId);
+    this._bindGlobalEvents();
+  }
+
+  _onSliderPointerDown(e) {
+    if (e.target.closest('[part="thumb"]')) return;
+    e.preventDefault();
+
+    const rect = this.getBoundingClientRect();
+    const isVertical = this._orientation === 'vertical';
+    const position = isVertical ? e.clientY - rect.top : e.clientX - rect.left;
+    const size = isVertical ? rect.height : rect.width;
+    const clampedPosition = Math.max(0, Math.min(position, size));
+
+    this._findClosestThumb(clampedPosition, size, isVertical);
+    this._updateThumbPosition(clampedPosition, size, isVertical);
+
+    if (this._activeThumb) {
+      this._activeThumb.setPointerCapture(e.pointerId);
+      this._bindGlobalEvents();
+    }
+  }
+
+  _findClosestThumb(position, size, isVertical) {
+    const percentage = isVertical ? 1 - position / size : position / size;
+    const targetValue = this._min + percentage * (this._max - this._min);
+
+    const closestIndex = this._values.reduce(
+      (closest, value, index) => {
+        const distance = Math.abs(value - targetValue);
+        return distance < closest.distance ? { index, distance } : closest;
+      },
+      { index: 0, distance: Math.abs(this._values[0] - targetValue) }
+    ).index;
+
+    this._activeThumbIndex = closestIndex;
+    this._activeThumb = this._thumbs[closestIndex];
+    this._activeThumb.setAttribute('data-active', 'true');
+  }
+
+  _onPointerMove(e) {
+    if (!this._activeThumb) return;
+
+    const rect = this.getBoundingClientRect();
+    const isVertical = this._orientation === 'vertical';
+    const position = isVertical ? e.clientY - rect.top : e.clientX - rect.left;
+    const size = isVertical ? rect.height : rect.width;
+    const clampedPosition = Math.max(0, Math.min(position, size));
+
+    this._updateThumbPosition(clampedPosition, size, isVertical);
+  }
+
+  _updateThumbPosition(position, size, isVertical) {
+    const percentage = isVertical ? 1 - position / size : position / size;
+    let value = this._min + percentage * (this._max - this._min);
+
+    value = Math.round(value / this._step) * this._step;
+    value = parseFloat(value.toFixed(6));
+    value = parseFloat(value.toFixed(this._decimals));
+    value = Math.max(this._min, Math.min(value, this._max));
+
+    this._values[this._activeThumbIndex] = value;
+    this._preventOverlap();
+
+    this._values.forEach((_, index) => this._positionThumb(index));
+    this._updateRange();
+    this._updateFormValue();
+
     this.dispatchEvent(
-      new CustomEvent('page-change', {
-        detail: {
-          page,
-          totalPages: parseInt(this.getAttribute('total-pages')) || 1,
-          itemsPerPage: parseInt(this.getAttribute('items-per-page')) || 10,
-        },
-        bubbles: true,
+      new CustomEvent('change', {
+        detail: { values: this._values },
       })
     );
   }
 
-  goToPage(page) {
-    const totalPages = parseInt(this.getAttribute('total-pages')) || 1;
-    if (page >= 1 && page <= totalPages) {
-      this._goToPage(page);
+  _preventOverlap() {
+    const step = this._step;
+    const min = this._min;
+    const max = this._max;
+    const n = this._values.length;
+    const activeValue = this._values[this._activeThumbIndex];
+    let values = [...this._values];
+
+    values.sort((a, b) => a - b);
+
+    values[0] = Math.max(min, values[0]);
+
+    for (let i = 1; i < n; i++) {
+      values[i] = Math.max(values[i], values[i - 1] + step);
+    }
+    values[n - 1] = Math.min(max, values[n - 1]);
+
+    for (let i = n - 2; i >= 0; i--) {
+      values[i] = Math.min(values[i], values[i + 1] - step);
+    }
+
+    values = values.map((v) =>
+      parseFloat(
+        (Math.round((v - min) / step) * step + min).toFixed(this._decimals)
+      )
+    );
+
+    this._values = values;
+    this._activeThumbIndex = values.indexOf(activeValue);
+    this._thumbs.forEach((thumb, index) => {
+      thumb.dataset.index = index;
+    });
+  }
+
+  _onPointerUp(e) {
+    if (this._activeThumb) {
+      this._activeThumb.removeAttribute('data-active');
+      this._activeThumb.releasePointerCapture(e.pointerId);
+      this._activeThumb = null;
+      this._activeThumbIndex = null;
+      this._unbindGlobalEvents();
     }
   }
 
-  nextPage() {
-    this._goToNext();
+  _updateFormValue() {
+    this.internals_.setFormValue(JSON.stringify(this._values));
   }
 
-  previousPage() {
-    this._goToPrevious();
+  _resetToEvenlyDistributedValues() {
+    const numValues = this._values.length;
+
+    if (numValues === 1) {
+      this._values = [this._min + (this._max - this._min) / 2];
+    } else if (numValues === 2) {
+      this._values = [this._min, this._max];
+    } else {
+      const step = (this._max - this._min) / (numValues - 1);
+      this._values = Array.from({ length: numValues }, (_, i) => {
+        let value = this._min + step * i;
+        value = Math.round(value / this._step) * this._step;
+        value = parseFloat(value.toFixed(this._decimals));
+        return Math.max(this._min, Math.min(value, this._max));
+      });
+    }
+
+    this._values.sort((a, b) => a - b);
+  }
+
+  updateValues(options, reset = false) {
+    this._min = options.min ?? this._min;
+    this._max = options.max ?? this._max;
+    this._step = options.step ?? this._step;
+    this._decimals = options.decimals ?? this._decimals;
+    this._orientation =
+      options.orientation === 'vertical' ? 'vertical' : this._orientation;
+    this._showTicks = options.showTicks ?? this._showTicks;
+    this._ticksDensity = options.ticksDensity ?? this._ticksDensity;
+
+    this._values = reset
+      ? this._getEvenlyDistributedValues(options.values?.length)
+      : (options.values ?? this._values)
+          .map((v) => Math.max(this._min, Math.min(v, this._max)))
+          .sort((a, b) => a - b);
+
+    this._fullUpdate();
+  }
+
+  _getEvenlyDistributedValues(numValues = this._values.length) {
+    if (numValues === 1) return [this._min + (this._max - this._min) / 2];
+    if (numValues === 2) return [this._min, this._max];
+
+    const step = (this._max - this._min) / (numValues - 1);
+    return Array.from({ length: numValues }, (_, i) => {
+      let value = this._min + step * i;
+      value = Math.round(value / this._step) * this._step;
+      value = parseFloat(value.toFixed(this._decimals));
+      return Math.max(this._min, Math.min(value, this._max));
+    }).sort((a, b) => a - b);
+  }
+
+  getValues() {
+    return this._values;
+  }
+
+  getSettings() {
+    return {
+      min: this._min,
+      max: this._max,
+      step: this._step,
+      decimals: this._decimals,
+      values: this._values,
+      orientation: this._orientation,
+      showTicks: this._showTicks,
+      ticksDensity: this._ticksDensity,
+    };
   }
 }
 
-customElements.define('__PREFIX__-__COMPONENT__', Pagination);
+customElements.define('__PREFIX__-__COMPONENT__', Slider);

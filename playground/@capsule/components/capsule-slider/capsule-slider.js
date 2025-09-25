@@ -196,10 +196,6 @@ class Slider extends HTMLElement {
       const surface = document.createElement('div');
       surface.part.add('surface');
 
-      const ripple = document.createElement('capsule-ripple');
-      ripple.part.add('ripples');
-
-      thumb.appendChild(ripple);
       thumb.appendChild(surface);
 
       this.shadowRoot.appendChild(thumb);
