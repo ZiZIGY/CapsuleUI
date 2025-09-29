@@ -6,3 +6,6 @@ import './capsule-switch/capsule-switch.js';
 import './capsule-badge/capsule-badge.js';
 import './capsule-chip/capsule-chip.js';
 import './capsule-pagination/capsule-pagination.js';
+import './pro-button/pro-button.js';
+import './pro-accordion/pro-accordion-item.js';
+import './pro-accordion/pro-accordion.js';
