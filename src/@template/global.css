@@ -61,15 +61,6 @@
     0 0 0 3px color-mix(in srgb, var(--capsule-color-primary) 50%, transparent)
   );
 
-  --capsule-ripple-color: light-dark(
-    color-mix(in srgb, white 50%, transparent),
-    color-mix(in srgb, black 50%, transparent)
-  );
-  --capsule-ripple-bg: light-dark(
-    color-mix(in srgb, black 10%, transparent),
-    color-mix(in srgb, white 10%, transparent)
-  );
-
   --capsule-radius-sm: 0.25rem;
   --capsule-radius: 0.375rem;
   --capsule-radius-md: 0.5rem;

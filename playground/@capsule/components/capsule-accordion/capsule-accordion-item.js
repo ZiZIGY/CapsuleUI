@@ -46,7 +46,7 @@ class AccordionItem extends HTMLElement {
   }
 
   _findAccordion() {
-    this._accordion = this.closest('__PREFIX__-__COMPONENT__');
+    this._accordion = this.closest('capsule-accordion');
   }
 
   _handleTriggerClick(event) {
@@ -82,4 +82,4 @@ class AccordionItem extends HTMLElement {
   }
 }
 
-customElements.define('__PREFIX__-__COMPONENT__-item', AccordionItem);
+customElements.define('capsule-accordion-item', AccordionItem);

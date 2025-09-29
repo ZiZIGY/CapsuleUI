@@ -1,3 +1,4 @@
+@import url('./components/capsule-accordion/capsule-accordion.style.css');
 @import url('./components/pro-accordion/pro-accordion.style.css');
 @import url('./components/pro-button/pro-button.style.css');
 @import url('./components/capsule-pagination/capsule-pagination.style.css');
@@ -49,40 +50,34 @@
 
   /* Тени */
   --capsule-shadow-sm: light-dark(
-    0 1px 2px 0 color-mix(in srgb, black 5%, transparent),
-    0 1px 2px 0 color-mix(in srgb, black 20%, transparent)
+    0 1px 2px 0 rgba(0, 0, 0, 0.05),
+    0 1px 2px 0 rgba(0, 0, 0, 0.2)
   );
+
   --capsule-shadow: light-dark(
-    0 1px 3px 0 color-mix(in srgb, black 10%, transparent),
-    0 1px 2px -1px color-mix(in srgb, black 10%, transparent),
-    0 1px 3px 0 color-mix(in srgb, black 30%, transparent),
-    0 1px 2px -1px color-mix(in srgb, black 30%, transparent)
+    0 1px 3px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px -1px rgba(0, 0, 0, 0.1),
+    0 1px 3px 0 rgba(0, 0, 0, 0.3),
+    0 1px 2px -1px rgba(0, 0, 0, 0.3)
   );
+
   --capsule-shadow-md: light-dark(
-    0 4px 6px -1px color-mix(in srgb, black 10%, transparent),
-    0 2px 4px -2px color-mix(in srgb, black 10%, transparent),
-    0 4px 6px -1px color-mix(in srgb, black 30%, transparent),
-    0 2px 4px -2px color-mix(in srgb, black 30%, transparent)
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -2px rgba(0, 0, 0, 0.1),
+    0 4px 6px -1px rgba(0, 0, 0, 0.3),
+    0 2px 4px -2px rgba(0, 0, 0, 0.3)
   );
+
   --capsule-shadow-lg: light-dark(
-    0 10px 15px -3px color-mix(in srgb, black 10%, transparent),
-    0 4px 6px -4px color-mix(in srgb, black 10%, transparent),
-    0 10px 15px -3px color-mix(in srgb, black 30%, transparent),
-    0 4px 6px -4px color-mix(in srgb, black 30%, transparent)
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -4px rgba(0, 0, 0, 0.1),
+    0 10px 15px -3px rgba(0, 0, 0, 0.3),
+    0 4px 6px -4px rgba(0, 0, 0, 0.3)
   );
+
   --capsule-shadow-focus: light-dark(
     0 0 0 3px color-mix(in srgb, var(--capsule-color-primary) 30%, transparent),
     0 0 0 3px color-mix(in srgb, var(--capsule-color-primary) 50%, transparent)
-  );
-
-  /* Ripple эффекты */
-  --capsule-ripple-color: light-dark(
-    color-mix(in srgb, white 50%, transparent),
-    color-mix(in srgb, black 50%, transparent)
-  );
-  --capsule-ripple-bg: light-dark(
-    color-mix(in srgb, black 10%, transparent),
-    color-mix(in srgb, white 10%, transparent)
   );
 
   /* Остальные переменные остаются без изменений */
