@@ -8,7 +8,7 @@ __PREFIX__-__COMPONENT__ {
   line-height: 1;
   border-radius: var(--capsule-radius-full);
   background: var(--capsule-color-primary);
-  color: var(--capsule-color-white);
+  color: white;
   padding: 4px 12px;
   white-space: nowrap;
   user-select: none;
@@ -16,62 +16,45 @@ __PREFIX__-__COMPONENT__ {
   box-shadow: var(--capsule-shadow-sm);
 }
 
-/* Base colors */
 __PREFIX__-__COMPONENT__[color='primary'] {
   background: var(--capsule-color-primary);
-  color: var(--capsule-color-white);
-  border-color: transparent;
+  color: white;
 }
 
 __PREFIX__-__COMPONENT__[color='secondary'] {
-  background: var(--capsule-color-secondary);
+  background: var(--capsule-color-surface);
   color: var(--capsule-color-text);
-  border-color: transparent;
+  border: 1px solid var(--capsule-color-outline);
 }
 
 __PREFIX__-__COMPONENT__[color='error'] {
   background: var(--capsule-color-error);
-  color: var(--capsule-color-white);
-  border-color: transparent;
+  color: white;
 }
 
 __PREFIX__-__COMPONENT__[color='warning'] {
   background: var(--capsule-color-warning);
-  color: var(--capsule-color-white);
-  border-color: transparent;
+  color: var(--capsule-color-text);
 }
 
 __PREFIX__-__COMPONENT__[color='success'] {
   background: var(--capsule-color-success);
-  color: var(--capsule-color-white);
-  border-color: transparent;
+  color: white;
 }
 
-/* Variants */
 __PREFIX__-__COMPONENT__[variant='outline'] {
-  background: var(--capsule-color-background);
-  border-color: var(--capsule-color-outline-border);
-  color: var(--capsule-color-text);
+  background: transparent;
+  border: 1.5px solid;
+  color: inherit;
 }
 
-__PREFIX__-__COMPONENT__[variant='ghost'] {
-  background: color-mix(in srgb, var(--capsule-color-text) 5%, transparent);
-  color: var(--capsule-color-text);
-  border-color: transparent;
-}
-
-/* Outline colors */
 __PREFIX__-__COMPONENT__[variant='outline'][color='primary'] {
   border-color: var(--capsule-color-primary);
   color: var(--capsule-color-primary);
 }
 
 __PREFIX__-__COMPONENT__[variant='outline'][color='secondary'] {
-  border-color: color-mix(
-    in srgb,
-    var(--capsule-color-text-secondary) 60%,
-    transparent
-  );
+  border-color: var(--capsule-color-outline);
   color: var(--capsule-color-text-secondary);
 }
 
@@ -90,45 +73,43 @@ __PREFIX__-__COMPONENT__[variant='outline'][color='success'] {
   color: var(--capsule-color-success);
 }
 
-/* Ghost colors */
+__PREFIX__-__COMPONENT__[variant='ghost'] {
+  background: color-mix(in srgb, currentColor 8%, transparent);
+  color: var(--capsule-color-text);
+  border: none;
+}
+
 __PREFIX__-__COMPONENT__[variant='ghost'][color='primary'] {
-  background: color-mix(in srgb, var(--capsule-color-primary) 10%, transparent);
+  background: color-mix(in srgb, var(--capsule-color-primary) 12%, transparent);
   color: var(--capsule-color-primary);
 }
 
 __PREFIX__-__COMPONENT__[variant='ghost'][color='secondary'] {
-  background: color-mix(
-    in srgb,
-    var(--capsule-color-text) 8%,
-    var(--capsule-color-surface)
-  );
+  background: color-mix(in srgb, var(--capsule-color-text) 6%, transparent);
   color: var(--capsule-color-text-secondary);
 }
 
 __PREFIX__-__COMPONENT__[variant='ghost'][color='error'] {
-  background: color-mix(in srgb, var(--capsule-color-error) 10%, transparent);
+  background: color-mix(in srgb, var(--capsule-color-error) 12%, transparent);
   color: var(--capsule-color-error);
 }
 
 __PREFIX__-__COMPONENT__[variant='ghost'][color='warning'] {
-  background: color-mix(in srgb, var(--capsule-color-warning) 10%, transparent);
+  background: color-mix(in srgb, var(--capsule-color-warning) 12%, transparent);
   color: var(--capsule-color-warning);
 }
 
 __PREFIX__-__COMPONENT__[variant='ghost'][color='success'] {
-  background: color-mix(in srgb, var(--capsule-color-success) 10%, transparent);
+  background: color-mix(in srgb, var(--capsule-color-success) 12%, transparent);
   color: var(--capsule-color-success);
 }
 
-/* Sizes */
 __PREFIX__-__COMPONENT__[size='sm'] {
   font-size: var(--capsule-font-size-xs);
   padding: 2px 8px;
-  box-shadow: var(--capsule-shadow-sm);
 }
 
 __PREFIX__-__COMPONENT__[size='lg'] {
   font-size: var(--capsule-font-size);
   padding: 6px 16px;
-  box-shadow: var(--capsule-shadow);
 }

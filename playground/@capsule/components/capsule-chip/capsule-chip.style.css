@@ -8,7 +8,7 @@ capsule-chip {
   line-height: 1;
   border-radius: var(--capsule-radius-full);
   background: var(--capsule-color-primary);
-  color: var(--capsule-color-white);
+  color: white;
   padding: 4px 12px;
   white-space: nowrap;
   user-select: none;
@@ -16,62 +16,45 @@ capsule-chip {
   box-shadow: var(--capsule-shadow-sm);
 }
 
-/* Base colors */
 capsule-chip[color='primary'] {
   background: var(--capsule-color-primary);
-  color: var(--capsule-color-white);
-  border-color: transparent;
+  color: white;
 }
 
 capsule-chip[color='secondary'] {
-  background: var(--capsule-color-secondary);
+  background: var(--capsule-color-surface);
   color: var(--capsule-color-text);
-  border-color: transparent;
+  border: 1px solid var(--capsule-color-outline);
 }
 
 capsule-chip[color='error'] {
   background: var(--capsule-color-error);
-  color: var(--capsule-color-white);
-  border-color: transparent;
+  color: white;
 }
 
 capsule-chip[color='warning'] {
   background: var(--capsule-color-warning);
-  color: var(--capsule-color-white);
-  border-color: transparent;
+  color: var(--capsule-color-text);
 }
 
 capsule-chip[color='success'] {
   background: var(--capsule-color-success);
-  color: var(--capsule-color-white);
-  border-color: transparent;
+  color: white;
 }
 
-/* Variants */
 capsule-chip[variant='outline'] {
-  background: var(--capsule-color-background);
-  border-color: var(--capsule-color-outline-border);
-  color: var(--capsule-color-text);
+  background: transparent;
+  border: 1.5px solid;
+  color: inherit;
 }
 
-capsule-chip[variant='ghost'] {
-  background: color-mix(in srgb, var(--capsule-color-text) 5%, transparent);
-  color: var(--capsule-color-text);
-  border-color: transparent;
-}
-
-/* Outline colors */
 capsule-chip[variant='outline'][color='primary'] {
   border-color: var(--capsule-color-primary);
   color: var(--capsule-color-primary);
 }
 
 capsule-chip[variant='outline'][color='secondary'] {
-  border-color: color-mix(
-    in srgb,
-    var(--capsule-color-text-secondary) 60%,
-    transparent
-  );
+  border-color: var(--capsule-color-outline);
   color: var(--capsule-color-text-secondary);
 }
 
@@ -90,45 +73,43 @@ capsule-chip[variant='outline'][color='success'] {
   color: var(--capsule-color-success);
 }
 
-/* Ghost colors */
+capsule-chip[variant='ghost'] {
+  background: color-mix(in srgb, currentColor 8%, transparent);
+  color: var(--capsule-color-text);
+  border: none;
+}
+
 capsule-chip[variant='ghost'][color='primary'] {
-  background: color-mix(in srgb, var(--capsule-color-primary) 10%, transparent);
+  background: color-mix(in srgb, var(--capsule-color-primary) 12%, transparent);
   color: var(--capsule-color-primary);
 }
 
 capsule-chip[variant='ghost'][color='secondary'] {
-  background: color-mix(
-    in srgb,
-    var(--capsule-color-text) 8%,
-    var(--capsule-color-surface)
-  );
+  background: color-mix(in srgb, var(--capsule-color-text) 6%, transparent);
   color: var(--capsule-color-text-secondary);
 }
 
 capsule-chip[variant='ghost'][color='error'] {
-  background: color-mix(in srgb, var(--capsule-color-error) 10%, transparent);
+  background: color-mix(in srgb, var(--capsule-color-error) 12%, transparent);
   color: var(--capsule-color-error);
 }
 
 capsule-chip[variant='ghost'][color='warning'] {
-  background: color-mix(in srgb, var(--capsule-color-warning) 10%, transparent);
+  background: color-mix(in srgb, var(--capsule-color-warning) 12%, transparent);
   color: var(--capsule-color-warning);
 }
 
 capsule-chip[variant='ghost'][color='success'] {
-  background: color-mix(in srgb, var(--capsule-color-success) 10%, transparent);
+  background: color-mix(in srgb, var(--capsule-color-success) 12%, transparent);
   color: var(--capsule-color-success);
 }
 
-/* Sizes */
 capsule-chip[size='sm'] {
   font-size: var(--capsule-font-size-xs);
   padding: 2px 8px;
-  box-shadow: var(--capsule-shadow-sm);
 }
 
 capsule-chip[size='lg'] {
   font-size: var(--capsule-font-size);
   padding: 6px 16px;
-  box-shadow: var(--capsule-shadow);
 }
