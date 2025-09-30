@@ -3,18 +3,51 @@ __PREFIX__-__COMPONENT__ {
   margin: var(--capsule-margin-sm) 0;
   padding: 0;
   border: none;
-  background-color: var(--capsule-color-outline-border);
+  background-color: var(--capsule-color-outline);
   flex-shrink: 0;
+  --capsule-divider-thickness: 1px;
 }
 
 __PREFIX__-__COMPONENT__,
 __PREFIX__-__COMPONENT__[orientation='horizontal'] {
-  height: 1px;
+  height: var(--capsule-divider-thickness);
   width: 100%;
 }
 
 __PREFIX__-__COMPONENT__[orientation='vertical'] {
-  width: 1px;
+  width: var(--capsule-divider-thickness);
   height: 100%;
   margin: 0 var(--capsule-margin-sm);
+}
+
+__PREFIX__-__COMPONENT__[thickness='thin'] {
+  --capsule-divider-thickness: 0.5px;
+}
+
+__PREFIX__-__COMPONENT__[thickness='thick'] {
+  --capsule-divider-thickness: 2px;
+}
+
+__PREFIX__-__COMPONENT__[color='primary'] {
+  background-color: var(--capsule-color-primary);
+}
+
+__PREFIX__-__COMPONENT__[color='error'] {
+  background-color: var(--capsule-color-error);
+}
+
+__PREFIX__-__COMPONENT__[color='warning'] {
+  background-color: var(--capsule-color-warning);
+}
+
+__PREFIX__-__COMPONENT__[color='success'] {
+  background-color: var(--capsule-color-success);
+}
+
+__PREFIX__-__COMPONENT__[variant='ghost'] {
+  background-color: color-mix(
+    in srgb,
+    var(--capsule-color-outline) 40%,
+    transparent
+  );
 }
