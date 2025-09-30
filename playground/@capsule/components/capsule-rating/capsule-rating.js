@@ -8,6 +8,7 @@ class Rating extends HTMLElement {
     'size',
     'color',
   ];
+  static formAssociated = true;
 
   constructor() {
     super();
@@ -17,23 +18,55 @@ class Rating extends HTMLElement {
     this._isHovering = false;
     this._hoverPercentage = 0;
     this.attachShadow({ mode: 'open' });
+    this.internals_ = this.attachInternals();
   }
 
   connectedCallback() {
     this._render();
     this._attachEventListeners();
+    this._updateFormValue();
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
+    if (oldValue === newValue) return;
+
     if (name === 'value') {
       this._value = parseFloat(newValue) || 0;
       this._updateFilledWidth();
+      this._updateFormValue();
     } else if (name === 'max') {
       this._max = parseInt(newValue) || 5;
       this._render();
+      this._updateFormValue();
     } else if (name === 'precision') {
       this._precision = parseFloat(newValue) || 1;
     }
+  }
+
+  // Form-associated custom element methods
+  formDisabledCallback(disabled) {
+    this.toggleAttribute('disabled', disabled);
+    this._render(); // Перерисовываем для обновления состояния
+  }
+
+  formResetCallback() {
+    const defaultValue = parseFloat(this.getAttribute('value')) || 0;
+    if (this._value !== defaultValue) {
+      this._value = defaultValue;
+      this._updateFilledWidth();
+      this._updateFormValue();
+    }
+  }
+
+  formStateRestoreCallback(state, mode) {
+    if (mode === 'restore') {
+      this.value = state;
+    }
+  }
+
+  _updateFormValue() {
+    this.internals_.setFormValue(this._value.toString());
+    this.internals_.setValidity({}); // Сбрасываем валидацию
   }
 
   _render() {
@@ -143,9 +176,18 @@ class Rating extends HTMLElement {
       this.value = value;
       this._isHovering = false;
       this._hoverPercentage = 0;
+      this._updateFormValue();
 
       this.dispatchEvent(
         new CustomEvent('change', {
+          detail: { value: this.value },
+          bubbles: true,
+        })
+      );
+
+      // Также диспатчим input событие для форм
+      this.dispatchEvent(
+        new CustomEvent('input', {
           detail: { value: this.value },
           bubbles: true,
         })
@@ -171,6 +213,7 @@ class Rating extends HTMLElement {
     this._value = Math.max(0, Math.min(roundedValue, this._max));
     this.setAttribute('value', this._value);
     this._updateFilledWidth();
+    this._updateFormValue();
   }
 
   get max() {
@@ -181,6 +224,7 @@ class Rating extends HTMLElement {
     this._max = Math.max(1, val);
     this.setAttribute('max', this._max);
     this._render();
+    this._updateFormValue();
   }
 
   get precision() {
@@ -190,6 +234,39 @@ class Rating extends HTMLElement {
   set precision(val) {
     this._precision = val;
     this.setAttribute('precision', val);
+  }
+
+  // Дополнительные методы для совместимости с формами
+  get form() {
+    return this.internals_.form;
+  }
+
+  get name() {
+    return this.getAttribute('name');
+  }
+
+  get type() {
+    return this.localName;
+  }
+
+  get validity() {
+    return this.internals_.validity;
+  }
+
+  get validationMessage() {
+    return this.internals_.validationMessage;
+  }
+
+  get willValidate() {
+    return this.internals_.willValidate;
+  }
+
+  checkValidity() {
+    return this.internals_.checkValidity();
+  }
+
+  reportValidity() {
+    return this.internals_.reportValidity();
   }
 }
 
