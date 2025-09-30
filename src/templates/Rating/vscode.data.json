@@ -1,0 +1,49 @@
+{
+  "version": 1.1,
+  "tags": [
+    {
+      "name": "__PREFIX__-__COMPONENT__",
+      "description": "CapsuleUI Rating component. Interactive star rating with customizable precision and appearance.",
+      "attributes": [
+        {
+          "name": "value",
+          "description": "Current rating value (0 to max)."
+        },
+        {
+          "name": "max",
+          "description": "Maximum rating value (default: 5)."
+        },
+        {
+          "name": "precision",
+          "description": "Rating precision (0.5 for half stars, 1 for whole stars, 0.1 for decimal)."
+        },
+        {
+          "name": "readonly",
+          "description": "Makes the rating read-only (boolean attribute).",
+          "valueSet": "v"
+        },
+        {
+          "name": "disabled",
+          "description": "Disables the rating component (boolean attribute).",
+          "valueSet": "v"
+        },
+        {
+          "name": "size",
+          "description": "Size of the stars.",
+          "values": [{ "name": "sm" }, { "name": "md" }, { "name": "lg" }]
+        },
+        {
+          "name": "color",
+          "description": "Color of the filled stars.",
+          "values": [
+            { "name": "warning" },
+            { "name": "primary" },
+            { "name": "error" },
+            { "name": "success" },
+            { "name": "secondary" }
+          ]
+        }
+      ]
+    }
+  ]
+}
