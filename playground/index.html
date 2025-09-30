@@ -84,6 +84,24 @@
       <capsule-divider></capsule-divider>
     </form>
 
+    <!-- Кастомные иконки -->
+    <capsule-rating
+      value="3.5"
+      max="5"
+    >
+    </capsule-rating>
+
+    <capsule-rating
+      value="1.5"
+      max="5"
+      precision="0.1"
+    >
+      <span slot="star-1-empty">😴</span>
+      <span slot="star-1-filled">😍</span>
+      <span slot="star-2-empty">😴</span>
+      <span slot="star-2-filled">😍</span>
+    </capsule-rating>
+
     <script defer>
       form.onsubmit = (e) => {
         e.preventDefault();

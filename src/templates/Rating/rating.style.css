@@ -1,0 +1,93 @@
+__PREFIX__-__COMPONENT__ {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+
+__PREFIX__-__COMPONENT__[readonly] {
+  pointer-events: none;
+}
+
+__PREFIX__-__COMPONENT__[disabled] {
+  opacity: var(--capsule-opacity-disabled);
+  pointer-events: none;
+}
+
+__PREFIX__-__COMPONENT__::part(stars-container) {
+  display: flex;
+  align-items: center;
+  gap: var(--capsule-margin-xs);
+  position: relative;
+}
+
+__PREFIX__-__COMPONENT__::part(stars-filled) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--filled-width, 0%);
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: var(--capsule-margin-xs);
+  transition: width var(--capsule-transition);
+  z-index: 2;
+}
+
+__PREFIX__-__COMPONENT__::part(stars-empty) {
+  display: flex;
+  align-items: center;
+  gap: var(--capsule-margin-xs);
+  z-index: 1;
+}
+
+__PREFIX__-__COMPONENT__::part(star) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--capsule-transition);
+}
+
+__PREFIX__-__COMPONENT__:not([readonly]):not([disabled]):hover::part(star) {
+  transform: scale(1.1);
+}
+
+__PREFIX__-__COMPONENT__::part(star-filled) {
+  color: var(--capsule-color-warning);
+}
+
+__PREFIX__-__COMPONENT__::part(star-empty) {
+  color: var(--capsule-color-outline);
+}
+
+__PREFIX__-__COMPONENT__[size='sm']::part(star) {
+  width: 16px;
+  height: 16px;
+}
+
+__PREFIX__-__COMPONENT__[size='md']::part(star) {
+  width: 24px;
+  height: 24px;
+}
+
+__PREFIX__-__COMPONENT__[size='lg']::part(star) {
+  width: 32px;
+  height: 32px;
+}
+
+__PREFIX__-__COMPONENT__[color='primary']::part(star-filled) {
+  color: var(--capsule-color-primary);
+}
+
+__PREFIX__-__COMPONENT__[color='error']::part(star-filled) {
+  color: var(--capsule-color-error);
+}
+
+__PREFIX__-__COMPONENT__[color='success']::part(star-filled) {
+  color: var(--capsule-color-success);
+}
+
+__PREFIX__-__COMPONENT__[color='secondary']::part(star-filled) {
+  color: var(--capsule-color-text-secondary);
+}

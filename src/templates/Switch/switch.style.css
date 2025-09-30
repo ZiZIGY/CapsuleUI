@@ -42,19 +42,14 @@ __PREFIX__-__COMPONENT__::part(thumb) {
   box-shadow: var(--capsule-shadow-sm);
   transition: var(--capsule-transition);
   transform: translateX(0);
+  background: white;
+  border-radius: var(--capsule-radius-full);
+  position: relative;
+  z-index: 1;
 }
 
 __PREFIX__-__COMPONENT__[checked]::part(thumb) {
   transform: translateX(16px);
-}
-
-__PREFIX__-__COMPONENT__::part(surface) {
-  background: white;
-  border-radius: var(--capsule-radius-full);
-  height: 100%;
-  width: 100%;
-  position: relative;
-  z-index: 1;
 }
 
 __PREFIX__-__COMPONENT__[size='sm']::part(track) {

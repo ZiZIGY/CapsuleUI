@@ -11,3 +11,4 @@ import './pro-accordion/pro-accordion-item.js';
 import './pro-accordion/pro-accordion.js';
 import './capsule-accordion/capsule-accordion-item.js';
 import './capsule-accordion/capsule-accordion.js';
+import './capsule-rating/capsule-rating.js';

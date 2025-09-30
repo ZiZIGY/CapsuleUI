@@ -51,7 +51,6 @@ class Switch extends HTMLElement {
       <div part="track">
         <div part="thumb">
           <slot></slot>
-          <div part="surface"></div>
         </div>
       </div>
     `;
