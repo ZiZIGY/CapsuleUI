@@ -7,7 +7,6 @@ __PREFIX__-__COMPONENT__ {
   touch-action: none;
 }
 
-/* Sizes */
 __PREFIX__-__COMPONENT__[size='sm'] {
   height: 32px;
 }
@@ -29,7 +28,6 @@ __PREFIX__-__COMPONENT__[orientation='vertical'][size='lg'] {
   width: 64px;
 }
 
-/* Track */
 __PREFIX__-__COMPONENT__::part(track) {
   position: absolute;
   top: 50%;
@@ -37,7 +35,7 @@ __PREFIX__-__COMPONENT__::part(track) {
   transform: translateY(-50%);
   width: 100%;
   height: 4px;
-  background: var(--capsule-color-outline-border);
+  background: var(--capsule-color-outline);
   border-radius: var(--capsule-radius-full);
   transition: var(--capsule-transition);
 }
@@ -66,7 +64,6 @@ __PREFIX__-__COMPONENT__[orientation='vertical'][size='lg']::part(track) {
   width: 6px;
 }
 
-/* Range */
 __PREFIX__-__COMPONENT__::part(range) {
   position: absolute;
   top: 50%;
@@ -102,9 +99,8 @@ __PREFIX__-__COMPONENT__[orientation='vertical'][size='lg']::part(range) {
   width: 6px;
 }
 
-/* Colors */
 __PREFIX__-__COMPONENT__[color='secondary']::part(range) {
-  background: var(--capsule-color-secondary);
+  background: var(--capsule-color-surface);
 }
 
 __PREFIX__-__COMPONENT__[color='error']::part(range) {
@@ -119,10 +115,9 @@ __PREFIX__-__COMPONENT__[color='success']::part(range) {
   background: var(--capsule-color-success);
 }
 
-/* Variants */
 __PREFIX__-__COMPONENT__[variant='outline']::part(track) {
   background: transparent;
-  border: 1px solid var(--capsule-color-outline-border);
+  border: 1px solid var(--capsule-color-outline);
 }
 
 __PREFIX__-__COMPONENT__[variant='outline']::part(range) {
@@ -130,7 +125,6 @@ __PREFIX__-__COMPONENT__[variant='outline']::part(range) {
   border: 1px solid var(--capsule-color-primary);
 }
 
-/* Outline colors */
 __PREFIX__-__COMPONENT__[variant='outline'][color='primary']::part(range) {
   border-color: var(--capsule-color-primary);
 }
@@ -151,7 +145,6 @@ __PREFIX__-__COMPONENT__[variant='outline'][color='success']::part(range) {
   border-color: var(--capsule-color-success);
 }
 
-/* Ghost variant */
 __PREFIX__-__COMPONENT__[variant='ghost']::part(track) {
   background: color-mix(in srgb, var(--capsule-color-text) 8%, transparent);
 }
@@ -160,7 +153,6 @@ __PREFIX__-__COMPONENT__[variant='ghost']::part(range) {
   background: color-mix(in srgb, var(--capsule-color-primary) 15%, transparent);
 }
 
-/* Ghost colors */
 __PREFIX__-__COMPONENT__[variant='ghost'][color='primary']::part(range) {
   background: color-mix(in srgb, var(--capsule-color-primary) 15%, transparent);
 }
@@ -181,7 +173,6 @@ __PREFIX__-__COMPONENT__[variant='ghost'][color='success']::part(range) {
   background: color-mix(in srgb, var(--capsule-color-success) 15%, transparent);
 }
 
-/* Thumb */
 __PREFIX__-__COMPONENT__::part(thumb) {
   position: absolute;
   top: 50%;
@@ -195,7 +186,6 @@ __PREFIX__-__COMPONENT__::part(thumb) {
   align-items: center;
   justify-content: center;
   transition: var(--capsule-transition);
-  --capsule-ripples-size: 0.5;
 }
 
 __PREFIX__-__COMPONENT__[size='sm']::part(thumb) {
@@ -208,17 +198,12 @@ __PREFIX__-__COMPONENT__[size='lg']::part(thumb) {
   height: 48px;
 }
 
-__PREFIX__-__COMPONENT__::part(thumb):hover {
-  --capsule-ripples-size: 1;
-}
-
 __PREFIX__-__COMPONENT__[orientation='vertical']::part(thumb) {
   top: auto;
   left: 50%;
   transform: translate(-50%, 50%);
 }
 
-/* Thumb surface */
 __PREFIX__-__COMPONENT__::part(surface) {
   width: 20px;
   height: 20px;
@@ -239,9 +224,8 @@ __PREFIX__-__COMPONENT__[size='lg']::part(surface) {
   height: 24px;
 }
 
-/* Thumb colors */
 __PREFIX__-__COMPONENT__[color='secondary']::part(surface) {
-  background: var(--capsule-color-secondary);
+  background: var(--capsule-color-surface);
 }
 
 __PREFIX__-__COMPONENT__[color='error']::part(surface) {
@@ -265,15 +249,6 @@ __PREFIX__-__COMPONENT__::part(thumb):active::part(surface) {
   transform: scale(1.2);
 }
 
-/* Ripples */
-__PREFIX__-__COMPONENT__::part(ripples) {
-  background-color: var(--capsule-ripple-bg);
-  border-radius: var(--capsule-radius-full);
-  transition: var(--capsule-transition-slow);
-  transform: scale(var(--capsule-ripples-size));
-}
-
-/* Ticks */
 __PREFIX__-__COMPONENT__::part(ticks) {
   position: absolute;
   top: 50%;
@@ -312,12 +287,6 @@ __PREFIX__-__COMPONENT__[orientation='vertical']::part(tick) {
   height: 2px;
 }
 
-__PREFIX__-__COMPONENT__[orientation='vertical']::part(tick) {
-  width: 12px;
-  height: 3px;
-}
-
-/* Disabled state */
 __PREFIX__-__COMPONENT__[disabled] {
   pointer-events: none;
   opacity: 0.5;
@@ -325,7 +294,7 @@ __PREFIX__-__COMPONENT__[disabled] {
 }
 
 __PREFIX__-__COMPONENT__[disabled]::part(track) {
-  background: var(--capsule-color-outline-border);
+  background: var(--capsule-color-outline);
 }
 
 __PREFIX__-__COMPONENT__[disabled]::part(range) {

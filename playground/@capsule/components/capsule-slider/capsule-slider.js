@@ -344,7 +344,7 @@ class Slider extends HTMLElement {
     this._updateFormValue();
 
     this.dispatchEvent(
-      new CustomEvent('sliderChange', {
+      new CustomEvent('change', {
         detail: { values: this._values },
       })
     );
