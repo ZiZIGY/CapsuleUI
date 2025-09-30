@@ -16,7 +16,7 @@ __PREFIX__-__COMPONENT__::part(page-item) {
   min-width: 32px;
   height: 32px;
   padding: 0 var(--capsule-margin-xs);
-  border: 1px solid var(--capsule-color-outline-border);
+  border: 1px solid var(--capsule-color-outline);
   background: var(--capsule-color-background);
   color: var(--capsule-color-text);
   border-radius: var(--capsule-radius);
@@ -37,12 +37,12 @@ __PREFIX__-__COMPONENT__::part(page-item):hover {
 __PREFIX__-__COMPONENT__::part(page-item active) {
   background: var(--capsule-color-primary);
   border-color: var(--capsule-color-primary);
-  color: var(--capsule-color-white);
+  color: white;
 }
 
 __PREFIX__-__COMPONENT__::part(page-item active):hover {
-  background: var(--capsule-color-primary-hover);
-  border-color: var(--capsule-color-primary-hover);
+  background: color-mix(in srgb, var(--capsule-color-primary) 90%, black);
+  border-color: color-mix(in srgb, var(--capsule-color-primary) 90%, black);
 }
 
 /* Ellipsis */
@@ -85,7 +85,7 @@ __PREFIX__-__COMPONENT__[size='lg']::part(ellipsis) {
 /* Variants */
 __PREFIX__-__COMPONENT__[variant='outline']::part(page-item) {
   background: transparent;
-  border-color: var(--capsule-color-outline-border);
+  border-color: var(--capsule-color-outline);
 }
 
 __PREFIX__-__COMPONENT__[variant='outline']::part(page-item active) {
@@ -105,45 +105,45 @@ __PREFIX__-__COMPONENT__[variant='ghost']::part(page-item) {
 }
 
 __PREFIX__-__COMPONENT__[variant='ghost']::part(page-item active) {
-  background: color-mix(in srgb, var(--capsule-color-primary) 10%, transparent);
+  background: color-mix(in srgb, var(--capsule-color-primary) 12%, transparent);
   color: var(--capsule-color-primary);
 }
 
 __PREFIX__-__COMPONENT__[variant='ghost']::part(page-item):hover {
-  background: color-mix(in srgb, var(--capsule-color-text) 5%, transparent);
+  background: color-mix(in srgb, var(--capsule-color-text) 8%, transparent);
 }
 
 /* Colors */
 __PREFIX__-__COMPONENT__[color='secondary']::part(page-item active) {
-  background: var(--capsule-color-secondary);
-  border-color: var(--capsule-color-secondary);
+  background: var(--capsule-color-surface);
+  border-color: var(--capsule-color-surface);
   color: var(--capsule-color-text);
 }
 
 __PREFIX__-__COMPONENT__[color='error']::part(page-item active) {
   background: var(--capsule-color-error);
   border-color: var(--capsule-color-error);
-  color: var(--capsule-color-white);
+  color: white;
 }
 
 __PREFIX__-__COMPONENT__[color='warning']::part(page-item active) {
   background: var(--capsule-color-warning);
   border-color: var(--capsule-color-warning);
-  color: var(--capsule-color-white);
+  color: var(--capsule-color-text);
 }
 
 __PREFIX__-__COMPONENT__[color='success']::part(page-item active) {
   background: var(--capsule-color-success);
   border-color: var(--capsule-color-success);
-  color: var(--capsule-color-white);
+  color: white;
 }
 
 /* Outline colors */
 __PREFIX__-__COMPONENT__[variant='outline'][color='secondary']::part(
     page-item active
   ) {
-  border-color: var(--capsule-color-secondary);
-  color: var(--capsule-color-secondary);
+  border-color: var(--capsule-color-text-secondary);
+  color: var(--capsule-color-text-secondary);
 }
 
 __PREFIX__-__COMPONENT__[variant='outline'][color='error']::part(
@@ -171,31 +171,27 @@ __PREFIX__-__COMPONENT__[variant='outline'][color='success']::part(
 __PREFIX__-__COMPONENT__[variant='ghost'][color='secondary']::part(
     page-item active
   ) {
-  background: color-mix(
-    in srgb,
-    var(--capsule-color-secondary) 10%,
-    transparent
-  );
-  color: var(--capsule-color-secondary);
+  background: color-mix(in srgb, var(--capsule-color-text) 8%, transparent);
+  color: var(--capsule-color-text-secondary);
 }
 
 __PREFIX__-__COMPONENT__[variant='ghost'][color='error']::part(
     page-item active
   ) {
-  background: color-mix(in srgb, var(--capsule-color-error) 10%, transparent);
+  background: color-mix(in srgb, var(--capsule-color-error) 12%, transparent);
   color: var(--capsule-color-error);
 }
 
 __PREFIX__-__COMPONENT__[variant='ghost'][color='warning']::part(
     page-item active
   ) {
-  background: color-mix(in srgb, var(--capsule-color-warning) 10%, transparent);
+  background: color-mix(in srgb, var(--capsule-color-warning) 12%, transparent);
   color: var(--capsule-color-warning);
 }
 
 __PREFIX__-__COMPONENT__[variant='ghost'][color='success']::part(
     page-item active
   ) {
-  background: color-mix(in srgb, var(--capsule-color-success) 10%, transparent);
+  background: color-mix(in srgb, var(--capsule-color-success) 12%, transparent);
   color: var(--capsule-color-success);
 }

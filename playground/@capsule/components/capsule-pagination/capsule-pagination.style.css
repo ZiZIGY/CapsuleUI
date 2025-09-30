@@ -16,7 +16,7 @@ capsule-pagination::part(page-item) {
   min-width: 32px;
   height: 32px;
   padding: 0 var(--capsule-margin-xs);
-  border: 1px solid var(--capsule-color-outline-border);
+  border: 1px solid var(--capsule-color-outline);
   background: var(--capsule-color-background);
   color: var(--capsule-color-text);
   border-radius: var(--capsule-radius);
@@ -37,12 +37,12 @@ capsule-pagination::part(page-item):hover {
 capsule-pagination::part(page-item active) {
   background: var(--capsule-color-primary);
   border-color: var(--capsule-color-primary);
-  color: var(--capsule-color-white);
+  color: white;
 }
 
 capsule-pagination::part(page-item active):hover {
-  background: var(--capsule-color-primary-hover);
-  border-color: var(--capsule-color-primary-hover);
+  background: color-mix(in srgb, var(--capsule-color-primary) 90%, black);
+  border-color: color-mix(in srgb, var(--capsule-color-primary) 90%, black);
 }
 
 /* Ellipsis */
@@ -85,7 +85,7 @@ capsule-pagination[size='lg']::part(ellipsis) {
 /* Variants */
 capsule-pagination[variant='outline']::part(page-item) {
   background: transparent;
-  border-color: var(--capsule-color-outline-border);
+  border-color: var(--capsule-color-outline);
 }
 
 capsule-pagination[variant='outline']::part(page-item active) {
@@ -105,45 +105,45 @@ capsule-pagination[variant='ghost']::part(page-item) {
 }
 
 capsule-pagination[variant='ghost']::part(page-item active) {
-  background: color-mix(in srgb, var(--capsule-color-primary) 10%, transparent);
+  background: color-mix(in srgb, var(--capsule-color-primary) 12%, transparent);
   color: var(--capsule-color-primary);
 }
 
 capsule-pagination[variant='ghost']::part(page-item):hover {
-  background: color-mix(in srgb, var(--capsule-color-text) 5%, transparent);
+  background: color-mix(in srgb, var(--capsule-color-text) 8%, transparent);
 }
 
 /* Colors */
 capsule-pagination[color='secondary']::part(page-item active) {
-  background: var(--capsule-color-secondary);
-  border-color: var(--capsule-color-secondary);
+  background: var(--capsule-color-surface);
+  border-color: var(--capsule-color-surface);
   color: var(--capsule-color-text);
 }
 
 capsule-pagination[color='error']::part(page-item active) {
   background: var(--capsule-color-error);
   border-color: var(--capsule-color-error);
-  color: var(--capsule-color-white);
+  color: white;
 }
 
 capsule-pagination[color='warning']::part(page-item active) {
   background: var(--capsule-color-warning);
   border-color: var(--capsule-color-warning);
-  color: var(--capsule-color-white);
+  color: var(--capsule-color-text);
 }
 
 capsule-pagination[color='success']::part(page-item active) {
   background: var(--capsule-color-success);
   border-color: var(--capsule-color-success);
-  color: var(--capsule-color-white);
+  color: white;
 }
 
 /* Outline colors */
 capsule-pagination[variant='outline'][color='secondary']::part(
     page-item active
   ) {
-  border-color: var(--capsule-color-secondary);
-  color: var(--capsule-color-secondary);
+  border-color: var(--capsule-color-text-secondary);
+  color: var(--capsule-color-text-secondary);
 }
 
 capsule-pagination[variant='outline'][color='error']::part(
@@ -171,31 +171,27 @@ capsule-pagination[variant='outline'][color='success']::part(
 capsule-pagination[variant='ghost'][color='secondary']::part(
     page-item active
   ) {
-  background: color-mix(
-    in srgb,
-    var(--capsule-color-secondary) 10%,
-    transparent
-  );
-  color: var(--capsule-color-secondary);
+  background: color-mix(in srgb, var(--capsule-color-text) 8%, transparent);
+  color: var(--capsule-color-text-secondary);
 }
 
 capsule-pagination[variant='ghost'][color='error']::part(
     page-item active
   ) {
-  background: color-mix(in srgb, var(--capsule-color-error) 10%, transparent);
+  background: color-mix(in srgb, var(--capsule-color-error) 12%, transparent);
   color: var(--capsule-color-error);
 }
 
 capsule-pagination[variant='ghost'][color='warning']::part(
     page-item active
   ) {
-  background: color-mix(in srgb, var(--capsule-color-warning) 10%, transparent);
+  background: color-mix(in srgb, var(--capsule-color-warning) 12%, transparent);
   color: var(--capsule-color-warning);
 }
 
 capsule-pagination[variant='ghost'][color='success']::part(
     page-item active
   ) {
-  background: color-mix(in srgb, var(--capsule-color-success) 10%, transparent);
+  background: color-mix(in srgb, var(--capsule-color-success) 12%, transparent);
   color: var(--capsule-color-success);
 }
