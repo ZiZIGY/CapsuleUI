@@ -20,7 +20,7 @@
           "name": "variant",
           "description": "Chip visual variant.",
           "values": [
-            { "name": "standard" },
+            { "name": "filled" },
             { "name": "outline" },
             { "name": "ghost" }
           ]

@@ -9,6 +9,7 @@
     "playground/@capsule/components/capsule-chip/vscode.data.json",
     "playground/@capsule/components/capsule-pagination/vscode.data.json",
     "playground/@capsule/components/pro-button/vscode.data.json",
-    "playground/@capsule/components/capsule-rating/vscode.data.json"
+    "playground/@capsule/components/capsule-rating/vscode.data.json",
+    "playground/@capsule/components/slavik-button/vscode.data.json"
   ]
 }

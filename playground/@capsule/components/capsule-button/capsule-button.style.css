@@ -40,7 +40,6 @@ capsule-button[disabled] {
   box-shadow: var(--capsule-shadow-sm);
 }
 
-/* Размеры */
 capsule-button[size='xs'] {
   padding: var(--capsule-padding-xs);
   font-size: var(--capsule-font-size-xs);
@@ -66,7 +65,6 @@ capsule-button[size='lg'] {
   gap: 0.625rem;
 }
 
-/* Primary Variant */
 capsule-button:not([variant]),
 capsule-button[variant='primary'] {
   background: var(--capsule-color-primary);
@@ -83,7 +81,6 @@ capsule-button[variant='primary']:active:not([disabled]) {
   background: color-mix(in srgb, var(--capsule-color-primary) 80%, black);
 }
 
-/* Secondary Variant */
 capsule-button[variant='secondary'] {
   background: var(--capsule-color-surface);
   color: var(--capsule-color-text);
@@ -106,7 +103,6 @@ capsule-button[variant='secondary']:active:not([disabled]) {
   );
 }
 
-/* Outline Variant */
 capsule-button[variant='outline'] {
   background: transparent;
   color: var(--capsule-color-text);
@@ -123,7 +119,6 @@ capsule-button[variant='outline']:active:not([disabled]) {
   background: color-mix(in srgb, var(--capsule-color-text) 10%, transparent);
 }
 
-/* Text Variant (добавим для полноты) */
 capsule-button[variant='text'] {
   background: transparent;
   color: var(--capsule-color-primary);
@@ -139,7 +134,6 @@ capsule-button[variant='text']:active:not([disabled]) {
   background: color-mix(in srgb, var(--capsule-color-primary) 15%, transparent);
 }
 
-/* Success Variant */
 capsule-button[variant='success'] {
   background: var(--capsule-color-success);
   color: white;
@@ -153,7 +147,6 @@ capsule-button[variant='success']:active:not([disabled]) {
   background: color-mix(in srgb, var(--capsule-color-success) 80%, black);
 }
 
-/* Error Variant */
 capsule-button[variant='error'] {
   background: var(--capsule-color-error);
   color: white;

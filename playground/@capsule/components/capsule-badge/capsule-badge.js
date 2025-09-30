@@ -31,7 +31,6 @@ class Badge extends HTMLElement {
       }
     }
 
-    // Устанавливаем data-value который используется в CSS
     this.dataset.value = displayValue;
   }
 }

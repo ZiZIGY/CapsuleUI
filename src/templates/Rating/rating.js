@@ -45,14 +45,12 @@ class Rating extends HTMLElement {
     const hasCustomSlot = this.querySelector('[slot^="star-"]');
 
     this.shadowRoot.innerHTML = `
-      <div class="rating-container" part="container">
-        <div class="stars-container" part="stars-container">
-          <div class="stars-filled" part="stars-filled">
-            ${this._generateStars('filled', hasCustomSlot)}
-          </div>
-          <div class="stars-empty" part="stars-empty">
-            ${this._generateStars('empty', hasCustomSlot)}
-          </div>
+      <div class="stars-container" part="stars-container">
+        <div class="stars-filled" part="stars-filled">
+          ${this._generateStars('filled', hasCustomSlot)}
+        </div>
+        <div class="stars-empty" part="stars-empty">
+          ${this._generateStars('empty', hasCustomSlot)}
         </div>
       </div>
     `;

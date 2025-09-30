@@ -35,7 +35,11 @@
           "values": [
             { "name": "primary" },
             { "name": "secondary" },
-            { "name": "outline" }
+            { "name": "outline" },
+            { "name": "text" },
+            { "name": "success" },
+            { "name": "error" },
+            { "name": "warning" }
           ]
         }
       ]
