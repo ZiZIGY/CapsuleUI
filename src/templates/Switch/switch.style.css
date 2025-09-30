@@ -12,20 +12,11 @@ __PREFIX__-__COMPONENT__[disabled] {
   cursor: not-allowed;
 }
 
-/* Ripples container */
-__PREFIX__-__COMPONENT__::part(ripples) {
-  background-color: var(--capsule-ripple-bg);
-  border-radius: var(--capsule-radius-full);
-  transition: var(--capsule-transition-slow);
-  transform: scale(2);
-}
-
-/* Switch track */
 __PREFIX__-__COMPONENT__::part(track) {
   position: relative;
   width: 36px;
   height: 20px;
-  background: var(--capsule-color-outline-border);
+  background: var(--capsule-color-outline);
   border-radius: var(--capsule-radius-full);
   transition: var(--capsule-transition);
 }
@@ -35,14 +26,13 @@ __PREFIX__-__COMPONENT__[checked]::part(track) {
 }
 
 __PREFIX__-__COMPONENT__:hover:not([disabled])::part(track) {
-  background: var(--capsule-color-text-secondary);
+  background: color-mix(in srgb, var(--capsule-color-text) 30%, transparent);
 }
 
 __PREFIX__-__COMPONENT__[checked]:hover:not([disabled])::part(track) {
-  background: var(--capsule-color-primary-hover);
+  background: color-mix(in srgb, var(--capsule-color-primary) 90%, black);
 }
 
-/* Switch thumb */
 __PREFIX__-__COMPONENT__::part(thumb) {
   position: absolute;
   top: 2px;
@@ -58,9 +48,8 @@ __PREFIX__-__COMPONENT__[checked]::part(thumb) {
   transform: translateX(16px);
 }
 
-/* Surface thumb */
 __PREFIX__-__COMPONENT__::part(surface) {
-  background: var(--capsule-color-white);
+  background: white;
   border-radius: var(--capsule-radius-full);
   height: 100%;
   width: 100%;
@@ -68,7 +57,6 @@ __PREFIX__-__COMPONENT__::part(surface) {
   z-index: 1;
 }
 
-/* Sizes */
 __PREFIX__-__COMPONENT__[size='sm']::part(track) {
   width: 28px;
   height: 16px;

@@ -12,20 +12,11 @@ capsule-switch[disabled] {
   cursor: not-allowed;
 }
 
-/* Ripples container */
-capsule-switch::part(ripples) {
-  background-color: var(--capsule-ripple-bg);
-  border-radius: var(--capsule-radius-full);
-  transition: var(--capsule-transition-slow);
-  transform: scale(2);
-}
-
-/* Switch track */
 capsule-switch::part(track) {
   position: relative;
   width: 36px;
   height: 20px;
-  background: var(--capsule-color-outline-border);
+  background: var(--capsule-color-outline);
   border-radius: var(--capsule-radius-full);
   transition: var(--capsule-transition);
 }
@@ -35,14 +26,13 @@ capsule-switch[checked]::part(track) {
 }
 
 capsule-switch:hover:not([disabled])::part(track) {
-  background: var(--capsule-color-text-secondary);
+  background: color-mix(in srgb, var(--capsule-color-text) 30%, transparent);
 }
 
 capsule-switch[checked]:hover:not([disabled])::part(track) {
-  background: var(--capsule-color-primary-hover);
+  background: color-mix(in srgb, var(--capsule-color-primary) 90%, black);
 }
 
-/* Switch thumb */
 capsule-switch::part(thumb) {
   position: absolute;
   top: 2px;
@@ -58,9 +48,8 @@ capsule-switch[checked]::part(thumb) {
   transform: translateX(16px);
 }
 
-/* Surface thumb */
 capsule-switch::part(surface) {
-  background: var(--capsule-color-white);
+  background: white;
   border-radius: var(--capsule-radius-full);
   height: 100%;
   width: 100%;
@@ -68,7 +57,6 @@ capsule-switch::part(surface) {
   z-index: 1;
 }
 
-/* Sizes */
 capsule-switch[size='sm']::part(track) {
   width: 28px;
   height: 16px;

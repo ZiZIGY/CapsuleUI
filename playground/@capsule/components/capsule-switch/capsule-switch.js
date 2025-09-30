@@ -8,13 +8,12 @@ class Switch extends HTMLElement {
     this.internals_ = this.attachInternals();
     this._checked = this.hasAttribute('checked');
 
-    // Биндим методы
+    this._render();
     this._onClick = this._onClick.bind(this);
     this._onKeyDown = this._onKeyDown.bind(this);
   }
 
   connectedCallback() {
-    this._render();
     this._init();
   }
 
@@ -22,7 +21,6 @@ class Switch extends HTMLElement {
     if (oldValue === newValue) return;
 
     if (name === 'checked') {
-      // Избегаем рекурсии - обновляем только если значение изменилось
       const wasChecked = this._checked;
       this._checked = newValue !== null;
 
@@ -48,14 +46,12 @@ class Switch extends HTMLElement {
     }
   }
 
-  // Private methods
   _render() {
     this.shadowRoot.innerHTML = `
       <div part="track">
         <div part="thumb">
           <slot></slot>
           <div part="surface"></div>
-          <capsule-ripple part="ripples"></capsule-ripple>
         </div>
       </div>
     `;
@@ -109,13 +105,10 @@ class Switch extends HTMLElement {
   }
 
   _updateFormValue() {
-    // Используем boolean значения вместо 'on'
     this.internals_.setFormValue(this._checked ? 'true' : 'false');
   }
 
-  // Public methods
   toggle() {
-    // Избегаем рекурсии - меняем внутреннее состояние напрямую
     this._checked = !this._checked;
     this._updateVisualState();
     this._updateFormValue();
@@ -128,7 +121,6 @@ class Switch extends HTMLElement {
     );
   }
 
-  // Getters/setters
   get checked() {
     return this._checked;
   }
