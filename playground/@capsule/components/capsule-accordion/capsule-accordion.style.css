@@ -15,10 +15,11 @@ capsule-accordion-item {
 capsule-accordion-item::part(trigger) {
   display: block;
   cursor: pointer;
+  user-select: none;
 }
 
 capsule-accordion-item::part(trigger):hover {
-  background-color: var(--capsule-color-outline-border);
+  background-color: var(--capsule-color-surface);
 }
 
 capsule-accordion-item::part(content) {

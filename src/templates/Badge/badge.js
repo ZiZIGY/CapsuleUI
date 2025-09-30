@@ -19,21 +19,19 @@ class Badge extends HTMLElement {
     const value = this.getAttribute('value') || '0';
     const max = this.getAttribute('max');
 
+    let displayValue = value;
+
     if (max && value !== '') {
       const numericValue = parseInt(value);
       const numericMax = parseInt(max);
 
       if (!isNaN(numericValue) && !isNaN(numericMax)) {
-        this.dataset.displayValue =
-          numericValue > numericMax ? `${numericMax}+` : value;
-      } else {
-        this.dataset.displayValue = value;
+        displayValue =
+          numericValue > numericMax ? `${numericMax}+` : value.toString();
       }
-    } else {
-      this.dataset.displayValue = value;
     }
 
-    this.dataset.value = value;
+    this.dataset.value = displayValue;
   }
 }
 

@@ -40,6 +40,7 @@ capsule-button[disabled] {
   box-shadow: var(--capsule-shadow-sm);
 }
 
+/* Размеры */
 capsule-button[size='xs'] {
   padding: var(--capsule-padding-xs);
   font-size: var(--capsule-font-size-xs);
@@ -65,48 +66,117 @@ capsule-button[size='lg'] {
   gap: 0.625rem;
 }
 
+/* Primary Variant */
 capsule-button:not([variant]),
 capsule-button[variant='primary'] {
   background: var(--capsule-color-primary);
-  color: var(--capsule-color-white);
+  color: white;
 }
 
 capsule-button:not([variant]):hover:not([disabled]),
 capsule-button[variant='primary']:hover:not([disabled]) {
-  background: var(--capsule-color-primary-hover);
+  background: color-mix(in srgb, var(--capsule-color-primary) 90%, black);
 }
 
 capsule-button:not([variant]):active:not([disabled]),
 capsule-button[variant='primary']:active:not([disabled]) {
-  background: var(--capsule-color-primary-press);
+  background: color-mix(in srgb, var(--capsule-color-primary) 80%, black);
 }
 
+/* Secondary Variant */
 capsule-button[variant='secondary'] {
-  background: var(--capsule-color-white);
+  background: var(--capsule-color-surface);
   color: var(--capsule-color-text);
-  border: 1px solid var(--capsule-color-outline-border);
+  border: 1px solid var(--capsule-color-outline);
 }
 
 capsule-button[variant='secondary']:hover:not([disabled]) {
-  background: var(--capsule-color-secondary-hover);
+  background: color-mix(
+    in srgb,
+    var(--capsule-color-surface) 90%,
+    var(--capsule-color-text)
+  );
 }
 
 capsule-button[variant='secondary']:active:not([disabled]) {
-  background: var(--capsule-color-secondary-press);
+  background: color-mix(
+    in srgb,
+    var(--capsule-color-surface) 80%,
+    var(--capsule-color-text)
+  );
 }
 
+/* Outline Variant */
 capsule-button[variant='outline'] {
   background: transparent;
   color: var(--capsule-color-text);
-  border: 1.5px solid var(--capsule-color-outline-border);
+  border: 1.5px solid var(--capsule-color-outline);
   box-shadow: none;
 }
 
 capsule-button[variant='outline']:hover:not([disabled]) {
-  background: var(--capsule-color-outline-hover);
+  background: color-mix(in srgb, var(--capsule-color-text) 5%, transparent);
   box-shadow: var(--capsule-shadow);
 }
 
 capsule-button[variant='outline']:active:not([disabled]) {
-  background: var(--capsule-color-secondary);
+  background: color-mix(in srgb, var(--capsule-color-text) 10%, transparent);
+}
+
+/* Text Variant (добавим для полноты) */
+capsule-button[variant='text'] {
+  background: transparent;
+  color: var(--capsule-color-primary);
+  box-shadow: none;
+  border: none;
+}
+
+capsule-button[variant='text']:hover:not([disabled]) {
+  background: color-mix(in srgb, var(--capsule-color-primary) 8%, transparent);
+}
+
+capsule-button[variant='text']:active:not([disabled]) {
+  background: color-mix(in srgb, var(--capsule-color-primary) 15%, transparent);
+}
+
+/* Success Variant */
+capsule-button[variant='success'] {
+  background: var(--capsule-color-success);
+  color: white;
+}
+
+capsule-button[variant='success']:hover:not([disabled]) {
+  background: color-mix(in srgb, var(--capsule-color-success) 90%, black);
+}
+
+capsule-button[variant='success']:active:not([disabled]) {
+  background: color-mix(in srgb, var(--capsule-color-success) 80%, black);
+}
+
+/* Error Variant */
+capsule-button[variant='error'] {
+  background: var(--capsule-color-error);
+  color: white;
+}
+
+capsule-button[variant='error']:hover:not([disabled]) {
+  background: color-mix(in srgb, var(--capsule-color-error) 90%, black);
+}
+
+capsule-button[variant='error']:active:not([disabled]) {
+  background: color-mix(in srgb, var(--capsule-color-error) 80%, black);
+}
+
+/* Warning Variant */
+capsule-button[variant='warning'] {
+  background: var(--capsule-color-warning);
+  color: var(--capsule-color-text);
+}
+
+capsule-button[variant='warning']:hover:not([disabled]) {
+  background: color-mix(in srgb, var(--capsule-color-warning) 90%, black);
+}
+
+capsule-button[variant='warning']:active:not([disabled]) {
+  background: color-mix(in srgb, var(--capsule-color-warning) 80%, black);
 }

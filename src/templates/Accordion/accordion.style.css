@@ -9,16 +9,17 @@ __PREFIX__-__COMPONENT__-item {
   margin-bottom: 0.5rem;
   overflow: hidden;
   transition: grid-template-rows 300ms ease-in-out;
-  box-shadow: var(--capsule-shadow-lg);
+  box-shadow: var(--capsule-shadow);
 }
 
 __PREFIX__-__COMPONENT__-item::part(trigger) {
   display: block;
   cursor: pointer;
+  user-select: none;
 }
 
 __PREFIX__-__COMPONENT__-item::part(trigger):hover {
-  background-color: var(--capsule-color-outline-border);
+  background-color: var(--capsule-color-surface);
 }
 
 __PREFIX__-__COMPONENT__-item::part(content) {

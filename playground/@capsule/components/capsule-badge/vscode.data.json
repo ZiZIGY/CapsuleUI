@@ -13,7 +13,8 @@
             { "name": "secondary" },
             { "name": "error" },
             { "name": "warning" },
-            { "name": "success" }
+            { "name": "success" },
+            { "name": "info" }
           ]
         },
         {
@@ -35,6 +36,11 @@
             { "name": "bottom-right" },
             { "name": "bottom-left" }
           ]
+        },
+        {
+          "name": "size",
+          "description": "Badge size variant.",
+          "values": [{ "name": "sm" }, { "name": "md" }, { "name": "lg" }]
         },
         {
           "name": "invisible",
