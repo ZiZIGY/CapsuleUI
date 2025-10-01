@@ -95,14 +95,270 @@
         <span slot="star-2-filled">😍</span>
       </capsule-rating>
 
-      <capsule-button type="submit">Submit</capsule-button>
+      <capsule-button
+        type="submit"
+        transition='{"duration": 1000}'
+      >
+        Submit
+      </capsule-button>
     </form>
+
+    <motion-element
+      initial='{"opacity": "0"}'
+      animate='{"opacity": "1"}'
+      transition='{"duration": 1000, "ease": "ease-out"}'
+      style="width: 100px; height: 100px; background: #4ecdc4"
+    >
+      Fade In
+    </motion-element>
+
+    <motion-element
+      initial='{"opacity": "0", "transform": "scale(0.5) rotate(45deg)"}'
+      animate='{"opacity": "1", "transform": "scale(1) rotate(0deg)"}'
+      transition='{"duration": 1000, "ease": "ease-out"}'
+      style="width: 100px; height: 100px; background: #ff6b6b"
+    >
+      Scale + Rotate
+    </motion-element>
+
+    <motion-element
+      initial='{"transform": "rotate(0deg)"}'
+      animate='{"transform": "rotate(0deg)"}'
+      while-hover='{"transform": "rotate(180deg)", "background": "green"}'
+      style="width: 100px; height: 100px; background: #4ecdc4; cursor: pointer"
+    >
+      Hover Me!
+    </motion-element>
 
     <script defer>
       form.onsubmit = (e) => {
         e.preventDefault();
         console.log(new FormData(e.currentTarget));
       };
+    </script>
+
+    <script>
+      class MotionElement extends HTMLElement {
+        static observedAttributes = [
+          'animate',
+          'initial',
+          'while-hover',
+          'while-tap',
+          'transition',
+        ];
+
+        constructor() {
+          super();
+          this.attachShadow({ mode: 'open' });
+
+          this._animations = new Map();
+        }
+
+        connectedCallback() {
+          this._render();
+
+          this._applyInitial();
+
+          requestAnimationFrame(() => {
+            this._applyAnimate();
+          });
+
+          this._attachEventListeners();
+        }
+
+        attributeChangedCallback(name, oldValue, newValue) {
+          if (oldValue === newValue) return;
+
+          switch (name) {
+            case 'animate':
+              this._applyAnimate();
+              break;
+            case 'initial':
+              this._applyInitial();
+              break;
+          }
+        }
+
+        _render() {
+          this.shadowRoot.innerHTML = `
+            <style>
+              :host {
+                display: inline-flex;
+              }
+            </style>
+            <slot></slot>
+          `;
+        }
+
+        _applyInitial() {
+          const initial = this.getAttribute('initial');
+          if (!initial) return;
+
+          try {
+            const styles = JSON.parse(initial);
+
+            Object.entries(styles).forEach(([property, value]) => {
+              this.style.setProperty(property, value);
+            });
+          } catch (error) {
+            console.error('Error parsing initial JSON:', error);
+          }
+        }
+
+        _applyAnimate() {
+          const animate = this.getAttribute('animate');
+          if (!animate) return;
+
+          try {
+            const styles = JSON.parse(animate);
+            const transition = this._parseTransition();
+
+            this._animateWithWAAPI(styles, transition);
+          } catch (error) {
+            console.error('Error parsing animate JSON:', error);
+          }
+        }
+
+        _parseTransition() {
+          const transition = this.getAttribute('transition');
+          if (!transition) return { duration: 300, ease: 'ease' };
+
+          try {
+            return JSON.parse(transition);
+          } catch {
+            return { duration: 300, ease: 'ease' };
+          }
+        }
+
+        _animateWithWAAPI(styles, transition) {
+          Object.keys(styles).forEach((property) => {
+            this._animations.get(property)?.cancel();
+          });
+
+          const { duration = 300, ease = 'ease', delay = 0 } = transition;
+
+          Object.entries(styles).forEach(([property, value]) => {
+            const currentValue =
+              this.style.getPropertyValue(property) ||
+              getComputedStyle(this).getPropertyValue(property);
+
+            const animation = this.animate(
+              {
+                [property]: [currentValue, value],
+              },
+              {
+                duration,
+                easing: ease,
+                delay,
+                fill: 'forwards',
+              }
+            );
+
+            this._animations.set(property, animation);
+
+            animation.onfinish = () => {
+              this.style.setProperty(property, value);
+              this._animations.delete(property);
+            };
+          });
+        }
+
+        _attachEventListeners() {
+          this._setupHoverAnimation();
+          this._setupTapAnimation();
+        }
+
+        _setupHoverAnimation() {
+          const whileHover = this.getAttribute('while-hover');
+          if (!whileHover) return;
+
+          try {
+            const hoverStyles = JSON.parse(whileHover);
+
+            this.addEventListener('mouseenter', () => {
+              this._animateWithWAAPI(hoverStyles, { duration: 200 });
+            });
+
+            this.addEventListener('mouseleave', () => {
+              const animate = this.getAttribute('animate');
+              if (animate) {
+                const defaultStyles = JSON.parse(animate);
+                this._animateWithWAAPI(defaultStyles, { duration: 200 });
+              }
+            });
+          } catch (error) {
+            console.error('Error parsing while-hover JSON:', error);
+          }
+        }
+
+        _setupTapAnimation() {
+          const whileTap = this.getAttribute('while-tap');
+          if (!whileTap) return;
+
+          try {
+            const tapStyles = JSON.parse(whileTap);
+
+            this.addEventListener('mousedown', () => {
+              this._animateWithWAAPI(tapStyles, { duration: 100 });
+            });
+
+            this.addEventListener('mouseup', () => {
+              const animate = this.getAttribute('animate');
+              if (animate) {
+                const defaultStyles = JSON.parse(animate);
+                this._animateWithWAAPI(defaultStyles, { duration: 100 });
+              }
+            });
+
+            this.addEventListener('touchstart', () => {
+              this._animateWithWAAPI(tapStyles, { duration: 100 });
+            });
+
+            this.addEventListener('touchend', () => {
+              const animate = this.getAttribute('animate');
+              if (animate) {
+                const defaultStyles = JSON.parse(animate);
+                this._animateWithWAAPI(defaultStyles, { duration: 100 });
+              }
+            });
+          } catch (error) {
+            console.error('Error parsing while-tap JSON:', error);
+          }
+        }
+
+        // Public API
+        start(animation, options = {}) {
+          try {
+            const styles =
+              typeof animation === 'string' ? JSON.parse(animation) : animation;
+            this._animateWithWAAPI(styles, options);
+          } catch (error) {
+            console.error('Error parsing start animation:', error);
+          }
+        }
+
+        stop() {
+          this._animations.forEach((animation) => animation.cancel());
+          this._animations.clear();
+        }
+
+        setVariants(variants) {
+          this._variants = variants;
+        }
+
+        variant(name) {
+          if (this._variants && this._variants[name]) {
+            this.start(this._variants[name]);
+          }
+        }
+
+        reset() {
+          this.stop();
+          this._applyInitial();
+        }
+      }
+
+      customElements.define('motion-element', MotionElement);
     </script>
   </body>
 </html>
