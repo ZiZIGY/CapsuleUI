@@ -3,18 +3,27 @@ class FormField extends HTMLElement {
     super();
   }
 
-  setError(message) {
-    const messageElement = this.querySelector('form-message');
+  setError(message, selector = 'form-message') {
+    const messageElement = this.querySelector(selector);
     if (messageElement) {
       if (message) {
-        messageElement.setMessage(message);
-        this.classList.add('invalid');
+        if (typeof messageElement.setMessage === 'function') {
+          messageElement.setMessage(message);
+        } else {
+          messageElement.textContent = message;
+          messageElement.style.display = 'block';
+        }
+        this.classList.add('error');
       } else {
-        messageElement.clearMessage();
-        this.classList.remove('invalid');
+        if (typeof messageElement.clearMessage === 'function') {
+          messageElement.clearMessage();
+        } else {
+          messageElement.textContent = '';
+          messageElement.style.display = 'none';
+        }
+        this.classList.remove('error');
       }
     }
   }
 }
-
 customElements.define('form-field', FormField);

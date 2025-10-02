@@ -21,344 +21,284 @@
     <capsule-button variant="primary"> тест </capsule-button>
 
     <capsule-skeleton variant="rectangular"></capsule-skeleton>
+
     <form id="form">
-      <capsule-slider
-        show-ticks
-        step="10"
-        name="test"
-      >
-      </capsule-slider>
+      <form-field>
+        <capsule-rating
+          value="1.5"
+          max="5"
+          precision="0.1"
+          color="primary"
+          name="rating"
+        >
+          <span slot="star-1-empty">😴</span>
+          <span slot="star-1-filled">😍</span>
+          <span slot="star-2-empty">😴</span>
+          <span slot="star-2-filled">😍</span>
+        </capsule-rating>
 
-      <capsule-switch name="kek"></capsule-switch>
+        <form-message></form-message>
+      </form-field>
 
-      <capsule-badge
-        value="1000"
-        max="+99"
-      >
-        <span>Сообщения</span>
-      </capsule-badge>
-
-      <capsule-chip>Default Chip</capsule-chip>
-      <capsule-chip variant="outline">Outline Chip</capsule-chip>
-      <capsule-chip variant="ghost">Ghost Chip</capsule-chip>
-      <capsule-chip color="success">Success Chip</capsule-chip>
-      <capsule-chip
-        size="lg"
-        variant=""
-        color="error"
-      >
-        Error Outline
-      </capsule-chip>
-      <capsule-chip size="sm">Small Chip</capsule-chip>
-
-      <capsule-pagination
-        total-pages="20"
-        show-boundary-pages
-        items-per-page="7"
-        visible-pages="3"
-        onchange="console.log(event)"
-      >
-        <span slot="ellipsis">...</span>
-
-        <capsule-button slot="first">«</capsule-button>
-        <capsule-button slot="previous">‹</capsule-button>
-
-        <capsule-button slot="next">›</capsule-button>
-        <capsule-button slot="last">»</capsule-button>
-      </capsule-pagination>
-
-      <capsule-accordion>
-        <capsule-accordion-item open>
-          <div slot="trigger">Первая секция</div>
-          <div slot="content">
-            <p>Контент с красивой анимацией появления</p>
-          </div>
-        </capsule-accordion-item>
-
-        <capsule-accordion-item>
-          <div slot="trigger">Popout вариант</div>
-          <div slot="content">Выдвигается при открытии</div>
-        </capsule-accordion-item>
-      </capsule-accordion>
-
-      <capsule-divider></capsule-divider>
-      <capsule-rating
-        value="1.5"
-        max="5"
-        precision="0.1"
-        color="primary"
-        name="rating"
-      >
-        <span slot="star-1-empty">😴</span>
-        <span slot="star-1-filled">😍</span>
-        <span slot="star-2-empty">😴</span>
-        <span slot="star-2-filled">😍</span>
-      </capsule-rating>
-
-      <capsule-button
-        type="submit"
-        transition='{"duration": 1000}'
-      >
-        Submit
-      </capsule-button>
+      <capsule-button type="submit"> Submit </capsule-button>
     </form>
 
-    <motion-element
-      initial='{"opacity": "0"}'
-      animate='{"opacity": "1"}'
-      transition='{"duration": 1000, "ease": "ease-out"}'
-      style="width: 100px; height: 100px; background: #4ecdc4"
-    >
-      Fade In
-    </motion-element>
-
-    <motion-element
-      initial='{"opacity": "0", "transform": "scale(0.5) rotate(45deg)"}'
-      animate='{"opacity": "1", "transform": "scale(1) rotate(0deg)"}'
-      transition='{"duration": 1000, "ease": "ease-out"}'
-      style="width: 100px; height: 100px; background: #ff6b6b"
-    >
-      Scale + Rotate
-    </motion-element>
-
-    <motion-element
-      initial='{"transform": "rotate(0deg)"}'
-      animate='{"transform": "rotate(0deg)"}'
-      while-hover='{"transform": "rotate(180deg)", "background": "green"}'
-      style="width: 100px; height: 100px; background: #4ecdc4; cursor: pointer"
-    >
-      Hover Me!
-    </motion-element>
-
     <script defer>
-      form.onsubmit = (e) => {
-        e.preventDefault();
-        console.log(new FormData(e.currentTarget));
-      };
-    </script>
+      class CapsuleValidator {
+        constructor(formSelector, options = {}) {
+          this.form = document.querySelector(formSelector);
+          this.fields = options.fields || {};
+          this.options = {
+            validateOnInput: options.validateOnInput || false,
+            validateOnChange: options.validateOnChange || false,
+            bails: options.bails !== false,
+            initialValues: options.initialValues || {},
 
-    <script>
-      class MotionElement extends HTMLElement {
-        static observedAttributes = [
-          'animate',
-          'initial',
-          'while-hover',
-          'while-tap',
-          'transition',
-        ];
+            formFieldSelector: options.formFieldSelector || 'form-field',
+            formMessageSelector: options.formMessageSelector || 'form-message',
+          };
 
-        constructor() {
-          super();
-          this.attachShadow({ mode: 'open' });
+          this.setValues(this.options.initialValues);
 
-          this._animations = new Map();
-        }
+          this.form.addEventListener('input', (e) => {
+            const field = e.target.closest(this.options.formFieldSelector);
+            if (field) {
+              const fieldName = this.getFieldName(field);
+              this.clearError(fieldName);
 
-        connectedCallback() {
-          this._render();
-
-          this._applyInitial();
-
-          requestAnimationFrame(() => {
-            this._applyAnimate();
+              if (this.options.validateOnInput) {
+                this.validateField(fieldName);
+              }
+            }
           });
 
-          this._attachEventListeners();
-        }
+          this.form.addEventListener('change', (e) => {
+            const field = e.target.closest(this.options.formFieldSelector);
+            if (field) {
+              const fieldName = this.getFieldName(field);
+              this.clearError(fieldName);
 
-        attributeChangedCallback(name, oldValue, newValue) {
-          if (oldValue === newValue) return;
-
-          switch (name) {
-            case 'animate':
-              this._applyAnimate();
-              break;
-            case 'initial':
-              this._applyInitial();
-              break;
-          }
-        }
-
-        _render() {
-          this.shadowRoot.innerHTML = `
-            <style>
-              :host {
-                display: inline-flex;
+              if (this.options.validateOnChange) {
+                this.validateField(fieldName);
               }
-            </style>
-            <slot></slot>
-          `;
-        }
-
-        _applyInitial() {
-          const initial = this.getAttribute('initial');
-          if (!initial) return;
-
-          try {
-            const styles = JSON.parse(initial);
-
-            Object.entries(styles).forEach(([property, value]) => {
-              this.style.setProperty(property, value);
-            });
-          } catch (error) {
-            console.error('Error parsing initial JSON:', error);
-          }
-        }
-
-        _applyAnimate() {
-          const animate = this.getAttribute('animate');
-          if (!animate) return;
-
-          try {
-            const styles = JSON.parse(animate);
-            const transition = this._parseTransition();
-
-            this._animateWithWAAPI(styles, transition);
-          } catch (error) {
-            console.error('Error parsing animate JSON:', error);
-          }
-        }
-
-        _parseTransition() {
-          const transition = this.getAttribute('transition');
-          if (!transition) return { duration: 300, ease: 'ease' };
-
-          try {
-            return JSON.parse(transition);
-          } catch {
-            return { duration: 300, ease: 'ease' };
-          }
-        }
-
-        _animateWithWAAPI(styles, transition) {
-          Object.keys(styles).forEach((property) => {
-            this._animations.get(property)?.cancel();
-          });
-
-          const { duration = 300, ease = 'ease', delay = 0 } = transition;
-
-          Object.entries(styles).forEach(([property, value]) => {
-            const currentValue =
-              this.style.getPropertyValue(property) ||
-              getComputedStyle(this).getPropertyValue(property);
-
-            const animation = this.animate(
-              {
-                [property]: [currentValue, value],
-              },
-              {
-                duration,
-                easing: ease,
-                delay,
-                fill: 'forwards',
-              }
-            );
-
-            this._animations.set(property, animation);
-
-            animation.onfinish = () => {
-              this.style.setProperty(property, value);
-              this._animations.delete(property);
-            };
+            }
           });
         }
 
-        _attachEventListeners() {
-          this._setupHoverAnimation();
-          this._setupTapAnimation();
+        async validate() {
+          const formData = new FormData(this.form);
+          const allValues = Object.fromEntries(formData);
+          const errors = {};
+
+          for (const [fieldName, rules] of Object.entries(this.fields)) {
+            const result = await this.validateField(fieldName, allValues);
+            if (!result.valid) {
+              errors[fieldName] = result.errors[0];
+            }
+          }
+
+          return {
+            valid: Object.keys(errors).length === 0,
+            errors,
+            values: allValues,
+          };
         }
 
-        _setupHoverAnimation() {
-          const whileHover = this.getAttribute('while-hover');
-          if (!whileHover) return;
+        async validateField(fieldName, allValues = null) {
+          if (!allValues) {
+            const formData = new FormData(this.form);
+            allValues = Object.fromEntries(formData);
+          }
 
-          try {
-            const hoverStyles = JSON.parse(whileHover);
+          const value = allValues[fieldName];
+          const rules = this.fields[fieldName] || [];
+          const errors = [];
 
-            this.addEventListener('mouseenter', () => {
-              this._animateWithWAAPI(hoverStyles, { duration: 200 });
-            });
-
-            this.addEventListener('mouseleave', () => {
-              const animate = this.getAttribute('animate');
-              if (animate) {
-                const defaultStyles = JSON.parse(animate);
-                this._animateWithWAAPI(defaultStyles, { duration: 200 });
+          for (const rule of rules) {
+            try {
+              const result = await rule(value, allValues);
+              if (typeof result === 'string') {
+                errors.push(result);
+                if (this.options.bails) break;
               }
-            });
-          } catch (error) {
-            console.error('Error parsing while-hover JSON:', error);
+            } catch (error) {
+              errors.push(error.message || 'Ошибка валидации');
+              if (this.options.bails) break;
+            }
           }
+
+          return {
+            valid: errors.length === 0,
+            errors,
+          };
         }
 
-        _setupTapAnimation() {
-          const whileTap = this.getAttribute('while-tap');
-          if (!whileTap) return;
-
-          try {
-            const tapStyles = JSON.parse(whileTap);
-
-            this.addEventListener('mousedown', () => {
-              this._animateWithWAAPI(tapStyles, { duration: 100 });
-            });
-
-            this.addEventListener('mouseup', () => {
-              const animate = this.getAttribute('animate');
-              if (animate) {
-                const defaultStyles = JSON.parse(animate);
-                this._animateWithWAAPI(defaultStyles, { duration: 100 });
+        static rules = {
+          required:
+            (message = 'Поле обязательно для заполнения') =>
+            (v) =>
+              !!v || message,
+          email:
+            (message = 'Введите корректный email') =>
+            (v) =>
+              !v || /^\S+@\S+\.\S+$/.test(v) || message,
+          min: (length, message) => (v) =>
+            !v || v.length >= length || message || `Минимум ${length} символов`,
+          max: (length, message) => (v) =>
+            !v ||
+            v.length <= length ||
+            message ||
+            `Максимум ${length} символов`,
+          minValue: (min, message) => (v) =>
+            !v ||
+            Number(v) >= min ||
+            message ||
+            `Значение должно быть не менее ${min}`,
+          maxValue: (max, message) => (v) =>
+            !v ||
+            Number(v) <= max ||
+            message ||
+            `Значение должно быть не более ${max}`,
+          match: (fieldToMatch, message) => (v, allValues) =>
+            !v ||
+            v === allValues[fieldToMatch] ||
+            message ||
+            `Поле должно совпадать с ${fieldToMatch}`,
+          async:
+            (validator, message = 'Ошибка валидации') =>
+            async (v, allValues) => {
+              try {
+                const isValid = await validator(v, allValues);
+                return isValid || message;
+              } catch (error) {
+                return error.message || message;
               }
+            },
+        };
+
+        getFieldName(fieldElement) {
+          const field = fieldElement.querySelector('[name]');
+          return field ? field.name : fieldElement.getAttribute('name');
+        }
+
+        displayErrors(errors) {
+          this.form
+            .querySelectorAll(this.options.formFieldSelector)
+            .forEach((field) => {
+              field.setError(null, this.options.formMessageSelector);
             });
 
-            this.addEventListener('touchstart', () => {
-              this._animateWithWAAPI(tapStyles, { duration: 100 });
-            });
+          Object.keys(errors).forEach((fieldName) => {
+            this.setFieldError(fieldName, errors[fieldName]);
+          });
+        }
 
-            this.addEventListener('touchend', () => {
-              const animate = this.getAttribute('animate');
-              if (animate) {
-                const defaultStyles = JSON.parse(animate);
-                this._animateWithWAAPI(defaultStyles, { duration: 100 });
-              }
-            });
-          } catch (error) {
-            console.error('Error parsing while-tap JSON:', error);
+        setFieldError(fieldName, error) {
+          const field = this.findFieldByName(fieldName);
+          if (field) {
+            field.setError(error, this.options.formMessageSelector);
           }
         }
 
-        // Public API
-        start(animation, options = {}) {
-          try {
-            const styles =
-              typeof animation === 'string' ? JSON.parse(animation) : animation;
-            this._animateWithWAAPI(styles, options);
-          } catch (error) {
-            console.error('Error parsing start animation:', error);
+        findFieldByName(fieldName) {
+          return (
+            this.form
+              .querySelector(`[name="${fieldName}"]`)
+              ?.closest(this.options.formFieldSelector) ||
+            this.form
+              .querySelector(
+                `${this.options.formFieldSelector} [name="${fieldName}"]`
+              )
+              ?.closest(this.options.formFieldSelector)
+          );
+        }
+
+        clearError(fieldName) {
+          const field = this.findFieldByName(fieldName);
+          if (field) {
+            field.setError(null, this.options.formMessageSelector);
           }
         }
 
-        stop() {
-          this._animations.forEach((animation) => animation.cancel());
-          this._animations.clear();
-        }
-
-        setVariants(variants) {
-          this._variants = variants;
-        }
-
-        variant(name) {
-          if (this._variants && this._variants[name]) {
-            this.start(this._variants[name]);
-          }
+        setValues(values) {
+          Object.entries(values).forEach(([fieldName, value]) => {
+            const input = this.form.querySelector(`[name="${fieldName}"]`);
+            if (input) {
+              input.value = value;
+            }
+          });
         }
 
         reset() {
-          this.stop();
-          this._applyInitial();
+          this.form.reset();
+          this.form
+            .querySelectorAll(this.options.formFieldSelector)
+            .forEach((field) => {
+              field.setError(null, this.options.formMessageSelector);
+            });
+          this.setValues(this.options.initialValues);
+        }
+
+        getFormData() {
+          const formData = new FormData(this.form);
+          return Object.fromEntries(formData);
         }
       }
 
-      customElements.define('motion-element', MotionElement);
+      class FormField extends HTMLElement {
+        constructor() {
+          super();
+        }
+
+        setError(message) {
+          const messageElement = this.querySelector('form-message');
+          if (messageElement) {
+            if (message) {
+              messageElement.setMessage(message);
+              this.classList.add('invalid');
+            } else {
+              messageElement.clearMessage();
+              this.classList.remove('invalid');
+            }
+          }
+        }
+      }
+
+      customElements.define('form-field', FormField);
+
+      class FormMessage extends HTMLElement {
+        constructor() {
+          super();
+        }
+
+        connectedCallback() {
+          this.style.display = 'none';
+        }
+
+        setMessage(message) {
+          this.textContent = message;
+          this.style.display = 'block';
+        }
+
+        clearMessage() {
+          this.textContent = '';
+          this.style.display = 'none';
+        }
+      }
+
+      customElements.define('form-message', FormMessage);
+
+      const standardValidator = new CapsuleValidator('#form', {
+        fields: {
+          rating: [
+            CapsuleValidator.rules.required(),
+            CapsuleValidator.rules.minValue(3),
+          ],
+        },
+        validateOnInput: true,
+        onSubmit: () => {},
+        onError: () => {},
+      });
     </script>
   </body>
 </html>

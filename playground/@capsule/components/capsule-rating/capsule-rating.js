@@ -43,10 +43,9 @@ class Rating extends HTMLElement {
     }
   }
 
-  // Form-associated custom element methods
   formDisabledCallback(disabled) {
     this.toggleAttribute('disabled', disabled);
-    this._render(); // Перерисовываем для обновления состояния
+    this._render();
   }
 
   formResetCallback() {
@@ -66,7 +65,7 @@ class Rating extends HTMLElement {
 
   _updateFormValue() {
     this.internals_.setFormValue(this._value.toString());
-    this.internals_.setValidity({}); // Сбрасываем валидацию
+    this.internals_.setValidity({});
   }
 
   _render() {
@@ -137,7 +136,6 @@ class Rating extends HTMLElement {
     const clickX = clientX - containerRect.left;
     let percentage = Math.max(0, Math.min(clickX / containerWidth, 1));
 
-    // Округляем согласно precision
     if (this._precision === 1) {
       percentage = Math.round(percentage * this._max) / this._max;
     } else if (this._precision === 0.5) {
@@ -154,21 +152,18 @@ class Rating extends HTMLElement {
 
     const container = this.shadowRoot.querySelector('.stars-container');
 
-    // Pointermove для плавного hover
     container.addEventListener('pointermove', (e) => {
       this._isHovering = true;
       this._hoverPercentage = this._calculateHoverPercentage(e.clientX) * 100;
       this._updateFilledWidth();
     });
 
-    // Pointerleave для сброса
     container.addEventListener('pointerleave', () => {
       this._isHovering = false;
       this._hoverPercentage = 0;
       this._updateFilledWidth();
     });
 
-    // Click для установки значения
     container.addEventListener('click', (e) => {
       const percentage = this._calculateHoverPercentage(e.clientX);
       const value = percentage * this._max;
@@ -185,7 +180,6 @@ class Rating extends HTMLElement {
         })
       );
 
-      // Также диспатчим input событие для форм
       this.dispatchEvent(
         new CustomEvent('input', {
           detail: { value: this.value },
@@ -236,7 +230,6 @@ class Rating extends HTMLElement {
     this.setAttribute('precision', val);
   }
 
-  // Дополнительные методы для совместимости с формами
   get form() {
     return this.internals_.form;
   }
