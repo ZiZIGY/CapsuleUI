@@ -160,7 +160,6 @@ capsule-button[variant='error']:active:not([disabled]) {
   background: color-mix(in srgb, var(--capsule-color-error) 80%, black);
 }
 
-/* Warning Variant */
 capsule-button[variant='warning'] {
   background: var(--capsule-color-warning);
   color: var(--capsule-color-text);

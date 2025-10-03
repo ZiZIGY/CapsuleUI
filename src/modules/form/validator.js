@@ -1,4 +1,4 @@
-class CapsuleValidator {
+export class CapsuleValidator {
   constructor(formSelector, options = {}) {
     this.form = document.querySelector(formSelector);
     this.fields = options.fields || {};
@@ -7,36 +7,88 @@ class CapsuleValidator {
       validateOnChange: options.validateOnChange || false,
       bails: options.bails !== false,
       initialValues: options.initialValues || {},
-
       formFieldSelector: options.formFieldSelector || 'form-field',
       formMessageSelector: options.formMessageSelector || 'form-message',
+      onSubmit: options.onSubmit,
+      onValidate: options.onValidate,
+      onError: options.onError,
+      onFieldValidate: options.onFieldValidate,
     };
 
     this.setValues(this.options.initialValues);
+    this.setupEventListeners();
+  }
 
-    this.form.addEventListener('input', (e) => {
-      const field = e.target.closest(this.options.formFieldSelector);
-      if (field) {
-        const fieldName = this.getFieldName(field);
-        this.clearError(fieldName);
-
-        if (this.options.validateOnInput) {
-          this.validateField(fieldName);
+  setupEventListeners() {
+    if (this.options.validateOnInput) {
+      this.form.addEventListener('input', (e) => {
+        const field = e.target.closest(this.options.formFieldSelector);
+        if (field) {
+          const fieldName = this.getFieldName(field);
+          this.clearError(fieldName);
+          this.validateField(fieldName).then((result) => {
+            if (!result.valid) {
+              this.setFieldError(fieldName, result.errors[0]);
+            }
+            if (this.options.onFieldValidate) {
+              this.options.onFieldValidate(fieldName, result);
+            }
+          });
         }
-      }
-    });
+      });
+    }
 
-    this.form.addEventListener('change', (e) => {
-      const field = e.target.closest(this.options.formFieldSelector);
-      if (field) {
-        const fieldName = this.getFieldName(field);
-        this.clearError(fieldName);
-
-        if (this.options.validateOnChange) {
-          this.validateField(fieldName);
+    if (this.options.validateOnChange) {
+      this.form.addEventListener('change', (e) => {
+        const field = e.target.closest(this.options.formFieldSelector);
+        if (field) {
+          const fieldName = this.getFieldName(field);
+          this.clearError(fieldName);
+          this.validateField(fieldName).then((result) => {
+            if (!result.valid) {
+              this.setFieldError(fieldName, result.errors[0]);
+            }
+            if (this.options.onFieldValidate) {
+              this.options.onFieldValidate(fieldName, result);
+            }
+          });
         }
-      }
+      });
+    }
+
+    this.form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      await this.handleSubmit();
     });
+  }
+
+  async handleSubmit() {
+    const result = await this.validate();
+
+    if (this.options.onValidate) {
+      this.options.onValidate(result);
+    }
+
+    if (result.valid) {
+      if (this.options.onSubmit) {
+        await this.options.onSubmit(result.values, {
+          setErrors: (errors) => this.displayErrors(errors),
+          setFieldError: (field, error) => this.setFieldError(field, error),
+          reset: () => this.reset(),
+        });
+      } else {
+        alert('Form submitted successfully!');
+      }
+    } else {
+      if (this.options.onError) {
+        await this.options.onError(result.errors, {
+          setErrors: (errors) => this.displayErrors(errors),
+          setFieldError: (field, error) => this.setFieldError(field, error),
+        });
+      } else {
+        this.displayErrors(result.errors);
+      }
+    }
   }
 
   async validate() {
@@ -51,11 +103,13 @@ class CapsuleValidator {
       }
     }
 
-    return {
+    const validationResult = {
       valid: Object.keys(errors).length === 0,
       errors,
       values: allValues,
     };
+
+    return validationResult;
   }
 
   async validateField(fieldName, allValues = null) {
@@ -76,7 +130,7 @@ class CapsuleValidator {
           if (this.options.bails) break;
         }
       } catch (error) {
-        errors.push(error.message || 'Ошибка валидации');
+        errors.push(error.message || 'Validation error');
         if (this.options.bails) break;
       }
     }
@@ -87,45 +141,55 @@ class CapsuleValidator {
     };
   }
 
-  static rules = {
-    required:
-      (message = 'Поле обязательно для заполнения') =>
-      (v) =>
-        !!v || message,
-    email:
-      (message = 'Введите корректный email') =>
-      (v) =>
-        !v || /^\S+@\S+\.\S+$/.test(v) || message,
-    min: (length, message) => (v) =>
-      !v || v.length >= length || message || `Минимум ${length} символов`,
-    max: (length, message) => (v) =>
-      !v || v.length <= length || message || `Максимум ${length} символов`,
-    minValue: (min, message) => (v) =>
-      !v ||
-      Number(v) >= min ||
-      message ||
-      `Значение должно быть не менее ${min}`,
-    maxValue: (max, message) => (v) =>
-      !v ||
-      Number(v) <= max ||
-      message ||
-      `Значение должно быть не более ${max}`,
-    match: (fieldToMatch, message) => (v, allValues) =>
-      !v ||
-      v === allValues[fieldToMatch] ||
-      message ||
-      `Поле должно совпадать с ${fieldToMatch}`,
-    async:
-      (validator, message = 'Ошибка валидации') =>
-      async (v, allValues) => {
-        try {
-          const isValid = await validator(v, allValues);
-          return isValid || message;
-        } catch (error) {
-          return error.message || message;
+  getFieldRules(fieldName) {
+    const fieldConfig = this.fields[fieldName];
+    return Array.isArray(fieldConfig) ? fieldConfig : fieldConfig?.rules || [];
+  }
+
+  async validateFields(...fieldNames) {
+    const formData = new FormData(this.form);
+    const allValues = Object.fromEntries(formData);
+    const errors = {};
+
+    for (const fieldName of fieldNames) {
+      const rules = this.getFieldRules(fieldName);
+      if (rules.length > 0) {
+        const result = await this.validateField(fieldName, allValues);
+        if (!result.valid) {
+          errors[fieldName] = result.errors[0];
         }
-      },
-  };
+      }
+    }
+
+    return {
+      valid: Object.keys(errors).length === 0,
+      errors,
+      values: allValues,
+    };
+  }
+
+  async validateGroup(groupName) {
+    const formData = new FormData(this.form);
+    const allValues = Object.fromEntries(formData);
+    const errors = {};
+
+    for (const [fieldName, fieldConfig] of Object.entries(this.fields)) {
+      const fieldGroup =
+        typeof fieldConfig === 'object' ? fieldConfig.group : undefined;
+      if (fieldGroup === groupName) {
+        const result = await this.validateField(fieldName, allValues);
+        if (!result.valid) {
+          errors[fieldName] = result.errors[0];
+        }
+      }
+    }
+
+    return {
+      valid: Object.keys(errors).length === 0,
+      errors,
+      values: allValues,
+    };
+  }
 
   getFieldName(fieldElement) {
     const field = fieldElement.querySelector('[name]');
@@ -152,16 +216,14 @@ class CapsuleValidator {
   }
 
   findFieldByName(fieldName) {
-    return (
-      this.form
-        .querySelector(`[name="${fieldName}"]`)
-        ?.closest(this.options.formFieldSelector) ||
-      this.form
-        .querySelector(
-          `${this.options.formFieldSelector} [name="${fieldName}"]`
-        )
-        ?.closest(this.options.formFieldSelector)
+    const fieldWithInput = this.form.querySelector(
+      `${this.options.formFieldSelector} [name="${fieldName}"]`
     );
+    if (fieldWithInput) {
+      return fieldWithInput.closest(this.options.formFieldSelector);
+    }
+
+    return null;
   }
 
   clearError(fieldName) {
@@ -193,5 +255,9 @@ class CapsuleValidator {
   getFormData() {
     const formData = new FormData(this.form);
     return Object.fromEntries(formData);
+  }
+
+  async submit() {
+    return await this.handleSubmit();
   }
 }
