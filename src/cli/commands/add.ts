@@ -270,10 +270,10 @@ export const add = {
         const indexPath = path.join(destComponentDir, 'index.js');
         if (fs.existsSync(indexPath)) fs.unlinkSync(indexPath);
 
-        // Автоимпорт всех JS файлов компонента в @capsule/components/init.js
+        // Автоимпорт всех JS файлов компонента в @capsule/components/all.js
         try {
           const initJsDir = path.join(capsuleRoot, 'components');
-          const initJsPath = path.join(initJsDir, 'init.js');
+          const initJsPath = path.join(initJsDir, 'all.js');
           ensureDir(initJsDir);
           let initContent = '';
           if (fs.existsSync(initJsPath)) {
@@ -301,18 +301,18 @@ export const add = {
           if (updated) {
             fs.writeFileSync(initJsPath, initContent, 'utf8');
             console.log(
-              `Injected imports into @capsule/components/init.js for: ${jsFiles.join(
+              `Injected imports into @capsule/components/all.js for: ${jsFiles.join(
                 ', '
               )}`
             );
           } else {
             console.log(
-              'Imports already present in @capsule/components/init.js'
+              'Imports already present in @capsule/components/all.js'
             );
           }
         } catch (e) {
           console.log(
-            'Warning: failed to update @capsule/components/init.js:',
+            'Warning: failed to update @capsule/components/all.js:',
             (e as Error).message
           );
         }
