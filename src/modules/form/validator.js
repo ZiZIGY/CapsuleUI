@@ -119,7 +119,7 @@ export class CapsuleValidator {
     }
 
     const value = allValues[fieldName];
-    const rules = this.fields[fieldName] || [];
+    const rules = this.getFieldRules(fieldName);
     const errors = [];
 
     for (const rule of rules) {
