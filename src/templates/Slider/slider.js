@@ -4,7 +4,7 @@ class Slider extends HTMLElement {
     'max',
     'step',
     'decimals',
-    'values',
+    'value',
     'orientation',
     'show-ticks',
     'ticks-density',
@@ -73,7 +73,7 @@ class Slider extends HTMLElement {
     if (isNaN(this._max)) this._max = 100;
     if (this._min >= this._max) this._max = this._min + 100;
 
-    const valuesAttr = this.getAttribute('values');
+    const valuesAttr = this.getAttribute('value');
     this._values = valuesAttr
       ? this._parseValues(valuesAttr)
       : [this._min, this._max];
