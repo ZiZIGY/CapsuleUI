@@ -161,6 +161,24 @@ export const add = {
           }
         }
         walkDirAndReplace(destComponentDir);
+
+        // Дополнительно: переименовать файлы, если в их имени есть плейсхолдеры
+        (function renameFilesWithPlaceholders(dir: string) {
+          const entries = fs.readdirSync(dir, { withFileTypes: true });
+          for (const entry of entries) {
+            const fullPath = path.join(dir, entry.name);
+            if (entry.isDirectory()) {
+              renameFilesWithPlaceholders(fullPath);
+            } else {
+              let newName = entry.name
+                .replace(/__PREFIX__/g, prefix || 'capsule')
+                .replace(/__COMPONENT__/g, kebabComponent);
+              if (newName !== entry.name) {
+                fs.renameSync(fullPath, path.join(dir, newName));
+              }
+            }
+          }
+        })(destComponentDir);
         // После walkDirAndReplace: корректно переименовать только нужные файлы
         const files = fs.readdirSync(destComponentDir);
         for (const file of files) {

@@ -11,10 +11,12 @@ export interface CapsuleValidatorFieldConfig {
   group?: string;
 }
 
-export type CapsuleValidatorFields = Record<
+type InferFields<T> = T extends Record<
   string,
   CapsuleValidatorFieldConfig | CapsuleValidatorRule[]
->;
+>
+  ? { [K in keyof T]: any }
+  : CapsuleValidatorValues;
 
 export interface CapsuleValidatorOnSubmitHelpers {
   setErrors: (errors: CapsuleValidatorErrors) => void;
@@ -27,19 +29,30 @@ export interface CapsuleValidatorOnErrorHelpers {
   setFieldError: (field: string, error: string) => void;
 }
 
-export interface CapsuleValidatorOptions {
-  fields?: CapsuleValidatorFields;
+type InferValues<T> = T extends { fields?: infer F }
+  ? F extends Record<string, any>
+    ? { [K in keyof F]: any }
+    : CapsuleValidatorValues
+  : CapsuleValidatorValues;
+
+export interface CapsuleValidatorOptions<T = CapsuleValidatorValues> {
+  fields?: Record<
+    keyof T,
+    CapsuleValidatorFieldConfig | CapsuleValidatorRule[]
+  >;
   validateOnInput?: boolean;
   validateOnChange?: boolean;
   bails?: boolean;
-  initialValues?: CapsuleValidatorValues;
+  initialValues?: Partial<T>;
   formFieldSelector?: string;
   formMessageSelector?: string;
   onSubmit?: (
-    values: CapsuleValidatorValues,
+    values: T,
     helpers: CapsuleValidatorOnSubmitHelpers
   ) => any | Promise<any>;
-  onValidate?: (result: CapsuleValidatorValidationResult) => any | Promise<any>;
+  onValidate?: (
+    result: CapsuleValidatorValidationResult<T>
+  ) => any | Promise<any>;
   onError?: (
     errors: CapsuleValidatorErrors,
     helpers: CapsuleValidatorOnErrorHelpers
@@ -55,20 +68,20 @@ export interface CapsuleValidatorFieldValidationResult {
   errors: string[];
 }
 
-export interface CapsuleValidatorValidationResult {
+export interface CapsuleValidatorValidationResult<T = CapsuleValidatorValues> {
   valid: boolean;
   errors: CapsuleValidatorErrors;
-  values: CapsuleValidatorValues;
+  values: T;
 }
 
-export declare class CapsuleValidator {
-  constructor(formSelector: string, options?: CapsuleValidatorOptions);
+export declare class CapsuleValidator<T = CapsuleValidatorValues> {
+  constructor(formSelector: string, options?: CapsuleValidatorOptions<T>);
 
   form: HTMLFormElement;
-  fields: CapsuleValidatorFields;
+  fields: Record<keyof T, CapsuleValidatorFieldConfig | CapsuleValidatorRule[]>;
   options: Required<
     Pick<
-      CapsuleValidatorOptions,
+      CapsuleValidatorOptions<T>,
       | 'validateOnInput'
       | 'validateOnChange'
       | 'bails'
@@ -78,37 +91,39 @@ export declare class CapsuleValidator {
     >
   > &
     Pick<
-      CapsuleValidatorOptions,
+      CapsuleValidatorOptions<T>,
       'fields' | 'onSubmit' | 'onValidate' | 'onError' | 'onFieldValidate'
     >;
 
   setupEventListeners(): void;
   handleSubmit(): Promise<void>;
 
-  validate(): Promise<CapsuleValidatorValidationResult>;
+  validate(): Promise<CapsuleValidatorValidationResult<T>>;
 
   validateField(
-    fieldName: string,
-    allValues?: CapsuleValidatorValues | null
+    fieldName: keyof T,
+    allValues?: T | null
   ): Promise<CapsuleValidatorFieldValidationResult>;
 
-  getFieldRules(fieldName: string): CapsuleValidatorRule[];
+  getFieldRules(fieldName: keyof T): CapsuleValidatorRule[];
 
   validateFields(
-    ...fieldNames: string[]
-  ): Promise<CapsuleValidatorValidationResult>;
+    ...fieldNames: (keyof T)[]
+  ): Promise<CapsuleValidatorValidationResult<T>>;
 
-  validateGroup(groupName: string): Promise<CapsuleValidatorValidationResult>;
+  validateGroup(
+    groupName: string
+  ): Promise<CapsuleValidatorValidationResult<T>>;
 
-  getFieldName(fieldElement: Element): string | null;
+  getFieldName(fieldElement: Element): keyof T | null;
 
   displayErrors(errors: CapsuleValidatorErrors): void;
-  setFieldError(fieldName: string, error: string): void;
-  findFieldByName(fieldName: string): Element | null;
-  clearError(fieldName: string): void;
+  setFieldError(fieldName: keyof T, error: string): void;
+  findFieldByName(fieldName: keyof T): Element | null;
+  clearError(fieldName: keyof T): void;
 
-  setValues(values: CapsuleValidatorValues): void;
+  setValues(values: Partial<T>): void;
   reset(): void;
-  getFormData(): CapsuleValidatorValues;
+  getFormData(): T;
   submit(): Promise<void>;
 }
