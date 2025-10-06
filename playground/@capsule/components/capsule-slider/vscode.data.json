@@ -68,7 +68,7 @@
         {
           "name": "ticks-density",
           "description": "Density multiplier for tick marks (1 shows every step).",
-          "values": [{ "name": "number" }]
+          "value": [{ "name": "number" }]
         },
         {
           "name": "disabled",
