@@ -25,93 +25,24 @@ capsule-stepper-step {
   justify-content: center;
 }
 
-capsule-stepper[orientation='vertical'] capsule-stepper-step {
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-/* Step Indicator */
-capsule-stepper-step::part(step-indicator) {
-  width: 32px;
-  height: 32px;
-  border-radius: var(--capsule-radius-full);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: var(--capsule-font-size-sm);
-  font-weight: var(--capsule-font-weight-medium);
-  transition: var(--capsule-transition);
-  position: relative;
-  z-index: 2;
-}
-
-capsule-stepper-step[status='inactive']::part(step-indicator) {
-  border: 2px solid var(--capsule-color-outline-border);
-  background: var(--capsule-color-background);
-  color: var(--capsule-color-text-secondary);
-}
-
-capsule-stepper-step[status='active']::part(step-indicator) {
-  border: 2px solid var(--capsule-color-primary);
-  background: var(--capsule-color-primary);
-  color: var(--capsule-color-white);
-}
-
-capsule-stepper-step[status='completed']::part(step-indicator) {
-  border: 2px solid var(--capsule-color-success);
-  background: var(--capsule-color-success);
-  color: var(--capsule-color-white);
-}
-
-/* Step Line */
-capsule-stepper-step::part(step-line) {
-  flex: 1;
-  height: 2px;
-  background: var(--capsule-color-outline-border);
-  transition: var(--capsule-transition);
-  position: relative;
-}
-
-capsule-stepper[orientation='vertical']
-  capsule-stepper-step::part(step-line) {
-  width: 2px;
-  height: 40px;
-  position: absolute;
-  left: 15px;
-  top: 32px;
-}
-
-capsule-stepper-step[status='completed']::part(step-line) {
-  background: var(--capsule-color-success);
-}
-
-/* Hide line for last step */
-capsule-stepper-step:last-child::part(step-line) {
-  display: none;
-}
-
-/* Step Label */
-capsule-stepper-step::part(step-label) {
-  font-size: var(--capsule-font-size-sm);
-  color: var(--capsule-color-text-secondary);
-  transition: var(--capsule-transition);
-}
-
-capsule-stepper-step[status='active']::part(step-label) {
-  color: var(--capsule-color-primary);
-  font-weight: var(--capsule-font-weight-medium);
-}
-
-capsule-stepper-step[status='completed']::part(step-label) {
-  color: var(--capsule-color-success);
-}
-
 /* Stepper Content */
 capsule-stepper-content {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+
+capsule-stepper-content[status='inactive'],
+capsule-stepper-content[status='completed'] {
   display: none;
 }
 
-capsule-stepper-content[status='active'] {
+/* Stepper Item */
+capsule-stepper-item {
+  display: none;
+}
+
+capsule-stepper-item[status='active'] {
   display: block;
   animation: capsule-fade-in 0.3s ease-in-out;
 }
@@ -125,33 +56,4 @@ capsule-stepper-content[status='active'] {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-/* Slots visibility based on status */
-capsule-stepper-step[status='inactive'] ::slotted([slot='inactive']) {
-  display: block;
-}
-
-capsule-stepper-step[status='inactive'] ::slotted([slot='active']),
-capsule-stepper-step[status='inactive'] ::slotted([slot='completed']) {
-  display: none;
-}
-
-capsule-stepper-step[status='active'] ::slotted([slot='active']) {
-  display: block;
-}
-
-capsule-stepper-step[status='active'] ::slotted([slot='inactive']),
-capsule-stepper-step[status='active'] ::slotted([slot='completed']) {
-  display: none;
-}
-
-capsule-stepper-step[status='completed']
-  ::slotted([slot='completed']) {
-  display: block;
-}
-
-capsule-stepper-step[status='completed'] ::slotted([slot='inactive']),
-capsule-stepper-step[status='completed'] ::slotted([slot='active']) {
-  display: none;
 }

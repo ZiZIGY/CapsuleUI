@@ -12,3 +12,4 @@ import './capsule-stepper/capsule-stepper-content.js';
 import './capsule-stepper/capsule-stepper-step.js';
 import './capsule-stepper/capsule-stepper.js';
 import './capsule-stepper/capsule-stepper-steps.js';
+import './capsule-stepper/capsule-stepper-item.js';

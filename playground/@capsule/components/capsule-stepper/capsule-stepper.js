@@ -30,7 +30,6 @@ class Stepper extends HTMLElement {
     const contents = this.querySelectorAll(
       `${this.tagName.toLowerCase()}-content`
     );
-
     contents.forEach((content, index) => {
       const stepNumber = index + 1;
       let status = 'inactive';

@@ -1,7 +1,7 @@
-class StepperStep extends HTMLElement {
+class StepperSteps extends HTMLElement {
   constructor() {
     super();
   }
 }
 
-customElements.define('capsule-stepper-steps', StepperStep);
+customElements.define('capsule-stepper-steps', StepperSteps);

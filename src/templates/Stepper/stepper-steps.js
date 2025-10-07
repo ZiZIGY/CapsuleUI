@@ -1,7 +1,7 @@
-class StepperStep extends HTMLElement {
+class StepperSteps extends HTMLElement {
   constructor() {
     super();
   }
 }
 
-customElements.define('__PREFIX__-__COMPONENT__-steps', StepperStep);
+customElements.define('__PREFIX__-__COMPONENT__-steps', StepperSteps);
