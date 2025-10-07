@@ -11,38 +11,40 @@
       rel="stylesheet"
       href="./@capsule/global.css"
     />
-    <script src="./@capsule/utils/ripple.js"></script>
     <script
       type="module"
       src="./@capsule/components/all.js"
     ></script>
-
     <script
-      src="./assets/main.js"
       type="module"
+      src="./assets/main.js"
       defer
     ></script>
   </head>
   <body>
-    <capsule-button variant="primary"> тест </capsule-button>
+    <capsule-stepper current-step="2">
+      <capsule-stepper-steps>
+        <capsule-stepper-step>
+          1
+          <div class="line"></div>
+        </capsule-stepper-step>
 
-    <capsule-skeleton variant="rectangular"></capsule-skeleton>
+        <capsule-stepper-step>
+          2
+          <div class="line"></div>
+        </capsule-stepper-step>
 
-    <form id="form">
-      <form-field>
-        <input
-          max="5"
-          type="number"
-          name="name"
-        />
-        <form-message></form-message>
-      </form-field>
+        <capsule-stepper-step>
+          3
+          <div class="line"></div>
+        </capsule-stepper-step>
+      </capsule-stepper-steps>
 
-      <form-field>
-        <form-message></form-message>
-      </form-field>
+      <capsule-stepper-content> Контент шага 1 </capsule-stepper-content>
 
-      <capsule-button type="submit"> Submit </capsule-button>
-    </form>
-  </body>
+      <capsule-stepper-content> Контент шага 2 </capsule-stepper-content>
+
+      <capsule-stepper-content> Контент шага 3 </capsule-stepper-content>
+    </capsule-stepper></body
+  >
 </html>

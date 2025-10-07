@@ -1,0 +1,157 @@
+/* Stepper Container */
+__PREFIX__-__COMPONENT__ {
+  display: flex;
+  flex-direction: column;
+  gap: var(--capsule-margin-md);
+}
+
+__PREFIX__-__COMPONENT__[orientation='vertical'] {
+  flex-direction: row;
+}
+
+/* Stepper Steps */
+__PREFIX__-__COMPONENT__-steps {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Stepper Step */
+__PREFIX__-__COMPONENT__-step {
+  display: flex;
+  align-items: center;
+  gap: var(--capsule-margin-sm);
+  position: relative;
+  flex: 1;
+  justify-content: center;
+}
+
+__PREFIX__-__COMPONENT__[orientation='vertical'] __PREFIX__-__COMPONENT__-step {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Step Indicator */
+__PREFIX__-__COMPONENT__-step::part(step-indicator) {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--capsule-radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--capsule-font-size-sm);
+  font-weight: var(--capsule-font-weight-medium);
+  transition: var(--capsule-transition);
+  position: relative;
+  z-index: 2;
+}
+
+__PREFIX__-__COMPONENT__-step[status='inactive']::part(step-indicator) {
+  border: 2px solid var(--capsule-color-outline-border);
+  background: var(--capsule-color-background);
+  color: var(--capsule-color-text-secondary);
+}
+
+__PREFIX__-__COMPONENT__-step[status='active']::part(step-indicator) {
+  border: 2px solid var(--capsule-color-primary);
+  background: var(--capsule-color-primary);
+  color: var(--capsule-color-white);
+}
+
+__PREFIX__-__COMPONENT__-step[status='completed']::part(step-indicator) {
+  border: 2px solid var(--capsule-color-success);
+  background: var(--capsule-color-success);
+  color: var(--capsule-color-white);
+}
+
+/* Step Line */
+__PREFIX__-__COMPONENT__-step::part(step-line) {
+  flex: 1;
+  height: 2px;
+  background: var(--capsule-color-outline-border);
+  transition: var(--capsule-transition);
+  position: relative;
+}
+
+__PREFIX__-__COMPONENT__[orientation='vertical']
+  __PREFIX__-__COMPONENT__-step::part(step-line) {
+  width: 2px;
+  height: 40px;
+  position: absolute;
+  left: 15px;
+  top: 32px;
+}
+
+__PREFIX__-__COMPONENT__-step[status='completed']::part(step-line) {
+  background: var(--capsule-color-success);
+}
+
+/* Hide line for last step */
+__PREFIX__-__COMPONENT__-step:last-child::part(step-line) {
+  display: none;
+}
+
+/* Step Label */
+__PREFIX__-__COMPONENT__-step::part(step-label) {
+  font-size: var(--capsule-font-size-sm);
+  color: var(--capsule-color-text-secondary);
+  transition: var(--capsule-transition);
+}
+
+__PREFIX__-__COMPONENT__-step[status='active']::part(step-label) {
+  color: var(--capsule-color-primary);
+  font-weight: var(--capsule-font-weight-medium);
+}
+
+__PREFIX__-__COMPONENT__-step[status='completed']::part(step-label) {
+  color: var(--capsule-color-success);
+}
+
+/* Stepper Content */
+__PREFIX__-__COMPONENT__-content {
+  display: none;
+}
+
+__PREFIX__-__COMPONENT__-content[status='active'] {
+  display: block;
+  animation: capsule-fade-in 0.3s ease-in-out;
+}
+
+@keyframes capsule-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Slots visibility based on status */
+__PREFIX__-__COMPONENT__-step[status='inactive'] ::slotted([slot='inactive']) {
+  display: block;
+}
+
+__PREFIX__-__COMPONENT__-step[status='inactive'] ::slotted([slot='active']),
+__PREFIX__-__COMPONENT__-step[status='inactive'] ::slotted([slot='completed']) {
+  display: none;
+}
+
+__PREFIX__-__COMPONENT__-step[status='active'] ::slotted([slot='active']) {
+  display: block;
+}
+
+__PREFIX__-__COMPONENT__-step[status='active'] ::slotted([slot='inactive']),
+__PREFIX__-__COMPONENT__-step[status='active'] ::slotted([slot='completed']) {
+  display: none;
+}
+
+__PREFIX__-__COMPONENT__-step[status='completed']
+  ::slotted([slot='completed']) {
+  display: block;
+}
+
+__PREFIX__-__COMPONENT__-step[status='completed'] ::slotted([slot='inactive']),
+__PREFIX__-__COMPONENT__-step[status='completed'] ::slotted([slot='active']) {
+  display: none;
+}

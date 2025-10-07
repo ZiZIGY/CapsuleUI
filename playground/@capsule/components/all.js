@@ -8,3 +8,7 @@ import './capsule-pagination/capsule-pagination.js';
 import './capsule-switch/capsule-switch.js';
 import './capsule-accordion/capsule-accordion-item.js';
 import './capsule-accordion/capsule-accordion.js';
+import './capsule-stepper/capsule-stepper-content.js';
+import './capsule-stepper/capsule-stepper-step.js';
+import './capsule-stepper/capsule-stepper.js';
+import './capsule-stepper/capsule-stepper-steps.js';
