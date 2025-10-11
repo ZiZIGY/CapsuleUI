@@ -210,5 +210,115 @@
         color: var(--capsule-color-text-secondary);
       }
     </style>
+
+    <capsule-divider></capsule-divider>
+
+    <capsule-stepper
+      orientation="vertical"
+      current-step="2"
+    >
+      <capsule-stepper-steps>
+        <capsule-stepper-step>
+          <div class="vertical-step">
+            <div class="step-icon">1</div>
+            <div class="step-content">
+              <div class="step-title">Информация</div>
+              <div class="step-description">Заполните основные данные</div>
+            </div>
+            <div class="vertical-line"></div>
+          </div>
+        </capsule-stepper-step>
+
+        <capsule-stepper-step>
+          <div class="vertical-step">
+            <div class="step-icon">2</div>
+            <div class="step-content">
+              <div class="step-title">Оплата</div>
+              <div class="step-description">Выберите способ оплаты</div>
+            </div>
+            <div class="vertical-line"></div>
+          </div>
+        </capsule-stepper-step>
+
+        <capsule-stepper-step>
+          <div class="vertical-step">
+            <div class="step-icon">3</div>
+            <div class="step-content">
+              <div class="step-title">Подтверждение</div>
+              <div class="step-description">Проверьте и подтвердите</div>
+            </div>
+          </div>
+        </capsule-stepper-step>
+      </capsule-stepper-steps>
+
+      <capsule-stepper-panels animation="y">
+        <capsule-stepper-panel>Контент 1</capsule-stepper-panel>
+        <capsule-stepper-panel>Контент 2</capsule-stepper-panel>
+        <capsule-stepper-panel>Контент 3</capsule-stepper-panel>
+      </capsule-stepper-panels>
+    </capsule-stepper>
+
+    <style>
+      .vertical-step {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        position: relative;
+        padding-bottom: 24px;
+      }
+
+      .step-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--capsule-color-outline-border);
+        color: var(--capsule-color-text);
+        font-weight: bold;
+        flex-shrink: 0;
+        transition: all 0.3s ease;
+      }
+
+      .step-content {
+        flex: 1;
+      }
+
+      .step-title {
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+
+      .step-description {
+        font-size: 14px;
+        color: var(--capsule-color-text-secondary);
+      }
+
+      .vertical-line {
+        position: absolute;
+        left: 16px;
+        top: 32px;
+        bottom: 0;
+        width: 2px;
+        background: var(--capsule-color-outline-border);
+      }
+
+      /* Активный шаг */
+      capsule-stepper-step[status='active'] .step-icon {
+        background: var(--capsule-color-primary);
+        color: white;
+      }
+
+      /* Завершенный шаг */
+      capsule-stepper-step[status='completed'] .step-icon {
+        background: var(--capsule-color-success);
+        color: white;
+      }
+
+      capsule-stepper-step[status='completed'] .vertical-line {
+        background: var(--capsule-color-success);
+      }
+    </style>
   </body>
 </html>

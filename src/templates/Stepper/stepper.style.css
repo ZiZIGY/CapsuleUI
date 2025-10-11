@@ -42,6 +42,7 @@ __PREFIX__-__COMPONENT__[orientation='vertical']
 __PREFIX__-__COMPONENT__-panel {
   display: block;
   width: 100%;
+  height: 100%;
   transition: transform 0.4s, opacity 0.4s;
   pointer-events: none;
   overflow: hidden;
