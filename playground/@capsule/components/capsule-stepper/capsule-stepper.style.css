@@ -1,3 +1,4 @@
+/* Stepper Container */
 capsule-stepper {
   display: flex;
   flex-direction: column;
@@ -8,11 +9,18 @@ capsule-stepper[orientation='vertical'] {
   flex-direction: row;
 }
 
+/* Stepper Steps */
 capsule-stepper-steps {
   display: flex;
   justify-content: space-between;
 }
 
+capsule-stepper[orientation='vertical']
+  capsule-stepper-steps {
+  flex-direction: column;
+}
+
+/* Stepper Step */
 capsule-stepper-step {
   display: flex;
   align-items: center;
@@ -22,6 +30,7 @@ capsule-stepper-step {
   justify-content: center;
 }
 
+/* Stepper Panels */
 capsule-stepper-panels {
   position: relative;
   overflow: hidden;
@@ -29,6 +38,12 @@ capsule-stepper-panels {
   display: flex;
 }
 
+capsule-stepper[orientation='vertical']
+  capsule-stepper-panels {
+  flex-direction: column;
+}
+
+/* Stepper Panel */
 capsule-stepper-panel {
   display: block;
   width: 100%;
@@ -46,6 +61,7 @@ capsule-stepper-panel[status='active'] {
   transform: translateX(0);
 }
 
+/* X-анимация (горизонтальная) */
 capsule-stepper-panels[animation='x']
   capsule-stepper-panel[status='active'] {
   transform: translateX(0);
@@ -62,6 +78,7 @@ capsule-stepper-panels[animation='x']
   transform: translateX(-100%);
 }
 
+/* Y-анимация (вертикальная) */
 capsule-stepper-panels[animation='y']
   capsule-stepper-panel[status='active'] {
   transform: translateY(0);
@@ -74,79 +91,6 @@ capsule-stepper-panels[animation='y']
 }
 
 capsule-stepper-panels[animation='y']
-  capsule-stepper-panel:not([status='active']) {
-  transform: translateY(-100%);
-}
-
-capsule-stepper-panels[animation='fade']
-  capsule-stepper-panel[status='active'] {
-  opacity: 1;
-  transform: scale(1);
-}
-
-capsule-stepper-panels[animation='fade']
-  capsule-stepper-panel:not([status='active']) {
-  opacity: 0;
-  transform: scale(0.95);
-}
-
-capsule-stepper-panels[animation='slide-fade']
-  capsule-stepper-panel[status='active'] {
-  opacity: 1;
-  transform: translateX(0) scale(1);
-}
-
-capsule-stepper-panels[animation='slide-fade']
-  capsule-stepper-panel:not([status='active']) {
-  opacity: 0;
-  transform: translateX(20px) scale(0.98);
-}
-
-capsule-stepper-panels[animation='scale']
-  capsule-stepper-panel[status='active'] {
-  opacity: 1;
-  transform: scale(1);
-}
-
-capsule-stepper-panels[animation='scale']
-  capsule-stepper-panel:not([status='active']) {
-  opacity: 0;
-  transform: scale(0.8);
-}
-
-capsule-stepper-panels[animation='flip']
-  capsule-stepper-panel {
-  transition: transform 0.6s, opacity 0.3s;
-  backface-visibility: hidden;
-}
-
-capsule-stepper-panels[animation='flip']
-  capsule-stepper-panel[status='active'] {
-  opacity: 1;
-  transform: rotateY(0deg);
-}
-
-capsule-stepper-panels[animation='flip']
-  capsule-stepper-panel:not([status='active']) {
-  opacity: 0;
-  transform: rotateY(90deg);
-}
-
-capsule-stepper[orientation='vertical'] capsule-stepper-steps,
-capsule-stepper[orientation='vertical']
-  capsule-stepper-panels {
-  flex-direction: column;
-}
-
-capsule-stepper[orientation='vertical']
-  capsule-stepper-panels[animation='x']
-  capsule-stepper-panel[status='active']
-  ~ capsule-stepper-panel {
-  transform: translateY(100%);
-}
-
-capsule-stepper[orientation='vertical']
-  capsule-stepper-panels[animation='x']
   capsule-stepper-panel:not([status='active']) {
   transform: translateY(-100%);
 }

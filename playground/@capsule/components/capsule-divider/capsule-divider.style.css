@@ -1,0 +1,53 @@
+capsule-divider {
+  display: flex;
+  margin: var(--capsule-margin-sm) 0;
+  padding: 0;
+  border: none;
+  background-color: var(--capsule-color-outline);
+  flex-shrink: 0;
+  --capsule-divider-thickness: 1px;
+}
+
+capsule-divider,
+capsule-divider[orientation='horizontal'] {
+  height: var(--capsule-divider-thickness);
+  width: 100%;
+}
+
+capsule-divider[orientation='vertical'] {
+  width: var(--capsule-divider-thickness);
+  height: 100%;
+  margin: 0 var(--capsule-margin-sm);
+}
+
+capsule-divider[thickness='thin'] {
+  --capsule-divider-thickness: 0.5px;
+}
+
+capsule-divider[thickness='thick'] {
+  --capsule-divider-thickness: 2px;
+}
+
+capsule-divider[color='primary'] {
+  background-color: var(--capsule-color-primary);
+}
+
+capsule-divider[color='error'] {
+  background-color: var(--capsule-color-error);
+}
+
+capsule-divider[color='warning'] {
+  background-color: var(--capsule-color-warning);
+}
+
+capsule-divider[color='success'] {
+  background-color: var(--capsule-color-success);
+}
+
+capsule-divider[variant='ghost'] {
+  background-color: color-mix(
+    in srgb,
+    var(--capsule-color-outline) 40%,
+    transparent
+  );
+}

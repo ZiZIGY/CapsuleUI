@@ -1,4 +1,5 @@
 @import url('./components/capsule-stepper/capsule-stepper.style.css');
+@import url('./components/capsule-divider/capsule-divider.style.css');
 
 :root {
   color-scheme: light dark;

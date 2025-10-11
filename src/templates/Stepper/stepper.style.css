@@ -13,6 +13,11 @@ __PREFIX__-__COMPONENT__-steps {
   justify-content: space-between;
 }
 
+__PREFIX__-__COMPONENT__[orientation='vertical']
+  __PREFIX__-__COMPONENT__-steps {
+  flex-direction: column;
+}
+
 __PREFIX__-__COMPONENT__-step {
   display: flex;
   align-items: center;
@@ -27,6 +32,11 @@ __PREFIX__-__COMPONENT__-panels {
   overflow: hidden;
   width: 100%;
   display: flex;
+}
+
+__PREFIX__-__COMPONENT__[orientation='vertical']
+  __PREFIX__-__COMPONENT__-panels {
+  flex-direction: column;
 }
 
 __PREFIX__-__COMPONENT__-panel {
@@ -74,79 +84,6 @@ __PREFIX__-__COMPONENT__-panels[animation='y']
 }
 
 __PREFIX__-__COMPONENT__-panels[animation='y']
-  __PREFIX__-__COMPONENT__-panel:not([status='active']) {
-  transform: translateY(-100%);
-}
-
-__PREFIX__-__COMPONENT__-panels[animation='fade']
-  __PREFIX__-__COMPONENT__-panel[status='active'] {
-  opacity: 1;
-  transform: scale(1);
-}
-
-__PREFIX__-__COMPONENT__-panels[animation='fade']
-  __PREFIX__-__COMPONENT__-panel:not([status='active']) {
-  opacity: 0;
-  transform: scale(0.95);
-}
-
-__PREFIX__-__COMPONENT__-panels[animation='slide-fade']
-  __PREFIX__-__COMPONENT__-panel[status='active'] {
-  opacity: 1;
-  transform: translateX(0) scale(1);
-}
-
-__PREFIX__-__COMPONENT__-panels[animation='slide-fade']
-  __PREFIX__-__COMPONENT__-panel:not([status='active']) {
-  opacity: 0;
-  transform: translateX(20px) scale(0.98);
-}
-
-__PREFIX__-__COMPONENT__-panels[animation='scale']
-  __PREFIX__-__COMPONENT__-panel[status='active'] {
-  opacity: 1;
-  transform: scale(1);
-}
-
-__PREFIX__-__COMPONENT__-panels[animation='scale']
-  __PREFIX__-__COMPONENT__-panel:not([status='active']) {
-  opacity: 0;
-  transform: scale(0.8);
-}
-
-__PREFIX__-__COMPONENT__-panels[animation='flip']
-  __PREFIX__-__COMPONENT__-panel {
-  transition: transform 0.6s, opacity 0.3s;
-  backface-visibility: hidden;
-}
-
-__PREFIX__-__COMPONENT__-panels[animation='flip']
-  __PREFIX__-__COMPONENT__-panel[status='active'] {
-  opacity: 1;
-  transform: rotateY(0deg);
-}
-
-__PREFIX__-__COMPONENT__-panels[animation='flip']
-  __PREFIX__-__COMPONENT__-panel:not([status='active']) {
-  opacity: 0;
-  transform: rotateY(90deg);
-}
-
-__PREFIX__-__COMPONENT__[orientation='vertical'] __PREFIX__-__COMPONENT__-steps,
-__PREFIX__-__COMPONENT__[orientation='vertical']
-  __PREFIX__-__COMPONENT__-panels {
-  flex-direction: column;
-}
-
-__PREFIX__-__COMPONENT__[orientation='vertical']
-  __PREFIX__-__COMPONENT__-panels[animation='x']
-  __PREFIX__-__COMPONENT__-panel[status='active']
-  ~ __PREFIX__-__COMPONENT__-panel {
-  transform: translateY(100%);
-}
-
-__PREFIX__-__COMPONENT__[orientation='vertical']
-  __PREFIX__-__COMPONENT__-panels[animation='x']
   __PREFIX__-__COMPONENT__-panel:not([status='active']) {
   transform: translateY(-100%);
 }
