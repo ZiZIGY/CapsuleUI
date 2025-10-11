@@ -6,13 +6,12 @@ import path from 'path';
  */
 
 /**
- * Объединение variants файла с основными JS файлами
+ * Обработка JS файлов - минификация и удаление import/export
  * register.js обрабатывается отдельно - только минификация, без удаления import/export
  */
-export function mergeVariantsWithJsFiles(
+export function processJsFiles(
   destComponentDir: string,
   jsFiles: string[],
-  variantsFile: string,
   minify: boolean,
   minifyFn: (code: string) => string
 ): void {
@@ -20,7 +19,7 @@ export function mergeVariantsWithJsFiles(
     const jsPath = path.join(destComponentDir, jf);
     let jsCode = fs.readFileSync(jsPath, 'utf8');
 
-    // Для register.js - только минификация, без обработки variants и удаления import/export
+    // Для register.js - только минификация, без удаления import/export
     if (jf === 'register.js') {
       if (minify) {
         jsCode = minifyFn(jsCode);
@@ -30,13 +29,6 @@ export function mergeVariantsWithJsFiles(
     }
 
     // Обычная обработка для остальных JS файлов
-    if (variantsFile) {
-      const variantsPath = path.join(destComponentDir, variantsFile);
-      let variantsCode = fs.readFileSync(variantsPath, 'utf8');
-      variantsCode = variantsCode.replace(/export\s+const\s+/, 'const ');
-      jsCode = variantsCode + '\n\n' + jsCode;
-    }
-
     // Удалить import/export для native build
     jsCode = jsCode.replace(/import[^;]+;?/g, '').replace(/export\s+/g, '');
 
@@ -76,13 +68,7 @@ export function renameComponentFiles(
 /**
  * Очистка временных файлов
  */
-export function cleanupTempFiles(
-  destComponentDir: string,
-  variantsFile?: string
-): void {
-  if (variantsFile) {
-    fs.unlinkSync(path.join(destComponentDir, variantsFile));
-  }
+export function cleanupTempFiles(destComponentDir: string): void {
   const indexPath = path.join(destComponentDir, 'index.js');
   if (fs.existsSync(indexPath)) {
     fs.unlinkSync(indexPath);
