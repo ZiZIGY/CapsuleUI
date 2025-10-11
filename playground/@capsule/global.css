@@ -1,13 +1,5 @@
 @import url('./components/capsule-stepper/capsule-stepper.style.css');
-@import url('./components/capsule-accordion/capsule-accordion.style.css');
-@import url('./components/capsule-switch/capsule-switch.style.css');
-@import url('./components/capsule-pagination/capsule-pagination.style.css');
-@import url('./components/capsule-badge/capsule-badge.style.css');
-@import url('./components/capsule-chip/capsule-chip.style.css');
-@import url('./components/capsule-divider/capsule-divider.style.css');
-@import url('./components/capsule-slider/capsule-slider.style.css');
-@import url('./components/capsule-rating/capsule-rating.style.css');
-@import url('./components/capsule-button/capsule-button.style.css');
+
 :root {
   color-scheme: light dark;
 

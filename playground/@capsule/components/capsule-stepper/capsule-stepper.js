@@ -112,4 +112,4 @@ class Stepper extends HTMLElement {
   }
 }
 
-customElements.define('__PREFIX__-__COMPONENT__', Stepper);
+customElements.define('capsule-stepper', Stepper);

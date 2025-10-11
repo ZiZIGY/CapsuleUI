@@ -1,0 +1,54 @@
+/* Stepper Container */
+capsule-stepper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--capsule-margin-md);
+}
+
+capsule-stepper[orientation='vertical'] {
+  flex-direction: row;
+}
+
+/* Stepper Steps */
+capsule-stepper-steps {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Stepper Step */
+capsule-stepper-step {
+  display: flex;
+  align-items: center;
+  gap: var(--capsule-margin-sm);
+  position: relative;
+  flex: 1;
+  justify-content: center;
+}
+
+/* Stepper Content */
+capsule-stepper-panels {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+
+/* Stepper Item */
+capsule-stepper-panel {
+  display: none;
+}
+
+capsule-stepper-panel[status='active'] {
+  display: block;
+  animation: capsule-fade-in 0.3s ease-in-out;
+}
+
+@keyframes capsule-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

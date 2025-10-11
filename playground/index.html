@@ -22,7 +22,10 @@
     ></script>
   </head>
   <body>
-    <capsule-stepper current-step="2">
+    <capsule-stepper
+      current-step="1"
+      onchange="console.log('Changed!', event.detail)"
+    >
       <capsule-stepper-steps>
         <capsule-stepper-step>
           1
@@ -40,9 +43,10 @@
         </capsule-stepper-step>
       </capsule-stepper-steps>
 
-      <capsule-stepper-panel> Content 1 </capsule-stepper-panel>
-      <capsule-stepper-panel> Content 2 </capsule-stepper-panel>
-      <capsule-stepper-panel> Content 3 </capsule-stepper-panel>
+      <capsule-stepper-panels>
+        <capsule-stepper-panel> Content 1 </capsule-stepper-panel>
+        <capsule-stepper-panel> Content 2 </capsule-stepper-panel>
+        <capsule-stepper-panel> Content 3 </capsule-stepper-panel>
     </capsule-stepper>
   </body>
 </html>
