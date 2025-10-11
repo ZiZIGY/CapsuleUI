@@ -7,6 +7,7 @@ import path from 'path';
 
 /**
  * Объединение variants файла с основными JS файлами
+ * register.js обрабатывается отдельно - только минификация, без удаления import/export
  */
 export function mergeVariantsWithJsFiles(
   destComponentDir: string,
@@ -19,6 +20,16 @@ export function mergeVariantsWithJsFiles(
     const jsPath = path.join(destComponentDir, jf);
     let jsCode = fs.readFileSync(jsPath, 'utf8');
 
+    // Для register.js - только минификация, без обработки variants и удаления import/export
+    if (jf === 'register.js') {
+      if (minify) {
+        jsCode = minifyFn(jsCode);
+      }
+      fs.writeFileSync(jsPath, jsCode, 'utf8');
+      continue;
+    }
+
+    // Обычная обработка для остальных JS файлов
     if (variantsFile) {
       const variantsPath = path.join(destComponentDir, variantsFile);
       let variantsCode = fs.readFileSync(variantsPath, 'utf8');

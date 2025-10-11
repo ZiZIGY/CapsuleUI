@@ -8,6 +8,7 @@ import { ensureDir } from '../../filesystem';
 
 /**
  * Автоматический импорт JS файлов в @capsule/components/all.js
+ * Всегда импортируем register.js для правильной последовательности загрузки компонентов
  */
 export function importJsFiles(
   capsuleRoot: string,
@@ -27,34 +28,39 @@ export function importJsFiles(
       initContent = `// CapsuleUI components entry\n`;
     }
 
-    let updated = false;
-    for (const jf of jsFiles) {
-      const importJsPath = `./${prefix}-${kebabComponent}/${jf}`;
-      const alreadyHasImport = new RegExp(
-        String.raw`^\s*import\s+['\"]${importJsPath.replace(
-          /[-\/\\.^$*+?()|\[\]{}]/g,
-          (r) => r
-        )}['\"];?\s*$`,
-        'm'
-      ).test(initContent);
+    // Всегда ищем register.js файл
+    const registerFile = jsFiles.find((f) => f === 'register.js');
 
-      if (!alreadyHasImport) {
-        initContent +=
-          (initContent.endsWith('\n') ? '' : '\n') +
-          `import '${importJsPath}';\n`;
-        updated = true;
-      }
+    if (!registerFile) {
+      throw new Error(`register.js not found for component ${kebabComponent}`);
     }
 
-    if (updated) {
+    // Импортируем только register.js
+    const importJsPath = `./${prefix}-${kebabComponent}/${registerFile}`;
+    const alreadyHasImport = new RegExp(
+      String.raw`^\s*import\s+['\"]${importJsPath.replace(
+        /[-\/\\.^$*+?()|\[\]{}]/g,
+        (r) => r
+      )}['\"];?\s*$`,
+      'm'
+    ).test(initContent);
+
+    if (!alreadyHasImport) {
+      initContent +=
+        (initContent.endsWith('\n') ? '' : '\n') +
+        `import '${importJsPath}';\n`;
+
       fs.writeFileSync(initJsPath, initContent, 'utf8');
       console.log(
-        `Injected imports into @capsule/components/all.js for: ${jsFiles.join(
-          ', '
-        )}`
+        `Injected register.js import into @capsule/components/all.js for: ${prefix}-${kebabComponent}`
+      );
+      console.log(
+        `Using register.js for component ${kebabComponent} (ensures correct loading order)`
       );
     } else {
-      console.log('Imports already present in @capsule/components/all.js');
+      console.log(
+        'Register.js import already present in @capsule/components/all.js'
+      );
     }
   } catch (e) {
     console.log(

@@ -123,9 +123,16 @@ export const add = {
       const cssFiles = renamedFiles.filter((f) => f.endsWith('.style.css'));
       const variantsFile = renamedFiles.find((f) => f.endsWith('.variants.js'));
       const readmeFile = renamedFiles.find((f) => f.endsWith('.md'));
+      const registerFile = renamedFiles.find((f) => f === 'register.js');
 
       if (jsFiles.length === 0) {
         throw new Error('Не найден основной js-файл компонента');
+      }
+
+      if (!registerFile) {
+        throw new Error(
+          'register.js не найден - обязательный файл для правильной последовательности загрузки'
+        );
       }
 
       // Объединение variants и обработка JS файлов
