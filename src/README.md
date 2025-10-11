@@ -24,7 +24,6 @@ ComponentName/
 ├── component-part.js      # Sub-components (panels, steps, etc.)
 ├── component.style.css    # Component styles
 ├── register.js           # Import orchestration (CRITICAL for loading order)
-├── variants.js           # Component variants (optional)
 ├── vscode.data.json      # VS Code IntelliSense data
 └── README.md             # Component documentation
 ```
@@ -116,7 +115,7 @@ During component installation, files are processed in this order:
 1. **Copy** template files to destination
 2. **Replace placeholders** in all file contents
 3. **Rename files** with placeholders in names
-4. **Process JS files** (merge variants, minify, handle register.js specially)
+4. **Process JS files** (minify, handle register.js specially)
 5. **Auto-import CSS** to global.css
 6. **Auto-import JS** via register.js to all.js
 7. **Update VS Code** settings for IntelliSense
@@ -127,7 +126,6 @@ The `register.js` file is processed differently:
 
 - ✅ **Placeholder replacement** (**PREFIX**, **COMPONENT**)
 - ✅ **Minification** (if enabled)
-- ❌ **Variants merging** (not applicable)
 - ❌ **Import/export removal** (must preserve imports)
 
 This ensures the import orchestration remains intact while still benefiting from placeholder replacement and minification.

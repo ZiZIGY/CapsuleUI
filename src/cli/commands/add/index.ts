@@ -12,7 +12,7 @@ import {
   findCapsuleRoot,
 } from './file-operations';
 import {
-  mergeVariantsWithJsFiles,
+  processJsFiles,
   renameComponentFiles,
   cleanupTempFiles,
 } from './component-processor';
@@ -117,11 +117,9 @@ export const add = {
 
       // Собираем все JS и CSS файлы для автоимпорта
       const jsFiles = renamedFiles.filter(
-        (f) =>
-          f.endsWith('.js') && !f.endsWith('.variants.js') && f !== 'index.js'
+        (f) => f.endsWith('.js') && f !== 'index.js'
       );
       const cssFiles = renamedFiles.filter((f) => f.endsWith('.style.css'));
-      const variantsFile = renamedFiles.find((f) => f.endsWith('.variants.js'));
       const readmeFile = renamedFiles.find((f) => f.endsWith('.md'));
       const registerFile = renamedFiles.find((f) => f === 'register.js');
 
@@ -135,11 +133,10 @@ export const add = {
         );
       }
 
-      // Объединение variants и обработка JS файлов
-      mergeVariantsWithJsFiles(
+      // Обработка JS файлов (минификация и удаление import/export)
+      processJsFiles(
         destComponentDir,
         jsFiles,
-        variantsFile || '',
         options.minify || false,
         minifyJs
       );
@@ -152,7 +149,7 @@ export const add = {
       }
 
       // Очистка временных файлов
-      cleanupTempFiles(destComponentDir, variantsFile || undefined);
+      cleanupTempFiles(destComponentDir);
 
       // Автоимпорт JS файлов в @capsule/components/all.js
       importJsFiles(capsuleRoot, jsFiles, prefix, kebabComponent);
