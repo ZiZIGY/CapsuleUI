@@ -8,4 +8,4 @@ class StepperContent extends HTMLElement {
   }
 }
 
-customElements.define('capsule-stepper-content', StepperContent);
+customElements.define('capsule-stepper-content', StepperPanels);

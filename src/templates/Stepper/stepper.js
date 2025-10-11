@@ -27,10 +27,9 @@ class Stepper extends HTMLElement {
       step.setStatus(status);
     });
 
-    const contents = this.querySelectorAll(
-      `${this.tagName.toLowerCase()}-content`
-    );
-    contents.forEach((content, index) => {
+    const panels = this.querySelectorAll(`${this.tagName.toLowerCase()}-panel`);
+
+    panels.forEach((content, index) => {
       const stepNumber = index + 1;
       let status = 'inactive';
 

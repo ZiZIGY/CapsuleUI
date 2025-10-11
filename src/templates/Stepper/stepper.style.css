@@ -26,23 +26,18 @@ __PREFIX__-__COMPONENT__-step {
 }
 
 /* Stepper Content */
-__PREFIX__-__COMPONENT__-content {
+__PREFIX__-__COMPONENT__-panels {
   display: flex;
   flex-wrap: nowrap;
   overflow: hidden;
 }
 
-__PREFIX__-__COMPONENT__-content[status='inactive'],
-__PREFIX__-__COMPONENT__-content[status='completed'] {
-  display: none;
-}
-
 /* Stepper Item */
-__PREFIX__-__COMPONENT__-item {
+__PREFIX__-__COMPONENT__-panel {
   display: none;
 }
 
-__PREFIX__-__COMPONENT__-item[status='active'] {
+__PREFIX__-__COMPONENT__-panel[status='active'] {
   display: block;
   animation: capsule-fade-in 0.3s ease-in-out;
 }

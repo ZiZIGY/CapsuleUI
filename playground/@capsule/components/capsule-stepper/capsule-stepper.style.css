@@ -26,23 +26,18 @@ capsule-stepper-step {
 }
 
 /* Stepper Content */
-capsule-stepper-content {
+capsule-stepper-panels {
   display: flex;
   flex-wrap: nowrap;
   overflow: hidden;
 }
 
-capsule-stepper-content[status='inactive'],
-capsule-stepper-content[status='completed'] {
-  display: none;
-}
-
 /* Stepper Item */
-capsule-stepper-item {
+capsule-stepper-panel {
   display: none;
 }
 
-capsule-stepper-item[status='active'] {
+capsule-stepper-panel[status='active'] {
   display: block;
   animation: capsule-fade-in 0.3s ease-in-out;
 }
