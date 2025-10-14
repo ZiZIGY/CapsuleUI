@@ -1,85 +1,28 @@
-class AccordionItem extends HTMLElement {
+class AccordionPanel extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: 'open' });
-    this._trigger = null;
-    this._content = null;
-    this._accordion = null;
-    this._render();
   }
 
   connectedCallback() {
+    this.setAttribute('role', 'region');
     this._setupEventListeners();
-    this._findAccordion();
-    this._updateAriaAttributes();
-  }
-
-  static get observedAttributes() {
-    return ['open'];
-  }
-
-  attributeChangedCallback(name, oldValue, newValue) {
-    if (name === 'open') {
-      this._updateAriaAttributes();
-    }
-  }
-
-  _render() {
-    this.shadowRoot.innerHTML = `
-      <slot name="trigger" part="trigger"></slot>
-      <div class="content" part="content">
-        <slot name="content"></slot>
-      </div>
-    `;
-
-    this._trigger = this.shadowRoot.querySelector('slot[name="trigger"]');
-    this._content = this.shadowRoot.querySelector('[part="content"]');
   }
 
   _setupEventListeners() {
-    this._trigger.addEventListener('slotchange', () => {
-      const assignedElements = this._trigger.assignedElements();
-      assignedElements.forEach((element) => {
-        element.addEventListener('click', this._handleTriggerClick.bind(this));
-      });
-    });
+    this.addEventListener('toggle', this._handleToggle.bind(this));
   }
 
-  _findAccordion() {
-    this._accordion = this.closest('__PREFIX__-__COMPONENT__');
-  }
-
-  _handleTriggerClick(event) {
-    event.preventDefault();
-    this._toggle();
-  }
-
-  _toggle() {
-    const event = new CustomEvent('accordion-item-toggle', {
+  _handleToggle() {
+    const event = new CustomEvent('panel-toggle', {
       bubbles: true,
-      detail: { item: this },
+      detail: { panel: this },
     });
     this.dispatchEvent(event);
   }
 
-  _updateAriaAttributes() {
-    const isOpen = this.hasAttribute('open');
-    this.setAttribute('role', 'region');
-    this.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-
-    const assignedElements = this._trigger?.assignedElements();
-    assignedElements?.forEach((element) => {
-      element.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-    });
-
-    if (this._content) {
-      this._content.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
-    }
-  }
-
   toggle() {
-    this._toggle();
+    this.dispatchEvent(new CustomEvent('toggle'));
   }
 }
 
-customElements.define('__PREFIX__-__COMPONENT__-item', AccordionItem);
+customElements.define('__PREFIX__-__COMPONENT__-panel', AccordionPanel);

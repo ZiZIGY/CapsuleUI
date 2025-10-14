@@ -2,7 +2,6 @@ class Accordion extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
-    this._render();
   }
 
   connectedCallback() {
@@ -21,55 +20,46 @@ class Accordion extends HTMLElement {
     }
   }
 
-  _render() {
-    this.shadowRoot.innerHTML = `
-      <slot></slot>
-    `;
-  }
-
   _setupEventListeners() {
-    this.addEventListener(
-      'accordion-item-toggle',
-      this._handleItemToggle.bind(this)
-    );
+    this.addEventListener('panel-toggle', this._handlePanelToggle.bind(this));
   }
 
-  _getItems() {
-    return Array.from(this.querySelectorAll('__PREFIX__-__COMPONENT__-item'));
+  _getPanels() {
+    return Array.from(this.querySelectorAll('__PREFIX__-__COMPONENT__-panel'));
   }
 
-  _handleItemToggle(event) {
-    const item = event.target;
-    const isOpen = item.hasAttribute('open');
+  _handlePanelToggle(event) {
+    const panel = event.detail.panel;
+    const isOpen = panel.hasAttribute('open');
     const type = this.getAttribute('type') || 'single';
     const collapsible = this.hasAttribute('collapsible');
 
     if (type === 'single') {
-      const items = this._getItems();
+      const panels = this._getPanels();
 
-      items.forEach((otherItem) => {
-        if (otherItem !== item && otherItem.hasAttribute('open')) {
-          otherItem.removeAttribute('open');
+      panels.forEach((otherPanel) => {
+        if (otherPanel !== panel && otherPanel.hasAttribute('open')) {
+          otherPanel.removeAttribute('open');
         }
       });
 
       if (isOpen && !collapsible) {
         return;
       }
-      item.toggleAttribute('open');
+      panel.toggleAttribute('open');
     } else if (type === 'multiple') {
-      item.toggleAttribute('open');
+      panel.toggleAttribute('open');
     }
   }
 
   _handleTypeChange() {
     const type = this.getAttribute('type') || 'single';
     if (type === 'single') {
-      const items = this._getItems();
-      const openItems = items.filter((item) => item.hasAttribute('open'));
-      if (openItems.length > 1) {
-        openItems.slice(1).forEach((item) => {
-          item.removeAttribute('open');
+      const panels = this._getPanels();
+      const openPanels = panels.filter((panel) => panel.hasAttribute('open'));
+      if (openPanels.length > 1) {
+        openPanels.slice(1).forEach((panel) => {
+          panel.removeAttribute('open');
         });
       }
       this._setDefaultOpenState();
@@ -85,62 +75,64 @@ class Accordion extends HTMLElement {
   _setDefaultOpenState() {
     const type = this.getAttribute('type') || 'single';
     const collapsible = this.hasAttribute('collapsible');
-    const items = this._getItems();
+    const panels = this._getPanels();
 
-    if (!collapsible && type === 'single' && items.length > 0) {
-      const hasAnyOpenItem = items.some((item) => item.hasAttribute('open'));
+    if (!collapsible && type === 'single' && panels.length > 0) {
+      const hasAnyOpenPanel = panels.some((panel) =>
+        panel.hasAttribute('open')
+      );
 
-      if (!hasAnyOpenItem) {
-        const firstItem = items[0];
-        firstItem.setAttribute('open', '');
+      if (!hasAnyOpenPanel) {
+        const firstPanel = panels[0];
+        firstPanel.setAttribute('open', '');
       }
     }
   }
 
-  openItem(index) {
-    const items = this._getItems();
-    const item = items[index];
-    if (item) {
-      item.setAttribute('open', '');
+  openPanel(index) {
+    const panels = this._getPanels();
+    const panel = panels[index];
+    if (panel) {
+      panel.setAttribute('open', '');
     }
   }
 
-  closeItem(index) {
-    const items = this._getItems();
-    const item = items[index];
-    if (item) {
-      item.removeAttribute('open');
+  closePanel(index) {
+    const panels = this._getPanels();
+    const panel = panels[index];
+    if (panel) {
+      panel.removeAttribute('open');
     }
   }
 
-  toggleItem(index) {
-    const items = this._getItems();
-    const item = items[index];
-    if (item) {
-      item.toggleAttribute('open');
+  togglePanel(index) {
+    const panels = this._getPanels();
+    const panel = panels[index];
+    if (panel) {
+      panel.toggleAttribute('open');
     }
   }
 
   openAll() {
-    const items = this._getItems();
-    items.forEach((item) => {
-      item.setAttribute('open', '');
+    const panels = this._getPanels();
+    panels.forEach((panel) => {
+      panel.setAttribute('open', '');
     });
   }
 
   closeAll() {
-    const items = this._getItems();
-    items.forEach((item) => {
-      item.removeAttribute('open');
+    const panels = this._getPanels();
+    panels.forEach((panel) => {
+      panel.removeAttribute('open');
     });
   }
 
-  getItemCount() {
-    return this._getItems().length;
+  getPanelCount() {
+    return this._getPanels().length;
   }
 
-  getOpenItems() {
-    return this._getItems().filter((item) => item.hasAttribute('open'));
+  getOpenPanels() {
+    return this._getPanels().filter((panel) => panel.hasAttribute('open'));
   }
 }
 
