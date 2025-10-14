@@ -3,7 +3,7 @@
   "tags": [
     {
       "name": "__PREFIX__-__COMPONENT__",
-      "description": "CapsuleUI Slider component. Supports single or multiple thumbs via values attribute.",
+      "description": "CapsuleUI Range component. Supports single or multiple thumbs via values attribute.",
       "attributes": [
         {
           "name": "min",
@@ -32,12 +32,12 @@
         },
         {
           "name": "orientation",
-          "description": "Slider orientation.",
+          "description": "Range orientation.",
           "values": [{ "name": "horizontal" }, { "name": "vertical" }]
         },
         {
           "name": "size",
-          "description": "Slider height/width preset.",
+          "description": "Range height/width preset.",
           "values": [{ "name": "sm" }, { "name": "md" }, { "name": "lg" }]
         },
         {

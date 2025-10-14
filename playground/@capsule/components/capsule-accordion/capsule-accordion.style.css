@@ -5,17 +5,15 @@ capsule-accordion {
 
 capsule-accordion-panel {
   display: grid;
-  grid-template-rows: min-content 0fr;
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--capsule-margin-sm);
   overflow: hidden;
-  transition: grid-template-rows 300ms ease-in-out;
+  transition: var(--capsule-transition-slow);
 }
 
 capsule-accordion-trigger {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem;
   cursor: pointer;
   user-select: none;
   background: transparent;
@@ -39,6 +37,12 @@ capsule-accordion-content {
   overflow: hidden;
 }
 
+capsule-accordion-panel,
+capsule-accordion-panel[open='false'] {
+  grid-template-rows: min-content 0fr;
+}
+
+capsule-accordion-panel[open='true'],
 capsule-accordion-panel[open] {
   grid-template-rows: min-content 1fr;
 }

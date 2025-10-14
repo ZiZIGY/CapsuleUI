@@ -1,4 +1,4 @@
-class Slider extends HTMLElement {
+class Range extends HTMLElement {
   static observedAttributes = [
     'min',
     'max',
@@ -28,7 +28,7 @@ class Slider extends HTMLElement {
 
     [
       '_onThumbPointerDown',
-      '_onSliderPointerDown',
+      '_onRangePointerDown',
       '_onPointerMove',
       '_onPointerUp',
     ].forEach((method) => (this[method] = this[method].bind(this)));
@@ -247,7 +247,7 @@ class Slider extends HTMLElement {
     this._thumbs.forEach((thumb) =>
       thumb.addEventListener('pointerdown', this._onThumbPointerDown)
     );
-    this.addEventListener('pointerdown', this._onSliderPointerDown);
+    this.addEventListener('pointerdown', this._onRangePointerDown);
   }
 
   _unbindEvents() {
@@ -256,7 +256,7 @@ class Slider extends HTMLElement {
     this._thumbs.forEach((thumb) =>
       thumb.removeEventListener('pointerdown', this._onThumbPointerDown)
     );
-    this.removeEventListener('pointerdown', this._onSliderPointerDown);
+    this.removeEventListener('pointerdown', this._onRangePointerDown);
   }
 
   _bindGlobalEvents() {
@@ -279,7 +279,7 @@ class Slider extends HTMLElement {
     this._bindGlobalEvents();
   }
 
-  _onSliderPointerDown(e) {
+  _onRangePointerDown(e) {
     if (e.target.closest('[part="thumb"]')) return;
     e.preventDefault();
 
@@ -468,4 +468,4 @@ class Slider extends HTMLElement {
   }
 }
 
-customElements.define('__PREFIX__-__COMPONENT__', Slider);
+customElements.define('__PREFIX__-__COMPONENT__', Range);

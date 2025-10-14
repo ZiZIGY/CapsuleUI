@@ -1,0 +1,48 @@
+{
+  "version": 1.1,
+  "tags": [
+    {
+      "name": "__PREFIX__-__COMPONENT__",
+      "description": "Alert component for displaying important messages with different variants",
+      "attributes": [
+        {
+          "name": "variant",
+          "description": "Visual variant of the alert",
+          "type": "string",
+          "values": [
+            {
+              "name": "default",
+              "description": "Default alert style"
+            },
+            {
+              "name": "destructive",
+              "description": "Destructive/error alert style with red colors"
+            },
+            {
+              "name": "warning",
+              "description": "Warning alert style with yellow/orange colors"
+            },
+            {
+              "name": "success",
+              "description": "Success alert style with green colors"
+            },
+            {
+              "name": "info",
+              "description": "Info alert style with blue colors"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "__PREFIX__-__COMPONENT__-title",
+      "description": "Title element for the alert component",
+      "attributes": []
+    },
+    {
+      "name": "__PREFIX__-__COMPONENT__-description",
+      "description": "Description element for the alert component",
+      "attributes": []
+    }
+  ]
+}

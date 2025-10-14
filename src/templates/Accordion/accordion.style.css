@@ -5,17 +5,15 @@ __PREFIX__-__COMPONENT__ {
 
 __PREFIX__-__COMPONENT__-panel {
   display: grid;
-  grid-template-rows: min-content 0fr;
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--capsule-margin-sm);
   overflow: hidden;
-  transition: grid-template-rows 300ms ease-in-out;
+  transition: var(--capsule-transition-slow);
 }
 
 __PREFIX__-__COMPONENT__-trigger {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem;
   cursor: pointer;
   user-select: none;
   background: transparent;
@@ -39,6 +37,12 @@ __PREFIX__-__COMPONENT__-content {
   overflow: hidden;
 }
 
+__PREFIX__-__COMPONENT__-panel,
+__PREFIX__-__COMPONENT__-panel[open='false'] {
+  grid-template-rows: min-content 0fr;
+}
+
+__PREFIX__-__COMPONENT__-panel[open='true'],
 __PREFIX__-__COMPONENT__-panel[open] {
   grid-template-rows: min-content 1fr;
 }
