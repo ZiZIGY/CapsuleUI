@@ -3,32 +3,51 @@ __PREFIX__-__COMPONENT__ {
   width: 100%;
   border-radius: var(--capsule-radius);
   border: 1px solid transparent;
-  display: flex;
+  display: grid;
+  grid-template-columns: 0 1fr;
+  gap: 12px;
   align-items: flex-start;
   padding: var(--capsule-padding-lg);
   font-size: var(--capsule-font-size-sm);
   background-color: color-mix(
     in srgb,
-    var(--capsule-color-info) 8%,
+    var(--capsule-color-primary) 8%,
     var(--capsule-color-background)
   );
-  border-color: var(--capsule-color-info);
+  border-color: var(--capsule-color-primary);
+  color: var(--capsule-color-primary);
+  box-sizing: border-box;
+}
+
+__PREFIX__-__COMPONENT__:has(> svg) {
+  grid-template-columns: auto 1fr;
+}
+
+__PREFIX__-__COMPONENT__ > :not(svg) {
+  grid-column: 2;
+}
+
+__PREFIX__-__COMPONENT__ > svg {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: start;
+  margin-top: 2px;
 }
 
 __PREFIX__-__COMPONENT__[variant='default'] {
   background-color: color-mix(
     in srgb,
-    var(--capsule-color-info) 8%,
+    var(--capsule-color-primary) 8%,
     var(--capsule-color-background)
   );
-  border-color: var(--capsule-color-info);
-  color: var(--capsule-color-info);
+  border-color: var(--capsule-color-primary);
+  color: var(--capsule-color-primary);
 }
 
 __PREFIX__-__COMPONENT__[variant='error'] {
   background-color: color-mix(
     in srgb,
-    var(--capsule-color-error) 90%,
+    var(--capsule-color-error) 8%,
     var(--capsule-color-background)
   );
   border-color: var(--capsule-color-error);
@@ -38,7 +57,7 @@ __PREFIX__-__COMPONENT__[variant='error'] {
 __PREFIX__-__COMPONENT__[variant='warning'] {
   background-color: color-mix(
     in srgb,
-    var(--capsule-color-warning) 90%,
+    var(--capsule-color-warning) 8%,
     var(--capsule-color-background)
   );
   border-color: var(--capsule-color-warning);
@@ -48,7 +67,7 @@ __PREFIX__-__COMPONENT__[variant='warning'] {
 __PREFIX__-__COMPONENT__[variant='success'] {
   background-color: color-mix(
     in srgb,
-    var(--capsule-color-success) 90%,
+    var(--capsule-color-success) 8%,
     var(--capsule-color-background)
   );
   border-color: var(--capsule-color-success);
@@ -58,7 +77,7 @@ __PREFIX__-__COMPONENT__[variant='success'] {
 __PREFIX__-__COMPONENT__[variant='info'] {
   background-color: color-mix(
     in srgb,
-    var(--capsule-color-info) 90%,
+    var(--capsule-color-info) 8%,
     var(--capsule-color-background)
   );
   border-color: var(--capsule-color-info);
@@ -67,9 +86,8 @@ __PREFIX__-__COMPONENT__[variant='info'] {
 
 __PREFIX__-__COMPONENT__-title {
   display: block;
-  font-weight: var(--capsule-font-weight-semibold, 600);
   margin: 0;
-  margin-bottom: var(--capsule-margin-xs, 0.25rem);
+  margin-bottom: var(--capsule-margin-xs);
 }
 
 __PREFIX__-__COMPONENT__-description {
