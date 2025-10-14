@@ -24,7 +24,7 @@ class Accordion extends HTMLElement {
   }
 
   _getPanels() {
-    return Array.from(this.querySelectorAll('__PREFIX__-__COMPONENT__-panel'));
+    return Array.from(this.querySelectorAll('capsule-accordion-panel'));
   }
 
   _handlePanelToggle(event) {
@@ -135,4 +135,4 @@ class Accordion extends HTMLElement {
   }
 }
 
-customElements.define('__PREFIX__-__COMPONENT__', Accordion);
+customElements.define('capsule-accordion', Accordion);

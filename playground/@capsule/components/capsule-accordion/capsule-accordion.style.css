@@ -1,9 +1,9 @@
-__PREFIX__-__COMPONENT__ {
+capsule-accordion {
   display: block;
   width: 100%;
 }
 
-__PREFIX__-__COMPONENT__-panel {
+capsule-accordion-panel {
   display: grid;
   grid-template-rows: min-content 0fr;
   margin-bottom: 0.5rem;
@@ -11,7 +11,7 @@ __PREFIX__-__COMPONENT__-panel {
   transition: grid-template-rows 300ms ease-in-out;
 }
 
-__PREFIX__-__COMPONENT__-trigger {
+capsule-accordion-trigger {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -26,19 +26,19 @@ __PREFIX__-__COMPONENT__-trigger {
   color: inherit;
 }
 
-__PREFIX__-__COMPONENT__-trigger:hover {
+capsule-accordion-trigger:hover {
   background-color: var(--capsule-color-surface, #f9fafb);
 }
 
-__PREFIX__-__COMPONENT__-trigger:focus {
+capsule-accordion-trigger:focus {
   outline: 2px solid var(--capsule-color-primary, #3b82f6);
   outline-offset: -2px;
 }
 
-__PREFIX__-__COMPONENT__-content {
+capsule-accordion-content {
   overflow: hidden;
 }
 
-__PREFIX__-__COMPONENT__-panel[open] {
+capsule-accordion-panel[open] {
   grid-template-rows: min-content 1fr;
 }
