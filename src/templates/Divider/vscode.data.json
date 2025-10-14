@@ -3,16 +3,16 @@
   "tags": [
     {
       "name": "__PREFIX__-__COMPONENT__",
-      "description": "CapsuleUI Divider component. Semantic separator with horizontal/vertical orientation.",
+      "description": "CapsuleUI Divider component. Semantic separator with orientation and color options.",
       "attributes": [
         {
           "name": "orientation",
-          "description": "Visual/semantic orientation of the divider.",
+          "description": "Divider orientation.",
           "values": [{ "name": "horizontal" }, { "name": "vertical" }]
         },
         {
           "name": "thickness",
-          "description": "Divider thickness.",
+          "description": "Divider thickness (thin, normal, thick).",
           "values": [
             { "name": "thin" },
             { "name": "normal" },
@@ -21,19 +21,19 @@
         },
         {
           "name": "color",
-          "description": "Divider color variant.",
+          "description": "Divider color.",
           "values": [
-            { "name": "default" },
             { "name": "primary" },
             { "name": "error" },
             { "name": "warning" },
-            { "name": "success" }
+            { "name": "success" },
+            { "name": "info" }
           ]
         },
         {
           "name": "variant",
           "description": "Divider visual variant.",
-          "values": [{ "name": "solid" }, { "name": "ghost" }]
+          "values": [{ "name": "default" }, { "name": "ghost" }]
         }
       ]
     }

@@ -13,14 +13,15 @@
             { "name": "secondary" },
             { "name": "error" },
             { "name": "warning" },
-            { "name": "success" }
+            { "name": "success" },
+            { "name": "info" }
           ]
         },
         {
           "name": "variant",
           "description": "Chip visual variant.",
           "values": [
-            { "name": "filled" },
+            { "name": "default" },
             { "name": "outline" },
             { "name": "ghost" }
           ]

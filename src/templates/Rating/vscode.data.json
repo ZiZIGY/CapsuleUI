@@ -3,16 +3,10 @@
   "tags": [
     {
       "name": "__PREFIX__-__COMPONENT__",
-      "description": "CapsuleUI Rating component. Interactive star rating with customizable precision and appearance.",
+      "description": "CapsuleUI Rating component. Interactive star rating.",
       "attributes": [
-        {
-          "name": "value",
-          "description": "Current rating value (0 to max)."
-        },
-        {
-          "name": "max",
-          "description": "Maximum rating value (default: 5)."
-        },
+        { "name": "value", "description": "Current rating value (0 to max)." },
+        { "name": "max", "description": "Maximum rating value (default: 5)." },
         {
           "name": "precision",
           "description": "Rating precision (0.5 for half stars, 1 for whole stars, 0.1 for decimal)."
@@ -36,11 +30,12 @@
           "name": "color",
           "description": "Color of the filled stars.",
           "values": [
-            { "name": "warning" },
             { "name": "primary" },
-            { "name": "error" },
+            { "name": "secondary" },
             { "name": "success" },
-            { "name": "secondary" }
+            { "name": "error" },
+            { "name": "warning" },
+            { "name": "info" }
           ]
         }
       ]

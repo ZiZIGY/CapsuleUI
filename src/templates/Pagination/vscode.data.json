@@ -24,6 +24,32 @@
           "name": "show-boundary-pages",
           "description": "Show boundary pages (first and last page numbers).",
           "valueSet": "v"
+        },
+        {
+          "name": "variant",
+          "description": "Pagination visual variant.",
+          "values": [
+            { "name": "default" },
+            { "name": "outline" },
+            { "name": "ghost" }
+          ]
+        },
+        {
+          "name": "color",
+          "description": "Pagination color variant.",
+          "values": [
+            { "name": "primary" },
+            { "name": "secondary" },
+            { "name": "error" },
+            { "name": "warning" },
+            { "name": "success" },
+            { "name": "info" }
+          ]
+        },
+        {
+          "name": "size",
+          "description": "Pagination size.",
+          "values": [{ "name": "sm" }, { "name": "md" }, { "name": "lg" }]
         }
       ]
     }

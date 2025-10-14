@@ -19,11 +19,11 @@ __PREFIX__-__COMPONENT__[variant='default'] {
   color: var(--capsule-color-text, #111827);
 }
 
-/* Destructive variant */
-__PREFIX__-__COMPONENT__[variant='destructive'] {
-  background-color: var(--capsule-color-destructive-light, #fef2f2);
-  border-color: var(--capsule-color-destructive, #ef4444);
-  color: var(--capsule-color-destructive-dark, #991b1b);
+/* Error variant */
+__PREFIX__-__COMPONENT__[variant='error'] {
+  background-color: var(--capsule-color-error-light, #fef2f2);
+  border-color: var(--capsule-color-error, #ef4444);
+  color: var(--capsule-color-error-dark, #991b1b);
 }
 
 /* Warning variant */
@@ -78,10 +78,10 @@ __PREFIX__-__COMPONENT__-description {
     color: var(--capsule-color-text-dark, #f9fafb);
   }
 
-  __PREFIX__-__COMPONENT__[variant='destructive'] {
-    background-color: var(--capsule-color-destructive-light-dark, #431c1c);
-    border-color: var(--capsule-color-destructive, #ef4444);
-    color: var(--capsule-color-destructive-light, #fecaca);
+  __PREFIX__-__COMPONENT__[variant='error'] {
+    background-color: var(--capsule-color-error-light-dark, #431c1c);
+    border-color: var(--capsule-color-error, #ef4444);
+    color: var(--capsule-color-error-light, #fecaca);
   }
 
   __PREFIX__-__COMPONENT__[variant='warning'] {

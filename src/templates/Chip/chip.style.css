@@ -42,6 +42,11 @@ __PREFIX__-__COMPONENT__[color='success'] {
   color: white;
 }
 
+__PREFIX__-__COMPONENT__[color='info'] {
+  background: var(--capsule-color-info);
+  color: white;
+}
+
 __PREFIX__-__COMPONENT__[variant='outline'] {
   background: transparent;
   border: 1.5px solid;
@@ -73,6 +78,11 @@ __PREFIX__-__COMPONENT__[variant='outline'][color='success'] {
   color: var(--capsule-color-success);
 }
 
+__PREFIX__-__COMPONENT__[variant='outline'][color='info'] {
+  border-color: var(--capsule-color-info);
+  color: var(--capsule-color-info);
+}
+
 __PREFIX__-__COMPONENT__[variant='ghost'] {
   background: color-mix(in srgb, currentColor 8%, transparent);
   color: var(--capsule-color-text);
@@ -102,6 +112,11 @@ __PREFIX__-__COMPONENT__[variant='ghost'][color='warning'] {
 __PREFIX__-__COMPONENT__[variant='ghost'][color='success'] {
   background: color-mix(in srgb, var(--capsule-color-success) 12%, transparent);
   color: var(--capsule-color-success);
+}
+
+__PREFIX__-__COMPONENT__[variant='ghost'][color='info'] {
+  background: color-mix(in srgb, var(--capsule-color-info) 12%, transparent);
+  color: var(--capsule-color-info);
 }
 
 __PREFIX__-__COMPONENT__[size='sm'] {

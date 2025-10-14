@@ -15,8 +15,8 @@
               "description": "Default alert style"
             },
             {
-              "name": "destructive",
-              "description": "Destructive/error alert style with red colors"
+              "name": "error",
+              "description": "Error alert style with red colors"
             },
             {
               "name": "warning",

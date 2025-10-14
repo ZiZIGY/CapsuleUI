@@ -138,6 +138,12 @@ __PREFIX__-__COMPONENT__[color='success']::part(page-item active) {
   color: white;
 }
 
+__PREFIX__-__COMPONENT__[color='info']::part(page-item active) {
+  background: var(--capsule-color-info);
+  border-color: var(--capsule-color-info);
+  color: white;
+}
+
 /* Outline colors */
 __PREFIX__-__COMPONENT__[variant='outline'][color='secondary']::part(
     page-item active
@@ -167,6 +173,13 @@ __PREFIX__-__COMPONENT__[variant='outline'][color='success']::part(
   color: var(--capsule-color-success);
 }
 
+__PREFIX__-__COMPONENT__[variant='outline'][color='info']::part(
+    page-item active
+  ) {
+  border-color: var(--capsule-color-info);
+  color: var(--capsule-color-info);
+}
+
 /* Ghost colors */
 __PREFIX__-__COMPONENT__[variant='ghost'][color='secondary']::part(
     page-item active
@@ -194,4 +207,11 @@ __PREFIX__-__COMPONENT__[variant='ghost'][color='success']::part(
   ) {
   background: color-mix(in srgb, var(--capsule-color-success) 12%, transparent);
   color: var(--capsule-color-success);
+}
+
+__PREFIX__-__COMPONENT__[variant='ghost'][color='info']::part(
+    page-item active
+  ) {
+  background: color-mix(in srgb, var(--capsule-color-info) 12%, transparent);
+  color: var(--capsule-color-info);
 }

@@ -44,6 +44,10 @@ __PREFIX__-__COMPONENT__[color='success'] {
   background-color: var(--capsule-color-success);
 }
 
+__PREFIX__-__COMPONENT__[color='info'] {
+  background-color: var(--capsule-color-info);
+}
+
 __PREFIX__-__COMPONENT__[variant='ghost'] {
   background-color: color-mix(
     in srgb,

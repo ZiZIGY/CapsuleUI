@@ -91,3 +91,7 @@ __PREFIX__-__COMPONENT__[color='success']::part(star-filled) {
 __PREFIX__-__COMPONENT__[color='secondary']::part(star-filled) {
   color: var(--capsule-color-text-secondary);
 }
+
+__PREFIX__-__COMPONENT__[color='info']::part(star-filled) {
+  color: var(--capsule-color-info);
+}
