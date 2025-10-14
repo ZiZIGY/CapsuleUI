@@ -120,20 +120,21 @@
 
 ### Phase 1 (Current)
 
-- 🚧 **Accordion** - Redesigning with shadcn-like API
-- ✅ **Badge** - Complete
-- ✅ **Button** - Complete
-- ✅ **ButtonGroup** - Complete
-- ✅ **Chip** - Complete
-- ✅ **Divider** - Complete
-- ✅ **Pagination** - Complete
-- ✅ **Range** - Complete (dual-range slider)
-- ✅ **Rating** - Complete
-- ✅ **Skeleton** - Complete
-- ✅ **Stepper** - Complete
-- ✅ **Switch** - Complete
-- ✅ **Tabs** - Complete
-- ✅ **Tooltip** - Complete
+- ✅ Accordion - Complete
+- 🚧 Alert - In development (unified variants system, refactor, new API)
+- ✅ Badge - Complete
+- ✅ Button - Complete
+- ✅ ButtonGroup - Complete
+- ✅ Chip - Complete
+- ✅ Divider - Complete
+- ✅ Pagination - Complete
+- ✅ Range - Complete (dual-range slider)
+- ✅ Rating - Complete
+- ✅ Skeleton - Complete
+- ✅ Stepper - Complete
+- ✅ Switch - Complete
+- ✅ Tabs - Complete
+- ✅ Tooltip - Complete
 
 ### Phase 2 (Next)
 
