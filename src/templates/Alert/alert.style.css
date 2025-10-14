@@ -88,6 +88,7 @@ __PREFIX__-__COMPONENT__-title {
   display: block;
   margin: 0;
   margin-bottom: var(--capsule-margin-xs);
+  font-weight: 600;
 }
 
 __PREFIX__-__COMPONENT__-description {
