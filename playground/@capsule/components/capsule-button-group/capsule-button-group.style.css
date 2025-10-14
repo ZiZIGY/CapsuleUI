@@ -2,14 +2,26 @@ capsule-button-group {
   display: inline-flex;
 }
 
-capsule-button-group *:first-child:not(:last-child) {
+capsule-button-group:not([orientation="vertical"]) *:first-child:not(:last-child),
+capsule-button-group[orientation="horizontal"] *:first-child:not(:last-child) {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
 
-capsule-button-group *:last-child:not(:first-child) {
+capsule-button-group:not([orientation="vertical"]) *:last-child:not(:first-child),
+capsule-button-group[orientation="horizontal"] *:last-child:not(:first-child) {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+}
+
+capsule-button-group[orientation="vertical"] *:first-child:not(:last-child) {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+capsule-button-group[orientation="vertical"] *:last-child:not(:first-child) {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
 capsule-button-group[orientation='horizontal'] {

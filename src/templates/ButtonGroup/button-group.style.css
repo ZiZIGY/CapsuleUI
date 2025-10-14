@@ -2,14 +2,26 @@ __PREFIX__-__COMPONENT__ {
   display: inline-flex;
 }
 
-__PREFIX__-__COMPONENT__ *:first-child:not(:last-child) {
+__PREFIX__-__COMPONENT__:not([orientation="vertical"]) *:first-child:not(:last-child),
+__PREFIX__-__COMPONENT__[orientation="horizontal"] *:first-child:not(:last-child) {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
 
-__PREFIX__-__COMPONENT__ *:last-child:not(:first-child) {
+__PREFIX__-__COMPONENT__:not([orientation="vertical"]) *:last-child:not(:first-child),
+__PREFIX__-__COMPONENT__[orientation="horizontal"] *:last-child:not(:first-child) {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+}
+
+__PREFIX__-__COMPONENT__[orientation="vertical"] *:first-child:not(:last-child) {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+__PREFIX__-__COMPONENT__[orientation="vertical"] *:last-child:not(:first-child) {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
 __PREFIX__-__COMPONENT__[orientation='horizontal'] {
