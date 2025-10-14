@@ -1,0 +1,25 @@
+__PREFIX__-__COMPONENT__ {
+  display: inline-flex;
+  border-radius: var(--capsule-radius);
+  background: var(--capsule-color-surface);
+  border: 1px solid var(--capsule-color-outline);
+  overflow: hidden;
+  box-shadow: var(--capsule-shadow-sm);
+}
+
+__PREFIX__-__COMPONENT__[orientation='horizontal'] {
+  flex-direction: row;
+}
+
+__PREFIX__-__COMPONENT__[orientation='vertical'] {
+  flex-direction: column;
+}
+
+__PREFIX__-__COMPONENT__[orientation='vertical']
+  __PREFIX__-__COMPONENT__[orientation='horizontal'] {
+  width: 1px;
+}
+
+__PREFIX__-__COMPONENT__[orientation='vertical'] {
+  height: 1px;
+}
