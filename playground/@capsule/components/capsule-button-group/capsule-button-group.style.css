@@ -1,0 +1,22 @@
+capsule-button-group {
+  display: inline-flex;
+}
+
+capsule-button-group *:first-child:not(:last-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+capsule-button-group *:last-child:not(:first-child) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+capsule-button-group[orientation='horizontal'] {
+  flex-direction: row;
+}
+
+capsule-button-group[orientation='vertical'] {
+  flex-direction: column;
+}
+
