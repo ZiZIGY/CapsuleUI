@@ -88,6 +88,7 @@ capsule-alert-title {
   display: block;
   margin: 0;
   margin-bottom: var(--capsule-margin-xs);
+  font-weight: 600;
 }
 
 capsule-alert-description {

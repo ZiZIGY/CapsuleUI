@@ -22,243 +22,10 @@
     ></script>
   </head>
   <body>
-    <capsule-stepper current-step="1">
-      <capsule-stepper-steps>
-        <capsule-stepper-step>
-          <div class="icon-step">
-            <div class="icon-wrapper">
-              <span class="icon-default">📝</span>
-              <span class="icon-active">✏️</span>
-              <span class="icon-completed">✅</span>
-            </div>
-            <div class="step-line"></div>
-            <div class="step-label">Инфо</div>
-          </div>
-        </capsule-stepper-step>
-
-        <capsule-stepper-step>
-          <div class="icon-step">
-            <div class="icon-wrapper">
-              <span class="icon-default">💳</span>
-              <span class="icon-active">💰</span>
-              <span class="icon-completed">✅</span>
-            </div>
-            <div class="step-line"></div>
-            <div class="step-label">Оплата</div>
-          </div>
-        </capsule-stepper-step>
-
-        <capsule-stepper-step>
-          <div class="icon-step">
-            <div class="icon-wrapper">
-              <span class="icon-default">⏳</span>
-              <span class="icon-active">🎯</span>
-              <span class="icon-completed">🎉</span>
-            </div>
-            <div class="step-label">Готово</div>
-          </div>
-        </capsule-stepper-step>
-      </capsule-stepper-steps>
-
-      <capsule-stepper-panels animation="x">
-        <capsule-stepper-panel>
-          <h3>Шаг 1: Информация</h3>
-          <p>Заполните ваши данные</p>
-        </capsule-stepper-panel>
-        <capsule-stepper-panel>
-          <h3>Шаг 2: Оплата</h3>
-          <p>Выберите способ оплаты</p>
-        </capsule-stepper-panel>
-        <capsule-stepper-panel>
-          <h3>Шаг 3: Подтверждение</h3>
-          <p>Проверьте заказ</p>
-        </capsule-stepper-panel>
-      </capsule-stepper-panels>
-    </capsule-stepper>
-
-    <style>
-      .icon-step {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 8px;
-      }
-
-      .icon-wrapper {
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: var(--capsule-color-surface);
-        border: 2px solid var(--capsule-color-outline-border);
-        transition: all 0.3s ease;
-        font-size: 20px;
-        position: relative;
-      }
-
-      /* Показываем нужную иконку в зависимости от статуса */
-      .icon-default,
-      .icon-active,
-      .icon-completed {
-        transition: opacity 0.3s ease;
-      }
-
-      /* По умолчанию показываем default иконку */
-      .icon-active,
-      .icon-completed {
-        opacity: 0;
-        position: absolute;
-      }
-
-      /* Inactive состояние */
-      capsule-stepper-step[status='inactive'] .icon-default {
-        opacity: 1;
-      }
-
-      capsule-stepper-step[status='inactive'] .icon-active,
-      capsule-stepper-step[status='inactive'] .icon-completed {
-        opacity: 0;
-      }
-
-      /* Active состояние */
-      capsule-stepper-step[status='active'] .icon-active {
-        opacity: 1;
-      }
-
-      capsule-stepper-step[status='active'] .icon-default,
-      capsule-stepper-step[status='active'] .icon-completed {
-        opacity: 0;
-      }
-
-      /* Completed состояние */
-      capsule-stepper-step[status='completed'] .icon-completed {
-        opacity: 1;
-      }
-
-      capsule-stepper-step[status='completed'] .icon-default,
-      capsule-stepper-step[status='completed'] .icon-active {
-        opacity: 0;
-      }
-
-      .step-line {
-        position: absolute;
-        top: 24px;
-        left: calc(50% + 24px);
-        right: calc(-50% + 24px);
-        height: 2px;
-        background: var(--capsule-color-outline-border);
-        transition: all 0.3s ease;
-      }
-
-      .step-label {
-        font-size: 14px;
-        font-weight: 500;
-        color: var(--capsule-color-text-secondary);
-        transition: all 0.3s ease;
-      }
-
-      /* Активный шаг */
-      capsule-stepper-step[status='active'] .icon-wrapper {
-        border-color: var(--capsule-color-primary);
-        background: var(--capsule-color-primary);
-        color: white;
-        transform: scale(1.1);
-      }
-
-      capsule-stepper-step[status='active'] .step-label {
-        color: var(--capsule-color-primary);
-        font-weight: 600;
-      }
-
-      /* Завершенный шаг */
-      capsule-stepper-step[status='completed'] .icon-wrapper {
-        border-color: var(--capsule-color-success);
-        background: var(--capsule-color-success);
-        color: white;
-      }
-
-      capsule-stepper-step[status='completed'] .step-line {
-        background: var(--capsule-color-success);
-      }
-
-      capsule-stepper-step[status='completed'] .step-label {
-        color: var(--capsule-color-success);
-      }
-
-      /* Скрываем линию у последнего шага */
-      capsule-stepper-step:last-child .step-line {
-        display: none;
-      }
-
-      /* Контент панелей */
-      capsule-stepper-panel {
-        padding: 20px;
-        background: var(--capsule-color-surface);
-        border-radius: var(--capsule-radius);
-        border: 1px solid var(--capsule-color-outline-border);
-      }
-
-      capsule-stepper-panel h3 {
-        margin: 0 0 8px 0;
-        color: var(--capsule-color-text);
-      }
-
-      capsule-stepper-panel p {
-        margin: 0;
-        color: var(--capsule-color-text-secondary);
-      }
-    </style>
-
-    <capsule-divider></capsule-divider>
-
-    <capsule-stepper
-      orientation="vertical"
-      current-step="2"
+    <capsule-accordion
+      type="single"
+      collapsible
     >
-      <capsule-stepper-steps>
-        <capsule-stepper-step>
-          <div class="vertical-step">
-            <div class="step-icon">1</div>
-            <div class="step-content">
-              <div class="step-title">Информация</div>
-              <div class="step-description">Заполните основные данные</div>
-            </div>
-            <div class="vertical-line"></div>
-          </div>
-        </capsule-stepper-step>
-
-        <capsule-stepper-step>
-          <div class="vertical-step">
-            <div class="step-icon">2</div>
-            <div class="step-content">
-              <div class="step-title">Оплата</div>
-              <div class="step-description">Выберите способ оплаты</div>
-            </div>
-            <div class="vertical-line"></div>
-          </div>
-        </capsule-stepper-step>
-
-        <capsule-stepper-step>
-          <div class="vertical-step">
-            <div class="step-icon">3</div>
-            <div class="step-content">
-              <div class="step-title">Подтверждение</div>
-              <div class="step-description">Проверьте и подтвердите</div>
-            </div>
-          </div>
-        </capsule-stepper-step>
-      </capsule-stepper-steps>
-
-      <capsule-stepper-panels animation="y">
-        <capsule-stepper-panel>Контент 1</capsule-stepper-panel>
-        <capsule-stepper-panel>Контент 2</capsule-stepper-panel>
-        <capsule-stepper-panel>Контент 3</capsule-stepper-panel>
-      </capsule-stepper-panels>
-    </capsule-stepper>
-    
-    <capsule-accordion type="single" collapsible>
       <capsule-accordion-panel value="item-1">
         <capsule-accordion-trigger>
           <capsule-button variant="text">Is it accessible?</capsule-button>
@@ -268,74 +35,28 @@
         </capsule-accordion-content>
       </capsule-accordion-panel>
     </capsule-accordion>
-    
-    <capsule-alert>
-      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 48 48"><!-- Icon from IconPark Outline by ByteDance - https://github.com/bytedance/IconPark/blob/master/LICENSE --><g fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-width="4" d="M7.9 5q4.256 4.529 4.256 11.765C12.156 24 6 29.538 4.969 33.5q-1.03 3.962-.97 9.5M39.256 5q-4.257 4.529-4.257 11.765C35 24 41.156 29.538 42.186 33.5q1.03 3.962.97 9.5"/><path stroke="currentColor" stroke-linecap="round" stroke-width="4" d="M6.244 30.837q9.787 6.195 17.777 6.195t16.898-6.195"/><path fill="currentColor" d="M24 31a2.5 2.5 0 1 0 0-5a2.5 2.5 0 0 0 0 5"/></g></svg>
+
+    <capsule-alert variant="warning">
       <capsule-alert-title>Alert Title</capsule-alert-title>
-      <capsule-alert-description>This is an alert description to provide more details about the alert.</capsule-alert-description>
+      <capsule-alert-description>
+        This is an alert description to provide more details about the alert.
+      </capsule-alert-description>
     </capsule-alert>
 
-    <style>
-      .vertical-step {
-        display: flex;
-        align-items: flex-start;
-        gap: 16px;
-        position: relative;
-        padding-bottom: 24px;
-      }
-
-      .step-icon {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: var(--capsule-color-outline-border);
-        color: var(--capsule-color-text);
-        font-weight: bold;
-        flex-shrink: 0;
-        transition: all 0.3s ease;
-      }
-
-      .step-content {
-        flex: 1;
-      }
-
-      .step-title {
-        font-weight: 600;
-        margin-bottom: 4px;
-      }
-
-      .step-description {
-        font-size: 14px;
-        color: var(--capsule-color-text-secondary);
-      }
-
-      .vertical-line {
-        position: absolute;
-        left: 16px;
-        top: 32px;
-        bottom: 0;
-        width: 2px;
-        background: var(--capsule-color-outline-border);
-      }
-
-      /* Активный шаг */
-      capsule-stepper-step[status='active'] .step-icon {
-        background: var(--capsule-color-primary);
-        color: white;
-      }
-
-      /* Завершенный шаг */
-      capsule-stepper-step[status='completed'] .step-icon {
-        background: var(--capsule-color-success);
-        color: white;
-      }
-
-      capsule-stepper-step[status='completed'] .vertical-line {
-        background: var(--capsule-color-success);
-      }
-    </style>
+    <capsule-breadcrumb>
+      <capsule-breadcrumb-item>
+        <a href="/">Главная</a>
+      </capsule-breadcrumb-item>
+      <capsule-breadcrumb-separator> > </capsule-breadcrumb-separator>
+      <capsule-breadcrumb-item>
+        <capsule-breadcrumb-ellipsis>.</capsule-breadcrumb-ellipsis>
+      </capsule-breadcrumb-item>
+      <capsule-breadcrumb-separator> > </capsule-breadcrumb-separator>
+      <capsule-breadcrumb-item>
+        <a href="/components">Компоненты</a>
+      </capsule-breadcrumb-item>
+      <capsule-breadcrumb-separator> > </capsule-breadcrumb-separator>
+      <capsule-breadcrumb-item> capsule-breadcrumb </capsule-breadcrumb-item>
+    </capsule-breadcrumb>
   </body>
 </html>
