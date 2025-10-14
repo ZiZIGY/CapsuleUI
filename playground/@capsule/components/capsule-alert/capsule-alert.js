@@ -8,4 +8,4 @@ class Alert extends HTMLElement {
   }
 }
 
-customElements.define('__PREFIX__-__COMPONENT__', Alert);
+customElements.define('capsule-alert', Alert);

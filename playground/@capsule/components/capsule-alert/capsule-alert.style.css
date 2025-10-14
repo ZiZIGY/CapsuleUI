@@ -1,4 +1,4 @@
-__PREFIX__-__COMPONENT__ {
+capsule-alert {
   position: relative;
   width: 100%;
   border-radius: var(--capsule-radius);
@@ -13,9 +13,10 @@ __PREFIX__-__COMPONENT__ {
     var(--capsule-color-background)
   );
   border-color: var(--capsule-color-info);
+  color: var(--capsule-color-info);
 }
 
-__PREFIX__-__COMPONENT__[variant='default'] {
+capsule-alert[variant='default'] {
   background-color: color-mix(
     in srgb,
     var(--capsule-color-info) 8%,
@@ -25,7 +26,7 @@ __PREFIX__-__COMPONENT__[variant='default'] {
   color: var(--capsule-color-info);
 }
 
-__PREFIX__-__COMPONENT__[variant='error'] {
+capsule-alert[variant='error'] {
   background-color: color-mix(
     in srgb,
     var(--capsule-color-error) 90%,
@@ -35,7 +36,7 @@ __PREFIX__-__COMPONENT__[variant='error'] {
   color: var(--capsule-color-error);
 }
 
-__PREFIX__-__COMPONENT__[variant='warning'] {
+capsule-alert[variant='warning'] {
   background-color: color-mix(
     in srgb,
     var(--capsule-color-warning) 90%,
@@ -45,7 +46,7 @@ __PREFIX__-__COMPONENT__[variant='warning'] {
   color: var(--capsule-color-warning);
 }
 
-__PREFIX__-__COMPONENT__[variant='success'] {
+capsule-alert[variant='success'] {
   background-color: color-mix(
     in srgb,
     var(--capsule-color-success) 90%,
@@ -55,7 +56,7 @@ __PREFIX__-__COMPONENT__[variant='success'] {
   color: var(--capsule-color-success);
 }
 
-__PREFIX__-__COMPONENT__[variant='info'] {
+capsule-alert[variant='info'] {
   background-color: color-mix(
     in srgb,
     var(--capsule-color-info) 90%,
@@ -65,14 +66,14 @@ __PREFIX__-__COMPONENT__[variant='info'] {
   color: var(--capsule-color-info);
 }
 
-__PREFIX__-__COMPONENT__-title {
+capsule-alert-title {
   display: block;
   font-weight: var(--capsule-font-weight-semibold, 600);
   margin: 0;
   margin-bottom: var(--capsule-margin-xs, 0.25rem);
 }
 
-__PREFIX__-__COMPONENT__-description {
+capsule-alert-description {
   display: block;
   margin: 0;
 }
