@@ -1,0 +1,21 @@
+{
+  "version": 1.1,
+  "tags": [
+    {
+      "name": "__PREFIX__-__COMPONENT__-input",
+      "attributes": []
+    },
+    {
+      "name": "__PREFIX__-__COMPONENT__-option",
+      "attributes": []
+    },
+    {
+      "name": "__PREFIX__-__COMPONENT__-options",
+      "attributes": []
+    },
+    {
+      "name": "__PREFIX__-__COMPONENT__",
+      "attributes": []
+    }
+  ]
+}
