@@ -3,37 +3,45 @@
   "tags": [
     {
       "name": "__PREFIX__-__COMPONENT__",
-      "description": "CapsuleUI Divider component. Semantic separator with orientation and color options.",
       "attributes": [
         {
           "name": "orientation",
-          "description": "Divider orientation.",
-          "values": [{ "name": "horizontal" }, { "name": "vertical" }]
-        },
-        {
-          "name": "thickness",
-          "description": "Divider thickness (thin, normal, thick).",
           "values": [
-            { "name": "thin" },
-            { "name": "normal" },
-            { "name": "thick" }
-          ]
-        },
-        {
-          "name": "color",
-          "description": "Divider color.",
-          "values": [
-            { "name": "primary" },
-            { "name": "error" },
-            { "name": "warning" },
-            { "name": "success" },
-            { "name": "info" }
+            {
+              "name": "horizontal"
+            },
+            {
+              "name": "vertical"
+            }
           ]
         },
         {
           "name": "variant",
-          "description": "Divider visual variant.",
-          "values": [{ "name": "default" }, { "name": "ghost" }]
+          "values": [
+            {
+              "name": "ghost"
+            }
+          ]
+        },
+        {
+          "name": "disabled",
+          "description": "Disables component",
+          "valueSet": "v"
+        },
+        {
+          "name": "type",
+          "description": "Type attribute",
+          "values": [
+            {
+              "name": "button"
+            },
+            {
+              "name": "submit"
+            },
+            {
+              "name": "reset"
+            }
+          ]
         }
       ]
     }

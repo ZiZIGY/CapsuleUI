@@ -3,53 +3,48 @@
   "tags": [
     {
       "name": "__PREFIX__-__COMPONENT__",
-      "description": "CapsuleUI Pagination component. Supports boundary pages, optional ellipsis slot and custom nav slots.",
       "attributes": [
         {
-          "name": "page",
-          "description": "Current page (1-based).",
-          "values": [{ "name": "number" }]
-        },
-        {
-          "name": "total-pages",
-          "description": "Total number of pages.",
-          "values": [{ "name": "number" }]
-        },
-        {
-          "name": "items-per-page",
-          "description": "Items per page (used in events detail).",
-          "values": [{ "name": "number" }]
-        },
-        {
-          "name": "show-boundary-pages",
-          "description": "Show boundary pages (first and last page numbers).",
-          "valueSet": "v"
+          "name": "size",
+          "values": [
+            {
+              "name": "sm"
+            },
+            {
+              "name": "lg"
+            }
+          ]
         },
         {
           "name": "variant",
-          "description": "Pagination visual variant.",
           "values": [
-            { "name": "default" },
-            { "name": "outline" },
-            { "name": "ghost" }
+            {
+              "name": "outline"
+            },
+            {
+              "name": "ghost"
+            }
           ]
         },
         {
-          "name": "color",
-          "description": "Pagination color variant.",
-          "values": [
-            { "name": "primary" },
-            { "name": "secondary" },
-            { "name": "error" },
-            { "name": "warning" },
-            { "name": "success" },
-            { "name": "info" }
-          ]
+          "name": "disabled",
+          "description": "Disables component",
+          "valueSet": "v"
         },
         {
-          "name": "size",
-          "description": "Pagination size.",
-          "values": [{ "name": "sm" }, { "name": "md" }, { "name": "lg" }]
+          "name": "type",
+          "description": "Type attribute",
+          "values": [
+            {
+              "name": "button"
+            },
+            {
+              "name": "submit"
+            },
+            {
+              "name": "reset"
+            }
+          ]
         }
       ]
     }

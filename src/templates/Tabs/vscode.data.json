@@ -1,0 +1,144 @@
+{
+  "version": 1.1,
+  "tags": [
+    {
+      "name": "__PREFIX__-__COMPONENT__-list",
+      "attributes": [
+        {
+          "name": "disabled",
+          "description": "Disables component",
+          "valueSet": "v"
+        },
+        {
+          "name": "type",
+          "description": "Type attribute",
+          "values": [
+            {
+              "name": "button"
+            },
+            {
+              "name": "submit"
+            },
+            {
+              "name": "reset"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "__PREFIX__-__COMPONENT__-panel",
+      "attributes": [
+        {
+          "name": "disabled",
+          "description": "Disables component",
+          "valueSet": "v"
+        },
+        {
+          "name": "type",
+          "description": "Type attribute",
+          "values": [
+            {
+              "name": "button"
+            },
+            {
+              "name": "submit"
+            },
+            {
+              "name": "reset"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "__PREFIX__-__COMPONENT__-panels",
+      "attributes": [
+        {
+          "name": "disabled",
+          "description": "Disables component",
+          "valueSet": "v"
+        },
+        {
+          "name": "type",
+          "description": "Type attribute",
+          "values": [
+            {
+              "name": "button"
+            },
+            {
+              "name": "submit"
+            },
+            {
+              "name": "reset"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "__PREFIX__-__COMPONENT__-trigger",
+      "attributes": [
+        {
+          "name": "disabled",
+          "description": "Disables component",
+          "valueSet": "v"
+        },
+        {
+          "name": "type",
+          "description": "Type attribute",
+          "values": [
+            {
+              "name": "button"
+            },
+            {
+              "name": "submit"
+            },
+            {
+              "name": "reset"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "__PREFIX__-__COMPONENT__",
+      "attributes": [
+        {
+          "name": "animation",
+          "values": [
+            {
+              "name": "x"
+            },
+            {
+              "name": "y"
+            },
+            {
+              "name": "fade"
+            }
+          ]
+        },
+        {
+          "name": "disabled",
+          "description": "Disables component",
+          "valueSet": "v"
+        },
+        {
+          "name": "type",
+          "description": "Type attribute",
+          "values": [
+            {
+              "name": "button"
+            },
+            {
+              "name": "submit"
+            },
+            {
+              "name": "reset"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

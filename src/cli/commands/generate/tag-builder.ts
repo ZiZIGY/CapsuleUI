@@ -1,7 +1,15 @@
 import fs from 'fs';
 import path from 'path';
-import { extractComponentTagName, extractObservedAttributes, readFileSafe } from './js-parser';
-import { extractAttributeValuesFromCss, inferBooleanPresence } from './css-parser';
+import {
+  extractComponentTagName,
+  extractObservedAttributes,
+  readFileSafe,
+} from './js-parser';
+import {
+  extractAttributeValuesFromCss,
+  inferBooleanPresence,
+  extractAttributeNames,
+} from './css-parser';
 
 export type AttributeValue = { name: string; description?: string };
 
@@ -21,21 +29,19 @@ export type TagSpec = {
 
 function buildAttributes(jsSource: string, cssSource: string): AttributeSpec[] {
   const attrsFromJs = extractObservedAttributes(jsSource);
-  const attrSet = new Set<string>(attrsFromJs);
-  const common = ['size', 'variant', 'orientation', 'animation', 'status', 'disabled', 'type'];
-  for (const c of common) attrSet.add(c);
+  const attrsFromCss = extractAttributeNames(cssSource);
+  const attrSet = new Set<string>([...attrsFromJs, ...attrsFromCss]);
 
   const attributes: AttributeSpec[] = [];
   for (const name of attrSet) {
     if (!name) continue;
     const values = extractAttributeValuesFromCss(cssSource, name);
     if (name === 'disabled') {
-      attributes.push({ name: 'disabled', description: 'Disables component', valueSet: 'v' });
-      continue;
-    }
-    if (name === 'type') {
-      const typeValues = values.length ? values : ['button', 'submit', 'reset'];
-      attributes.push({ name: 'type', description: 'Type attribute', values: typeValues.map((v) => ({ name: v })) });
+      attributes.push({
+        name: 'disabled',
+        description: 'Disables component',
+        valueSet: 'v',
+      });
       continue;
     }
     if (values.length) {
@@ -54,11 +60,22 @@ export function generateTagSpec(componentDir: string): TagSpec[] {
   const entries: { js: string; css?: string }[] = [];
   if (hasRegister) {
     const reg = readFileSafe(registerPath);
-    const imports = Array.from(reg.matchAll(/import\s+['"]\.\/(.*?\.js)['"]/g)).map((m) => m[1]);
+    const imports = Array.from(
+      reg.matchAll(/import\s+['"]\.\/(.*?\.js)['"]/g)
+    ).map((m) => m[1]);
+    const rootCssCandidate = path.join(
+      componentDir,
+      path.basename(componentDir).toLowerCase() + '.style.css'
+    );
     for (const imp of imports) {
       const jsPath = path.join(componentDir, imp);
-      const cssPath = jsPath.replace(/\.js$/, '.style.css');
-      entries.push({ js: jsPath, css: fs.existsSync(cssPath) ? cssPath : undefined });
+      const specificCss = jsPath.replace(/\.js$/, '.style.css');
+      const cssPath = fs.existsSync(specificCss)
+        ? specificCss
+        : fs.existsSync(rootCssCandidate)
+        ? rootCssCandidate
+        : undefined;
+      entries.push({ js: jsPath, css: cssPath });
     }
   }
 
@@ -85,5 +102,3 @@ export function generateTagSpec(componentDir: string): TagSpec[] {
   }
   return tags;
 }
-
-

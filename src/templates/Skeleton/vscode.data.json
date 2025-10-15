@@ -3,15 +3,39 @@
   "tags": [
     {
       "name": "__PREFIX__-__COMPONENT__",
-      "description": "CapsuleUI Skeleton placeholder element.",
       "attributes": [
         {
           "name": "variant",
-          "description": "Visual variant of the skeleton block.",
           "values": [
-            { "name": "rectangular" },
-            { "name": "text" },
-            { "name": "circular" }
+            {
+              "name": "rectangular"
+            },
+            {
+              "name": "text"
+            },
+            {
+              "name": "circular"
+            }
+          ]
+        },
+        {
+          "name": "disabled",
+          "description": "Disables component",
+          "valueSet": "v"
+        },
+        {
+          "name": "type",
+          "description": "Type attribute",
+          "values": [
+            {
+              "name": "button"
+            },
+            {
+              "name": "submit"
+            },
+            {
+              "name": "reset"
+            }
           ]
         }
       ]

@@ -5,31 +5,6 @@
       "name": "__PREFIX__-__COMPONENT__",
       "attributes": [
         {
-          "name": "size",
-          "values": [
-            {
-              "name": "sm"
-            },
-            {
-              "name": "lg"
-            }
-          ]
-        },
-        {
-          "name": "variant",
-          "values": [
-            {
-              "name": "dot"
-            },
-            {
-              "name": "outline"
-            },
-            {
-              "name": "ghost"
-            }
-          ]
-        },
-        {
           "name": "disabled",
           "description": "Disables component",
           "valueSet": "v"

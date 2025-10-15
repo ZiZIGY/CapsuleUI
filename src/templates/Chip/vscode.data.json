@@ -3,33 +3,48 @@
   "tags": [
     {
       "name": "__PREFIX__-__COMPONENT__",
-      "description": "CapsuleUI Chip component.",
       "attributes": [
         {
-          "name": "color",
-          "description": "Chip color.",
+          "name": "size",
           "values": [
-            { "name": "primary" },
-            { "name": "secondary" },
-            { "name": "error" },
-            { "name": "warning" },
-            { "name": "success" },
-            { "name": "info" }
+            {
+              "name": "sm"
+            },
+            {
+              "name": "lg"
+            }
           ]
         },
         {
           "name": "variant",
-          "description": "Chip visual variant.",
           "values": [
-            { "name": "default" },
-            { "name": "outline" },
-            { "name": "ghost" }
+            {
+              "name": "outline"
+            },
+            {
+              "name": "ghost"
+            }
           ]
         },
         {
-          "name": "size",
-          "description": "Chip size variant.",
-          "values": [{ "name": "sm" }, { "name": "md" }, { "name": "lg" }]
+          "name": "disabled",
+          "description": "Disables component",
+          "valueSet": "v"
+        },
+        {
+          "name": "type",
+          "description": "Type attribute",
+          "values": [
+            {
+              "name": "button"
+            },
+            {
+              "name": "submit"
+            },
+            {
+              "name": "reset"
+            }
+          ]
         }
       ]
     }
