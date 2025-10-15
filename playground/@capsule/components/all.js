@@ -6,3 +6,5 @@ import './capsule-button/register.js';
 import './capsule-accordion/register.js';
 import './capsule-alert/register.js';
 import './capsule-breadcrumb/register.js';
+import './capsule-scroll-area/register.js';
+import './capsule-autocomplete/register.js';

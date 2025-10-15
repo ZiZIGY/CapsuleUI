@@ -1,0 +1,21 @@
+__PREFIX__-__COMPONENT__ {
+  display: block;
+  position: relative;
+  overflow: auto;
+  --scrollbar-thumb: var(--capsule-color-border, #e2e8f0);
+  --scrollbar-track: transparent;
+  --scrollbar-size: 8px;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+  max-width: 100%;
+  max-height: 100%;
+}
+__PREFIX__-__COMPONENT__::-webkit-scrollbar {
+  display: none;
+}
+__PREFIX__-__COMPONENT__::-webkit-scrollbar-thumb {
+  display: none;
+}
+__PREFIX__-__COMPONENT__::-webkit-scrollbar-corner {
+  background: transparent;
+}

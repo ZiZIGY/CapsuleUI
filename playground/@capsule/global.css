@@ -1,3 +1,5 @@
+@import url('./components/capsule-autocomplete/capsule-autocomplete.style.css');
+@import url('./components/capsule-scroll-area/capsule-scroll-area.style.css');
 @import url('./components/capsule-breadcrumb/capsule-breadcrumb.style.css');
 @import url('./components/capsule-alert/capsule-alert.style.css');
 @import url('./components/capsule-accordion/capsule-accordion.style.css');
