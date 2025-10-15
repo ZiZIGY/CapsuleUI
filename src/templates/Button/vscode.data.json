@@ -5,10 +5,21 @@
       "name": "__PREFIX__-__COMPONENT__",
       "attributes": [
         {
+          "name": "disabled",
+          "description": "Disables component",
+          "valueSet": "v"
+        },
+        {
           "name": "size",
           "values": [
             {
+              "name": "xs"
+            },
+            {
               "name": "sm"
+            },
+            {
+              "name": "md"
             },
             {
               "name": "lg"
@@ -19,27 +30,25 @@
           "name": "variant",
           "values": [
             {
+              "name": "primary"
+            },
+            {
+              "name": "secondary"
+            },
+            {
               "name": "outline"
             },
             {
-              "name": "ghost"
-            }
-          ]
-        },
-        {
-          "name": "color",
-          "values": [
+              "name": "text"
+            },
             {
-              "name": "secondary"
+              "name": "success"
             },
             {
               "name": "error"
             },
             {
               "name": "warning"
-            },
-            {
-              "name": "success"
             },
             {
               "name": "info"

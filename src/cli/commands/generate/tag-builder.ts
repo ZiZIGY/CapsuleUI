@@ -54,40 +54,23 @@ function buildAttributes(jsSource: string, cssSource: string): AttributeSpec[] {
 }
 
 export function generateTagSpec(componentDir: string): TagSpec[] {
-  const registerPath = path.join(componentDir, 'register.js');
-  const hasRegister = fs.existsSync(registerPath);
-
   const entries: { js: string; css?: string }[] = [];
-  if (hasRegister) {
-    const reg = readFileSafe(registerPath);
-    const imports = Array.from(
-      reg.matchAll(/import\s+['"]\.\/(.*?\.js)['"]/g)
-    ).map((m) => m[1]);
-    const rootCssCandidate = path.join(
-      componentDir,
-      path.basename(componentDir).toLowerCase() + '.style.css'
-    );
-    for (const imp of imports) {
-      const jsPath = path.join(componentDir, imp);
-      const specificCss = jsPath.replace(/\.js$/, '.style.css');
-      const cssPath = fs.existsSync(specificCss)
-        ? specificCss
-        : fs.existsSync(rootCssCandidate)
-        ? rootCssCandidate
-        : undefined;
-      entries.push({ js: jsPath, css: cssPath });
-    }
-  }
-
-  if (entries.length === 0) {
-    const candidates = fs
-      .readdirSync(componentDir)
-      .filter((f) => f.endsWith('.js'))
-      .map((f) => path.join(componentDir, f));
-    for (const js of candidates) {
-      const css = js.replace(/\.js$/, '.style.css');
-      entries.push({ js, css: fs.existsSync(css) ? css : undefined });
-    }
+  const rootCssCandidate = path.join(
+    componentDir,
+    path.basename(componentDir).toLowerCase() + '.style.css'
+  );
+  const jsFiles = fs
+    .readdirSync(componentDir)
+    .filter((f) => f.endsWith('.js') && f !== 'register.js')
+    .map((f) => path.join(componentDir, f));
+  for (const jsPath of jsFiles) {
+    const specificCss = jsPath.replace(/\.js$/, '.style.css');
+    const cssPath = fs.existsSync(specificCss)
+      ? specificCss
+      : fs.existsSync(rootCssCandidate)
+      ? rootCssCandidate
+      : undefined;
+    entries.push({ js: jsPath, css: cssPath });
   }
 
   const tags: TagSpec[] = [];
