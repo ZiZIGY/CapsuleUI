@@ -3,6 +3,10 @@ class AutocompleteOptions extends HTMLElement {
     super();
   }
 
+  connectedCallback() {
+    this.style.display = 'none';
+  }
+
   getOptions() {
     return this.querySelectorAll('capsule-autocomplete-option');
   }
@@ -23,4 +27,5 @@ class AutocompleteOptions extends HTMLElement {
     return activeOption ? activeOption.value : null;
   }
 }
+
 customElements.define('capsule-autocomplete-options', AutocompleteOptions);

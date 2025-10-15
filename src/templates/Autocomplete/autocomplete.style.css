@@ -8,5 +8,14 @@ __PREFIX__-__COMPONENT__-options {
   display: none;
 }
 __PREFIX__-__COMPONENT__:focus-within __PREFIX__-__COMPONENT__-options {
+  display: flex;
+  flex-direction: column;
+}
+
+__PREFIX__-__COMPONENT__-option {
   display: block;
+}
+
+__PREFIX__-__COMPONENT__-option.active {
+  background-color: red;
 }

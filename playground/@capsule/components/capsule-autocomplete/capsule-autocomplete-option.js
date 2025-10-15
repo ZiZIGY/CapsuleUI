@@ -3,12 +3,15 @@ class AutocompleteOption extends HTMLElement {
     super();
     this._onClick = this._onClick.bind(this);
   }
+
   connectedCallback() {
     this.addEventListener('mousedown', this._onClick);
   }
+
   disconnectedCallback() {
     this.removeEventListener('mousedown', this._onClick);
   }
+
   _onClick(e) {
     e.preventDefault();
     this.dispatchEvent(
@@ -18,11 +21,14 @@ class AutocompleteOption extends HTMLElement {
       })
     );
   }
+
   get value() {
     return this.getAttribute('value');
   }
+
   set value(val) {
     this.setAttribute('value', val);
   }
 }
+
 customElements.define('capsule-autocomplete-option', AutocompleteOption);
