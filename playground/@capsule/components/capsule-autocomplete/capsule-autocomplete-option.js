@@ -10,7 +10,6 @@ class AutocompleteOption extends HTMLElement {
     this.removeEventListener('mousedown', this._onClick);
   }
   _onClick(e) {
-    // Не даём потерять фокус инпуту,
     e.preventDefault();
     this.dispatchEvent(
       new CustomEvent('autocomplete-option-select', {

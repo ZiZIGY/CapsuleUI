@@ -1,30 +1,26 @@
 class AutocompleteOptions extends HTMLElement {
   constructor() {
     super();
-    this._open = false;
-    this._onParentOpen = this._onParentOpen.bind(this);
-    this._onParentClose = this._onParentClose.bind(this);
   }
 
-  connectedCallback() {
-    this._render();
-    this.addEventListener('open', this._onParentOpen);
-    this.addEventListener('close', this._onParentClose);
+  getOptions() {
+    return this.querySelectorAll('capsule-autocomplete-option');
   }
-  disconnectedCallback() {
-    this.removeEventListener('open', this._onParentOpen);
-    this.removeEventListener('close', this._onParentClose);
+
+  getActiveOption() {
+    return this.querySelector('capsule-autocomplete-option.active');
   }
-  _onParentOpen() {
-    this._open = true;
-    this._render();
+
+  setActiveOption(option) {
+    this.getOptions().forEach((opt) => opt.classList.remove('active'));
+    if (option) {
+      option.classList.add('active');
+    }
   }
-  _onParentClose() {
-    this._open = false;
-    this._render();
-  }
-  _render() {
-    this.style.display = this._open ? '' : 'none';
+
+  getActiveValue() {
+    const activeOption = this.getActiveOption();
+    return activeOption ? activeOption.value : null;
   }
 }
 customElements.define('capsule-autocomplete-options', AutocompleteOptions);

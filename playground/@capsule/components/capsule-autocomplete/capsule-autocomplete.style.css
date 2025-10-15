@@ -1,25 +1,12 @@
-capsule-autocomplete-input input,
-capsule-autocomplete-input textarea {
-  width: 100%;
-  font-size: var(--capsule-font-size-base, 1rem);
-  border: none;
-  outline: none;
-  background: none;
-  color: inherit;
+capsule-autocomplete {
+  display: inline-flex;
+  position: relative;
+  flex-direction: column;
 }
+
 capsule-autocomplete-options {
-  position: absolute;
-  z-index: 10;
-  min-width: 100%;
+  display: none;
 }
-capsule-autocomplete-option {
-  cursor: pointer;
-  padding: var(--capsule-padding-sm, 0.5em);
-  border-radius: var(--capsule-radius, 6px);
-  transition: background 0.09s;
-}
-capsule-autocomplete-option[aria-selected='true'],
-capsule-autocomplete-option.selected {
-  background: var(--capsule-color-primary, #3b82f6);
-  color: var(--capsule-color-on-primary, #fff);
+capsule-autocomplete:focus-within capsule-autocomplete-options {
+  display: block;
 }
