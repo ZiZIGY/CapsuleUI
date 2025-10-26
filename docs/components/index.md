@@ -42,7 +42,7 @@ CapsuleUI provides a collection of modern, unstyled web components that you can 
 ### Layout
 
 - **[Accordion](/components/accordion)** - A collapsible accordion component
-- **[ButtonGroup](/components/button-group)** - A group of buttons
+- **[Button Group](/components/button-group)** - A group of buttons with seamless borders
 
 ## Adding a Component
 

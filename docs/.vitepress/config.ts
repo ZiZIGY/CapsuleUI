@@ -30,7 +30,8 @@ export default defineConfig({
             text: 'Components',
             items: [
               { text: 'Overview', link: '/components/' },
-              { text: 'Button', link: '/components/button' }
+              { text: 'Button', link: '/components/button' },
+              { text: 'Button Group', link: '/components/button-group' }
             ]
           }
         ]
@@ -60,7 +61,8 @@ export default defineConfig({
             text: 'Компоненты',
             items: [
               { text: 'Обзор', link: '/ru/components/' },
-              { text: 'Button', link: '/ru/components/button' }
+              { text: 'Button', link: '/ru/components/button' },
+              { text: 'Button Group', link: '/ru/components/button-group' }
             ]
           }
         ]

@@ -8,6 +8,11 @@ __PREFIX__-__COMPONENT__[orientation="horizontal"] *:first-child:not(:last-child
   border-bottom-right-radius: 0;
 }
 
+__PREFIX__-__COMPONENT__:not([orientation="vertical"]) *:not(:first-child):not(:last-child),
+__PREFIX__-__COMPONENT__[orientation="horizontal"] *:not(:first-child):not(:last-child) {
+  border-radius: 0;
+}
+
 __PREFIX__-__COMPONENT__:not([orientation="vertical"]) *:last-child:not(:first-child),
 __PREFIX__-__COMPONENT__[orientation="horizontal"] *:last-child:not(:first-child) {
   border-top-left-radius: 0;
@@ -17,6 +22,10 @@ __PREFIX__-__COMPONENT__[orientation="horizontal"] *:last-child:not(:first-child
 __PREFIX__-__COMPONENT__[orientation="vertical"] *:first-child:not(:last-child) {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+}
+
+__PREFIX__-__COMPONENT__[orientation="vertical"] *:not(:first-child):not(:last-child) {
+  border-radius: 0;
 }
 
 __PREFIX__-__COMPONENT__[orientation="vertical"] *:last-child:not(:first-child) {
