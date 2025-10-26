@@ -15,6 +15,8 @@
     "playground/@capsule/components/capsule-autocomplete/vscode.data.json",
     "docs/@capsule/components/capsule-button/vscode.data.json",
     "docs/@capsule/components/capsule-badge/vscode.data.json",
-    "docs/@capsule/components/capsule-chip/vscode.data.json"
+    "docs/@capsule/components/capsule-chip/vscode.data.json",
+    "docs/@capsule/components/capsule-skeleton/vscode.data.json",
+    "docs/@capsule/components/capsule-divider/vscode.data.json"
   ]
 }

@@ -1,3 +1,5 @@
+@import url('./components/capsule-divider/capsule-divider.style.css');
+@import url('./components/capsule-skeleton/capsule-skeleton.style.css');
 @import url('./components/capsule-chip/capsule-chip.style.css');
 @import url('./components/capsule-badge/capsule-badge.style.css');
 @import url('./components/capsule-breadcrumb/capsule-breadcrumb.style.css');

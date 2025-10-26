@@ -13,6 +13,7 @@ export default defineConfig({
       themeConfig: {
         nav: [
           { text: 'Home', link: '/' },
+          { text: 'Philosophy', link: '/philosophy' },
           { text: 'Getting Started', link: '/getting-started' },
           { text: 'Components', link: '/components/' },
           { text: 'CLI Commands', link: '/cli-commands' }
@@ -22,6 +23,7 @@ export default defineConfig({
           {
             text: 'Introduction',
             items: [
+              { text: 'Philosophy', link: '/philosophy' },
               { text: 'Getting Started', link: '/getting-started' },
               { text: 'CLI Commands', link: '/cli-commands' }
             ]
@@ -34,7 +36,8 @@ export default defineConfig({
               { text: 'Button Group', link: '/components/button-group' },
               { text: 'Badge', link: '/components/badge' },
               { text: 'Chip', link: '/components/chip' },
-              { text: 'Breadcrumb', link: '/components/breadcrumb' }
+              { text: 'Breadcrumb', link: '/components/breadcrumb' },
+              { text: 'Skeleton', link: '/components/skeleton' }
             ]
           }
         ]
@@ -47,6 +50,7 @@ export default defineConfig({
       themeConfig: {
         nav: [
           { text: 'Главная', link: '/ru/' },
+          { text: 'Философия', link: '/ru/philosophy' },
           { text: 'Начало работы', link: '/ru/getting-started' },
           { text: 'Компоненты', link: '/ru/components/' },
           { text: 'Команды CLI', link: '/ru/cli-commands' }
@@ -56,6 +60,7 @@ export default defineConfig({
           {
             text: 'Введение',
             items: [
+              { text: 'Философия', link: '/ru/philosophy' },
               { text: 'Начало работы', link: '/ru/getting-started' },
               { text: 'Команды CLI', link: '/ru/cli-commands' }
             ]
@@ -68,7 +73,8 @@ export default defineConfig({
               { text: 'Button Group', link: '/ru/components/button-group' },
               { text: 'Badge', link: '/ru/components/badge' },
               { text: 'Chip', link: '/ru/components/chip' },
-              { text: 'Breadcrumb', link: '/ru/components/breadcrumb' }
+              { text: 'Breadcrumb', link: '/ru/components/breadcrumb' },
+              { text: 'Skeleton', link: '/ru/components/skeleton' }
             ]
           }
         ]

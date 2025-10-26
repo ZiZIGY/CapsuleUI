@@ -1,0 +1,1 @@
+import './capsule-skeleton.js';

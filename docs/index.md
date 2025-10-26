@@ -4,8 +4,9 @@ layout: home
 
 hero:
   name: "CapsuleUI"
-  text: "Copy and paste web components"
-  tagline: Like shadcn/ui, but for web components. Add beautiful, accessible components to your project with one command.
+  text: "Copy. Paste. Rule."
+  tagline: |
+    shadcn/ui for web components. VSCode & IDEs instantly autocomplete CapsuleUI tags and attributes.
   actions:
     - theme: brand
       text: Getting Started
@@ -15,22 +16,17 @@ hero:
       link: /components/
 
 features:
-  - title: "Copy, don't install"
-    details: Components are copied to your project, giving you full control. No dependencies, no runtime overhead.
-  
-  - title: "Fully customizable"
-    details: All code is yours. Modify components however you need. No abstractions, just clean code.
-  
-  - title: "Web Components"
-    details: Built with Web Components standard, works with any framework or vanilla JavaScript.
-  
-  - title: "Tailwind compatible"
-    details: Designed to work seamlessly with Tailwind CSS, but can be styled with any CSS approach.
-  
-  - title: "Accessible"
-    details: Built with accessibility in mind. All components follow WAI-ARIA best practices.
-  
-  - title: "CLI powered"
-    details: Simple CLI to add components to your project. Just run `npx capsule add <component>`.
+  - title: "🧩 VSCode Autocomplete"
+    details: CapsuleUI ships `vscode.data.json` so all tags & attributes appear in IDEs.
+  - title: "🔓 Copy, don’t install"
+    details: No dependencies, no runtime. You get the source code.
+  - title: "⚡ Fully customizable"
+    details: Change and style everything however you want.
+  - title: "🔬 Web Components"
+    details: Native standard, works in every frontend stack.
+  - title: "🎨 Tailwind compatible"
+    details: Use Tailwind, CSS, or any styling method.
+  - title: "🚀 CLI powered"
+    details: Scaffold & add components with one command.
 ---
 
