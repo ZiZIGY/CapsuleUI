@@ -13,6 +13,8 @@
     "playground/@capsule/components/slavik-button/vscode.data.json",
     "playground/@capsule/components/capsule-alert/vscode.data.json",
     "playground/@capsule/components/capsule-autocomplete/vscode.data.json",
-    "docs/@capsule/components/capsule-button/vscode.data.json"
+    "docs/@capsule/components/capsule-button/vscode.data.json",
+    "docs/@capsule/components/capsule-badge/vscode.data.json",
+    "docs/@capsule/components/capsule-chip/vscode.data.json"
   ]
 }

@@ -31,7 +31,10 @@ export default defineConfig({
             items: [
               { text: 'Overview', link: '/components/' },
               { text: 'Button', link: '/components/button' },
-              { text: 'Button Group', link: '/components/button-group' }
+              { text: 'Button Group', link: '/components/button-group' },
+              { text: 'Badge', link: '/components/badge' },
+              { text: 'Chip', link: '/components/chip' },
+              { text: 'Breadcrumb', link: '/components/breadcrumb' }
             ]
           }
         ]
@@ -62,7 +65,10 @@ export default defineConfig({
             items: [
               { text: 'Обзор', link: '/ru/components/' },
               { text: 'Button', link: '/ru/components/button' },
-              { text: 'Button Group', link: '/ru/components/button-group' }
+              { text: 'Button Group', link: '/ru/components/button-group' },
+              { text: 'Badge', link: '/ru/components/badge' },
+              { text: 'Chip', link: '/ru/components/chip' },
+              { text: 'Breadcrumb', link: '/ru/components/breadcrumb' }
             ]
           }
         ]

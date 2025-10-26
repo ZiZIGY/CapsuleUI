@@ -1,0 +1,194 @@
+capsule-badge {
+  display: inline-flex;
+  position: relative;
+  vertical-align: middle;
+}
+
+capsule-badge::after {
+  content: attr(data-value);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%);
+  box-sizing: border-box;
+  font-family: var(--capsule-font-family);
+  font-weight: var(--capsule-font-weight-medium);
+  font-size: var(--capsule-font-size-xs);
+  line-height: 1;
+  padding: 0 6px;
+  height: 20px;
+  min-width: 20px;
+  border-radius: var(--capsule-radius-full);
+  background: var(--capsule-color-primary);
+  color: white;
+  z-index: 1;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  box-shadow: var(--capsule-shadow-sm);
+}
+
+capsule-badge[color='primary']::after {
+  background: var(--capsule-color-primary);
+  color: white;
+}
+
+capsule-badge[color='secondary']::after {
+  background: var(--capsule-color-surface);
+  color: var(--capsule-color-text);
+  border: 1px solid var(--capsule-color-outline);
+}
+
+capsule-badge[color='error']::after {
+  background: var(--capsule-color-error);
+  color: white;
+}
+
+capsule-badge[color='warning']::after {
+  background: var(--capsule-color-warning);
+  color: var(--capsule-color-text);
+}
+
+capsule-badge[color='success']::after {
+  background: var(--capsule-color-success);
+  color: white;
+}
+
+capsule-badge[color='info']::after {
+  background: var(--capsule-color-info);
+  color: white;
+}
+
+capsule-badge[variant='dot']::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  min-width: auto;
+  border: none;
+  box-shadow: var(--capsule-shadow-sm);
+}
+
+capsule-badge[variant='outline']::after {
+  background: transparent;
+  border: 1.5px solid;
+  color: inherit;
+}
+
+capsule-badge[variant='outline'][color='primary']::after {
+  border-color: var(--capsule-color-primary);
+  color: var(--capsule-color-primary);
+}
+
+capsule-badge[variant='outline'][color='secondary']::after {
+  border-color: var(--capsule-color-outline);
+  color: var(--capsule-color-text-secondary);
+}
+
+capsule-badge[variant='outline'][color='error']::after {
+  border-color: var(--capsule-color-error);
+  color: var(--capsule-color-error);
+}
+
+capsule-badge[variant='outline'][color='warning']::after {
+  border-color: var(--capsule-color-warning);
+  color: var(--capsule-color-warning);
+}
+
+capsule-badge[variant='outline'][color='success']::after {
+  border-color: var(--capsule-color-success);
+  color: var(--capsule-color-success);
+}
+
+capsule-badge[variant='outline'][color='info']::after {
+  border-color: var(--capsule-color-info);
+  color: var(--capsule-color-info);
+}
+
+capsule-badge[variant='ghost']::after {
+  background: color-mix(in srgb, currentColor 8%, transparent);
+  color: var(--capsule-color-text);
+  border: none;
+}
+
+capsule-badge[variant='ghost'][color='primary']::after {
+  color: var(--capsule-color-primary);
+  background: color-mix(in srgb, var(--capsule-color-primary) 12%, transparent);
+}
+
+capsule-badge[variant='ghost'][color='secondary']::after {
+  color: var(--capsule-color-text-secondary);
+  background: color-mix(in srgb, var(--capsule-color-text) 6%, transparent);
+}
+
+capsule-badge[variant='ghost'][color='error']::after {
+  color: var(--capsule-color-error);
+  background: color-mix(in srgb, var(--capsule-color-error) 12%, transparent);
+}
+
+capsule-badge[variant='ghost'][color='warning']::after {
+  color: var(--capsule-color-warning);
+  background: color-mix(in srgb, var(--capsule-color-warning) 12%, transparent);
+}
+
+capsule-badge[variant='ghost'][color='success']::after {
+  color: var(--capsule-color-success);
+  background: color-mix(in srgb, var(--capsule-color-success) 12%, transparent);
+}
+
+capsule-badge[variant='ghost'][color='info']::after {
+  color: var(--capsule-color-info);
+  background: color-mix(in srgb, var(--capsule-color-info) 12%, transparent);
+}
+
+capsule-badge[position='top-left']::after {
+  top: 0;
+  left: 0;
+  right: auto;
+  transform: translate(-50%, -50%);
+}
+
+capsule-badge[position='bottom-right']::after {
+  top: auto;
+  bottom: 0;
+  right: 0;
+  transform: translate(50%, 50%);
+}
+
+capsule-badge[position='bottom-left']::after {
+  top: auto;
+  bottom: 0;
+  left: 0;
+  right: auto;
+  transform: translate(-50%, 50%);
+}
+
+capsule-badge[invisible]::after {
+  display: none;
+}
+
+capsule-badge[size='sm']::after {
+  height: 16px;
+  min-width: 16px;
+  font-size: 0.625rem;
+  padding: 0 4px;
+}
+
+capsule-badge[size='lg']::after {
+  height: 24px;
+  min-width: 24px;
+  font-size: var(--capsule-font-size-sm);
+  padding: 0 8px;
+}
+
+capsule-badge[size='sm'][variant='dot']::after {
+  width: 6px;
+  height: 6px;
+}
+
+capsule-badge[size='lg'][variant='dot']::after {
+  width: 10px;
+  height: 10px;
+}

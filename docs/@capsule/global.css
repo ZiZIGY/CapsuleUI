@@ -1,3 +1,6 @@
+@import url('./components/capsule-chip/capsule-chip.style.css');
+@import url('./components/capsule-badge/capsule-badge.style.css');
+@import url('./components/capsule-breadcrumb/capsule-breadcrumb.style.css');
 @import url('./components/capsule-button-group/capsule-button-group.style.css');
 @import url('./components/capsule-button/capsule-button.style.css');
 :root {

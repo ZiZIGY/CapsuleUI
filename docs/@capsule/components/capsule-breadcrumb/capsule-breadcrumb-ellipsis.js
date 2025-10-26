@@ -1,0 +1,15 @@
+class BreadcrumbEllipsis extends HTMLElement {
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+  }
+
+  connectedCallback() {
+    this._render();
+  }
+
+  _render() {
+    this.shadowRoot.innerHTML = `<slot>...</slot>`;
+  }
+}
+customElements.define('capsule-breadcrumb-ellipsis', BreadcrumbEllipsis);

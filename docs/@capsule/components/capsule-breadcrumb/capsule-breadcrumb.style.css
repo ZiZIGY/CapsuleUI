@@ -1,0 +1,21 @@
+capsule-breadcrumb {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--capsule-spacing-xs, 0.5rem);
+}
+capsule-breadcrumb-item {
+  font-weight: 500;
+}
+capsule-breadcrumb-item:last-child {
+  font-weight: 400;
+  pointer-events: none;
+  user-select: none;
+}
+capsule-breadcrumb-separator {
+  pointer-events: none;
+  user-select: none;
+}
+capsule-breadcrumb-ellipsis {
+  pointer-events: none;
+  user-select: none;
+}

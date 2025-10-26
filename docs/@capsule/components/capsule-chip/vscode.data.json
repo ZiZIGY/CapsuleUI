@@ -1,0 +1,52 @@
+{
+  "version": 1.1,
+  "tags": [
+    {
+      "name": "capsule-chip",
+      "attributes": [
+        {
+          "name": "size",
+          "values": [
+            {
+              "name": "sm"
+            },
+            {
+              "name": "lg"
+            }
+          ]
+        },
+        {
+          "name": "variant",
+          "values": [
+            {
+              "name": "outline"
+            },
+            {
+              "name": "ghost"
+            }
+          ]
+        },
+        {
+          "name": "disabled",
+          "description": "Disables component",
+          "valueSet": "v"
+        },
+        {
+          "name": "type",
+          "description": "Type attribute",
+          "values": [
+            {
+              "name": "button"
+            },
+            {
+              "name": "submit"
+            },
+            {
+              "name": "reset"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
