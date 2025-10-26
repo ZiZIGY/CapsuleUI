@@ -22,7 +22,10 @@
     "test": "vitest run",
     "lint": "eslint src --ext .ts,.vue",
     "prepublishOnly": "npm run build",
-    "capsule": "node ./dist/cli.js"
+    "capsule": "node ./dist/cli.js",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
   },
   "types": "./dist/types/index.d.ts",
   "files": [
