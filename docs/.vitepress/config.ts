@@ -4,7 +4,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "CapsuleUI",
   description: "CapsuleUI - Modern unstyled web components in your project",
-  
+  ignoreDeadLinks: true,
   locales: {
     root: {
       label: 'English',

@@ -4,7 +4,6 @@ import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 import './style.css'
 import '../../@capsule/global.css'
-import '../../@capsule/components/all'
 
 export default {
   extends: DefaultTheme,
@@ -15,5 +14,8 @@ export default {
   },
   enhanceApp({ app, router, siteData }) {
     // ...
+    if (typeof window !== 'undefined') {
+      import('../../@capsule/components/all');
+    }
   }
 } satisfies Theme
