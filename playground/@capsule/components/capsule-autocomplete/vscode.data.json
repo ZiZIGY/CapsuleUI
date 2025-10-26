@@ -1,0 +1,21 @@
+{
+  "version": 1.1,
+  "tags": [
+    {
+      "name": "capsule-autocomplete-input",
+      "attributes": []
+    },
+    {
+      "name": "capsule-autocomplete-option",
+      "attributes": []
+    },
+    {
+      "name": "capsule-autocomplete-options",
+      "attributes": []
+    },
+    {
+      "name": "capsule-autocomplete",
+      "attributes": []
+    }
+  ]
+}

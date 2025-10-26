@@ -173,3 +173,17 @@ capsule-button[variant='warning']:hover:not([disabled]) {
 capsule-button[variant='warning']:active:not([disabled]) {
   background: color-mix(in srgb, var(--capsule-color-warning) 80%, black);
 }
+
+/* Info Variant */
+capsule-button[variant='info'] {
+  background: var(--capsule-color-info);
+  color: white;
+}
+
+capsule-button[variant='info']:hover:not([disabled]) {
+  background: color-mix(in srgb, var(--capsule-color-info) 90%, black);
+}
+
+capsule-button[variant='info']:active:not([disabled]) {
+  background: color-mix(in srgb, var(--capsule-color-info) 80%, black);
+}

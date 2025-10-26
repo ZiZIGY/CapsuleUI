@@ -1,18 +1,22 @@
 class AutocompleteOption extends HTMLElement {
   constructor() {
     super();
-    this._onClick = this._onClick.bind(this);
+    this.value = '';
+    this._onClick = this.#onClick.bind(this);
   }
 
   connectedCallback() {
-    this.addEventListener('mousedown', this._onClick);
+    if (this.hasAttribute('value')) {
+      this.value = this.getAttribute('value');
+    }
+    this.addEventListener('mousedown', this.#onClick);
   }
 
   disconnectedCallback() {
-    this.removeEventListener('mousedown', this._onClick);
+    this.removeEventListener('mousedown', this.#onClick);
   }
 
-  _onClick(e) {
+  #onClick(e) {
     e.preventDefault();
     this.dispatchEvent(
       new CustomEvent('autocomplete-option-select', {
@@ -20,14 +24,6 @@ class AutocompleteOption extends HTMLElement {
         bubbles: true,
       })
     );
-  }
-
-  get value() {
-    return this.getAttribute('value');
-  }
-
-  set value(val) {
-    this.setAttribute('value', val);
   }
 }
 
