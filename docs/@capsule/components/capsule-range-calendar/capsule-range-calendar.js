@@ -1,4 +1,4 @@
-class Calendar extends HTMLElement {
+class RangeCalendar extends HTMLElement {
   static get observedAttributes() {
     return ['value', 'min-date', 'max-date', 'disabled-dates', 'locale'];
   }
@@ -151,9 +151,27 @@ class Calendar extends HTMLElement {
 
     let oldValue = this.selectedValue;
 
-    if (this.selectedValue === dateString) {
+    const [start, end] = this.selectedValue.split(',');
+
+    const isStartSelected = start === dateString;
+    const isEndSelected = end === dateString;
+
+    if (isStartSelected || isEndSelected) {
       this.selectedValue = '';
       this.setAttribute('value', '');
+    } else if (start && end) {
+      this.selectedValue = dateString;
+      this.setAttribute('value', dateString);
+    } else if (start) {
+      let newStart = new Date(start);
+      let newEnd = new Date(dateString);
+      if (newEnd < newStart) {
+        [newStart, newEnd] = [newEnd, newStart];
+      }
+      const startStr = this.formatDate(newStart);
+      const endStr = this.formatDate(newEnd);
+      this.selectedValue = `${startStr},${endStr}`;
+      this.setAttribute('value', this.selectedValue);
     } else {
       this.selectedValue = dateString;
       this.setAttribute('value', dateString);
@@ -165,7 +183,7 @@ class Calendar extends HTMLElement {
           bubbles: true,
           detail: {
             value: this.selectedValue,
-            type: 'single',
+            type: 'range',
           },
         })
       );
@@ -175,7 +193,7 @@ class Calendar extends HTMLElement {
           detail: {
             value: this.selectedValue,
             oldValue: oldValue,
-            type: 'single',
+            type: 'range',
           },
         })
       );
@@ -250,7 +268,8 @@ class Calendar extends HTMLElement {
     const isToday = this.isToday(date);
     const isDisabled = this.isDateDisabled(date);
 
-    const isSelected = this.selectedValue === dateString;
+    const [start, end] = this.selectedValue.split(',');
+    const isSelected = dateString === start || dateString === end;
 
     const partList = ['day'];
     if (isOtherMonth) partList.push('other-month');
@@ -309,4 +328,4 @@ class Calendar extends HTMLElement {
   }
 }
 
-customElements.define('__PREFIX__-__COMPONENT__', Calendar);
+customElements.define('capsule-range-calendar', RangeCalendar);

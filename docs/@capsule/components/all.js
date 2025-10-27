@@ -9,3 +9,4 @@ import './capsule-alert/register.js';
 import './capsule-accordion/register.js';
 import './capsule-stepper/register.js';
 import './capsule-calendar/register.js';
+import './capsule-range-calendar/register.js';

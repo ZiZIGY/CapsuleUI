@@ -1,8 +1,7 @@
 class Calendar extends HTMLElement {
   static get observedAttributes() {
     return [
-      'value',
-      'type',
+      'value', // Только одна дата
       'min-date',
       'max-date',
       'disabled-dates',
@@ -14,13 +13,13 @@ class Calendar extends HTMLElement {
     super();
     this.attachShadow({ mode: 'open' });
     this.currentDate = new Date();
-    this.selectedValue = '';
-    this.type = 'single';
+    this.selectedValue = ''; // Одна дата
     this.minDate = null;
     this.maxDate = null;
     this.disabledDates = new Set();
     this.locale = 'en-US';
     this.monthYearFormatter = null;
+    this.weekdayFormatter = null;
   }
 
   connectedCallback() {
@@ -35,17 +34,15 @@ class Calendar extends HTMLElement {
       this.parseAttributes();
       if (name === 'locale') {
         this.updateFormatters();
+        this.render(); // Полный ререндер при изменении локали
+      } else {
+        this.updateUI();
       }
-      this.updateUI();
     }
   }
 
   parseAttributes() {
     this.selectedValue = this.getAttribute('value') || '';
-    const type = this.getAttribute('type');
-    this.type = ['single', 'range', 'multiple'].includes(type)
-      ? type
-      : 'single';
     const minDateStr = this.getAttribute('min-date');
     this.minDate = minDateStr ? new Date(minDateStr) : null;
     const maxDateStr = this.getAttribute('max-date');
@@ -59,7 +56,7 @@ class Calendar extends HTMLElement {
       this.disabledDates = new Set();
     }
     const locale = this.getAttribute('locale');
-    if (locale) {
+    if (locale && locale !== this.locale) {
       this.locale = locale;
     }
   }
@@ -69,6 +66,9 @@ class Calendar extends HTMLElement {
       month: 'long',
       year: 'numeric',
     });
+    this.weekdayFormatter = new Intl.DateTimeFormat(this.locale, {
+      weekday: 'short',
+    });
   }
 
   updateUI() {
@@ -77,6 +77,11 @@ class Calendar extends HTMLElement {
     );
     if (monthElement) {
       monthElement.textContent = this.getMonthYearString();
+    }
+
+    const weekdaysElement = this.shadowRoot.querySelector('[part="weekdays"]');
+    if (weekdaysElement) {
+      weekdaysElement.innerHTML = this.renderWeekdays();
     }
 
     const daysGrid = this.shadowRoot.querySelector('[part="days-grid"]');
@@ -89,19 +94,19 @@ class Calendar extends HTMLElement {
 
   render() {
     this.shadowRoot.innerHTML = `
-                    <div part="calendar">
-                        <div part="calendar-header">
-                            <div part="current-month">${this.getMonthYearString()}</div>
-                            <div part="calendar-nav">
-                                <button part="nav-btn prev-month">←</button>
-                                <button part="nav-btn next-month">→</button>
-                            </div>
-                        </div>
+      <div part="calendar">
+        <div part="calendar-header">
+          <div part="current-month">${this.getMonthYearString()}</div>
+          <div part="calendar-nav">
+            <button part="nav-btn prev-month">←</button>
+            <button part="nav-btn next-month">→</button>
+          </div>
+        </div>
 
-                        <div part="weekdays">${this.renderWeekdays()}</div>
-                        <div part="days-grid">${this.renderDays()}</div>
-                    </div>
-                `;
+        <div part="weekdays">${this.renderWeekdays()}</div>
+        <div part="days-grid">${this.renderDays()}</div>
+      </div>
+    `;
 
     this.setupEventListeners();
   }
@@ -150,16 +155,8 @@ class Calendar extends HTMLElement {
       return;
     }
 
-    if (this.type === 'single') {
-      this.handleSingleClick(dateString);
-    } else if (this.type === 'range') {
-      this.handleRangeClick(dateString);
-    } else if (this.type === 'multiple') {
-      this.handleMultipleClick(dateString);
-    }
-  }
+    let oldValue = this.selectedValue;
 
-  handleSingleClick(dateString) {
     if (this.selectedValue === dateString) {
       this.selectedValue = '';
       this.setAttribute('value', '');
@@ -167,67 +164,29 @@ class Calendar extends HTMLElement {
       this.selectedValue = dateString;
       this.setAttribute('value', dateString);
     }
-    this.dispatchEvent(new CustomEvent('input', { bubbles: true }));
-    this.dispatchEvent(new CustomEvent('change', { bubbles: true }));
-  }
 
-  handleRangeClick(dateString) {
-    const [start, end] = this.selectedValue.split(',');
-
-    const isStartSelected = start === dateString;
-    const isEndSelected = end === dateString;
-
-    if (isStartSelected || isEndSelected) {
-      this.selectedValue = '';
-      this.setAttribute('value', '');
-      this.dispatchEvent(new CustomEvent('input', { bubbles: true }));
-      this.dispatchEvent(new CustomEvent('change', { bubbles: true }));
-      return;
+    // Диспатчим события с деталями
+    if (oldValue !== this.selectedValue) {
+      this.dispatchEvent(
+        new CustomEvent('input', {
+          bubbles: true,
+          detail: {
+            value: this.selectedValue,
+            type: 'single', // Указываем тип
+          },
+        })
+      );
+      this.dispatchEvent(
+        new CustomEvent('change', {
+          bubbles: true,
+          detail: {
+            value: this.selectedValue,
+            oldValue: oldValue,
+            type: 'single', // Указываем тип
+          },
+        })
+      );
     }
-
-    if (start && end) {
-      this.selectedValue = dateString;
-      this.setAttribute('value', dateString);
-      this.dispatchEvent(new CustomEvent('input', { bubbles: true }));
-      this.dispatchEvent(new CustomEvent('change', { bubbles: true }));
-      return;
-    }
-
-    if (start) {
-      let newStart = new Date(start);
-      let newEnd = new Date(dateString);
-      if (newEnd < newStart) {
-        [newStart, newEnd] = [newEnd, newStart];
-      }
-      const startStr = this.formatDate(newStart);
-      const endStr = this.formatDate(newEnd);
-      this.selectedValue = `${startStr},${endStr}`;
-      this.setAttribute('value', this.selectedValue);
-      this.dispatchEvent(new CustomEvent('input', { bubbles: true }));
-      this.dispatchEvent(new CustomEvent('change', { bubbles: true }));
-      return;
-    }
-
-    this.selectedValue = dateString;
-    this.setAttribute('value', dateString);
-    this.dispatchEvent(new CustomEvent('input', { bubbles: true }));
-    this.dispatchEvent(new CustomEvent('change', { bubbles: true }));
-  }
-
-  handleMultipleClick(dateString) {
-    const selectedDates = this.selectedValue
-      ? this.selectedValue.split(',')
-      : [];
-    const index = selectedDates.indexOf(dateString);
-    if (index > -1) {
-      selectedDates.splice(index, 1);
-    } else {
-      selectedDates.push(dateString);
-    }
-    this.selectedValue = selectedDates.join(',');
-    this.setAttribute('value', this.selectedValue);
-    this.dispatchEvent(new CustomEvent('input', { bubbles: true }));
-    this.dispatchEvent(new CustomEvent('change', { bubbles: true }));
   }
 
   getMonthYearString() {
@@ -238,15 +197,12 @@ class Calendar extends HTMLElement {
 
   renderWeekdays() {
     const weekdays = [];
-    const weekdayFormatter = new Intl.DateTimeFormat(this.locale, {
-      weekday: 'short',
-    });
     const baseDate = new Date(Date.UTC(2024, 9, 21)); // Пн 21.10.2024
 
     for (let i = 0; i < 7; i++) {
       const dateForDay = new Date(baseDate);
       dateForDay.setUTCDate(baseDate.getUTCDate() + i);
-      const weekday = weekdayFormatter.format(dateForDay);
+      const weekday = this.weekdayFormatter.format(dateForDay);
       weekdays.push(`<div>${weekday}</div>`);
     }
     return weekdays.join('');
@@ -301,40 +257,24 @@ class Calendar extends HTMLElement {
     const isToday = this.isToday(date);
     const isDisabled = this.isDateDisabled(date);
 
-    let isSelected = false;
-    // --- УБРАНО: let isRangeStart = false; let isRangeEnd = false; ---
+    // isSelected только для single
+    const isSelected = this.selectedValue === dateString;
 
-    if (this.type === 'single') {
-      isSelected = this.selectedValue === dateString;
-    } else if (this.type === 'range') {
-      const [start, end] = this.selectedValue.split(',');
-      // isSelected теперь true, если дата совпадает с start ИЛИ end
-      isSelected = dateString === start || dateString === end;
-      // --- УБРАНО: isRangeStart = ...; isRangeEnd = ...; ---
-    } else if (this.type === 'multiple') {
-      const selectedDates = this.selectedValue
-        ? this.selectedValue.split(',')
-        : [];
-      isSelected = selectedDates.includes(dateString);
-    }
-
-    // --- ФОРМИРОВАНИЕ part атрибута ---
     const partList = ['day'];
     if (isOtherMonth) partList.push('other-month');
     if (isToday) partList.push('today');
     if (isSelected) partList.push('selected');
     if (isDisabled) partList.push('disabled');
-    // --- УБРАНО: if (isRangeStart) partList.push('range-start'); if (isRangeEnd) partList.push('range-end'); ---
 
     const partAttr = `part="${partList.join(' ')}"`;
 
     return `
-                    <button ${partAttr} data-date="${dateString}" ${
+      <button ${partAttr} data-date="${dateString}" ${
       isDisabled ? 'disabled' : ''
     }>
-                        ${day}
-                    </button>
-                `;
+        ${day}
+      </button>
+    `;
   }
 
   isDateDisabled(date) {
@@ -377,4 +317,5 @@ class Calendar extends HTMLElement {
   }
 }
 
+// Определяем компонент
 customElements.define('capsule-calendar', Calendar);
