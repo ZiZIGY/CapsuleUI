@@ -8,3 +8,4 @@ import './capsule-skeleton/register.js';
 import './capsule-divider/register.js';
 import './capsule-alert/register.js';
 import './capsule-accordion/register.js';
+import './capsule-stepper/register.js';
