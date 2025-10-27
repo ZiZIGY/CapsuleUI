@@ -1,9 +1,9 @@
-import { defineConfig } from 'vitepress'
+import { defineConfig } from 'vitepress';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "CapsuleUI",
-  description: "CapsuleUI - Modern unstyled web components in your project",
+  title: 'CapsuleUI',
+  description: 'CapsuleUI - Modern unstyled web components in your project',
   ignoreDeadLinks: true,
   locales: {
     root: {
@@ -16,7 +16,7 @@ export default defineConfig({
           { text: 'Philosophy', link: '/philosophy' },
           { text: 'Getting Started', link: '/getting-started' },
           { text: 'Components', link: '/components/' },
-          { text: 'CLI Commands', link: '/cli-commands' }
+          { text: 'CLI Commands', link: '/cli-commands' },
         ],
 
         sidebar: [
@@ -25,8 +25,8 @@ export default defineConfig({
             items: [
               { text: 'Philosophy', link: '/philosophy' },
               { text: 'Getting Started', link: '/getting-started' },
-              { text: 'CLI Commands', link: '/cli-commands' }
-            ]
+              { text: 'CLI Commands', link: '/cli-commands' },
+            ],
           },
           {
             text: 'Components',
@@ -37,11 +37,13 @@ export default defineConfig({
               { text: 'Badge', link: '/components/badge' },
               { text: 'Chip', link: '/components/chip' },
               { text: 'Breadcrumb', link: '/components/breadcrumb' },
-              { text: 'Skeleton', link: '/components/skeleton' }
-            ]
-          }
-        ]
-      }
+              { text: 'Skeleton', link: '/components/skeleton' },
+              { text: 'Divider', link: '/components/divider' },
+              { text: 'Alert', link: '/components/alert' },
+            ],
+          },
+        ],
+      },
     },
     ru: {
       label: 'Русский',
@@ -53,7 +55,7 @@ export default defineConfig({
           { text: 'Философия', link: '/ru/philosophy' },
           { text: 'Начало работы', link: '/ru/getting-started' },
           { text: 'Компоненты', link: '/ru/components/' },
-          { text: 'Команды CLI', link: '/ru/cli-commands' }
+          { text: 'Команды CLI', link: '/ru/cli-commands' },
         ],
 
         sidebar: [
@@ -62,8 +64,8 @@ export default defineConfig({
             items: [
               { text: 'Философия', link: '/ru/philosophy' },
               { text: 'Начало работы', link: '/ru/getting-started' },
-              { text: 'Команды CLI', link: '/ru/cli-commands' }
-            ]
+              { text: 'Команды CLI', link: '/ru/cli-commands' },
+            ],
           },
           {
             text: 'Компоненты',
@@ -74,30 +76,30 @@ export default defineConfig({
               { text: 'Badge', link: '/ru/components/badge' },
               { text: 'Chip', link: '/ru/components/chip' },
               { text: 'Breadcrumb', link: '/ru/components/breadcrumb' },
-              { text: 'Skeleton', link: '/ru/components/skeleton' }
-            ]
-          }
-        ]
-      }
-    }
+              { text: 'Skeleton', link: '/ru/components/skeleton' },
+              { text: 'Divider', link: '/ru/components/divider' },
+              { text: 'Alert', link: '/ru/components/alert' },
+            ],
+          },
+        ],
+      },
+    },
   },
-  
+
   themeConfig: {
     search: {
-      provider: 'local'
+      provider: 'local',
     },
-    
-    socialLinks: [
-      { icon: 'github', link: 'https://github.com/capsule-ui' }
-    ],
-    
+
+    socialLinks: [{ icon: 'github', link: 'https://github.com/capsule-ui' }],
+
     editLink: {
       pattern: 'https://github.com/capsule-ui/capsule-ui/edit/main/docs/:path',
-      text: 'Edit this page on GitHub'
+      text: 'Edit this page on GitHub',
     },
-    
+
     lastUpdated: {
-      text: 'Last updated'
-    }
-  }
-})
+      text: 'Last updated',
+    },
+  },
+});

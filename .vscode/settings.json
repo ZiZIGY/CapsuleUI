@@ -17,6 +17,7 @@
     "docs/@capsule/components/capsule-badge/vscode.data.json",
     "docs/@capsule/components/capsule-chip/vscode.data.json",
     "docs/@capsule/components/capsule-skeleton/vscode.data.json",
-    "docs/@capsule/components/capsule-divider/vscode.data.json"
+    "docs/@capsule/components/capsule-divider/vscode.data.json",
+    "docs/@capsule/components/capsule-alert/vscode.data.json"
   ]
 }

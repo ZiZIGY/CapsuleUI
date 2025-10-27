@@ -50,18 +50,18 @@ You can adjust width/height using standard CSS properties.
 
 ## Attributes
 
-| Attribute | Type   | Default     | Description                                |
-| --------- | ------ | ----------- | ------------------------------------------ |
+| Attribute | Type   | Default     | Description                                 |
+| --------- | ------ | ----------- | ------------------------------------------- |
 | `variant` | string | rectangular | Visual variant: rectangular, text, circular |
 
 ### Variant Values
+
 - `rectangular` — rectangular loading skeleton (default)
 - `text` — text line skeleton
 - `circular` — circular skeleton
 
 ## Accessibility
 
-- `role="presentation"` and `aria-hidden="true"` are set automatically
-- Not focusable
-- Does not announce content
-
+- ✅ `role="presentation"` and `aria-hidden="true"` are set automatically
+- ✅ Not focusable
+- ✅ Does not announce content
