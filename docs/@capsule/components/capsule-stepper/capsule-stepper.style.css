@@ -13,8 +13,7 @@ capsule-stepper-steps {
   justify-content: space-between;
 }
 
-capsule-stepper[orientation='vertical']
-  capsule-stepper-steps {
+capsule-stepper[orientation='vertical'] capsule-stepper-steps {
   flex-direction: column;
 }
 
@@ -34,8 +33,7 @@ capsule-stepper-panels {
   display: flex;
 }
 
-capsule-stepper[orientation='vertical']
-  capsule-stepper-panels {
+capsule-stepper[orientation='vertical'] capsule-stepper-panels {
   flex-direction: column;
 }
 
@@ -55,36 +53,64 @@ capsule-stepper-panel[status='active'] {
   pointer-events: auto;
   position: relative;
   transform: translateX(0);
+  transition: transform 0.4s, opacity 0.4s;
 }
 
-capsule-stepper-panels[animation='x']
-  capsule-stepper-panel[status='active'] {
+capsule-stepper-panels[animation='x'] capsule-stepper-panel[status='active'] {
   transform: translateX(0);
 }
 
 capsule-stepper-panels[animation='x']
   capsule-stepper-panel[status='active']
   ~ capsule-stepper-panel {
-  transform: translateX(100%);
+  transform: translateX(calc(100% + var(--capsule-margin-md)));
+  opacity: 0;
+  margin-left: var(--capsule-margin-md);
+  transition: transform 0.4s, opacity 0.4s, margin 0.4s;
 }
 
 capsule-stepper-panels[animation='x']
   capsule-stepper-panel:not([status='active']) {
-  transform: translateX(-100%);
+  transform: translateX(calc(-100% - var(--capsule-margin-md)));
+  opacity: 0;
+  margin-right: var(--capsule-margin-md);
+  transition: transform 0.4s, opacity 0.4s, margin 0.4s;
 }
 
-capsule-stepper-panels[animation='y']
-  capsule-stepper-panel[status='active'] {
+capsule-stepper-panels[animation='y'] capsule-stepper-panel[status='active'] {
   transform: translateY(0);
 }
 
 capsule-stepper-panels[animation='y']
   capsule-stepper-panel[status='active']
   ~ capsule-stepper-panel {
-  transform: translateY(100%);
+  transform: translateY(calc(100% + var(--capsule-margin-md)));
+  opacity: 0;
+  margin-top: var(--capsule-margin-md);
+  transition: transform 0.4s, opacity 0.4s, margin 0.4s;
 }
 
 capsule-stepper-panels[animation='y']
   capsule-stepper-panel:not([status='active']) {
-  transform: translateY(-100%);
+  transform: translateY(calc(-100% - var(--capsule-margin-md)));
+  opacity: 0;
+  margin-bottom: var(--capsule-margin-md);
+  transition: transform 0.4s, opacity 0.4s, margin 0.4s;
+}
+
+capsule-stepper-panels[animation='none'] capsule-stepper-panel {
+  transition: none;
+  margin: 0 !important;
+}
+
+capsule-stepper-panels[animation='none']
+  capsule-stepper-panel:not([status='active']) {
+  display: none;
+  opacity: 0;
+}
+
+capsule-stepper-panels[animation='none']
+  capsule-stepper-panel[status='active'] {
+  display: block;
+  opacity: 1;
 }

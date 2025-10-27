@@ -14,8 +14,8 @@ npx capsule add Stepper
 
 The Stepper provides the structure and state management. You'll need to add your own visual styles for step indicators, lines, and animations.
 
-<div style="margin: 1rem 0; max-width: 500px;">
-  <capsule-stepper current-step="1">
+<div style="margin: 1rem 0; border-radius: 8px; padding: 1.5rem;">
+  <capsule-stepper current-step="1" id="stepper-basic">
     <capsule-stepper-steps>
       <capsule-stepper-step>Account</capsule-stepper-step>
       <capsule-stepper-step>Profile</capsule-stepper-step>
@@ -23,16 +23,32 @@ The Stepper provides the structure and state management. You'll need to add your
     </capsule-stepper-steps>
     <capsule-stepper-panels>
       <capsule-stepper-panel>
-        <h3>Account Information</h3>
-        <p>Create your account</p>
+        <div style="padding: 1rem 0;">
+          <h3 style="margin: 0 0 0.5rem 0;">Account Information</h3>
+          <p style="margin: 0 0 1rem 0; color: #64748b;">Create your account</p>
+          <div style="display: flex; gap: 0.5rem; justify-content: flex-end;">
+            <capsule-button onclick="document.getElementById('stepper-basic').next()">Next</capsule-button>
+          </div>
+        </div>
       </capsule-stepper-panel>
       <capsule-stepper-panel>
-        <h3>Profile Details</h3>
-        <p>Complete your profile</p>
+        <div style="padding: 1rem 0;">
+          <h3 style="margin: 0 0 0.5rem 0;">Profile Details</h3>
+          <p style="margin: 0 0 1rem 0; color: #64748b;">Complete your profile</p>
+          <div style="display: flex; gap: 0.5rem; justify-content: space-between;">
+            <capsule-button onclick="document.getElementById('stepper-basic').previous()">Previous</capsule-button>
+            <capsule-button onclick="document.getElementById('stepper-basic').next()">Next</capsule-button>
+          </div>
+        </div>
       </capsule-stepper-panel>
       <capsule-stepper-panel>
-        <h3>Review</h3>
-        <p>Review your information</p>
+        <div style="padding: 1rem 0;">
+          <h3 style="margin: 0 0 0.5rem 0;">Review</h3>
+          <p style="margin: 0 0 1rem 0; color: #64748b;">Review your information</p>
+          <div style="display: flex; gap: 0.5rem; justify-content: flex-start;">
+            <capsule-button onclick="document.getElementById('stepper-basic').previous()">Previous</capsule-button>
+          </div>
+        </div>
       </capsule-stepper-panel>
     </capsule-stepper-panels>
   </capsule-stepper>
@@ -55,7 +71,7 @@ The Stepper provides the structure and state management. You'll need to add your
 
 ### Navigation
 
-<div style="margin: 1rem 0; max-width: 500px;">
+<div style="margin: 1rem 0; border-radius: 8px; padding: 1.5rem;">
   <capsule-stepper current-step="2" id="stepper-example">
     <capsule-stepper-steps>
       <capsule-stepper-step>Step 1</capsule-stepper-step>
@@ -63,18 +79,34 @@ The Stepper provides the structure and state management. You'll need to add your
       <capsule-stepper-step>Step 3</capsule-stepper-step>
     </capsule-stepper-steps>
     <capsule-stepper-panels>
-      <capsule-stepper-panel>Content for step 1</capsule-stepper-panel>
       <capsule-stepper-panel>
-        <div style="margin-bottom: 1rem;">
-          <capsule-button onclick="document.getElementById('stepper-example').previous()">
-            Previous
-          </capsule-button>
-          <capsule-button onclick="document.getElementById('stepper-example').next()">
-            Next
-          </capsule-button>
+        <div style="padding: 1rem 0;">
+          <h3 style="margin: 0 0 0.5rem 0;">First Step</h3>
+          <p style="margin: 0 0 1rem 0; color: #64748b;">Content for step 1</p>
+          <div style="display: flex; gap: 0.5rem; justify-content: flex-end;">
+            <capsule-button onclick="document.getElementById('stepper-example').next()">Next</capsule-button>
+          </div>
         </div>
       </capsule-stepper-panel>
-      <capsule-stepper-panel>Content for step 3</capsule-stepper-panel>
+      <capsule-stepper-panel>
+        <div style="padding: 1rem 0;">
+          <h3 style="margin: 0 0 0.5rem 0;">Second Step</h3>
+          <p style="margin: 0 0 1rem 0; color: #64748b;">Content for step 2</p>
+          <div style="display: flex; gap: 0.5rem; justify-content: space-between;">
+            <capsule-button onclick="document.getElementById('stepper-example').previous()">Previous</capsule-button>
+            <capsule-button onclick="document.getElementById('stepper-example').next()">Next</capsule-button>
+          </div>
+        </div>
+      </capsule-stepper-panel>
+      <capsule-stepper-panel>
+        <div style="padding: 1rem 0;">
+          <h3 style="margin: 0 0 0.5rem 0;">Third Step</h3>
+          <p style="margin: 0 0 1rem 0; color: #64748b;">Content for step 3</p>
+          <div style="display: flex; gap: 0.5rem; justify-content: flex-start;">
+            <capsule-button onclick="document.getElementById('stepper-example').previous()">Previous</capsule-button>
+          </div>
+        </div>
+      </capsule-stepper-panel>
     </capsule-stepper-panels>
   </capsule-stepper>
 </div>
@@ -93,17 +125,42 @@ stepper.reset(); // Reset to first step
 
 ### Orientation
 
-<div style="margin: 1rem 0;">
-  <capsule-stepper current-step="1" orientation="vertical">
+<div style="margin: 1rem 0; border-radius: 8px; padding: 1.5rem;">
+  <capsule-stepper current-step="1" orientation="vertical" id="stepper-vertical">
     <capsule-stepper-steps>
       <capsule-stepper-step>Start</capsule-stepper-step>
       <capsule-stepper-step>Progress</capsule-stepper-step>
       <capsule-stepper-step>Complete</capsule-stepper-step>
     </capsule-stepper-steps>
     <capsule-stepper-panels>
-      <capsule-stepper-panel>Vertical layout for steps</capsule-stepper-panel>
-      <capsule-stepper-panel>Each step below the previous</capsule-stepper-panel>
-      <capsule-stepper-panel>Best for mobile interfaces</capsule-stepper-panel>
+      <capsule-stepper-panel>
+        <div style="padding: 1rem 0;">
+          <h3 style="margin: 0 0 0.5rem 0;">Start</h3>
+          <p style="margin: 0 0 1rem 0; color: #64748b;">Vertical layout for steps</p>
+          <div style="display: flex; gap: 0.5rem; justify-content: flex-end;">
+            <capsule-button onclick="document.getElementById('stepper-vertical').next()">Next</capsule-button>
+          </div>
+        </div>
+      </capsule-stepper-panel>
+      <capsule-stepper-panel>
+        <div style="padding: 1rem 0;">
+          <h3 style="margin: 0 0 0.5rem 0;">Progress</h3>
+          <p style="margin: 0 0 1rem 0; color: #64748b;">Each step below the previous</p>
+          <div style="display: flex; gap: 0.5rem; justify-content: space-between;">
+            <capsule-button onclick="document.getElementById('stepper-vertical').previous()">Previous</capsule-button>
+            <capsule-button onclick="document.getElementById('stepper-vertical').next()">Next</capsule-button>
+          </div>
+        </div>
+      </capsule-stepper-panel>
+      <capsule-stepper-panel>
+        <div style="padding: 1rem 0;">
+          <h3 style="margin: 0 0 0.5rem 0;">Complete</h3>
+          <p style="margin: 0 0 1rem 0; color: #64748b;">Best for mobile interfaces</p>
+          <div style="display: flex; gap: 0.5rem; justify-content: flex-start;">
+            <capsule-button onclick="document.getElementById('stepper-vertical').previous()">Previous</capsule-button>
+          </div>
+        </div>
+      </capsule-stepper-panel>
     </capsule-stepper-panels>
   </capsule-stepper>
 </div>
@@ -119,7 +176,7 @@ stepper.reset(); // Reset to first step
 
 ### Animation
 
-<div style="margin: 1rem 0; max-width: 500px;">
+<div style="margin: 1rem 0; border-radius: 8px; padding: 1.5rem;">
   <capsule-stepper current-step="2" id="stepper-anim">
     <capsule-stepper-steps>
       <capsule-stepper-step>1</capsule-stepper-step>
@@ -127,9 +184,34 @@ stepper.reset(); // Reset to first step
       <capsule-stepper-step>3</capsule-stepper-step>
     </capsule-stepper-steps>
     <capsule-stepper-panels animation="x">
-      <capsule-stepper-panel>Slide transition X</capsule-stepper-panel>
-      <capsule-stepper-panel>Horizontal sliding effect</capsule-stepper-panel>
-      <capsule-stepper-panel>Panels slide left/right</capsule-stepper-panel>
+      <capsule-stepper-panel>
+        <div style="padding: 1rem 0;">
+          <h3 style="margin: 0 0 0.5rem 0;">Slide 1</h3>
+          <p style="margin: 0 0 1rem 0; color: #64748b;">Slide transition X</p>
+          <div style="display: flex; gap: 0.5rem; justify-content: flex-end;">
+            <capsule-button onclick="document.getElementById('stepper-anim').next()">Next</capsule-button>
+          </div>
+        </div>
+      </capsule-stepper-panel>
+      <capsule-stepper-panel>
+        <div style="padding: 1rem 0;">
+          <h3 style="margin: 0 0 0.5rem 0;">Slide 2</h3>
+          <p style="margin: 0 0 1rem 0; color: #64748b;">Horizontal sliding effect</p>
+          <div style="display: flex; gap: 0.5rem; justify-content: space-between;">
+            <capsule-button onclick="document.getElementById('stepper-anim').previous()">Previous</capsule-button>
+            <capsule-button onclick="document.getElementById('stepper-anim').next()">Next</capsule-button>
+          </div>
+        </div>
+      </capsule-stepper-panel>
+      <capsule-stepper-panel>
+        <div style="padding: 1rem 0;">
+          <h3 style="margin: 0 0 0.5rem 0;">Slide 3</h3>
+          <p style="margin: 0 0 1rem 0; color: #64748b;">Panels slide left/right</p>
+          <div style="display: flex; gap: 0.5rem; justify-content: flex-start;">
+            <capsule-button onclick="document.getElementById('stepper-anim').previous()">Previous</capsule-button>
+          </div>
+        </div>
+      </capsule-stepper-panel>
     </capsule-stepper-panels>
   </capsule-stepper>
 </div>
@@ -152,63 +234,97 @@ The Stepper component consists of several sub-components:
 
 Main container that manages the current step and provides navigation API.
 
+| Attribute      | Type   | Default | Description                                 |
+| -------------- | ------ | ------- | ------------------------------------------- |
+| `current-step` | number | 1       | Current active step (1-indexed)             |
+| `orientation`  | string | -       | Layout direction (`vertical`, `horizontal`) |
+
+#### Orientation Values
+
+- `vertical` — Steps arranged vertically
+- `horizontal` — Steps arranged horizontally (default if not specified)
+
 ### `capsule-stepper-steps`
 
-Container for step indicators. Automatically applies status attributes to each step.
+Container for step indicators. No attributes.
 
 ### `capsule-stepper-step`
 
-Individual step indicator. Receives `status` attribute (`active`, `completed`, `inactive`).
+Individual step indicator.
 
-```html
-<capsule-stepper-step>Step Label</capsule-stepper-step>
-```
+| Attribute | Type   | Description                                     |
+| --------- | ------ | ----------------------------------------------- |
+| `status`  | string | Step status (`active`, `completed`, `inactive`) |
+
+#### Status Values
+
+- `active` — Currently active step
+- `completed` — Step has been completed
+- `inactive` — Step not yet reached
 
 ### `capsule-stepper-panels`
 
-Container for panel content. Manages which panel is visible based on current step.
+Container for panel content.
+
+| Attribute     | Type   | Default | Description                                    |
+| ------------- | ------ | ------- | ---------------------------------------------- |
+| `animation`   | string | -       | Animation type (`x`, `y`, `none`)              |
+| `orientation` | string | -       | Direction of panels (`vertical`, `horizontal`) |
+
+#### Animation Values
+
+- `x` — Horizontal slide animation (default for horizontal stepper)
+- `y` — Vertical slide animation (default for vertical stepper)
+- `none` — No animation
+
+#### Orientation Values
+
+- `vertical` — Panels arranged vertically
+- `horizontal` — Panels arranged horizontally
 
 ### `capsule-stepper-panel`
 
-Individual content panel. Receives `status` attribute (`active`, `inactive`).
+Individual content panel.
 
-```html
-<capsule-stepper-panel> Your content here </capsule-stepper-panel>
-```
+| Attribute | Type   | Description                         |
+| --------- | ------ | ----------------------------------- |
+| `status`  | string | Panel status (`active`, `inactive`) |
+
+#### Status Values
+
+- `active` — Currently visible panel
+- `inactive` — Hidden panel
 
 ## Attributes
 
-### `capsule-stepper`
+All attributes are described in the Components section above. Here are additional details:
 
-| Attribute      | Type   | Default | Description                     |
-| -------------- | ------ | ------- | ------------------------------- |
-| `current-step` | number | 1       | Current active step (1-indexed) |
-| `orientation`  | string | -       | Layout direction (vertical)     |
+### `status` attribute values
 
-### `capsule-stepper-steps`
-
-No attributes.
-
-### `capsule-stepper-step`
-
-The step automatically receives `status` attribute with values:
+For `capsule-stepper-step`:
 
 - `active` — Currently active step
 - `completed` — Step that has been completed
 - `inactive` — Step not yet reached
 
-### `capsule-stepper-panels`
-
-| Attribute   | Type   | Default | Description           |
-| ----------- | ------ | ------- | --------------------- |
-| `animation` | string | -       | Animation type (x, y) |
-
-### `capsule-stepper-panel`
-
-The panel automatically receives `status` attribute with values:
+For `capsule-stepper-panel`:
 
 - `active` — Currently visible panel
 - `inactive` — Hidden panel
+
+### `animation` attribute values
+
+For `capsule-stepper-panels`:
+
+- `x` — Horizontal slide animation
+- `y` — Vertical slide animation
+- `none` — No animation
+
+### `orientation` attribute values
+
+For `capsule-stepper`:
+
+- `vertical` — Vertical layout
 
 ## API Methods
 

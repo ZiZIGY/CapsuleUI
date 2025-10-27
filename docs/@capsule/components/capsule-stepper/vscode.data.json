@@ -1,0 +1,195 @@
+{
+  "version": 1.1,
+  "tags": [
+    {
+      "name": "capsule-stepper-panel",
+      "attributes": [
+        {
+          "name": "orientation",
+          "values": [
+            {
+              "name": "horizontal"
+            },
+            {
+              "name": "vertical"
+            }
+          ]
+        },
+        {
+          "name": "status",
+          "values": [
+            {
+              "name": "active"
+            }
+          ]
+        },
+        {
+          "name": "animation",
+          "values": [
+            {
+              "name": "x"
+            },
+            {
+              "name": "y"
+            },
+            {
+              "name": "none"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "capsule-stepper-panels",
+      "attributes": [
+        {
+          "name": "orientation",
+          "values": [
+            {
+              "name": "horizontal"
+            },
+            {
+              "name": "vertical"
+            }
+          ]
+        },
+        {
+          "name": "status",
+          "values": [
+            {
+              "name": "active"
+            }
+          ]
+        },
+        {
+          "name": "animation",
+          "values": [
+            {
+              "name": "x"
+            },
+            {
+              "name": "y"
+            },
+            {
+              "name": "none"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "capsule-stepper-step",
+      "attributes": [
+        {
+          "name": "orientation",
+          "values": [
+            {
+              "name": "horizontal"
+            },
+            {
+              "name": "vertical"
+            }
+          ]
+        },
+        {
+          "name": "status",
+          "values": [
+            {
+              "name": "active"
+            }
+          ]
+        },
+        {
+          "name": "animation",
+          "values": [
+            {
+              "name": "x"
+            },
+            {
+              "name": "y"
+            },
+            {
+              "name": "none"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "capsule-stepper-steps",
+      "attributes": [
+        {
+          "name": "orientation",
+          "values": [
+            {
+              "name": "horizontal"
+            },
+            {
+              "name": "vertical"
+            }
+          ]
+        },
+        {
+          "name": "status",
+          "values": [
+            {
+              "name": "active"
+            }
+          ]
+        },
+        {
+          "name": "animation",
+          "values": [
+            {
+              "name": "x"
+            },
+            {
+              "name": "y"
+            },
+            {
+              "name": "none"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "capsule-stepper",
+      "attributes": [
+        {
+          "name": "orientation",
+          "values": [
+            {
+              "name": "horizontal"
+            },
+            {
+              "name": "vertical"
+            }
+          ]
+        },
+        {
+          "name": "status",
+          "values": [
+            {
+              "name": "active"
+            }
+          ]
+        },
+        {
+          "name": "animation",
+          "values": [
+            {
+              "name": "x"
+            },
+            {
+              "name": "y"
+            },
+            {
+              "name": "none"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

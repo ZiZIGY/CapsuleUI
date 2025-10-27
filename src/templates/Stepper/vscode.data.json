@@ -1,0 +1,195 @@
+{
+  "version": 1.1,
+  "tags": [
+    {
+      "name": "__PREFIX__-__COMPONENT__-panel",
+      "attributes": [
+        {
+          "name": "orientation",
+          "values": [
+            {
+              "name": "horizontal"
+            },
+            {
+              "name": "vertical"
+            }
+          ]
+        },
+        {
+          "name": "status",
+          "values": [
+            {
+              "name": "active"
+            }
+          ]
+        },
+        {
+          "name": "animation",
+          "values": [
+            {
+              "name": "x"
+            },
+            {
+              "name": "y"
+            },
+            {
+              "name": "none"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "__PREFIX__-__COMPONENT__-panels",
+      "attributes": [
+        {
+          "name": "orientation",
+          "values": [
+            {
+              "name": "horizontal"
+            },
+            {
+              "name": "vertical"
+            }
+          ]
+        },
+        {
+          "name": "status",
+          "values": [
+            {
+              "name": "active"
+            }
+          ]
+        },
+        {
+          "name": "animation",
+          "values": [
+            {
+              "name": "x"
+            },
+            {
+              "name": "y"
+            },
+            {
+              "name": "none"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "__PREFIX__-__COMPONENT__-step",
+      "attributes": [
+        {
+          "name": "orientation",
+          "values": [
+            {
+              "name": "horizontal"
+            },
+            {
+              "name": "vertical"
+            }
+          ]
+        },
+        {
+          "name": "status",
+          "values": [
+            {
+              "name": "active"
+            }
+          ]
+        },
+        {
+          "name": "animation",
+          "values": [
+            {
+              "name": "x"
+            },
+            {
+              "name": "y"
+            },
+            {
+              "name": "none"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "__PREFIX__-__COMPONENT__-steps",
+      "attributes": [
+        {
+          "name": "orientation",
+          "values": [
+            {
+              "name": "horizontal"
+            },
+            {
+              "name": "vertical"
+            }
+          ]
+        },
+        {
+          "name": "status",
+          "values": [
+            {
+              "name": "active"
+            }
+          ]
+        },
+        {
+          "name": "animation",
+          "values": [
+            {
+              "name": "x"
+            },
+            {
+              "name": "y"
+            },
+            {
+              "name": "none"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "__PREFIX__-__COMPONENT__",
+      "attributes": [
+        {
+          "name": "orientation",
+          "values": [
+            {
+              "name": "horizontal"
+            },
+            {
+              "name": "vertical"
+            }
+          ]
+        },
+        {
+          "name": "status",
+          "values": [
+            {
+              "name": "active"
+            }
+          ]
+        },
+        {
+          "name": "animation",
+          "values": [
+            {
+              "name": "x"
+            },
+            {
+              "name": "y"
+            },
+            {
+              "name": "none"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

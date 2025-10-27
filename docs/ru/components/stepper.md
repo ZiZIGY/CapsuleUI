@@ -14,8 +14,8 @@ npx capsule add Stepper
 
 Stepper предоставляет структуру и управление состоянием. Вам нужно будет добавить свои собственные визуальные стили для индикаторов шагов, линий и анимаций.
 
-<div style="margin: 1rem 0; max-width: 500px;">
-  <capsule-stepper current-step="1">
+<div style="margin: 1rem 0; border-radius: 8px; padding: 1.5rem;">
+  <capsule-stepper current-step="1" id="stepper-basic-ru">
     <capsule-stepper-steps>
       <capsule-stepper-step>Аккаунт</capsule-stepper-step>
       <capsule-stepper-step>Профиль</capsule-stepper-step>
@@ -23,16 +23,32 @@ Stepper предоставляет структуру и управление с
     </capsule-stepper-steps>
     <capsule-stepper-panels>
       <capsule-stepper-panel>
-        <h3>Информация об аккаунте</h3>
-        <p>Создайте аккаунт</p>
+        <div style="padding: 1rem 0;">
+          <h3 style="margin: 0 0 0.5rem 0;">Информация об аккаунте</h3>
+          <p style="margin: 0 0 1rem 0; color: #64748b;">Создайте аккаунт</p>
+          <div style="display: flex; gap: 0.5rem; justify-content: flex-end;">
+            <capsule-button onclick="document.getElementById('stepper-basic-ru').next()">Далее</capsule-button>
+          </div>
+        </div>
       </capsule-stepper-panel>
       <capsule-stepper-panel>
-        <h3>Детали профиля</h3>
-        <p>Заполните профиль</p>
+        <div style="padding: 1rem 0;">
+          <h3 style="margin: 0 0 0.5rem 0;">Детали профиля</h3>
+          <p style="margin: 0 0 1rem 0; color: #64748b;">Заполните профиль</p>
+          <div style="display: flex; gap: 0.5rem; justify-content: space-between;">
+            <capsule-button onclick="document.getElementById('stepper-basic-ru').previous()">Назад</capsule-button>
+            <capsule-button onclick="document.getElementById('stepper-basic-ru').next()">Далее</capsule-button>
+          </div>
+        </div>
       </capsule-stepper-panel>
       <capsule-stepper-panel>
-        <h3>Обзор</h3>
-        <p>Проверьте информацию</p>
+        <div style="padding: 1rem 0;">
+          <h3 style="margin: 0 0 0.5rem 0;">Обзор</h3>
+          <p style="margin: 0 0 1rem 0; color: #64748b;">Проверьте информацию</p>
+          <div style="display: flex; gap: 0.5rem; justify-content: flex-start;">
+            <capsule-button onclick="document.getElementById('stepper-basic-ru').previous()">Назад</capsule-button>
+          </div>
+        </div>
       </capsule-stepper-panel>
     </capsule-stepper-panels>
   </capsule-stepper>
@@ -55,7 +71,7 @@ Stepper предоставляет структуру и управление с
 
 ### Навигация
 
-<div style="margin: 1rem 0; max-width: 500px;">
+<div style="margin: 1rem 0; border-radius: 8px; padding: 1.5rem;">
   <capsule-stepper current-step="2" id="stepper-example-ru">
     <capsule-stepper-steps>
       <capsule-stepper-step>Шаг 1</capsule-stepper-step>
@@ -63,18 +79,34 @@ Stepper предоставляет структуру и управление с
       <capsule-stepper-step>Шаг 3</capsule-stepper-step>
     </capsule-stepper-steps>
     <capsule-stepper-panels>
-      <capsule-stepper-panel>Содержимое для шага 1</capsule-stepper-panel>
       <capsule-stepper-panel>
-        <div style="margin-bottom: 1rem;">
-          <capsule-button onclick="document.getElementById('stepper-example-ru').previous()">
-            Назад
-          </capsule-button>
-          <capsule-button onclick="document.getElementById('stepper-example-ru').next()">
-            Далее
-          </capsule-button>
+        <div style="padding: 1rem 0;">
+          <h3 style="margin: 0 0 0.5rem 0;">Первый шаг</h3>
+          <p style="margin: 0 0 1rem 0; color: #64748b;">Содержимое для шага 1</p>
+          <div style="display: flex; gap: 0.5rem; justify-content: flex-end;">
+            <capsule-button onclick="document.getElementById('stepper-example-ru').next()">Далее</capsule-button>
+          </div>
         </div>
       </capsule-stepper-panel>
-      <capsule-stepper-panel>Содержимое для шага 3</capsule-stepper-panel>
+      <capsule-stepper-panel>
+        <div style="padding: 1rem 0;">
+          <h3 style="margin: 0 0 0.5rem 0;">Второй шаг</h3>
+          <p style="margin: 0 0 1rem 0; color: #64748b;">Содержимое для шага 2</p>
+          <div style="display: flex; gap: 0.5rem; justify-content: space-between;">
+            <capsule-button onclick="document.getElementById('stepper-example-ru').previous()">Назад</capsule-button>
+            <capsule-button onclick="document.getElementById('stepper-example-ru').next()">Далее</capsule-button>
+          </div>
+        </div>
+      </capsule-stepper-panel>
+      <capsule-stepper-panel>
+        <div style="padding: 1rem 0;">
+          <h3 style="margin: 0 0 0.5rem 0;">Третий шаг</h3>
+          <p style="margin: 0 0 1rem 0; color: #64748b;">Содержимое для шага 3</p>
+          <div style="display: flex; gap: 0.5rem; justify-content: flex-start;">
+            <capsule-button onclick="document.getElementById('stepper-example-ru').previous()">Назад</capsule-button>
+          </div>
+        </div>
+      </capsule-stepper-panel>
     </capsule-stepper-panels>
   </capsule-stepper>
 </div>
@@ -83,40 +115,68 @@ Stepper предоставляет структуру и управление с
 const stepper = document.querySelector('capsule-stepper');
 
 // Навигация программно
-stepper.next();        // Перейти к следующему шагу
-stepper.previous();    // Перейти к предыдущему шагу
-stepper.setStep(3);    // Перейти к конкретному шагу
-stepper.first();       // Перейти к первому шагу
-stepper.last();        // Перейти к последнему шагу
-stepper.reset();       // Сбросить к первому шагу
+stepper.next(); // Перейти к следующему шагу
+stepper.previous(); // Перейти к предыдущему шагу
+stepper.setStep(3); // Перейти к конкретному шагу
+stepper.first(); // Перейти к первому шагу
+stepper.last(); // Перейти к последнему шагу
+stepper.reset(); // Сбросить к первому шагу
 ```
 
 ### Ориентация
 
-<div style="margin: 1rem 0;">
-  <capsule-stepper current-step="1" orientation="vertical">
+<div style="margin: 1rem 0; border-radius: 8px; padding: 1.5rem;">
+  <capsule-stepper current-step="1" orientation="vertical" id="stepper-vertical-ru">
     <capsule-stepper-steps>
       <capsule-stepper-step>Начало</capsule-stepper-step>
       <capsule-stepper-step>Прогресс</capsule-stepper-step>
       <capsule-stepper-step>Завершение</capsule-stepper-step>
     </capsule-stepper-steps>
-    <capsule-stepper-panels>
-      <capsule-stepper-panel>Вертикальная компоновка шагов</capsule-stepper-panel>
-      <capsule-stepper-panel>Каждый шаг ниже предыдущего</capsule-stepper-panel>
-      <capsule-stepper-panel>Идеально для мобильных интерфейсов</capsule-stepper-panel>
+    <capsule-stepper-panels animation="y">
+      <capsule-stepper-panel>
+        <div style="padding: 1rem 0;">
+          <h3 style="margin: 0 0 0.5rem 0;">Начало</h3>
+          <p style="margin: 0 0 1rem 0; color: #64748b;">Вертикальная компоновка шагов</p>
+          <div style="display: flex; gap: 0.5rem; justify-content: flex-end;">
+            <capsule-button onclick="document.getElementById('stepper-vertical-ru').next()">Далее</capsule-button>
+          </div>
+        </div>
+      </capsule-stepper-panel>
+      <capsule-stepper-panel>
+        <div style="padding: 1rem 0;">
+          <h3 style="margin: 0 0 0.5rem 0;">Прогресс</h3>
+          <p style="margin: 0 0 1rem 0; color: #64748b;">Каждый шаг ниже предыдущего</p>
+          <div style="display: flex; gap: 0.5rem; justify-content: space-between;">
+            <capsule-button onclick="document.getElementById('stepper-vertical-ru').previous()">Назад</capsule-button>
+            <capsule-button onclick="document.getElementById('stepper-vertical-ru').next()">Далее</capsule-button>
+          </div>
+        </div>
+      </capsule-stepper-panel>
+      <capsule-stepper-panel>
+        <div style="padding: 1rem 0;">
+          <h3 style="margin: 0 0 0.5rem 0;">Завершение</h3>
+          <p style="margin: 0 0 1rem 0; color: #64748b;">Идеально для мобильных интерфейсов</p>
+          <div style="display: flex; gap: 0.5rem; justify-content: flex-start;">
+            <capsule-button onclick="document.getElementById('stepper-vertical-ru').previous()">Назад</capsule-button>
+          </div>
+        </div>
+      </capsule-stepper-panel>
     </capsule-stepper-panels>
   </capsule-stepper>
 </div>
 
 ```html
-<capsule-stepper current-step="1" orientation="vertical">
+<capsule-stepper
+  current-step="1"
+  orientation="vertical"
+>
   ...
 </capsule-stepper>
 ```
 
 ### Анимация
 
-<div style="margin: 1rem 0; max-width: 500px;">
+<div style="margin: 1rem 0; border-radius: 8px; padding: 1.5rem;">
   <capsule-stepper current-step="2" id="stepper-anim-ru">
     <capsule-stepper-steps>
       <capsule-stepper-step>1</capsule-stepper-step>
@@ -124,9 +184,34 @@ stepper.reset();       // Сбросить к первому шагу
       <capsule-stepper-step>3</capsule-stepper-step>
     </capsule-stepper-steps>
     <capsule-stepper-panels animation="x">
-      <capsule-stepper-panel>Слайд переход X</capsule-stepper-panel>
-      <capsule-stepper-panel>Горизонтальный эффект слайдинга</capsule-stepper-panel>
-      <capsule-stepper-panel>Панели скользят влево/вправо</capsule-stepper-panel>
+      <capsule-stepper-panel>
+        <div style="padding: 1rem 0;">
+          <h3 style="margin: 0 0 0.5rem 0;">Слайд 1</h3>
+          <p style="margin: 0 0 1rem 0; color: #64748b;">Слайд переход X</p>
+          <div style="display: flex; gap: 0.5rem; justify-content: flex-end;">
+            <capsule-button onclick="document.getElementById('stepper-anim-ru').next()">Далее</capsule-button>
+          </div>
+        </div>
+      </capsule-stepper-panel>
+      <capsule-stepper-panel>
+        <div style="padding: 1rem 0;">
+          <h3 style="margin: 0 0 0.5rem 0;">Слайд 2</h3>
+          <p style="margin: 0 0 1rem 0; color: #64748b;">Горизонтальный эффект слайдинга</p>
+          <div style="display: flex; gap: 0.5rem; justify-content: space-between;">
+            <capsule-button onclick="document.getElementById('stepper-anim-ru').previous()">Назад</capsule-button>
+            <capsule-button onclick="document.getElementById('stepper-anim-ru').next()">Далее</capsule-button>
+          </div>
+        </div>
+      </capsule-stepper-panel>
+      <capsule-stepper-panel>
+        <div style="padding: 1rem 0;">
+          <h3 style="margin: 0 0 0.5rem 0;">Слайд 3</h3>
+          <p style="margin: 0 0 1rem 0; color: #64748b;">Панели скользят влево/вправо</p>
+          <div style="display: flex; gap: 0.5rem; justify-content: flex-start;">
+            <capsule-button onclick="document.getElementById('stepper-anim-ru').previous()">Назад</capsule-button>
+          </div>
+        </div>
+      </capsule-stepper-panel>
     </capsule-stepper-panels>
   </capsule-stepper>
 </div>
@@ -147,93 +232,127 @@ stepper.reset();       // Сбросить к первому шагу
 
 ### `capsule-stepper`
 
-Главный контейнер, который управляет текущим шагом и предоставляет API навигации.
+Главный контейнер, управляющий текущим шагом и предоставляющий API навигации.
+
+| Атрибут        | Тип    | По умолчанию | Описание                                    |
+| -------------- | ------ | ------------ | ------------------------------------------- |
+| `current-step` | number | 1            | Текущий активный шаг (начинается с 1)       |
+| `orientation`  | string | -            | Ориентация шагов (`vertical`, `horizontal`) |
+
+#### Значения `orientation`
+
+- `vertical` — Шаги располагаются вертикально
+- `horizontal` — Шаги располагаются горизонтально (по умолчанию)
 
 ### `capsule-stepper-steps`
 
-Контейнер для индикаторов шагов. Автоматически применяет атрибуты статуса к каждому шагу.
+Контейнер для шагов. Атрибутов нет.
 
 ### `capsule-stepper-step`
 
-Отдельный индикатор шага. Получает атрибут `status` (`active`, `completed`, `inactive`).
+Одиночный индикатор шага.
 
-```html
-<capsule-stepper-step>Название шага</capsule-stepper-step>
-```
+| Атрибут  | Тип    | Описание                                        |
+| -------- | ------ | ----------------------------------------------- |
+| `status` | string | Статус шага (`active`, `completed`, `inactive`) |
+
+#### Значения `status`
+
+- `active` — Текущий активный шаг
+- `completed` — Пройденный шаг
+- `inactive` — Шаг еще не достигнут
 
 ### `capsule-stepper-panels`
 
-Контейнер для содержимого панелей. Управляет видимостью панелей в зависимости от текущего шага.
+Контейнер для панелей.
+
+| Атрибут       | Тип    | По умолчанию | Описание                                      |
+| ------------- | ------ | ------------ | --------------------------------------------- |
+| `animation`   | string | -            | Тип анимации (`x`, `y`, `none`)               |
+| `orientation` | string | -            | Ориентация панелей (`vertical`, `horizontal`) |
+
+#### Значения `animation`
+
+- `x` — Горизонтальная анимация слайда (по умолчанию для horizontal)
+- `y` — Вертикальная анимация слайда (по умолчанию для vertical)
+- `none` — Без анимации
+
+#### Значения `orientation`
+
+- `vertical` — Панели располагаются вертикально
+- `horizontal` — Панели располагаются горизонтально
 
 ### `capsule-stepper-panel`
 
-Отдельная панель контента. Получает атрибут `status` (`active`, `inactive`).
+Одиночная панель шага.
 
-```html
-<capsule-stepper-panel>
-  Ваш контент здесь
-</capsule-stepper-panel>
-```
+| Атрибут  | Тип    | Описание                             |
+| -------- | ------ | ------------------------------------ |
+| `status` | string | Статус панели (`active`, `inactive`) |
+
+#### Значения `status`
+
+- `active` — Панель отображается
+- `inactive` — Панель скрыта
 
 ## Атрибуты
 
-### `capsule-stepper`
+Все атрибуты описаны в разделе Компоненты выше. Дополнительные детали:
 
-| Атрибут        | Тип    | По умолчанию | Описание                                     |
-| -------------- | ------ | ------------ | -------------------------------------------- |
-| `current-step` | number | 1            | Текущий активный шаг (начинается с 1)         |
-| `orientation`  | string | -            | Направление компоновки (vertical)            |
+### Значения атрибута `status`
 
-### `capsule-stepper-steps`
+Для `capsule-stepper-step`:
 
-Атрибутов нет.
-
-### `capsule-stepper-step`
-
-Шаг автоматически получает атрибут `status` со значениями:
 - `active` — Текущий активный шаг
 - `completed` — Завершенный шаг
 - `inactive` — Шаг, к которому еще не перешли
 
-### `capsule-stepper-panels`
+Для `capsule-stepper-panel`:
 
-| Атрибут    | Тип    | По умолчанию | Описание                    |
-| ---------- | ------ | ------------ | --------------------------- |
-| `animation`| string | -            | Тип анимации (x, y)         |
-
-### `capsule-stepper-panel`
-
-Панель автоматически получает атрибут `status` со значениями:
 - `active` — Текущая видимая панель
 - `inactive` — Скрытая панель
+
+### Значения атрибута `animation`
+
+Для `capsule-stepper-panels`:
+
+- `x` — Горизонтальная анимация слайда
+- `y` — Вертикальная анимация слайда
+- `none` — Без анимации
+
+### Значения атрибута `orientation`
+
+Для `capsule-stepper`:
+
+- `vertical` — Вертикальная компоновка
 
 ## API Методы
 
 ### Навигация
 
-| Метод         | Возвращает | Описание                              |
-| ------------- | ---------- | ------------------------------------- |
-| `next()`      | boolean    | Перейти к следующему шагу              |
-| `previous()`  | boolean    | Перейти к предыдущему шагу             |
-| `setStep(n)`  | void       | Перейти к конкретному шагу (начиная с 1)|
-| `first()`     | void       | Перейти к первому шагу                 |
-| `last()`      | void       | Перейти к последнему шагу              |
-| `reset()`     | void       | Сбросить к первому шагу                |
+| Метод        | Возвращает | Описание                                 |
+| ------------ | ---------- | ---------------------------------------- |
+| `next()`     | boolean    | Перейти к следующему шагу                |
+| `previous()` | boolean    | Перейти к предыдущему шагу               |
+| `setStep(n)` | void       | Перейти к конкретному шагу (начиная с 1) |
+| `first()`    | void       | Перейти к первому шагу                   |
+| `last()`     | void       | Перейти к последнему шагу                |
+| `reset()`    | void       | Сбросить к первому шагу                  |
 
 ### Проверка состояния
 
-| Метод           | Возвращает | Описание                         |
-| --------------- | ---------- | -------------------------------- |
-| `canGoNext()`    | boolean    | Можно ли перейти к следующему шагу|
-| `canGoPrevious()`| boolean    | Можно ли перейти к предыдущему шагу|
+| Метод             | Возвращает | Описание                            |
+| ----------------- | ---------- | ----------------------------------- |
+| `canGoNext()`     | boolean    | Можно ли перейти к следующему шагу  |
+| `canGoPrevious()` | boolean    | Можно ли перейти к предыдущему шагу |
 
 ### Свойства
 
-| Свойство     | Возвращает | Описание                              |
-| ------------ | ---------- | ------------------------------------- |
-| `currentStep`| number     | Номер текущего шага (начиная с 1)     |
-| `totalSteps` | number     | Общее количество шагов                |
-| `status`     | object     | Объект статуса с информацией о текущем шаге|
+| Свойство      | Возвращает | Описание                                    |
+| ------------- | ---------- | ------------------------------------------- |
+| `currentStep` | number     | Номер текущего шага (начиная с 1)           |
+| `totalSteps`  | number     | Общее количество шагов                      |
+| `status`      | object     | Объект статуса с информацией о текущем шаге |
 
 ## События
 
@@ -260,15 +379,15 @@ stepper.addEventListener('change', (e) => {
 
 ```css
 /* Ваши пользовательские стили */
-capsule-stepper-step[status="active"] {
+capsule-stepper-step[status='active'] {
   color: blue;
 }
 
-capsule-stepper-step[status="completed"] {
+capsule-stepper-step[status='completed'] {
   color: green;
 }
 
-capsule-stepper-step[status="inactive"] {
+capsule-stepper-step[status='inactive'] {
   color: gray;
 }
 ```
@@ -279,4 +398,3 @@ capsule-stepper-step[status="inactive"] {
 - ✅ Поддержка навигации с клавиатуры
 - ✅ Управление фокусом
 - ✅ Семантическая структура для screen readers
-
