@@ -9,65 +9,18 @@
     <title>Document</title>
     <link
       rel="stylesheet"
-      href="./@capsule/global.css"
+      href="./assets/capsule.css"
     />
     <script
       type="module"
-      src="./@capsule/components/all.js"
-    ></script>
-    <script
-      type="module"
-      src="./assets/main.js"
+      src="./assets/capsule.js"
       defer
     ></script>
   </head>
   <body>
-    <capsule-accordion
-      type="single"
-      collapsible
-    >
-      <capsule-accordion-panel value="item-1">
-        <capsule-accordion-trigger>
-          <capsule-button variant="text">Is it accessible?</capsule-button>
-        </capsule-accordion-trigger>
-        <capsule-accordion-content>
-          Yes. It adheres to the WAI-ARIA design pattern.
-        </capsule-accordion-content>
-      </capsule-accordion-panel>
-    </capsule-accordion>
-
-    <capsule-alert variant="warning">
-      <capsule-alert-title>Alert Title</capsule-alert-title>
-      <capsule-alert-description>
-        This is an alert description to provide more details about the alert.
-      </capsule-alert-description>
-    </capsule-alert>
-
-    <capsule-button variant=""></capsule-button>
-
-    <capsule-autocomplete>
-      <capsule-autocomplete-input>
-        <div>
-          <label>Тест</label>
-          <input type="text" />
-        </div>
-      </capsule-autocomplete-input>
-      <capsule-autocomplete-options>
-        <capsule-autocomplete-option value="Hello world">
-          Hello world
-        </capsule-autocomplete-option>
-        <capsule-autocomplete-option value="Hello world">
-          Hello world
-        </capsule-autocomplete-option>
-        <capsule-autocomplete-option value="Hello world">
-          Hello world
-        </capsule-autocomplete-option>
-        <capsule-autocomplete-option value="Hello world">
-          Hello world
-        </capsule-autocomplete-option>
-      </capsule-autocomplete-options>
-    </capsule-autocomplete>
-
-    <script defer></script>
+    <capsule-calendar
+      type="range"
+      locale="ru-RU"
+    ></capsule-calendar>
   </body>
 </html>

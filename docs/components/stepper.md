@@ -132,7 +132,7 @@ stepper.reset(); // Reset to first step
       <capsule-stepper-step>Progress</capsule-stepper-step>
       <capsule-stepper-step>Complete</capsule-stepper-step>
     </capsule-stepper-steps>
-    <capsule-stepper-panels>
+    <capsule-stepper-panels animation="y">
       <capsule-stepper-panel>
         <div style="padding: 1rem 0;">
           <h3 style="margin: 0 0 0.5rem 0;">Start</h3>

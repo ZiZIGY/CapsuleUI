@@ -32,9 +32,7 @@ class AccordionTrigger extends HTMLElement {
     event.preventDefault();
 
     if (this.hasAttribute('exclude-self')) {
-      if (event.currentTarget === event.target) {
-        return;
-      }
+      if (event.currentTarget === event.target) return;
     }
 
     const panel = this.closest('capsule-accordion-panel');

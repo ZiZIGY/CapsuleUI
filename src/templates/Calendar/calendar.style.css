@@ -1,0 +1,155 @@
+__PREFIX__-__COMPONENT__ {
+  display: block;
+}
+
+__PREFIX__-__COMPONENT__::part(calendar) {
+  width: 100%;
+  background: var(--capsule-color-surface);
+  border: 1px solid var(--capsule-color-outline);
+  border-radius: var(--capsule-radius-lg);
+  padding: var(--capsule-margin-lg);
+  font-family: var(--capsule-font-family);
+  box-sizing: border-box;
+  color: var(--capsule-color-text);
+}
+
+__PREFIX__-__COMPONENT__::part(calendar-header) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--capsule-margin-lg);
+}
+
+__PREFIX__-__COMPONENT__::part(nav-btn) {
+  background: var(--capsule-color-surface-variant);
+  border: 1px solid var(--capsule-color-outline);
+  border-radius: var(--capsule-radius);
+  padding: var(--capsule-padding-sm);
+  cursor: pointer;
+  font-size: var(--capsule-font-size-sm);
+  transition: var(--capsule-transition);
+  color: var(--capsule-color-text);
+  font-weight: var(--capsule-font-weight-medium);
+}
+
+__PREFIX__-__COMPONENT__::part(nav-btn):hover {
+  background: var(--capsule-color-primary);
+  border-color: var(--capsule-color-primary);
+  color: white;
+  box-shadow: var(--capsule-shadow);
+}
+
+__PREFIX__-__COMPONENT__::part(current-month) {
+  font-weight: var(--capsule-font-weight-semibold);
+  color: var(--capsule-color-text);
+  font-size: var(--capsule-font-size-lg);
+}
+
+__PREFIX__-__COMPONENT__::part(weekdays) {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--capsule-margin-xs);
+  margin-bottom: var(--capsule-margin-md);
+  text-align: center;
+  font-size: var(--capsule-font-size-xs);
+  color: var(--capsule-color-text-secondary);
+  font-weight: var(--capsule-font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+__PREFIX__-__COMPONENT__::part(days-grid) {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  gap: var(--capsule-margin-xs);
+}
+
+__PREFIX__-__COMPONENT__::part(day) {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  border-radius: var(--capsule-radius);
+  cursor: pointer;
+  font-size: var(--capsule-font-size-sm);
+  transition: var(--capsule-transition);
+  font-weight: var(--capsule-font-weight-medium);
+  position: relative;
+  padding: 0;
+  color: var(--capsule-color-text);
+}
+
+__PREFIX__-__COMPONENT__::part(day):hover:not(
+    __PREFIX__-__COMPONENT__::part(day disabled)
+  ) {
+  background: var(--capsule-color-surface-variant);
+  transform: translateY(-1px);
+  box-shadow: var(--capsule-shadow-sm);
+}
+
+__PREFIX__-__COMPONENT__::part(day other-month) {
+  color: var(--capsule-color-text-disabled);
+}
+
+__PREFIX__-__COMPONENT__::part(day selected) {
+  background: var(--capsule-color-primary);
+  color: white;
+  box-shadow: var(--capsule-shadow);
+}
+
+__PREFIX__-__COMPONENT__::part(day in-range) {
+  background: color-mix(in srgb, var(--capsule-color-primary) 15%, transparent);
+  border-radius: 0;
+  color: var(--capsule-color-text);
+}
+
+__PREFIX__-__COMPONENT__::part(day range-start),
+__PREFIX__-__COMPONENT__::part(day range-end) {
+  background: var(--capsule-color-primary);
+  color: white;
+  border-radius: var(--capsule-radius);
+}
+
+__PREFIX__-__COMPONENT__::part(day disabled) {
+  color: var(--capsule-color-text-disabled);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+__PREFIX__-__COMPONENT__::part(day disabled):hover {
+  background: transparent;
+  transform: none;
+  box-shadow: none;
+}
+
+__PREFIX__-__COMPONENT__::part(day today) {
+  background: color-mix(in srgb, var(--capsule-color-info) 10%, transparent);
+  color: var(--capsule-color-info);
+  border: 1px solid var(--capsule-color-info);
+  box-sizing: border-box;
+}
+
+__PREFIX__-__COMPONENT__::part(day today selected) {
+  background: var(--capsule-color-primary);
+  color: white;
+  border-color: var(--capsule-color-primary);
+}
+
+/* Focus states for accessibility */
+__PREFIX__-__COMPONENT__::part(nav-btn):focus,
+__PREFIX__-__COMPONENT__::part(day):focus {
+  outline: none;
+  box-shadow: var(--capsule-shadow-focus);
+}
+
+/* Active states */
+__PREFIX__-__COMPONENT__::part(nav-btn):active,
+__PREFIX__-__COMPONENT__::part(day):active:not(
+    __PREFIX__-__COMPONENT__::part(day disabled)
+  ) {
+  transform: translateY(0);
+  transition: var(--capsule-transition-fast);
+}
