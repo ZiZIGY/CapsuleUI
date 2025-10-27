@@ -1,16 +1,16 @@
-__PREFIX__-__COMPONENT__ {
+capsule-accordion {
   display: block;
   width: 100%;
 }
 
-__PREFIX__-__COMPONENT__-panel {
+capsule-accordion-panel {
   display: grid;
   margin-bottom: var(--capsule-margin-sm);
   overflow: hidden;
   transition: var(--capsule-transition-slow);
 }
 
-__PREFIX__-__COMPONENT__-trigger {
+capsule-accordion-trigger {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -24,16 +24,16 @@ __PREFIX__-__COMPONENT__-trigger {
   color: inherit;
 }
 
-__PREFIX__-__COMPONENT__-content {
+capsule-accordion-content {
   overflow: hidden;
 }
 
-__PREFIX__-__COMPONENT__-panel,
-__PREFIX__-__COMPONENT__-panel[open='false'] {
+capsule-accordion-panel,
+capsule-accordion-panel[open='false'] {
   grid-template-rows: min-content 0fr;
 }
 
-__PREFIX__-__COMPONENT__-panel[open='true'],
-__PREFIX__-__COMPONENT__-panel[open] {
+capsule-accordion-panel[open='true'],
+capsule-accordion-panel[open] {
   grid-template-rows: min-content 1fr;
 }

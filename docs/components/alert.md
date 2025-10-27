@@ -22,9 +22,9 @@ npx capsule add Alert
 ```html
 <capsule-alert>
   <capsule-alert-title>Alert Title</capsule-alert-title>
-  <capsule-alert-description
-    >This is an alert description.</capsule-alert-description
-  >
+  <capsule-alert-description>
+    This is an alert description.
+  </capsule-alert-description>
 </capsule-alert>
 ```
 

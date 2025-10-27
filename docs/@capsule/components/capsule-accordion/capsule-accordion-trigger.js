@@ -44,4 +44,4 @@ class AccordionTrigger extends HTMLElement {
   }
 }
 
-customElements.define('__PREFIX__-__COMPONENT__-trigger', AccordionTrigger);
+customElements.define('capsule-accordion-trigger', AccordionTrigger);
