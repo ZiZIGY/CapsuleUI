@@ -18,15 +18,51 @@
     ></script>
   </head>
   <body>
-    <capsule-calendar
-      type="range"
-      locale="ru-RU"
-      onchange="console.log(event)"
-    ></capsule-calendar>
-    <capsule-range-calendar
-      type="range"
-      locale="ru-RU"
-      onchange="console.log(event)"
-    ></capsule-range-calendar>
+    <h1>Independent Calendar Grids Demo (Inline Script)</h1>
+
+    <!-- Управление для Single Calendar -->
+    <div class="calendar-container">
+      <h3>Single Calendar Grid</h3>
+      <div class="controls">
+        <label>
+          Year:
+          <input
+            type="number"
+            id="single-year"
+            value="2025"
+            min="1900"
+            onchange="document.getElementById('single-grid').setDisplayDate(this.value, document.getElementById('single-month').value)"
+          />
+        </label>
+        <label>
+          Month (0-11):
+          <input
+            type="number"
+            id="single-month"
+            value="9"
+            min="0"
+            max="11"
+            onchange="document.getElementById('single-grid').setDisplayDate(document.getElementById('single-year').value, this.value)"
+          />
+        </label>
+        <button
+          onclick="document.getElementById('single-grid').setSelectedDate('2025-10-15')"
+          >Set Date 2025-10-15</button
+        >
+        <button
+          onclick="document.getElementById('single-grid').setSelectedDate('')"
+          >Clear Date</button
+        >
+      </div>
+
+      <capsule-calendar
+        id="single-grid"
+        locale="en-US"
+        value=""
+      ></capsule-calendar>
+      <div class="selected-display"
+        >Selected: <span id="single-selected-display">None</span></div
+      >
+    </div>
   </body>
 </html>

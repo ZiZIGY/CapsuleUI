@@ -1,8 +1,5 @@
 __PREFIX__-__COMPONENT__ {
   display: block;
-}
-
-__PREFIX__-__COMPONENT__::part(calendar) {
   width: 100%;
   background: var(--capsule-color-surface);
   border: 1px solid var(--capsule-color-outline);
@@ -18,25 +15,6 @@ __PREFIX__-__COMPONENT__::part(calendar-header) {
   justify-content: space-between;
   align-items: center;
   margin-bottom: var(--capsule-margin-lg);
-}
-
-__PREFIX__-__COMPONENT__::part(nav-btn) {
-  background: var(--capsule-color-surface-variant);
-  border: 1px solid var(--capsule-color-outline);
-  border-radius: var(--capsule-radius);
-  padding: var(--capsule-padding-sm);
-  cursor: pointer;
-  font-size: var(--capsule-font-size-sm);
-  transition: var(--capsule-transition);
-  color: var(--capsule-color-text);
-  font-weight: var(--capsule-font-weight-medium);
-}
-
-__PREFIX__-__COMPONENT__::part(nav-btn):hover {
-  background: var(--capsule-color-primary);
-  border-color: var(--capsule-color-primary);
-  color: white;
-  box-shadow: var(--capsule-shadow);
 }
 
 __PREFIX__-__COMPONENT__::part(current-month) {
@@ -136,20 +114,4 @@ __PREFIX__-__COMPONENT__::part(day today selected) {
   background: var(--capsule-color-primary);
   color: white;
   border-color: var(--capsule-color-primary);
-}
-
-/* Focus states for accessibility */
-__PREFIX__-__COMPONENT__::part(nav-btn):focus,
-__PREFIX__-__COMPONENT__::part(day):focus {
-  outline: none;
-  box-shadow: var(--capsule-shadow-focus);
-}
-
-/* Active states */
-__PREFIX__-__COMPONENT__::part(nav-btn):active,
-__PREFIX__-__COMPONENT__::part(day):active:not(
-    __PREFIX__-__COMPONENT__::part(day disabled)
-  ) {
-  transform: translateY(0);
-  transition: var(--capsule-transition-fast);
 }

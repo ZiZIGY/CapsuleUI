@@ -1,18 +1,27 @@
-class Calendar extends HTMLElement {
+class SingleCalendar extends HTMLElement {
   static get observedAttributes() {
-    return ['value', 'min-date', 'max-date', 'disabled-dates', 'locale'];
+    return [
+      'value',
+      'display-year',
+      'display-month',
+      'min-date',
+      'max-date',
+      'disabled-dates',
+      'locale',
+    ];
   }
 
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
-    this.currentDate = new Date();
+
     this.selectedValue = '';
+    this.displayYear = new Date().getFullYear();
+    this.displayMonth = new Date().getMonth();
     this.minDate = null;
     this.maxDate = null;
     this.disabledDates = new Set();
     this.locale = 'en-US';
-    this.monthYearFormatter = null;
     this.weekdayFormatter = null;
   }
 
@@ -37,6 +46,22 @@ class Calendar extends HTMLElement {
 
   parseAttributes() {
     this.selectedValue = this.getAttribute('value') || '';
+
+    const yearStr = this.getAttribute('display-year');
+    const monthStr = this.getAttribute('display-month');
+    if (yearStr && monthStr) {
+      const year = parseInt(yearStr, 10);
+      const month = parseInt(monthStr, 10);
+      if (!isNaN(year) && !isNaN(month) && month >= 0 && month <= 11) {
+        this.displayYear = year;
+        this.displayMonth = month;
+      }
+    } else {
+      const now = new Date();
+      this.displayYear = now.getFullYear();
+      this.displayMonth = now.getMonth();
+    }
+
     const minDateStr = this.getAttribute('min-date');
     this.minDate = minDateStr ? new Date(minDateStr) : null;
     const maxDateStr = this.getAttribute('max-date');
@@ -56,23 +81,12 @@ class Calendar extends HTMLElement {
   }
 
   updateFormatters() {
-    this.monthYearFormatter = new Intl.DateTimeFormat(this.locale, {
-      month: 'long',
-      year: 'numeric',
-    });
     this.weekdayFormatter = new Intl.DateTimeFormat(this.locale, {
       weekday: 'short',
     });
   }
 
   updateUI() {
-    const monthElement = this.shadowRoot.querySelector(
-      '[part="current-month"]'
-    );
-    if (monthElement) {
-      monthElement.textContent = this.getMonthYearString();
-    }
-
     const weekdaysElement = this.shadowRoot.querySelector('[part="weekdays"]');
     if (weekdaysElement) {
       weekdaysElement.innerHTML = this.renderWeekdays();
@@ -88,39 +102,14 @@ class Calendar extends HTMLElement {
 
   render() {
     this.shadowRoot.innerHTML = `
-      <div part="calendar">
-        <div part="calendar-header">
-          <div part="current-month">${this.getMonthYearString()}</div>
-          <div part="calendar-nav">
-            <button part="nav-btn prev-month">←</button>
-            <button part="nav-btn next-month">→</button>
-          </div>
-        </div>
-
         <div part="weekdays">${this.renderWeekdays()}</div>
         <div part="days-grid">${this.renderDays()}</div>
-      </div>
     `;
 
-    this.setupEventListeners();
+    this.setupDayEventListeners();
   }
 
   setupEventListeners() {
-    const prevBtn = this.shadowRoot.querySelector('[part="prev-month"]');
-    const nextBtn = this.shadowRoot.querySelector('[part="next-month"]');
-
-    if (prevBtn) {
-      prevBtn.addEventListener('click', () => {
-        this.navigateMonth(-1);
-      });
-    }
-
-    if (nextBtn) {
-      nextBtn.addEventListener('click', () => {
-        this.navigateMonth(1);
-      });
-    }
-
     this.setupDayEventListeners();
   }
 
@@ -151,20 +140,22 @@ class Calendar extends HTMLElement {
 
     let oldValue = this.selectedValue;
 
+    let newValue;
     if (this.selectedValue === dateString) {
-      this.selectedValue = '';
-      this.setAttribute('value', '');
+      newValue = '';
     } else {
-      this.selectedValue = dateString;
-      this.setAttribute('value', dateString);
+      newValue = dateString;
     }
 
-    if (oldValue !== this.selectedValue) {
+    this.selectedValue = newValue;
+    this.setAttribute('value', newValue);
+
+    if (oldValue !== newValue) {
       this.dispatchEvent(
         new CustomEvent('input', {
           bubbles: true,
           detail: {
-            value: this.selectedValue,
+            value: newValue,
             type: 'single',
           },
         })
@@ -173,19 +164,13 @@ class Calendar extends HTMLElement {
         new CustomEvent('change', {
           bubbles: true,
           detail: {
-            value: this.selectedValue,
+            value: newValue,
             oldValue: oldValue,
             type: 'single',
           },
         })
       );
     }
-  }
-
-  getMonthYearString() {
-    return this.monthYearFormatter.format(
-      new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 1)
-    );
   }
 
   renderWeekdays() {
@@ -202,8 +187,8 @@ class Calendar extends HTMLElement {
   }
 
   renderDays() {
-    const year = this.currentDate.getFullYear();
-    const month = this.currentDate.getMonth();
+    const year = this.displayYear;
+    const month = this.displayMonth;
 
     const firstDay = new Date(year, month, 1);
     const lastDay = new Date(year, month + 1, 0);
@@ -303,10 +288,34 @@ class Calendar extends HTMLElement {
     );
   }
 
-  navigateMonth(direction) {
-    this.currentDate.setMonth(this.currentDate.getMonth() + direction);
-    this.updateUI();
+  setDisplayDate(year, month) {
+    if (
+      typeof Number(year) === 'number' &&
+      typeof Number(month) === 'number' &&
+      month >= 0 &&
+      month <= 11
+    ) {
+      this.setAttribute('display-year', year.toString());
+      this.setAttribute('display-month', month.toString());
+    }
+  }
+
+  getDisplayDate() {
+    return { year: this.displayYear, month: this.displayMonth };
+  }
+
+  setSelectedDate(dateString) {
+    if (dateString) {
+      const date = new Date(dateString);
+      if (!isNaN(date.getTime()) && !this.isDateDisabled(date)) {
+        this.setAttribute('value', dateString);
+      }
+    }
+  }
+
+  getSelectedDate() {
+    return this.selectedValue || null;
   }
 }
 
-customElements.define('__PREFIX__-__COMPONENT__', Calendar);
+customElements.define('__PREFIX__-__COMPONENT__', SingleCalendar);

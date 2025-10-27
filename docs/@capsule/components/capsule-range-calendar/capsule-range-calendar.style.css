@@ -1,5 +1,5 @@
 capsule-range-calendar {
-  display: block;
+  display: inline-flex;
 }
 
 capsule-range-calendar::part(calendar) {
