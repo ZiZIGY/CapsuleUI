@@ -104,9 +104,8 @@ __PREFIX__-__COMPONENT__::part(day disabled):hover {
 }
 
 __PREFIX__-__COMPONENT__::part(day today) {
-  background: color-mix(in srgb, var(--capsule-color-info) 10%, transparent);
-  color: var(--capsule-color-info);
-  border: 1px solid var(--capsule-color-info);
+  color: var(--capsule-color-primary);
+  border: 1px solid var(--capsule-color-primary);
   box-sizing: border-box;
 }
 
