@@ -163,7 +163,7 @@ __PREFIX__-__COMPONENT__[variant='error']:active:not([disabled]) {
 /* Warning Variant */
 __PREFIX__-__COMPONENT__[variant='warning'] {
   background: var(--capsule-color-warning);
-  color: white;
+  color: var(--capsule-color-text);
 }
 
 __PREFIX__-__COMPONENT__[variant='warning']:hover:not([disabled]) {

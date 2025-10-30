@@ -36,7 +36,7 @@ export function importJsFiles(
     }
 
     // Импортируем только register.js
-    const importJsPath = `./${prefix}-${kebabComponent}/${registerFile}`;
+    const importJsPath = `./components/${prefix}-${kebabComponent}/${registerFile}`;
     const alreadyHasImport = new RegExp(
       String.raw`^\s*import\s+['\"]${importJsPath.replace(
         /[-\/\\.^$*+?()|\[\]{}]/g,

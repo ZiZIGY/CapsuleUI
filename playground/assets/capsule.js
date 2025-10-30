@@ -1,1 +1,1 @@
-import '../../docs/@capsule/components/all.js';
+import '../../docs/@capsule/index.js';

@@ -52,7 +52,6 @@ export const add = {
     component: string,
     options: {
       prefix?: string;
-      minify?: boolean;
     }
   ) => {
     const spinner = createSpinner(
@@ -137,8 +136,6 @@ export const add = {
       processJsFiles(
         destComponentDir,
         jsFiles,
-        options.minify || false,
-        minifyJs
       );
 
       // Обработка CSS: автоимпорт в global.css
@@ -163,9 +160,7 @@ export const add = {
           component
         )} successfully installed in ${colors.blue(
           path.join('@capsule', 'components', `${prefix}-${kebabComponent}`)
-        )} with prefix ${colors.cyan(prefix)}${
-          options.minify ? ' (minified)' : ''
-        }`
+        )} with prefix ${colors.cyan(prefix)}`
       );
     } catch (error) {
       spinner.fail(`Installation error: ${(error as Error).message}`);

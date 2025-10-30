@@ -12,29 +12,15 @@ import path from 'path';
 export function processJsFiles(
   destComponentDir: string,
   jsFiles: string[],
-  minify: boolean,
-  minifyFn: (code: string) => string
 ): void {
   for (const jf of jsFiles) {
     const jsPath = path.join(destComponentDir, jf);
     let jsCode = fs.readFileSync(jsPath, 'utf8');
 
-    // Для register.js - только минификация, без удаления import/export
+    // Для register.js - просто копируем исходник
     if (jf === 'register.js') {
-      if (minify) {
-        jsCode = minifyFn(jsCode);
-      }
       fs.writeFileSync(jsPath, jsCode, 'utf8');
       continue;
-    }
-
-    // Обычная обработка для остальных JS файлов
-    // Удалить import/export для native build
-    jsCode = jsCode.replace(/import[^;]+;?/g, '').replace(/export\s+/g, '');
-
-    // Минификация если указано
-    if (minify) {
-      jsCode = minifyFn(jsCode);
     }
 
     fs.writeFileSync(jsPath, jsCode, 'utf8');
