@@ -63,7 +63,7 @@ All components are added to your project's `@capsule/components` directory and a
 
 ## Including Styles and Scripts
 
-If you use CapsuleUI in a plain HTML page, add global styles and the main JS file directly to your index.html <head>:
+If you use CapsuleUI in a plain HTML page, add global styles and the main JS file directly to your index.html:
 
 ```html
 <link

@@ -7,9 +7,10 @@ hero:
   text: 'Copy. Paste. Rule.'
   image:
     src: https://raw.githubusercontent.com/ZiZiGY/CapsuleUI/master/public/capsule.gif
-    alt: VitePress
+    alt: Capsule
   tagline: |
-    shadcn/ui for web components. VSCode & IDEs instantly autocomplete CapsuleUI tags and attributes.
+    Web components you truly control.
+    Full source access, complete customization freedom.
   actions:
     - theme: brand
       text: Getting Started
@@ -19,16 +20,31 @@ hero:
       link: /components/
 
 features:
-  - title: '🧩 VSCode Autocomplete'
-    details: CapsuleUI ships `vscode.data.json` so all tags & attributes appear in IDEs.
-  - title: '🔓 Copy, don’t install'
-    details: No dependencies, no runtime. You get the source code.
-  - title: '⚡ Fully customizable'
-    details: Change and style everything however you want.
-  - title: '🔬 Web Components'
-    details: Native standard, works in every frontend stack.
-  - title: '🎨 Tailwind compatible'
-    details: Use Tailwind, CSS, or any styling method.
-  - title: '🚀 CLI powered'
-    details: Scaffold & add components with one command.
+  - icon: 🧩
+    title: 'VSCode Autocomplete'
+    details: VSCode instantly suggests components and attributes with built-in HTML Data.
+  - icon: ⚡
+    title: 'No Build Steps'
+    details: Works directly in browser. Bundle only if you want to optimize.
+  - icon: 🎨
+    title: 'CSS Themes Included'
+    details: Light/dark themes via CSS color-scheme. Customize colors with CSS variables.
+  - icon: 🔧
+    title: 'Full Customization'
+    details: Change CSS, logic, behavior - any component can be completely rewritten.
+  - icon: 📦
+    title: 'Lit + Web Components'
+    details: Lit power in native standards. Work in any framework.
+  - icon: 🚫
+    title: 'No Dependencies'
+    details: No npm, no node_modules. Each component is self-contained.
+  - icon: ♿
+    title: 'Accessibility Built-in'
+    details: ARIA, keyboard navigation, and screen readers support out-of-the-box.
+  - icon: 🎯
+    title: 'Production Ready'
+    details: Responsive, performant, cross-browser - everything considered.
+  - icon: 🚀
+    title: 'Development CLI'
+    details: Add and update components with a single command.
 ---
