@@ -6,8 +6,8 @@ hero:
   name: 'CapsuleUI'
   text: 'Copy. Paste. Rule.'
   image:
-    src: https://raw.githubusercontent.com/ZiZiGY/CapsuleUI/master/public/capsulelogo.mp4
-    alt: CapsuleUI Gif
+    src: https://raw.githubusercontent.com/ZiZiGY/CapsuleUI/master/public/capsule.gif
+    alt: VitePress
   tagline: |
     shadcn/ui for web components. VSCode & IDEs instantly autocomplete CapsuleUI tags and attributes.
   actions:

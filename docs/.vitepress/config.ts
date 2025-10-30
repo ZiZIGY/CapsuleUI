@@ -135,10 +135,12 @@ export default defineConfig({
       provider: 'local',
     },
 
-    socialLinks: [{ icon: 'github', link: 'https://github.com/capsule-ui' }],
+    socialLinks: [
+      { icon: 'github', link: 'https://github.com/ZiZIGY/CapsuleUI' },
+    ],
 
     editLink: {
-      pattern: 'https://github.com/capsule-ui/capsule-ui/edit/main/docs/:path',
+      pattern: 'https://github.com/ZiZIGY/CapsuleUI/edit/main/docs/:path',
       text: 'Edit this page on GitHub',
     },
 
