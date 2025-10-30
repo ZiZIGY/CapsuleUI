@@ -11,7 +11,7 @@ export default defineConfig({
       'link',
       {
         rel: 'icon',
-        href: '/favicon/favicon-32x32.png',
+        href: 'https://raw.githubusercontent.com/ZiZiGY/CapsuleUI/master/public/favicon/favicon-32x32.png',
         type: 'image/png',
         sizes: '32x32',
       },
@@ -20,7 +20,7 @@ export default defineConfig({
       'link',
       {
         rel: 'icon',
-        href: '/favicon/favicon-16x16.png',
+        href: 'https://raw.githubusercontent.com/ZiZiGY/CapsuleUI/master/public/favicon/favicon-16x16.png',
         type: 'image/png',
         sizes: '16x16',
       },
@@ -29,11 +29,17 @@ export default defineConfig({
       'link',
       {
         rel: 'apple-touch-icon',
-        href: '/favicon/apple-touch-icon.png',
+        href: 'https://raw.githubusercontent.com/ZiZiGY/CapsuleUI/master/public/favicon/apple-touch-icon.png',
         sizes: '180x180',
       },
     ],
-    ['link', { rel: 'manifest', href: '/favicon/site.webmanifest' }],
+    [
+      'link',
+      {
+        rel: 'manifest',
+        href: 'https://raw.githubusercontent.com/ZiZiGY/CapsuleUI/master/public/favicon/site.webmanifest',
+      },
+    ],
   ],
 
   locales: {

@@ -49,7 +49,11 @@ You can use `value` and `max` attributes on capsule-badge to show numbers. If va
 <!-- Just value -->
 <capsule-badge value="10">10</capsule-badge>
 <!-- If value > max, shows max+ -->
-<capsule-badge value="150" max="99">99+</capsule-badge>
+<capsule-badge
+  value="150"
+  max="99"
+  >99+</capsule-badge
+>
 <!-- 99+ -->
 ```
 
@@ -67,22 +71,40 @@ You can use `value` and `max` attributes on capsule-badge to show numbers. If va
 <capsule-badge size="lg">lg</capsule-badge>
 ```
 
+### Color
+
+<div style="margin: 1rem 0; display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;">
+  <capsule-badge color="primary">primary</capsule-badge>
+  <capsule-badge color="success">success</capsule-badge>
+  <capsule-badge color="danger">danger</capsule-badge>
+  <capsule-badge color="warning">warning</capsule-badge>
+</div>
+
+```html
+<capsule-badge color="primary">primary</capsule-badge>
+<capsule-badge color="success">success</capsule-badge>
+<capsule-badge color="danger">danger</capsule-badge>
+<capsule-badge color="warning">warning</capsule-badge>
+```
+
 ## Attributes
 
-| Attribute | Type    | Default | Description                                    |
-|-----------|---------|---------|------------------------------------------------|
-| `variant` | string  | -       | Badge style variant                            |
-| `size`    | string  | -       | Badge size                                     |
-| `value`   | string/number | `0`   | Value shown in the badge                      |
-| `max`     | string/number | -     | If set, caps the value; shows max+ if exceeded |
-| `type`    | string  | -       | Type attribute for buttons                     |
+| Attribute | Type          | Default | Description                                                       |
+| --------- | ------------- | ------- | ----------------------------------------------------------------- |
+| `variant` | string        | -       | Badge style variant                                               |
+| `size`    | string        | -       | Badge size                                                        |
+| `value`   | string/number | `0`     | Value shown in the badge                                          |
+| `max`     | string/number | -       | If set, caps the value; shows max+ if exceeded                    |
+| `type`    | string        | -       | Type attribute for buttons                                        |
+| `color`   | string        | -       | Badge color (e.g. 'primary', 'success', 'danger', HEX, RGB, etc.) |
 
 ### Variant Values
+
 - `outline` - Outlined badge
 - `ghost` - Ghost badge
 - `dot` - Small dot (can contain text or icon)
 
 ## Accessibility
+
 - ✅ Keyboard interaction support
 - ✅ ARIA attributes for screen readers
-

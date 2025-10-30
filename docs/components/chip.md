@@ -44,23 +44,42 @@ npx capsule add Chip
 <capsule-chip size="lg">Large</capsule-chip>
 ```
 
+### Color
+
+<div style="margin: 1rem 0; display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;">
+  <capsule-chip color="primary">primary</capsule-chip>
+  <capsule-chip color="success">success</capsule-chip>
+  <capsule-chip color="danger">danger</capsule-chip>
+  <capsule-chip color="warning">warning</capsule-chip>
+</div>
+
+```html
+<capsule-chip color="primary">primary</capsule-chip>
+<capsule-chip color="success">success</capsule-chip>
+<capsule-chip color="danger">danger</capsule-chip>
+<capsule-chip color="warning">warning</capsule-chip>
+```
+
 ## Attributes
 
-| Attribute | Type    | Default | Description        |
-| --------- | ------- | ------- | ------------------|
-| `variant` | string  | -       | Chip style variant |
-| `size`    | string  | -       | Chip size         |
-| `type`    | string  | -       | Type attribute    |
+| Attribute | Type   | Default | Description                                                      |
+| --------- | ------ | ------- | ---------------------------------------------------------------- |
+| `variant` | string | -       | Chip style variant                                               |
+| `size`    | string | -       | Chip size                                                        |
+| `type`    | string | -       | Type attribute                                                   |
+| `color`   | string | -       | Chip color (e.g. 'primary', 'success', 'danger', HEX, RGB, etc.) |
 
 ### Variant Values
+
 - `outline` - Outlined chip with border
 - `ghost` - Ghost chip without background
 
 ### Size Values
+
 - `sm` - Small
 - `lg` - Large
 
 ## Accessibility
+
 - ✅ Keyboard interaction support
 - ✅ ARIA attributes for screen readers
-

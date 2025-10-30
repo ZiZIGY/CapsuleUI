@@ -5,13 +5,25 @@
       "name": "__PREFIX__-__COMPONENT__",
       "attributes": [
         {
-          "name": "size",
+          "name": "color",
           "values": [
             {
-              "name": "sm"
+              "name": "primary"
             },
             {
-              "name": "lg"
+              "name": "secondary"
+            },
+            {
+              "name": "error"
+            },
+            {
+              "name": "warning"
+            },
+            {
+              "name": "success"
+            },
+            {
+              "name": "info"
             }
           ]
         },
@@ -30,22 +42,31 @@
           ]
         },
         {
-          "name": "disabled",
-          "description": "Disables component",
+          "name": "position",
+          "values": [
+            {
+              "name": "top-left"
+            },
+            {
+              "name": "bottom-right"
+            },
+            {
+              "name": "bottom-left"
+            }
+          ]
+        },
+        {
+          "name": "invisible",
           "valueSet": "v"
         },
         {
-          "name": "type",
-          "description": "Type attribute",
+          "name": "size",
           "values": [
             {
-              "name": "button"
+              "name": "sm"
             },
             {
-              "name": "submit"
-            },
-            {
-              "name": "reset"
+              "name": "lg"
             }
           ]
         }
