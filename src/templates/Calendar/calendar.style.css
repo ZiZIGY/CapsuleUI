@@ -1,5 +1,6 @@
 __PREFIX__-__COMPONENT__ {
-  display: block;
+  display: inline-flex;
+  flex-direction: column;
   width: 100%;
   background: var(--capsule-color-surface);
   border: 1px solid var(--capsule-color-outline);
