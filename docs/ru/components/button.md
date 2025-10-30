@@ -66,6 +66,7 @@ npx capsule add Button
 
 <div class="component-demo">
   <capsule-button rounded="none">None</capsule-button>
+  <capsule-button rounded="xs">Extra Small</capsule-button>
   <capsule-button rounded="sm">Small</capsule-button>
   <capsule-button rounded="md">Medium</capsule-button>
   <capsule-button rounded="lg">Large</capsule-button>
@@ -75,6 +76,7 @@ npx capsule add Button
 
 ```html
 <capsule-button rounded="none">None</capsule-button>
+<capsule-button rounded="xs">Extra Small</capsule-button>
 <capsule-button rounded="sm">Small</capsule-button>
 <capsule-button rounded="md">Medium</capsule-button>
 <capsule-button rounded="lg">Large</capsule-button>
@@ -98,17 +100,18 @@ npx capsule add Button
 
 ### Атрибуты
 
-| Атрибут  | Тип     | По умолчанию | Описание                      |
-|----------|---------|--------------|-------------------------------|
-| `variant`| string  | `primary`    | Стиль кнопки                  |
-| `size`   | string  | `md`         | Размер кнопки                 |
-| `disabled`| boolean| `false`      | Отключенное состояние         |
-| `type`   | string  | `button`     | Тип кнопки (button/submit/reset) |
-| `rounded`| string  | `md`         | Степень скругления углов      |
+| Атрибут    | Тип     | По умолчанию | Описание                         |
+| ---------- | ------- | ------------ | -------------------------------- |
+| `variant`  | string  | `primary`    | Стиль кнопки                     |
+| `size`     | string  | `md`         | Размер кнопки                    |
+| `disabled` | boolean | `false`      | Отключенное состояние            |
+| `type`     | string  | `button`     | Тип кнопки (button/submit/reset) |
+| `rounded`  | string  | `md`         | Степень скругления углов         |
 
 ### Доступные значения
 
 - **variant**:
+
   - `primary` — Основное действие
   - `secondary` — Второстепенное действие
   - `outline` — Контурная кнопка
@@ -119,6 +122,7 @@ npx capsule add Button
   - `info` — Информационное действие
 
 - **size**:
+
   - `xs` — Очень маленький
   - `sm` — Маленький
   - `md` — Средний
@@ -126,11 +130,12 @@ npx capsule add Button
 
 - **rounded**:
   - `none` — Без скруглений
-  - `sm` — Маленькое (4px)
-  - `md` — Среднее (8px)
-  - `lg` — Большое (12px)
-  - `xl` — Очень большое (16px)
-  - `full` — Полное (9999px)
+  - `xs` - Очень маленькое
+  - `sm` — Маленькое
+  - `md` — Среднее
+  - `lg` — Большое
+  - `xl` — Очень большое
+  - `full` — Полное
 
 ## События
 
@@ -145,7 +150,11 @@ button.addEventListener('click', (event) => {
 
 ```html
 <form id="myForm">
-  <input type="text" name="username" required>
+  <input
+    type="text"
+    name="username"
+    required
+  />
   <capsule-button type="submit">Отправить</capsule-button>
   <capsule-button type="reset">Сбросить</capsule-button>
 </form>

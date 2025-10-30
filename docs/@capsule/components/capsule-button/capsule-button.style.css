@@ -19,6 +19,10 @@ capsule-button[rounded='none'] {
   border-radius: 0;
 }
 
+capsule-button[rounded='xs'] {
+  border-radius: var(--capsule-radius-xs);
+}
+
 capsule-button[rounded='sm'] {
   border-radius: var(--capsule-radius-sm);
 }

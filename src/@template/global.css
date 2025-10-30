@@ -34,23 +34,24 @@
   --capsule-shadow-focus: 0 0 0 3px
     color-mix(in srgb, var(--capsule-color-primary) 20%, transparent);
 
-  --capsule-radius-sm: 0.25rem;
-  --capsule-radius: 0.375rem;
-  --capsule-radius-md: 0.5rem;
-  --capsule-radius-lg: 0.75rem;
-  --capsule-radius-xl: 1rem;
-  --capsule-radius-full: 9999px;
-
+  --capsule-radius-xs: 0.125rem;
+  --capsule-radius-sm: 0.25rem;   
+  --capsule-radius: 0.375rem;     
+  --capsule-radius-md: 0.5rem;    
+  --capsule-radius-lg: 0.75rem;   
+  --capsule-radius-xl: 1rem;      
+  --capsule-radius-full: 9999px;  
+  
   --capsule-padding-xs: 0.375rem 0.75rem;
-  --capsule-padding-sm: 0.5rem 1rem;
+  --capsule-padding-sm: 0.5rem 1rem;     
   --capsule-padding-md: 0.625rem 1.25rem;
-  --capsule-padding-lg: 0.75rem 1.5rem;
-
-  --capsule-margin-xs: 0.25rem;
-  --capsule-margin-sm: 0.5rem;
-  --capsule-margin-md: 1rem;
-  --capsule-margin-lg: 1.5rem;
-  --capsule-margin-xl: 2rem;
+  --capsule-padding-lg: 0.75rem 1.5rem;  
+  
+  --capsule-margin-xs: 0.25rem;   
+  --capsule-margin-sm: 0.5rem;    
+  --capsule-margin-md: 1rem;      
+  --capsule-margin-lg: 1.5rem;    
+  --capsule-margin-xl: 2rem;      
 
   --capsule-transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   --capsule-transition-slow: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);

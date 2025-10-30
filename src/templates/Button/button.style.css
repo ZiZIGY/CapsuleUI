@@ -19,6 +19,10 @@ __PREFIX__-__COMPONENT__[rounded='none'] {
   border-radius: 0;
 }
 
+__PREFIX__-__COMPONENT__[rounded='xs'] {
+  border-radius: var(--capsule-radius-xs);
+}
+
 __PREFIX__-__COMPONENT__[rounded='sm'] {
   border-radius: var(--capsule-radius-sm);
 }

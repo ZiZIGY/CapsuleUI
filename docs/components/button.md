@@ -66,6 +66,7 @@ npx capsule add Button
 
 <div class="component-demo">
   <capsule-button rounded="none">None</capsule-button>
+  <capsule-button rounded="xs">Extra Small</capsule-button>
   <capsule-button rounded="sm">Small</capsule-button>
   <capsule-button rounded="md">Medium</capsule-button>
   <capsule-button rounded="lg">Large</capsule-button>
@@ -75,6 +76,7 @@ npx capsule add Button
 
 ```html
 <capsule-button rounded="none">None</capsule-button>
+<capsule-button rounded="xs">Extra Small</capsule-button>
 <capsule-button rounded="sm">Small</capsule-button>
 <capsule-button rounded="md">Medium</capsule-button>
 <capsule-button rounded="lg">Large</capsule-button>
@@ -98,17 +100,18 @@ npx capsule add Button
 
 ### Attributes
 
-| Attribute  | Type    | Default   | Description                               |
-|------------|---------|-----------|-------------------------------------------|
-| `variant`  | string  | `primary` | Button style                              |
-| `size`     | string  | `md`      | Button size                               |
-| `disabled` | boolean | `false`   | Disabled state                            |
-| `type`     | string  | `button`  | Button type (`button`/`submit`/`reset`)   |
-| `rounded`  | string  | `md`      | Border radius degree                      |
+| Attribute  | Type    | Default   | Description                             |
+| ---------- | ------- | --------- | --------------------------------------- |
+| `variant`  | string  | `primary` | Button style                            |
+| `size`     | string  | `md`      | Button size                             |
+| `disabled` | boolean | `false`   | Disabled state                          |
+| `type`     | string  | `button`  | Button type (`button`/`submit`/`reset`) |
+| `rounded`  | string  | `md`      | Border radius degree                    |
 
 ### Allowed Values
 
 - **variant:**
+
   - `primary` — Primary action
   - `secondary` — Secondary action
   - `outline` — Outlined button
@@ -119,6 +122,7 @@ npx capsule add Button
   - `info` — Informational action
 
 - **size:**
+
   - `xs` — Extra small
   - `sm` — Small
   - `md` — Medium
@@ -126,11 +130,12 @@ npx capsule add Button
 
 - **rounded:**
   - `none` — No rounding
-  - `sm` — Small (4px)
-  - `md` — Medium (8px)
-  - `lg` — Large (12px)
-  - `xl` — Extra large (16px)
-  - `full` — Full (9999px)
+  - `xs` - Extra Small
+  - `sm` — Small
+  - `md` — Medium
+  - `lg` — Large
+  - `xl` — Extra large
+  - `full` — Full
 
 ## Events
 
@@ -145,7 +150,11 @@ button.addEventListener('click', (event) => {
 
 ```html
 <form id="myForm">
-  <input type="text" name="username" required>
+  <input
+    type="text"
+    name="username"
+    required
+  />
   <capsule-button type="submit">Submit</capsule-button>
   <capsule-button type="reset">Reset</capsule-button>
 </form>
