@@ -28,7 +28,7 @@ capsule add Slider --prefix ui
 This will also:
 
 - Inject component CSS into `@capsule/global.css`
-- Inject component JS into `@capsule/components/init.js`
+- Inject component JS into `@capsule/index.js`
 
 3. Run the playground (Vite):
 
@@ -42,7 +42,7 @@ yarn play
 
 - Entry HTML: `playground/index.html`
 - Global styles: `playground/@capsule/global.css`
-- Components entry: `playground/@capsule/components/init.js`
+- Components entry: `playground/@capsule/index.js`
 
 Open the dev server and experiment with components right away.
 

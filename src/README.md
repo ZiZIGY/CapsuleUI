@@ -117,7 +117,7 @@ During component installation, files are processed in this order:
 3. **Rename files** with placeholders in names
 4. **Process JS files** (minify, handle register.js specially)
 5. **Auto-import CSS** to global.css
-6. **Auto-import JS** via register.js to all.js
+6. **Auto-import JS** via register.js to index.js
 7. **Update VS Code** settings for IntelliSense
 
 ### Register.js Special Handling

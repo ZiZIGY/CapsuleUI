@@ -55,13 +55,33 @@ For a complete list of all available CLI commands, options, and examples, see th
 When you run `npx capsule add <component>`, the CLI:
 
 1. Copies the component files from the templates directory
-2. Replaces placeholders like `__PREFIX__` and `__COMPONENT__` with your custom values
-3. Renames files accordingly (e.g., `__PREFIX__-__COMPONENT__.js` → `capsule-button.js`)
-4. Imports CSS files into your global styles
-5. Imports JavaScript files into the components index
-6. Updates VS Code settings if needed
+2. Imports CSS files into your global styles
+3. Imports JavaScript files into the components index
+4. Updates VS Code settings if needed
 
 All components are added to your project's `@capsule/components` directory and are fully customizable.
+
+## Including Styles and Scripts
+
+If you use CapsuleUI in a plain HTML page, add global styles and the main JS file directly to your index.html <head>:
+
+```html
+<link
+  rel="stylesheet"
+  href="@capsule/global.css"
+/>
+<script
+  type="module"
+  src="@capsule/index.js"
+></script>
+```
+
+If you use a bundler (Vite, Webpack, etc.) or a framework (React, Vue, etc.), simply import them in your root JS/TS entry:
+
+```js
+import '@capsule/global.css';
+import '@capsule/index.js';
+```
 
 ## Next Steps
 

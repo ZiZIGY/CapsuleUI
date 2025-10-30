@@ -17,8 +17,8 @@ export function importJsFiles(
   kebabComponent: string
 ): void {
   try {
-    const initJsDir = path.join(capsuleRoot, 'components');
-    const initJsPath = path.join(initJsDir, 'all.js');
+    const initJsDir = path.join(capsuleRoot);
+    const initJsPath = path.join(initJsDir, 'index.js');
     ensureDir(initJsDir);
 
     let initContent = '';

@@ -15,7 +15,7 @@ export default {
   enhanceApp({ app, router, siteData }) {
     // ...
     if (typeof window !== 'undefined') {
-      import('../../@capsule/components/all');
+      import('../../@capsule');
     }
   },
 } satisfies Theme;

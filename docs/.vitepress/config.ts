@@ -147,5 +147,10 @@ export default defineConfig({
     lastUpdated: {
       text: 'Last updated',
     },
+
+    footer: {
+      message: 'Released under the MIT License.',
+      copyright: 'Copyright © 2025-present Alexander Zhukov',
+    },
   },
 });
