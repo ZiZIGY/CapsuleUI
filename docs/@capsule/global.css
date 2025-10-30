@@ -11,7 +11,7 @@
 @import url('./components/capsule-button-group/capsule-button-group.style.css');
 @import url('./components/capsule-button/capsule-button.style.css');
 :root {
-  color-scheme: light dark;
+  color-scheme: light;
   --capsule-color-primary: light-dark(#2563eb, #3b82f6);
   --capsule-color-secondary: light-dark(#f1f5f9, #1e293b);
   --capsule-color-accent: light-dark(#8b5cf6, #a78bfa);
