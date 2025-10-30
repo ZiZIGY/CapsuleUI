@@ -130,6 +130,7 @@ export default defineConfig({
   },
 
   themeConfig: {
+    logo: 'https://raw.githubusercontent.com/ZiZiGY/CapsuleUI/master/public/logo.png',
     search: {
       provider: 'local',
     },
