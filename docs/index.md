@@ -3,8 +3,11 @@
 layout: home
 
 hero:
-  name: "CapsuleUI"
-  text: "Copy. Paste. Rule."
+  name: 'CapsuleUI'
+  text: 'Copy. Paste. Rule.'
+  image:
+    src: https://raw.githubusercontent.com/ZiZiGY/CapsuleUI/master/public/capsulelogo.mp4
+    alt: CapsuleUI Gif
   tagline: |
     shadcn/ui for web components. VSCode & IDEs instantly autocomplete CapsuleUI tags and attributes.
   actions:
@@ -16,17 +19,16 @@ hero:
       link: /components/
 
 features:
-  - title: "🧩 VSCode Autocomplete"
+  - title: '🧩 VSCode Autocomplete'
     details: CapsuleUI ships `vscode.data.json` so all tags & attributes appear in IDEs.
-  - title: "🔓 Copy, don’t install"
+  - title: '🔓 Copy, don’t install'
     details: No dependencies, no runtime. You get the source code.
-  - title: "⚡ Fully customizable"
+  - title: '⚡ Fully customizable'
     details: Change and style everything however you want.
-  - title: "🔬 Web Components"
+  - title: '🔬 Web Components'
     details: Native standard, works in every frontend stack.
-  - title: "🎨 Tailwind compatible"
+  - title: '🎨 Tailwind compatible'
     details: Use Tailwind, CSS, or any styling method.
-  - title: "🚀 CLI powered"
+  - title: '🚀 CLI powered'
     details: Scaffold & add components with one command.
 ---
-
