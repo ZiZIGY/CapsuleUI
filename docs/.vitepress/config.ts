@@ -5,7 +5,7 @@ export default defineConfig({
   title: 'CapsuleUI',
   description: 'CapsuleUI - Modern unstyled web components in your project',
   ignoreDeadLinks: true,
-
+  base: '/CapsuleUI/',
   head: [
     [
       'link',
