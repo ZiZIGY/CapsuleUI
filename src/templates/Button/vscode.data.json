@@ -5,6 +5,29 @@
       "name": "__PREFIX__-__COMPONENT__",
       "attributes": [
         {
+          "name": "rounded",
+          "values": [
+            {
+              "name": "none"
+            },
+            {
+              "name": "sm"
+            },
+            {
+              "name": "md"
+            },
+            {
+              "name": "lg"
+            },
+            {
+              "name": "xl"
+            },
+            {
+              "name": "full"
+            }
+          ]
+        },
+        {
           "name": "disabled",
           "description": "Disables component",
           "valueSet": "v"

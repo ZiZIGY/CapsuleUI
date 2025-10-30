@@ -1,32 +1,26 @@
 # Button
 
-A button component with multiple variants and sizes. Built with Web Components standard and fully accessible.
+Interactive button component with multiple style variants, sizes, and states. Built on Web Components with full accessibility support.
 
-## Installation
+## Quick Start
 
 ```bash
 npx capsule add Button
 ```
 
-## Usage
-
-### Basic Button
-
-<div>
-<capsule-button>Click me</capsule-button>
-</div>
-
 ```html
 <capsule-button>Click me</capsule-button>
 ```
 
-### Variants
+## Showcase
 
-<div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; margin: 1rem 0;">
-<capsule-button variant="primary">Primary</capsule-button>
-<capsule-button variant="secondary">Secondary</capsule-button>
-<capsule-button variant="outline">Outline</capsule-button>
-<capsule-button variant="text">Text</capsule-button>
+### Core Variants
+
+<div class="component-demo">
+  <capsule-button variant="primary">Primary</capsule-button>
+  <capsule-button variant="secondary">Secondary</capsule-button>
+  <capsule-button variant="outline">Outline</capsule-button>
+  <capsule-button variant="text">Text</capsule-button>
 </div>
 
 ```html
@@ -38,11 +32,11 @@ npx capsule add Button
 
 #### Semantic Colors
 
-<div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 1rem 0;">
-<capsule-button variant="success">Success</capsule-button>
-<capsule-button variant="error">Error</capsule-button>
-<capsule-button variant="warning">Warning</capsule-button>
-<capsule-button variant="info">Info</capsule-button>
+<div class="component-demo">
+  <capsule-button variant="success">Success</capsule-button>
+  <capsule-button variant="error">Error</capsule-button>
+  <capsule-button variant="warning">Warning</capsule-button>
+  <capsule-button variant="info">Info</capsule-button>
 </div>
 
 ```html
@@ -54,11 +48,11 @@ npx capsule add Button
 
 ### Sizes
 
-<div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; margin: 1rem 0;">
-<capsule-button size="xs">Extra Small</capsule-button>
-<capsule-button size="sm">Small</capsule-button>
-<capsule-button size="md">Medium</capsule-button>
-<capsule-button size="lg">Large</capsule-button>
+<div class="component-demo">
+  <capsule-button size="xs">Extra Small</capsule-button>
+  <capsule-button size="sm">Small</capsule-button>
+  <capsule-button size="md">Medium</capsule-button>
+  <capsule-button size="lg">Large</capsule-button>
 </div>
 
 ```html
@@ -66,13 +60,33 @@ npx capsule add Button
 <capsule-button size="sm">Small</capsule-button>
 <capsule-button size="md">Medium</capsule-button>
 <capsule-button size="lg">Large</capsule-button>
+```
+
+### Rounded
+
+<div class="component-demo">
+  <capsule-button rounded="none">None</capsule-button>
+  <capsule-button rounded="sm">Small</capsule-button>
+  <capsule-button rounded="md">Medium</capsule-button>
+  <capsule-button rounded="lg">Large</capsule-button>
+  <capsule-button rounded="xl">XL</capsule-button>
+  <capsule-button rounded="full">Full</capsule-button>
+</div>
+
+```html
+<capsule-button rounded="none">None</capsule-button>
+<capsule-button rounded="sm">Small</capsule-button>
+<capsule-button rounded="md">Medium</capsule-button>
+<capsule-button rounded="lg">Large</capsule-button>
+<capsule-button rounded="xl">XL</capsule-button>
+<capsule-button rounded="full">Full</capsule-button>
 ```
 
 ### States
 
-<div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; margin: 1rem 0;">
-<capsule-button>Normal</capsule-button>
-<capsule-button disabled>Disabled</capsule-button>
+<div class="component-demo">
+  <capsule-button>Normal</capsule-button>
+  <capsule-button disabled>Disabled</capsule-button>
 </div>
 
 ```html
@@ -80,39 +94,50 @@ npx capsule add Button
 <capsule-button disabled>Disabled</capsule-button>
 ```
 
-## Attributes
+## API Reference
 
-| Attribute | Type   | Default | Description                          |
-| --------- | ------ | ------- | ------------------------------------ |
-| `variant` | string | `primary` | Button style variant                 |
-| `size`    | string | `md`    | Button size                          |
-| `disabled`| boolean| `false` | Disables the button                  |
-| `type`    | string | `button`| Button type (button/submit/reset)    |
+### Attributes
 
-### Variant Values
+| Attribute  | Type    | Default   | Description                               |
+|------------|---------|-----------|-------------------------------------------|
+| `variant`  | string  | `primary` | Button style                              |
+| `size`     | string  | `md`      | Button size                               |
+| `disabled` | boolean | `false`   | Disabled state                            |
+| `type`     | string  | `button`  | Button type (`button`/`submit`/`reset`)   |
+| `rounded`  | string  | `md`      | Border radius degree                      |
 
-- `primary` - Primary action button (default)
-- `secondary` - Secondary action button
-- `outline` - Outlined button
-- `text` - Text-only button
-- `success` - Success/positive action
-- `error` - Error/negative action
-- `warning` - Warning action
-- `info` - Informational action
+### Allowed Values
 
-### Size Values
+- **variant:**
+  - `primary` — Primary action
+  - `secondary` — Secondary action
+  - `outline` — Outlined button
+  - `text` — Text-only button
+  - `success` — Success action
+  - `error` — Error action
+  - `warning` — Warning action
+  - `info` — Informational action
 
-- `xs` - Extra small
-- `sm` - Small
-- `md` - Medium (default)
-- `lg` - Large
+- **size:**
+  - `xs` — Extra small
+  - `sm` — Small
+  - `md` — Medium
+  - `lg` — Large
+
+- **rounded:**
+  - `none` — No rounding
+  - `sm` — Small (4px)
+  - `md` — Medium (8px)
+  - `lg` — Large (12px)
+  - `xl` — Extra large (16px)
+  - `full` — Full (9999px)
 
 ## Events
 
 ```javascript
 const button = document.querySelector('capsule-button');
-button.addEventListener('click', () => {
-  console.log('Button clicked!');
+button.addEventListener('click', (event) => {
+  console.log('Button clicked!', event);
 });
 ```
 
@@ -120,25 +145,29 @@ button.addEventListener('click', () => {
 
 ```html
 <form id="myForm">
-  <capsule-button type="submit">Submit Form</capsule-button>
-  <capsule-button type="reset">Reset Form</capsule-button>
+  <input type="text" name="username" required>
+  <capsule-button type="submit">Submit</capsule-button>
+  <capsule-button type="reset">Reset</capsule-button>
 </form>
 ```
 
 ## Accessibility
 
-- ✅ Keyboard navigation (Enter key to activate)
+- ✅ Keyboard navigation (Enter/Space)
 - ✅ ARIA attributes for screen readers
 - ✅ Focus management
-- ✅ Disabled state handling
+- ✅ Proper disabled state handling
 - ✅ Form association support
 
-## Customization
-
-```css
-:root {
-  --capsule-color-primary: #0066cc;
-  --capsule-radius-md: 8px;
-  --capsule-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+<style>
+.component-demo {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 1rem 0;
+  padding: 1rem;
+  background: var(--vp-c-bg-soft);
+  border-radius: 8px;
 }
-```
+</style>

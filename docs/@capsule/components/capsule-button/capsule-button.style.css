@@ -2,7 +2,6 @@ capsule-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--capsule-radius-md);
   font-weight: var(--capsule-font-weight-medium);
   transition: var(--capsule-transition);
   cursor: pointer;
@@ -14,6 +13,31 @@ capsule-button {
   box-shadow: var(--capsule-shadow);
   transform: translateY(0);
   gap: 0.5rem;
+}
+
+capsule-button[rounded='none'] {
+  border-radius: 0;
+}
+
+capsule-button[rounded='sm'] {
+  border-radius: var(--capsule-radius-sm);
+}
+
+capsule-button:not([rounded]),
+capsule-button[rounded='md'] {
+  border-radius: var(--capsule-radius-md);
+}
+
+capsule-button[rounded='lg'] {
+  border-radius: var(--capsule-radius-lg);
+}
+
+capsule-button[rounded='xl'] {
+  border-radius: var(--capsule-radius-xl);
+}
+
+capsule-button[rounded='full'] {
+  border-radius: var(--capsule-radius-full);
 }
 
 capsule-button:hover:not([disabled]) {
@@ -160,10 +184,9 @@ capsule-button[variant='error']:active:not([disabled]) {
   background: color-mix(in srgb, var(--capsule-color-error) 80%, black);
 }
 
-/* Warning Variant */
 capsule-button[variant='warning'] {
   background: var(--capsule-color-warning);
-  color: var(--capsule-color-text);
+  color: white;
 }
 
 capsule-button[variant='warning']:hover:not([disabled]) {
@@ -174,7 +197,6 @@ capsule-button[variant='warning']:active:not([disabled]) {
   background: color-mix(in srgb, var(--capsule-color-warning) 80%, black);
 }
 
-/* Info Variant */
 capsule-button[variant='info'] {
   background: var(--capsule-color-info);
   color: white;

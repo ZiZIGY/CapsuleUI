@@ -2,7 +2,6 @@ __PREFIX__-__COMPONENT__ {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--capsule-radius-md);
   font-weight: var(--capsule-font-weight-medium);
   transition: var(--capsule-transition);
   cursor: pointer;
@@ -14,6 +13,31 @@ __PREFIX__-__COMPONENT__ {
   box-shadow: var(--capsule-shadow);
   transform: translateY(0);
   gap: 0.5rem;
+}
+
+__PREFIX__-__COMPONENT__[rounded='none'] {
+  border-radius: 0;
+}
+
+__PREFIX__-__COMPONENT__[rounded='sm'] {
+  border-radius: var(--capsule-radius-sm);
+}
+
+__PREFIX__-__COMPONENT__:not([rounded]),
+__PREFIX__-__COMPONENT__[rounded='md'] {
+  border-radius: var(--capsule-radius-md);
+}
+
+__PREFIX__-__COMPONENT__[rounded='lg'] {
+  border-radius: var(--capsule-radius-lg);
+}
+
+__PREFIX__-__COMPONENT__[rounded='xl'] {
+  border-radius: var(--capsule-radius-xl);
+}
+
+__PREFIX__-__COMPONENT__[rounded='full'] {
+  border-radius: var(--capsule-radius-full);
 }
 
 __PREFIX__-__COMPONENT__:hover:not([disabled]) {
@@ -160,10 +184,9 @@ __PREFIX__-__COMPONENT__[variant='error']:active:not([disabled]) {
   background: color-mix(in srgb, var(--capsule-color-error) 80%, black);
 }
 
-/* Warning Variant */
 __PREFIX__-__COMPONENT__[variant='warning'] {
   background: var(--capsule-color-warning);
-  color: var(--capsule-color-text);
+  color: white;
 }
 
 __PREFIX__-__COMPONENT__[variant='warning']:hover:not([disabled]) {
@@ -174,7 +197,6 @@ __PREFIX__-__COMPONENT__[variant='warning']:active:not([disabled]) {
   background: color-mix(in srgb, var(--capsule-color-warning) 80%, black);
 }
 
-/* Info Variant */
 __PREFIX__-__COMPONENT__[variant='info'] {
   background: var(--capsule-color-info);
   color: white;
