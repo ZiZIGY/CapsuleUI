@@ -163,7 +163,7 @@ capsule-button[variant='error']:active:not([disabled]) {
 /* Warning Variant */
 capsule-button[variant='warning'] {
   background: var(--capsule-color-warning);
-  color: var(--capsule-color-text);
+  color: white;
 }
 
 capsule-button[variant='warning']:hover:not([disabled]) {
