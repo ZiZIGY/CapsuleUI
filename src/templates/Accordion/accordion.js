@@ -1,39 +1,43 @@
-class Accordion extends HTMLElement {
+import { LitElement, html } from '../../lit';
+
+class CapsuleAccordion extends LitElement {
+  static properties = {
+    type: { type: String, reflect: true },
+    collapsible: { type: Boolean, reflect: true },
+  };
+
   constructor() {
     super();
+    this.type = 'single';
+    this.collapsible = false;
   }
 
   connectedCallback() {
-    this._setupEventListeners();
+    super.connectedCallback();
+    this.setAttribute('role', 'region');
     this._updateAriaAttributes();
     this._setDefaultOpenState();
   }
 
-  static get observedAttributes() {
-    return ['type', 'collapsible'];
-  }
-
-  attributeChangedCallback(name, oldValue, newValue) {
-    if (name === 'type') {
+  updated(changedProperties) {
+    if (changedProperties.has('type')) {
+      this._updateAriaAttributes();
       this._handleTypeChange();
     }
   }
 
-  _setupEventListeners() {
-    this.addEventListener('panel-toggle', this._handlePanelToggle.bind(this));
+  _updateAriaAttributes() {
+    this.setAttribute('aria-multiselectable', this.type === 'multiple');
   }
 
   _getPanels() {
     return Array.from(this.querySelectorAll('__PREFIX__-__COMPONENT__-panel'));
   }
 
-  _handlePanelToggle(event) {
-    const panel = event.detail.panel;
+  _handlePanelToggle(panel) {
     const isOpen = panel.hasAttribute('open');
-    const type = this.getAttribute('type') || 'single';
-    const collapsible = this.hasAttribute('collapsible');
 
-    if (type === 'single') {
+    if (this.type === 'single') {
       const panels = this._getPanels();
 
       panels.forEach((otherPanel) => {
@@ -42,18 +46,17 @@ class Accordion extends HTMLElement {
         }
       });
 
-      if (isOpen && !collapsible) {
+      if (isOpen && !this.collapsible) {
         return;
       }
       panel.toggleAttribute('open');
-    } else if (type === 'multiple') {
+    } else if (this.type === 'multiple') {
       panel.toggleAttribute('open');
     }
   }
 
   _handleTypeChange() {
-    const type = this.getAttribute('type') || 'single';
-    if (type === 'single') {
+    if (this.type === 'single') {
       const panels = this._getPanels();
       const openPanels = panels.filter((panel) => panel.hasAttribute('open'));
       if (openPanels.length > 1) {
@@ -65,23 +68,14 @@ class Accordion extends HTMLElement {
     }
   }
 
-  _updateAriaAttributes() {
-    const type = this.getAttribute('type') || 'single';
-    this.setAttribute('role', 'region');
-    this.setAttribute('aria-multiselectable', type === 'multiple');
-  }
-
   _setDefaultOpenState() {
-    const type = this.getAttribute('type') || 'single';
-    const collapsible = this.hasAttribute('collapsible');
-    const panels = this._getPanels();
-
-    if (!collapsible && type === 'single' && panels.length > 0) {
+    if (!this.collapsible && this.type === 'single') {
+      const panels = this._getPanels();
       const hasAnyOpenPanel = panels.some((panel) =>
         panel.hasAttribute('open')
       );
 
-      if (!hasAnyOpenPanel) {
+      if (!hasAnyOpenPanel && panels.length > 0) {
         const firstPanel = panels[0];
         firstPanel.setAttribute('open', '');
       }
@@ -133,6 +127,10 @@ class Accordion extends HTMLElement {
   getOpenPanels() {
     return this._getPanels().filter((panel) => panel.hasAttribute('open'));
   }
+
+  render() {
+    return html`<slot></slot>`;
+  }
 }
 
-customElements.define('__PREFIX__-__COMPONENT__', Accordion);
+customElements.define('__PREFIX__-__COMPONENT__', CapsuleAccordion);

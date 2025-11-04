@@ -28,7 +28,9 @@ export type TagSpec = {
   attributes: AttributeSpec[];
 };
 
-function getTypeString(valType: string | Function | undefined): string | undefined {
+function getTypeString(
+  valType: string | Function | undefined
+): string | undefined {
   if (!valType) return undefined;
   if (typeof valType === 'function') {
     const name = valType.name;
@@ -41,9 +43,12 @@ function getTypeString(valType: string | Function | undefined): string | undefin
   return undefined;
 }
 
-function buildAttributes(jsSource: string, cssSource: string): AttributeSpec[] {
+function buildAttributes(
+  jsSource: string,
+  cssSource: string,
+  tagName: string
+): AttributeSpec[] {
   const attrsFromJs = extractObservedAttributes(jsSource);
-  const attrsFromCss = extractAttributeNames(cssSource);
   const staticProps = extractStaticProperties(jsSource);
   const attrStatic = Object.entries(staticProps).map(([key, val]) => {
     const name = val.attribute || key;
@@ -53,11 +58,16 @@ function buildAttributes(jsSource: string, cssSource: string): AttributeSpec[] {
       reflect: typeof val.reflect !== 'undefined' ? !!val.reflect : undefined,
     };
   });
-  // Собираем уникальный список имён атрибутов
+
+  let attrsFromCss = extractAttributeNames(cssSource);
+  attrsFromCss = attrsFromCss.filter((attr) =>
+    cssSource.includes(`${tagName}[${attr}`)
+  );
+
   const attrSet = new Set([
     ...attrsFromJs,
+    ...attrStatic.map((i) => i.name),
     ...attrsFromCss,
-    ...attrStatic.map(i => i.name),
   ]);
 
   const attributes: AttributeSpec[] = [];
@@ -72,12 +82,20 @@ function buildAttributes(jsSource: string, cssSource: string): AttributeSpec[] {
       });
       continue;
     }
-    const staticDef = attrStatic.find(a => a.name === name);
+    const staticDef = attrStatic.find((a) => a.name === name);
     const typeStr = staticDef && staticDef.type ? staticDef.type : undefined;
     if (values.length) {
-      attributes.push({ name, values: values.map((v) => ({ name: v })), ...(typeStr ? { type: typeStr } : {}) });
+      attributes.push({
+        name,
+        values: values.map((v) => ({ name: v })),
+        ...(typeStr ? { type: typeStr } : {}),
+      });
     } else if (inferBooleanPresence(cssSource, name)) {
-      attributes.push({ name, valueSet: 'v', ...(typeStr ? { type: typeStr } : {}) });
+      attributes.push({
+        name,
+        valueSet: 'v',
+        ...(typeStr ? { type: typeStr } : {}),
+      });
     } else if (staticDef) {
       attributes.push({ name, ...(typeStr ? { type: typeStr } : {}) });
     } else {
@@ -114,7 +132,7 @@ export function generateTagSpec(componentDir: string): TagSpec[] {
     const cssSource = css ? readFileSafe(css) : '';
     const tagName = extractComponentTagName(jsSource);
     if (!tagName) continue;
-    const attributes = buildAttributes(jsSource, cssSource);
+    const attributes = buildAttributes(jsSource, cssSource, tagName);
     tags.push({ name: tagName, attributes });
   }
   return tags;

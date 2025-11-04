@@ -1,0 +1,43 @@
+{
+  "version": 1.1,
+  "tags": [
+    {
+      "name": "__PREFIX__-__COMPONENT__-panel",
+      "attributes": [
+        {
+          "name": "open",
+          "values": [
+            {
+              "name": "false"
+            },
+            {
+              "name": "true"
+            }
+          ],
+          "type": "boolean"
+        }
+      ]
+    },
+    {
+      "name": "__PREFIX__-__COMPONENT__",
+      "attributes": [
+        {
+          "name": "type",
+          "type": "string",
+          "values": [
+            {
+              "name": "single"
+            },
+            {
+              "name": "multiple"
+            }
+          ]
+        },
+        {
+          "name": "collapsible",
+          "type": "boolean"
+        }
+      ]
+    }
+  ]
+}

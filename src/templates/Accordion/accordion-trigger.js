@@ -1,25 +1,28 @@
-class AccordionTrigger extends HTMLElement {
-  static get observedAttributes() {
-    return ['exclude-self'];
-  }
+import { LitElement, html } from '../../lit';
+
+class CapsuleAccordionTrigger extends LitElement {
+  static properties = {
+    excludeSelf: { type: Boolean, reflect: true, attribute: 'exclude-self' },
+  };
 
   constructor() {
     super();
+    this.excludeSelf = false;
   }
 
   connectedCallback() {
+    super.connectedCallback();
     this._updateAttributes();
-    this.addEventListener('click', this._handleClick.bind(this));
   }
 
-  attributeChangedCallback(name, oldValue, newValue) {
-    if (name === 'exclude-self') {
+  updated(changedProperties) {
+    if (changedProperties.has('excludeSelf')) {
       this._updateAttributes();
     }
   }
 
   _updateAttributes() {
-    if (this.hasAttribute('exclude-self')) {
+    if (this.excludeSelf) {
       this.removeAttribute('role');
       this.removeAttribute('tabindex');
     } else {
@@ -31,15 +34,22 @@ class AccordionTrigger extends HTMLElement {
   _handleClick(event) {
     event.preventDefault();
 
-    if (this.hasAttribute('exclude-self')) {
+    if (this.excludeSelf) {
       if (event.currentTarget === event.target) return;
     }
 
-    const panel = this.closest('capsule-accordion-panel');
+    const panel = this.closest('__PREFIX__-__COMPONENT__-panel');
     if (panel) {
       panel.toggle();
     }
   }
+
+  render() {
+    return html` <slot></slot> `;
+  }
 }
 
-customElements.define('__PREFIX__-__COMPONENT__-trigger', AccordionTrigger);
+customElements.define(
+  '__PREFIX__-__COMPONENT__-trigger',
+  CapsuleAccordionTrigger
+);

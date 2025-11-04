@@ -1,18 +1,21 @@
-class AccordionPanel extends HTMLElement {
+import { LitElement, html } from '../../lit';
+
+class CapsuleAccordionPanel extends LitElement {
+  static properties = {
+    open: { type: Boolean, reflect: true },
+  };
+
   constructor() {
     super();
+    this.open = false;
   }
 
   connectedCallback() {
+    super.connectedCallback();
     this.setAttribute('role', 'region');
-    this._setupEventListeners();
   }
 
-  _setupEventListeners() {
-    this.addEventListener('toggle', this._handleToggle.bind(this));
-  }
-
-  _handleToggle() {
+  toggle() {
     const event = new CustomEvent('panel-toggle', {
       bubbles: true,
       detail: { panel: this },
@@ -20,9 +23,9 @@ class AccordionPanel extends HTMLElement {
     this.dispatchEvent(event);
   }
 
-  toggle() {
-    this.dispatchEvent(new CustomEvent('toggle'));
+  render() {
+    return html`<slot></slot>`;
   }
 }
 
-customElements.define('capsule-accordion-panel', AccordionPanel);
+customElements.define('capsule-accordion-panel', CapsuleAccordionPanel);
