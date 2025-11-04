@@ -31,3 +31,5 @@ import './components/capsule-calendar/register.js';
 import './components/capsule-range-calendar/register.js';
 import './components/capsule-button/register.js';
 import './components/capsule-badge/register.js';
+import './components/capsule-scroll-area/register.js';
+import './components/capsule-switch/register.js';

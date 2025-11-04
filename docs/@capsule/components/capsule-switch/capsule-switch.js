@@ -152,4 +152,4 @@ class Switch extends LitElement {
   }
 }
 
-customElements.define('__PREFIX__-__COMPONENT__', Switch);
+customElements.define('capsule-switch', Switch);

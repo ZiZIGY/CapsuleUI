@@ -1,0 +1,45 @@
+{
+  "version": 1.1,
+  "tags": [
+    {
+      "name": "capsule-switch",
+      "attributes": [
+        {
+          "name": "checked",
+          "valueSet": "v"
+        },
+        {
+          "name": "disabled",
+          "description": "Disables component",
+          "valueSet": "v"
+        },
+        {
+          "name": "size",
+          "values": [
+            {
+              "name": "sm"
+            },
+            {
+              "name": "lg"
+            }
+          ]
+        },
+        {
+          "name": "type",
+          "description": "Type attribute",
+          "values": [
+            {
+              "name": "button"
+            },
+            {
+              "name": "submit"
+            },
+            {
+              "name": "reset"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

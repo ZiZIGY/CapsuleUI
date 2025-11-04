@@ -1,0 +1,1 @@
+import './capsule-switch.js';

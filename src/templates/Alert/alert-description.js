@@ -1,6 +1,16 @@
-class AlertDescription extends HTMLElement {
+import { LitElement, html } from '../../lit';
+
+class AlertDescription extends LitElement {
   constructor() {
     super();
+  }
+
+  createRenderRoot() {
+    return this;
+  }
+
+  render() {
+    return html`<slot></slot>`;
   }
 }
 

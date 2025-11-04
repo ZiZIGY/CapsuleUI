@@ -8,6 +8,7 @@
     "docs/@capsule/components/capsule-alert/vscode.data.json",
     "docs/@capsule/components/capsule-stepper/vscode.data.json",
     "docs/@capsule/components/capsule-calendar/vscode.data.json",
-    "docs/@capsule/components/capsule-accordion/vscode.data.json"
+    "docs/@capsule/components/capsule-accordion/vscode.data.json",
+    "docs/@capsule/components/capsule-switch/vscode.data.json"
   ]
 }

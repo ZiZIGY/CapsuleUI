@@ -173,4 +173,4 @@ class ScrollArea extends LitElement {
   }
 }
 
-customElements.define('__PREFIX__-__COMPONENT__', ScrollArea);
+customElements.define('capsule-scroll-area', ScrollArea);
