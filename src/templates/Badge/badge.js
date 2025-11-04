@@ -1,38 +1,46 @@
-class Badge extends HTMLElement {
-  static observedAttributes = ['value', 'max'];
+import { LitElement, html } from '../../lit';
+
+class CapsuleBadge extends LitElement {
+  static properties = {
+    value: { type: String, reflect: true },
+    max: { type: String, reflect: true },
+  };
 
   constructor() {
     super();
+    this.value = '0';
+    this.max = '';
   }
 
-  connectedCallback() {
-    this._updateDisplayValue();
-  }
-
-  attributeChangedCallback(name) {
-    if (name === 'value' || name === 'max') {
+  willUpdate(changedProperties) {
+    if (changedProperties.has('value') || changedProperties.has('max')) {
       this._updateDisplayValue();
     }
   }
 
   _updateDisplayValue() {
-    const value = this.getAttribute('value') || '0';
-    const max = this.getAttribute('max');
+    let displayValue = this.value || '0';
 
-    let displayValue = value;
-
-    if (max && value !== '') {
-      const numericValue = parseInt(value);
-      const numericMax = parseInt(max);
+    if (this.max && this.value !== '') {
+      const numericValue = parseInt(this.value);
+      const numericMax = parseInt(this.max);
 
       if (!isNaN(numericValue) && !isNaN(numericMax)) {
         displayValue =
-          numericValue > numericMax ? `${numericMax}+` : value.toString();
+          numericValue > numericMax ? `${numericMax}+` : this.value.toString();
       }
     }
 
     this.dataset.value = displayValue;
   }
+
+  render() {
+    return html`<slot></slot>`;
+  }
+  connectedCallback() {
+    super.connectedCallback();
+    this._updateDisplayValue();
+  }
 }
 
-customElements.define('__PREFIX__-__COMPONENT__', Badge);
+customElements.define('__PREFIX__-__COMPONENT__', CapsuleBadge);

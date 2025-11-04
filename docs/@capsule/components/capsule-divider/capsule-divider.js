@@ -1,40 +1,34 @@
-class Divider extends HTMLElement {
+import { LitElement, html } from '../../lit';
+
+class CapsuleDivider extends LitElement {
+  static properties = {
+    orientation: { type: String, reflect: true },
+  };
+
   constructor() {
     super();
-    this.attachShadow({ mode: 'open' });
+    this.orientation = 'horizontal';
   }
 
   connectedCallback() {
+    super.connectedCallback();
     this.setAttribute('role', 'separator');
     this._updateAriaOrientation();
-    
-    if (!this.hasAttribute('orientation')) {
-      this.setAttribute('orientation', 'horizontal');
-    }
   }
 
-  static get observedAttributes() {
-    return ['orientation'];
-  }
-
-  attributeChangedCallback(name, oldValue, newValue) {
-    if (name === 'orientation') {
+  updated(changedProperties) {
+    if (changedProperties.has('orientation')) {
       this._updateAriaOrientation();
     }
   }
 
   _updateAriaOrientation() {
-    const orientation = this.getAttribute('orientation') || 'horizontal';
-    this.setAttribute('aria-orientation', orientation);
+    this.setAttribute('aria-orientation', this.orientation);
   }
 
-  get orientation() {
-    return this.getAttribute('orientation') || 'horizontal';
-  }
-
-  set orientation(value) {
-    this.setAttribute('orientation', value);
+  render() {
+    return html`<slot></slot>`;
   }
 }
 
-customElements.define('capsule-divider', Divider);
+customElements.define('capsule-divider', CapsuleDivider);

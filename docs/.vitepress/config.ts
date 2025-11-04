@@ -50,13 +50,14 @@ export default defineConfig({
       themeConfig: {
         nav: [
           { text: 'Home', link: '/' },
-          { text: 'Guide', 
+          {
+            text: 'Guide',
             items: [
               { text: 'Philosophy', link: '/philosophy' },
               { text: 'Getting Started', link: '/getting-started' },
               { text: 'Theming', link: '/theming' },
               { text: 'CLI Commands', link: '/cli-commands' },
-            ]
+            ],
           },
           { text: 'Components', link: '/components/' },
         ],
@@ -98,13 +99,14 @@ export default defineConfig({
       themeConfig: {
         nav: [
           { text: 'Главная', link: '/ru/' },
-          { text: 'Руководство', 
+          {
+            text: 'Руководство',
             items: [
               { text: 'Философия', link: '/ru/philosophy' },
               { text: 'Начало работы', link: '/ru/getting-started' },
               { text: 'Темизация', link: '/ru/theming' },
               { text: 'Команды CLI', link: '/ru/cli-commands' },
-            ]
+            ],
           },
           { text: 'Компоненты', link: '/ru/components/' },
         ],

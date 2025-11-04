@@ -1,13 +1,19 @@
-class Skeleton extends HTMLElement {
+import { LitElement, html } from '../../lit';
+
+class CapsuleSkeleton extends LitElement {
   constructor() {
     super();
-    this.attachShadow({ mode: 'closed' });
   }
 
   connectedCallback() {
+    super.connectedCallback();
     this.setAttribute('role', 'presentation');
     this.setAttribute('aria-hidden', 'true');
   }
+
+  render() {
+    return html`<slot></slot>`;
+  }
 }
 
-customElements.define('__PREFIX__-__COMPONENT__', Skeleton);
+customElements.define('__PREFIX__-__COMPONENT__', CapsuleSkeleton);

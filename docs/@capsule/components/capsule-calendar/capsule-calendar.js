@@ -1,82 +1,38 @@
-class SingleCalendar extends HTMLElement {
-  static get observedAttributes() {
-    return [
-      'value',
-      'display-year',
-      'display-month',
-      'min-date',
-      'max-date',
-      'disabled-dates',
-      'locale',
-    ];
-  }
+import { LitElement, html } from '../../lit';
+
+class CapsuleCalendar extends LitElement {
+  static properties = {
+    value: { type: String, reflect: true },
+    displayYear: { type: Number, reflect: true, attribute: 'display-year' },
+    displayMonth: { type: Number, reflect: true, attribute: 'display-month' },
+    minDate: { type: String, reflect: true, attribute: 'min-date' },
+    maxDate: { type: String, reflect: true, attribute: 'max-date' },
+    disabledDates: { type: String, reflect: true, attribute: 'disabled-dates' },
+    locale: { type: String, reflect: true },
+  };
 
   constructor() {
     super();
-    this.attachShadow({ mode: 'open' });
-
-    this.selectedValue = '';
+    this.value = '';
     this.displayYear = new Date().getFullYear();
     this.displayMonth = new Date().getMonth();
     this.minDate = null;
     this.maxDate = null;
-    this.disabledDates = new Set();
+    this.disabledDates = '';
     this.locale = 'en-US';
+    this._disabledDatesSet = new Set();
     this.weekdayFormatter = null;
   }
 
-  connectedCallback() {
-    this.parseAttributes();
-    this.updateFormatters();
-    this.render();
-    this.setupEventListeners();
-  }
-
-  attributeChangedCallback(name, oldValue, newValue) {
-    if (oldValue !== newValue) {
-      this.parseAttributes();
-      if (name === 'locale') {
-        this.updateFormatters();
-        this.render();
-      } else {
-        this.updateUI();
-      }
-    }
-  }
-
-  parseAttributes() {
-    this.selectedValue = this.getAttribute('value') || '';
-
-    const yearStr = this.getAttribute('display-year');
-    const monthStr = this.getAttribute('display-month');
-    if (yearStr && monthStr) {
-      const year = parseInt(yearStr, 10);
-      const month = parseInt(monthStr, 10);
-      if (!isNaN(year) && !isNaN(month) && month >= 0 && month <= 11) {
-        this.displayYear = year;
-        this.displayMonth = month;
-      }
-    } else {
-      const now = new Date();
-      this.displayYear = now.getFullYear();
-      this.displayMonth = now.getMonth();
+  willUpdate(changedProperties) {
+    if (changedProperties.has('locale')) {
+      this.updateFormatters();
     }
 
-    const minDateStr = this.getAttribute('min-date');
-    this.minDate = minDateStr ? new Date(minDateStr) : null;
-    const maxDateStr = this.getAttribute('max-date');
-    this.maxDate = maxDateStr ? new Date(maxDateStr) : null;
-    const disabledDatesStr = this.getAttribute('disabled-dates');
-    if (disabledDatesStr) {
-      this.disabledDates = new Set(
-        disabledDatesStr.split(',').filter((d) => d)
+    if (changedProperties.has('disabledDates')) {
+      this._disabledDatesSet = new Set(
+        this.disabledDates ? this.disabledDates.split(',').filter((d) => d) : []
       );
-    } else {
-      this.disabledDates = new Set();
-    }
-    const locale = this.getAttribute('locale');
-    if (locale && locale !== this.locale) {
-      this.locale = locale;
     }
   }
 
@@ -86,104 +42,33 @@ class SingleCalendar extends HTMLElement {
     });
   }
 
-  updateUI() {
-    const weekdaysElement = this.shadowRoot.querySelector('[part="weekdays"]');
-    if (weekdaysElement) {
-      weekdaysElement.innerHTML = this.renderWeekdays();
-    }
-
-    const daysGrid = this.shadowRoot.querySelector('[part="days-grid"]');
-    if (daysGrid) {
-      daysGrid.innerHTML = this.renderDays();
-    }
-
-    this.setupDayEventListeners();
-  }
-
   render() {
-    this.shadowRoot.innerHTML = `
-        <div part="weekdays">${this.renderWeekdays()}</div>
-        <div part="days-grid">${this.renderDays()}</div>
+    return html`
+      <div part="weekdays">${this.renderWeekdays()}</div>
+      <div part="days-grid">${this.renderDays()}</div>
     `;
-
-    this.setupDayEventListeners();
   }
 
-  setupEventListeners() {
-    this.setupDayEventListeners();
-  }
-
-  setupDayEventListeners() {
-    const dayButtons = this.shadowRoot.querySelectorAll('[part="day"]');
-    dayButtons.forEach((day) => {
-      day.replaceWith(day.cloneNode(true));
-    });
-
-    const allDayButtons = this.shadowRoot.querySelectorAll('[part="day"]');
-    allDayButtons.forEach((day) => {
-      day.addEventListener('click', (e) => {
-        const dateString = e.target.dataset.date;
-        if (dateString) {
-          if (!e.target.disabled) {
-            this.handleDayClick(dateString);
-          }
-        }
-      });
-    });
-  }
-
-  handleDayClick(dateString) {
-    const clickedDate = new Date(dateString);
-    if (this.isDateDisabled(clickedDate)) {
-      return;
-    }
-
-    let oldValue = this.selectedValue;
-
-    let newValue;
-    if (this.selectedValue === dateString) {
-      newValue = '';
-    } else {
-      newValue = dateString;
-    }
-
-    this.selectedValue = newValue;
-    this.setAttribute('value', newValue);
-
-    if (oldValue !== newValue) {
-      this.dispatchEvent(
-        new CustomEvent('input', {
-          bubbles: true,
-          detail: {
-            value: newValue,
-            type: 'single',
-          },
-        })
-      );
-      this.dispatchEvent(
-        new CustomEvent('change', {
-          bubbles: true,
-          detail: {
-            value: newValue,
-            oldValue: oldValue,
-            type: 'single',
-          },
-        })
-      );
-    }
+  firstUpdated() {
+    this.updateFormatters();
   }
 
   renderWeekdays() {
+    const today = new Date();
+    const dayOfWeek = today.getDay();
+    const monday = new Date(today);
+    monday.setDate(today.getDate() - (dayOfWeek === 0 ? 6 : dayOfWeek - 1));
+
     const weekdays = [];
-    const baseDate = new Date(Date.UTC(2024, 9, 21));
 
     for (let i = 0; i < 7; i++) {
-      const dateForDay = new Date(baseDate);
-      dateForDay.setUTCDate(baseDate.getUTCDate() + i);
+      const dateForDay = new Date(monday);
+      dateForDay.setDate(monday.getDate() + i);
       const weekday = this.weekdayFormatter.format(dateForDay);
-      weekdays.push(`<div>${weekday}</div>`);
+      weekdays.push(html`<div>${weekday}</div>`);
     }
-    return weekdays.join('');
+
+    return weekdays;
   }
 
   renderDays() {
@@ -207,11 +92,11 @@ class SingleCalendar extends HTMLElement {
     ).getDate();
     for (let i = startDayIndex - 1; i >= 0; i--) {
       const day = prevMonthLastDay - i;
-      days.push(this.renderDay(day, prevMonthYear, prevMonth, true));
+      days.push(this.renderDay(day, prevMonthYear, prevMonth, true, true));
     }
 
     for (let day = 1; day <= daysInMonth; day++) {
-      days.push(this.renderDay(day, year, month, false));
+      days.push(this.renderDay(day, year, month, false, false));
     }
 
     const nextMonthYear = month === 11 ? year + 1 : year;
@@ -219,13 +104,13 @@ class SingleCalendar extends HTMLElement {
     const totalCells = 42;
     const nextMonthDays = totalCells - days.length;
     for (let day = 1; day <= nextMonthDays; day++) {
-      days.push(this.renderDay(day, nextMonthYear, nextMonth, true));
+      days.push(this.renderDay(day, nextMonthYear, nextMonth, true, true));
     }
 
-    return days.join('');
+    return days;
   }
 
-  renderDay(day, year, month, isOtherMonth) {
+  renderDay(day, year, month, isOtherMonth, forceDisabled = false) {
     const date = new Date(year, month, day);
     const dateForString = new Date(
       date.getTime() - date.getTimezoneOffset() * 60000
@@ -233,9 +118,9 @@ class SingleCalendar extends HTMLElement {
     const dateString = dateForString.toISOString().split('T')[0];
 
     const isToday = this.isToday(date);
-    const isDisabled = this.isDateDisabled(date);
 
-    const isSelected = this.selectedValue === dateString;
+    const isDisabled = forceDisabled || this.isDateDisabled(date);
+    const isSelected = this.value === dateString;
 
     const partList = ['day'];
     if (isOtherMonth) partList.push('other-month');
@@ -243,26 +128,65 @@ class SingleCalendar extends HTMLElement {
     if (isSelected) partList.push('selected');
     if (isDisabled) partList.push('disabled');
 
-    const partAttr = `part="${partList.join(' ')}"`;
-
-    return `
-      <button ${partAttr} data-date="${dateString}" ${
-      isDisabled ? 'disabled' : ''
-    }>
+    return html`
+      <button
+        part="${partList.join(' ')}"
+        data-date="${dateString}"
+        ?disabled="${isDisabled}"
+        @click="${() => !forceDisabled && this.handleDayClick(dateString)}"
+      >
         ${day}
       </button>
     `;
   }
 
+  handleDayClick(dateString) {
+    if (this.isDateDisabled(new Date(dateString))) {
+      return;
+    }
+
+    const oldValue = this.value;
+    const newValue = this.value === dateString ? '' : dateString;
+
+    if (oldValue !== newValue) {
+      this.value = newValue;
+
+      this.dispatchEvent(
+        new CustomEvent('input', {
+          bubbles: true,
+          detail: {
+            value: newValue,
+            type: 'single',
+          },
+        })
+      );
+
+      this.dispatchEvent(
+        new CustomEvent('change', {
+          bubbles: true,
+          detail: {
+            value: newValue,
+            oldValue: oldValue,
+            type: 'single',
+          },
+        })
+      );
+    }
+  }
+
   isDateDisabled(date) {
     const dateString = this.formatDate(date);
-    if (this.disabledDates.has(dateString)) {
+    if (this._disabledDatesSet.has(dateString)) {
       return true;
     }
-    if (this.minDate && date < this.minDate) {
+
+    const minDate = this.minDate ? new Date(this.minDate) : null;
+    const maxDate = this.maxDate ? new Date(this.maxDate) : null;
+
+    if (minDate && date < minDate) {
       return true;
     }
-    if (this.maxDate && date > this.maxDate) {
+    if (maxDate && date > maxDate) {
       return true;
     }
     return false;
@@ -290,13 +214,13 @@ class SingleCalendar extends HTMLElement {
 
   setDisplayDate(year, month) {
     if (
-      typeof Number(year) === 'number' &&
-      typeof Number(month) === 'number' &&
+      typeof year === 'number' &&
+      typeof month === 'number' &&
       month >= 0 &&
       month <= 11
     ) {
-      this.setAttribute('display-year', year.toString());
-      this.setAttribute('display-month', month.toString());
+      this.displayYear = year;
+      this.displayMonth = month;
     }
   }
 
@@ -308,14 +232,14 @@ class SingleCalendar extends HTMLElement {
     if (dateString) {
       const date = new Date(dateString);
       if (!isNaN(date.getTime()) && !this.isDateDisabled(date)) {
-        this.setAttribute('value', dateString);
+        this.value = dateString;
       }
     }
   }
 
   getSelectedDate() {
-    return this.selectedValue || null;
+    return this.value || null;
   }
 }
 
-customElements.define('capsule-calendar', SingleCalendar);
+customElements.define('capsule-calendar', CapsuleCalendar);

@@ -4,6 +4,7 @@ import {
   extractComponentTagName,
   extractObservedAttributes,
   readFileSafe,
+  extractStaticProperties,
 } from './js-parser';
 import {
   extractAttributeValuesFromCss,
@@ -27,10 +28,37 @@ export type TagSpec = {
   attributes: AttributeSpec[];
 };
 
+function getTypeString(valType: string | Function | undefined): string | undefined {
+  if (!valType) return undefined;
+  if (typeof valType === 'function') {
+    const name = valType.name;
+    if (!name) return undefined;
+    return name.toLowerCase();
+  }
+  if (typeof valType === 'string') {
+    return valType.toLowerCase();
+  }
+  return undefined;
+}
+
 function buildAttributes(jsSource: string, cssSource: string): AttributeSpec[] {
   const attrsFromJs = extractObservedAttributes(jsSource);
   const attrsFromCss = extractAttributeNames(cssSource);
-  const attrSet = new Set<string>([...attrsFromJs, ...attrsFromCss]);
+  const staticProps = extractStaticProperties(jsSource);
+  const attrStatic = Object.entries(staticProps).map(([key, val]) => {
+    const name = val.attribute || key;
+    return {
+      name,
+      type: getTypeString(val.type),
+      reflect: typeof val.reflect !== 'undefined' ? !!val.reflect : undefined,
+    };
+  });
+  // Собираем уникальный список имён атрибутов
+  const attrSet = new Set([
+    ...attrsFromJs,
+    ...attrsFromCss,
+    ...attrStatic.map(i => i.name),
+  ]);
 
   const attributes: AttributeSpec[] = [];
   for (const name of attrSet) {
@@ -44,10 +72,16 @@ function buildAttributes(jsSource: string, cssSource: string): AttributeSpec[] {
       });
       continue;
     }
+    const staticDef = attrStatic.find(a => a.name === name);
+    const typeStr = staticDef && staticDef.type ? staticDef.type : undefined;
     if (values.length) {
-      attributes.push({ name, values: values.map((v) => ({ name: v })) });
+      attributes.push({ name, values: values.map((v) => ({ name: v })), ...(typeStr ? { type: typeStr } : {}) });
     } else if (inferBooleanPresence(cssSource, name)) {
-      attributes.push({ name, valueSet: 'v' });
+      attributes.push({ name, valueSet: 'v', ...(typeStr ? { type: typeStr } : {}) });
+    } else if (staticDef) {
+      attributes.push({ name, ...(typeStr ? { type: typeStr } : {}) });
+    } else {
+      attributes.push({ name });
     }
   }
   return attributes;

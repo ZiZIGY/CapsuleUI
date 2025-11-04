@@ -39,4 +39,29 @@ export function extractObservedAttributes(jsSource: string): string[] {
   return Array.from(new Set(list));
 }
 
+/**
+ * Извлекает static properties как объект.
+ * Пример структуры:
+ * {
+ *   value: { type: 'String', reflect: true },
+ *   minDate: { type: 'String', reflect: true, attribute: 'min-date' },
+ * }
+ */
+export function extractStaticProperties(jsSource: string): Record<string, any> {
+  const result: Record<string, any> = {};
+  const blockMatch = jsSource.match(/static\s+properties\s*=\s*\{([\s\S]*?)\}\s*;/);
+  if (!blockMatch) return result;
+  const propsBlock = blockMatch[1];
+  // Пытаемся преобразовать в валидный объект JS
+  let raw = propsBlock.trim();
+  // Делаем замену для совместимости (убедимся, что есть кавычки для ключей типа)
+  raw = raw.replace(/(\w+)\s*:/g, '"$1":');
+  try {
+    // eslint-disable-next-line no-new-func
+    const obj = Function('return ({' + raw + '})')();
+    Object.assign(result, obj);
+  } catch {}
+  return result;
+}
+
 

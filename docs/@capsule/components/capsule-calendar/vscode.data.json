@@ -1,0 +1,38 @@
+{
+  "version": 1.1,
+  "tags": [
+    {
+      "name": "capsule-calendar",
+      "attributes": [
+        {
+          "name": "value",
+          "type": "string"
+        },
+        {
+          "name": "display-year",
+          "type": "number"
+        },
+        {
+          "name": "display-month",
+          "type": "number"
+        },
+        {
+          "name": "min-date",
+          "type": "string"
+        },
+        {
+          "name": "max-date",
+          "type": "string"
+        },
+        {
+          "name": "disabled-dates",
+          "type": "string"
+        },
+        {
+          "name": "locale",
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}

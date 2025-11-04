@@ -45,9 +45,10 @@ class CapsuleButton extends LitElement {
   }
 
   _updateAriaDisabled() {
-    // ✅ Правильное определение disabled состояния
-    const isDisabled = this.hasAttribute('disabled') && this.getAttribute('disabled') !== 'false';
-    
+    const isDisabled =
+      this.hasAttribute('disabled') &&
+      this.getAttribute('disabled') !== 'false';
+
     if (isDisabled) {
       this.setAttribute('aria-disabled', 'true');
       this.tabIndex = -1;
@@ -65,9 +66,11 @@ class CapsuleButton extends LitElement {
   };
 
   _handleKeydown = (e) => {
-    const isDisabled = this.hasAttribute('disabled') && this.getAttribute('disabled') !== 'false';
+    const isDisabled =
+      this.hasAttribute('disabled') &&
+      this.getAttribute('disabled') !== 'false';
     if (isDisabled) return;
-    
+
     if (e.key === ' ' || e.key === 'Enter') {
       e.preventDefault();
       this.click();
