@@ -48,11 +48,3 @@ features:
     title: 'Development CLI'
     details: Add and update components with a single command.
 ---
-
-## Every Component You Need, Ready for Production
-
-<script setup>
-  import HeroLiveDemo from './.vitepress/components/HeroLiveDemo.vue'
-</script>
-
-<HeroLiveDemo/>
