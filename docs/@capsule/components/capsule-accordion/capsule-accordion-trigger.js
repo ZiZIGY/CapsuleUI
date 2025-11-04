@@ -13,6 +13,7 @@ class CapsuleAccordionTrigger extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     this._updateAttributes();
+    this.addEventListener('click', this._handleClick.bind(this));
   }
 
   updated(changedProperties) {
@@ -34,9 +35,7 @@ class CapsuleAccordionTrigger extends LitElement {
   _handleClick(event) {
     event.preventDefault();
 
-    if (this.excludeSelf) {
-      if (event.currentTarget === event.target) return;
-    }
+    if (this.excludeSelf && event.currentTarget === event.target) return;
 
     const panel = this.closest('capsule-accordion-panel');
     if (panel) {
@@ -45,7 +44,7 @@ class CapsuleAccordionTrigger extends LitElement {
   }
 
   render() {
-    return html` <slot></slot> `;
+    return html`<slot></slot>`;
   }
 }
 

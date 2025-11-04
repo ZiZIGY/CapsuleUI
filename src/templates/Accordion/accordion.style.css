@@ -28,12 +28,12 @@ __PREFIX__-__COMPONENT__-content {
   overflow: hidden;
 }
 
-__PREFIX__-__COMPONENT__-panel,
-__PREFIX__-__COMPONENT__-panel[open='false'] {
-  grid-template-rows: min-content 0fr;
-}
-
 __PREFIX__-__COMPONENT__-panel[open='true'],
 __PREFIX__-__COMPONENT__-panel[open] {
   grid-template-rows: min-content 1fr;
+}
+
+__PREFIX__-__COMPONENT__-panel,
+__PREFIX__-__COMPONENT__-panel[open='false'] {
+  grid-template-rows: min-content 0fr;
 }

@@ -28,12 +28,12 @@ capsule-accordion-content {
   overflow: hidden;
 }
 
-capsule-accordion-panel,
-capsule-accordion-panel[open='false'] {
-  grid-template-rows: min-content 0fr;
-}
-
 capsule-accordion-panel[open='true'],
 capsule-accordion-panel[open] {
   grid-template-rows: min-content 1fr;
+}
+
+capsule-accordion-panel,
+capsule-accordion-panel[open='false'] {
+  grid-template-rows: min-content 0fr;
 }

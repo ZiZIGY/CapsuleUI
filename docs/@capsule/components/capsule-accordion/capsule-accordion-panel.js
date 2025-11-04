@@ -15,12 +15,29 @@ class CapsuleAccordionPanel extends LitElement {
     this.setAttribute('role', 'region');
   }
 
+  updated(changedProperties) {
+    if (changedProperties.has('open')) {
+      const accordion = this.closest('capsule-accordion');
+      if (accordion) {
+        accordion._handlePanelToggle(this);
+      }
+
+      if (this.open) {
+        this.dispatchEvent(new CustomEvent('open', { bubbles: true }));
+      } else {
+        this.dispatchEvent(new CustomEvent('close', { bubbles: true }));
+      }
+      this.dispatchEvent(
+        new CustomEvent('toggle', {
+          bubbles: true,
+          detail: { open: this.open },
+        })
+      );
+    }
+  }
+
   toggle() {
-    const event = new CustomEvent('panel-toggle', {
-      bubbles: true,
-      detail: { panel: this },
-    });
-    this.dispatchEvent(event);
+    this.open = !this.open;
   }
 
   render() {

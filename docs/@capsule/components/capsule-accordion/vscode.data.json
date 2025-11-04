@@ -2,6 +2,10 @@
   "version": 1.1,
   "tags": [
     {
+      "name": "capsule-accordion-content",
+      "attributes": []
+    },
+    {
       "name": "capsule-accordion-panel",
       "attributes": [
         {
@@ -14,6 +18,15 @@
               "name": "true"
             }
           ],
+          "type": "boolean"
+        }
+      ]
+    },
+    {
+      "name": "capsule-accordion-trigger",
+      "attributes": [
+        {
+          "name": "exclude-self",
           "type": "boolean"
         }
       ]

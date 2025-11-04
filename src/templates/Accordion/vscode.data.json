@@ -2,6 +2,10 @@
   "version": 1.1,
   "tags": [
     {
+      "name": "__PREFIX__-__COMPONENT__-content",
+      "attributes": []
+    },
+    {
       "name": "__PREFIX__-__COMPONENT__-panel",
       "attributes": [
         {
@@ -14,6 +18,15 @@
               "name": "true"
             }
           ],
+          "type": "boolean"
+        }
+      ]
+    },
+    {
+      "name": "__PREFIX__-__COMPONENT__-trigger",
+      "attributes": [
+        {
+          "name": "exclude-self",
           "type": "boolean"
         }
       ]
