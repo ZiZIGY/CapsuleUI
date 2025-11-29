@@ -1,22 +1,22 @@
-__PREFIX__-__COMPONENT__ {
+capsule-tabs {
   width: 100%;
   overflow: hidden;
 }
 
-__PREFIX__-__COMPONENT__::part(panels-container) {
+capsule-tabs::part(panels-container) {
   overflow: hidden;
   position: relative;
 }
 
-__PREFIX__-__COMPONENT__-list {
+capsule-tabs-list {
   display: flex;
   border-bottom: 1px solid var(--capsule-color-outline-variant);
   margin-bottom: var(--capsule-margin-md);
   gap: 1rem;
 }
 
-/* Стили для __PREFIX__-__COMPONENT__-trigger */
-__PREFIX__-__COMPONENT__-trigger::part(trigger) {
+/* Стили для capsule-tabs-trigger */
+capsule-tabs-trigger::part(trigger) {
   background: none;
   border: none;
   padding: 0.75rem 1rem;
@@ -27,25 +27,25 @@ __PREFIX__-__COMPONENT__-trigger::part(trigger) {
   transition: var(--capsule-transition);
 }
 
-__PREFIX__-__COMPONENT__-trigger::part(trigger):hover {
+capsule-tabs-trigger::part(trigger):hover {
   color: var(--capsule-color-text);
   background-color: var(--capsule-color-surface-variant);
 }
 
-__PREFIX__-__COMPONENT__-trigger[active]::part(trigger) {
+capsule-tabs-trigger[active]::part(trigger) {
   color: var(--capsule-color-primary);
   border-bottom-color: var(--capsule-color-primary);
   background-color: var(--capsule-color-surface);
 }
 
-__PREFIX__-__COMPONENT__-panels {
+capsule-tabs-panels {
   position: relative;
   overflow: hidden;
   width: 100%;
   display: flex;
 }
 
-__PREFIX__-__COMPONENT__-panel {
+capsule-tabs-panel {
   display: block;
   width: 100%;
   transition: transform 0.4s, opacity 0.4s, height 0.4s;
@@ -56,65 +56,65 @@ __PREFIX__-__COMPONENT__-panel {
 }
 
 /* Активная панель */
-__PREFIX__-__COMPONENT__-panel[active] {
+capsule-tabs-panel[active] {
   opacity: 1;
   pointer-events: auto;
   position: relative;
 }
 
 /* X-анимация с братьями */
-__PREFIX__-__COMPONENT__-panels[animation='x']
-  __PREFIX__-__COMPONENT__-panel[active] {
+capsule-tabs-panels[animation='x']
+  capsule-tabs-panel[active] {
   transform: translateX(0);
 }
-__PREFIX__-__COMPONENT__-panels[animation='x']
-  __PREFIX__-__COMPONENT__-panel[active]
-  ~ __PREFIX__-__COMPONENT__-panel {
+capsule-tabs-panels[animation='x']
+  capsule-tabs-panel[active]
+  ~ capsule-tabs-panel {
   transform: translateX(100%);
   opacity: 0;
 }
-__PREFIX__-__COMPONENT__-panels[animation='x']
-  __PREFIX__-__COMPONENT__-panel:not([active]) {
+capsule-tabs-panels[animation='x']
+  capsule-tabs-panel:not([active]) {
   transform: translateX(-100%);
   opacity: 0;
 }
-__PREFIX__-__COMPONENT__-panels[animation='x']
-  __PREFIX__-__COMPONENT__-panel[active]
-  ~ __PREFIX__-__COMPONENT__-panel:not([active]) {
+capsule-tabs-panels[animation='x']
+  capsule-tabs-panel[active]
+  ~ capsule-tabs-panel:not([active]) {
   transform: translateX(100%);
   opacity: 0;
 }
 
 /* Y-анимация с братьями */
-__PREFIX__-__COMPONENT__-panels[animation='y']
-  __PREFIX__-__COMPONENT__-panel[active] {
+capsule-tabs-panels[animation='y']
+  capsule-tabs-panel[active] {
   transform: translateY(0);
 }
-__PREFIX__-__COMPONENT__-panels[animation='y']
-  __PREFIX__-__COMPONENT__-panel[active]
-  ~ __PREFIX__-__COMPONENT__-panel {
+capsule-tabs-panels[animation='y']
+  capsule-tabs-panel[active]
+  ~ capsule-tabs-panel {
   transform: translateY(100%);
   opacity: 0;
 }
-__PREFIX__-__COMPONENT__-panels[animation='y']
-  __PREFIX__-__COMPONENT__-panel:not([active]) {
+capsule-tabs-panels[animation='y']
+  capsule-tabs-panel:not([active]) {
   transform: translateY(-100%);
   opacity: 0;
 }
-__PREFIX__-__COMPONENT__-panels[animation='y']
-  __PREFIX__-__COMPONENT__-panel[active]
-  ~ __PREFIX__-__COMPONENT__-panel:not([active]) {
+capsule-tabs-panels[animation='y']
+  capsule-tabs-panel[active]
+  ~ capsule-tabs-panel:not([active]) {
   transform: translateY(100%);
   opacity: 0;
 }
 
 /* Fade-анимация */
-__PREFIX__-__COMPONENT__-panels[animation='fade']
-  __PREFIX__-__COMPONENT__-panel {
+capsule-tabs-panels[animation='fade']
+  capsule-tabs-panel {
   opacity: 0;
   transition: opacity 0.4s, height 0.4s;
 }
-__PREFIX__-__COMPONENT__-panels[animation='fade']
-  __PREFIX__-__COMPONENT__-panel[active] {
+capsule-tabs-panels[animation='fade']
+  capsule-tabs-panel[active] {
   opacity: 1;
 }

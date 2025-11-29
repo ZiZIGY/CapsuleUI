@@ -24,6 +24,12 @@ __PREFIX__-__COMPONENT__-content {
   z-index: 50;
 }
 
+__PREFIX__-__COMPONENT__:hover __PREFIX__-__COMPONENT__-content,
+__PREFIX__-__COMPONENT__:focus-within __PREFIX__-__COMPONENT__-content,
+__PREFIX__-__COMPONENT__-content:hover {
+  pointer-events: auto;
+}
+
 __PREFIX__-__COMPONENT__[disabled] __PREFIX__-__COMPONENT__-content,
 __PREFIX__-__COMPONENT__[disabled]:hover __PREFIX__-__COMPONENT__-content,
 __PREFIX__-__COMPONENT__[disabled]:focus-within

@@ -55,4 +55,4 @@ class CapsuleTabsTrigger extends LitElement {
   }
 }
 
-customElements.define('__PREFIX__-__COMPONENT__-trigger', CapsuleTabsTrigger);
+customElements.define('capsule-tabs-trigger', CapsuleTabsTrigger);

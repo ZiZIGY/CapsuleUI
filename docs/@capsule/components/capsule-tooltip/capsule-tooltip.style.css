@@ -24,6 +24,12 @@ capsule-tooltip-content {
   z-index: 50;
 }
 
+capsule-tooltip:hover capsule-tooltip-content,
+capsule-tooltip:focus-within capsule-tooltip-content,
+capsule-tooltip-content:hover {
+  pointer-events: auto;
+}
+
 capsule-tooltip[disabled] capsule-tooltip-content,
 capsule-tooltip[disabled]:hover capsule-tooltip-content,
 capsule-tooltip[disabled]:focus-within

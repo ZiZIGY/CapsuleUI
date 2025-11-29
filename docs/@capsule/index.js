@@ -36,3 +36,4 @@ import './components/capsule-switch/register.js';
 import './components/capsule-range/register.js';
 import './components/capsule-rating/register.js';
 import './components/capsule-tooltip/register.js';
+import './components/capsule-tabs/register.js';

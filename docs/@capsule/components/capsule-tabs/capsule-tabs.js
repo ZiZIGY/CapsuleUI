@@ -37,16 +37,16 @@ class CapsuleTabs extends LitElement {
   }
 
   _getTabsList() {
-    return this.querySelector('__PREFIX__-__COMPONENT__-list');
+    return this.querySelector('capsule-tabs-list');
   }
 
   _getTabsPanels() {
     const panelsContainer = this.querySelector(
-      '__PREFIX__-__COMPONENT__-panels'
+      'capsule-tabs-panels'
     );
     if (!panelsContainer) return [];
     return Array.from(
-      panelsContainer.querySelectorAll('__PREFIX__-__COMPONENT__-panel')
+      panelsContainer.querySelectorAll('capsule-tabs-panel')
     );
   }
 
@@ -54,7 +54,7 @@ class CapsuleTabs extends LitElement {
     const tabsList = this._getTabsList();
     if (!tabsList) return [];
     return Array.from(
-      tabsList.querySelectorAll('__PREFIX__-__COMPONENT__-trigger')
+      tabsList.querySelectorAll('capsule-tabs-trigger')
     );
   }
 
@@ -135,4 +135,4 @@ class CapsuleTabs extends LitElement {
   }
 }
 
-customElements.define('__PREFIX__-__COMPONENT__', CapsuleTabs);
+customElements.define('capsule-tabs', CapsuleTabs);

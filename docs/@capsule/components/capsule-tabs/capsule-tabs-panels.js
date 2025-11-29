@@ -14,4 +14,4 @@ class CapsuleTabsPanels extends LitElement {
   }
 }
 
-customElements.define('__PREFIX__-__COMPONENT__-panels', CapsuleTabsPanels);
+customElements.define('capsule-tabs-panels', CapsuleTabsPanels);

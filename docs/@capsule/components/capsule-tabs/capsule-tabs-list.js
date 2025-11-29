@@ -15,4 +15,4 @@ class CapsuleTabsList extends LitElement {
   }
 }
 
-customElements.define('__PREFIX__-__COMPONENT__-list', CapsuleTabsList);
+customElements.define('capsule-tabs-list', CapsuleTabsList);

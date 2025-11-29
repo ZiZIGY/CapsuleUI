@@ -2,7 +2,7 @@
   "version": 1.1,
   "tags": [
     {
-      "name": "__PREFIX__-__COMPONENT__",
+      "name": "capsule-tabs",
       "attributes": [
         {
           "name": "value",
@@ -11,11 +11,11 @@
       ]
     },
     {
-      "name": "__PREFIX__-__COMPONENT__-list",
+      "name": "capsule-tabs-list",
       "attributes": []
     },
     {
-      "name": "__PREFIX__-__COMPONENT__-trigger",
+      "name": "capsule-tabs-trigger",
       "attributes": [
         {
           "name": "value",
@@ -30,7 +30,7 @@
       ]
     },
     {
-      "name": "__PREFIX__-__COMPONENT__-panels",
+      "name": "capsule-tabs-panels",
       "attributes": [
         {
           "name": "animation",
@@ -50,7 +50,7 @@
       ]
     },
     {
-      "name": "__PREFIX__-__COMPONENT__-panel",
+      "name": "capsule-tabs-panel",
       "attributes": [
         {
           "name": "value",
