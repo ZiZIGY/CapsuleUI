@@ -33,3 +33,5 @@ import './components/capsule-button/register.js';
 import './components/capsule-badge/register.js';
 import './components/capsule-scroll-area/register.js';
 import './components/capsule-switch/register.js';
+import './components/capsule-range/register.js';
+import './components/capsule-rating/register.js';

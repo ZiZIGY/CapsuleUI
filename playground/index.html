@@ -23,6 +23,34 @@
 
     <capsule-switch></capsule-switch>
 
+    <div style="display: flex; align-items: center; gap: 1rem">
+      <capsule-range
+        id="single-range"
+        value="[50]"
+      ></capsule-range>
+      <input
+        type="number"
+        id="single-input"
+        value="50"
+        min="0"
+        max="100"
+      />
+    </div>
+
+    <script>
+      const range = document.querySelector('#single-range');
+      const input = document.querySelector('#single-input');
+
+      range.addEventListener('change', (e) => {
+        input.value = e.detail.values[0];
+      });
+
+      input.addEventListener('input', (e) => {
+        const value = parseFloat(e.target.value) || 0;
+        range.value = `[${value}]`;
+      });
+    </script>
+
     <capsule-scroll-area>
       Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illum, enim
       distinctio. Ea fuga beatae qui adipisci a, culpa cumque laboriosam modi

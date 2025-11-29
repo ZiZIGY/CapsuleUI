@@ -1,3 +1,5 @@
+@import url('./components/capsule-rating/capsule-rating.style.css');
+@import url('./components/capsule-range/capsule-range.style.css');
 @import url('./components/capsule-switch/capsule-switch.style.css');
 @import url('./components/capsule-scroll-area/capsule-scroll-area.style.css');
 @import url('./components/capsule-range-calendar/capsule-range-calendar.style.css');

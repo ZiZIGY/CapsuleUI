@@ -1,15 +1,22 @@
-class BreadcrumbEllipsis extends HTMLElement {
+import { LitElement, html } from '../../lit';
+
+class CapsuleBreadcrumbEllipsis extends LitElement {
   constructor() {
     super();
-    this.attachShadow({ mode: 'open' });
   }
 
   connectedCallback() {
-    this._render();
+    super.connectedCallback();
+    this.setAttribute('aria-hidden', 'true');
   }
 
-  _render() {
-    this.shadowRoot.innerHTML = `<slot>...</slot>`;
+  createRenderRoot() {
+    return super.createRenderRoot();
+  }
+
+  render() {
+    return html`<slot>...</slot>`;
   }
 }
-customElements.define('__PREFIX__-__COMPONENT__-ellipsis', BreadcrumbEllipsis);
+
+customElements.define('__PREFIX__-__COMPONENT__-ellipsis', CapsuleBreadcrumbEllipsis);

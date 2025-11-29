@@ -528,4 +528,4 @@ class CapsuleRange extends LitElement {
   }
 }
 
-customElements.define('__PREFIX__-__COMPONENT__', CapsuleRange);
+customElements.define('capsule-range', CapsuleRange);

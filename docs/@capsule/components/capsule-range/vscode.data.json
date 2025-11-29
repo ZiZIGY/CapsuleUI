@@ -1,0 +1,65 @@
+{
+  "version": 1.1,
+  "tags": [
+    {
+      "name": "capsule-range",
+      "attributes": [
+        {
+          "name": "orientation",
+          "values": [
+            {
+              "name": "vertical"
+            }
+          ]
+        },
+        {
+          "name": "size",
+          "values": [
+            {
+              "name": "sm"
+            },
+            {
+              "name": "lg"
+            }
+          ]
+        },
+        {
+          "name": "color",
+          "values": [
+            {
+              "name": "secondary"
+            },
+            {
+              "name": "error"
+            },
+            {
+              "name": "warning"
+            },
+            {
+              "name": "success"
+            },
+            {
+              "name": "primary"
+            }
+          ]
+        },
+        {
+          "name": "variant",
+          "values": [
+            {
+              "name": "outline"
+            },
+            {
+              "name": "ghost"
+            }
+          ]
+        },
+        {
+          "name": "disabled",
+          "description": "Disables component",
+          "valueSet": "v"
+        }
+      ]
+    }
+  ]
+}

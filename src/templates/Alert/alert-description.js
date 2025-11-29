@@ -1,6 +1,6 @@
 import { LitElement, html } from '../../lit';
 
-class AlertDescription extends LitElement {
+class CapsuleAlertDescription extends LitElement {
   constructor() {
     super();
   }
@@ -14,4 +14,7 @@ class AlertDescription extends LitElement {
   }
 }
 
-customElements.define('__PREFIX__-__COMPONENT__-description', AlertDescription);
+customElements.define(
+  '__PREFIX__-__COMPONENT__-description',
+  CapsuleAlertDescription
+);

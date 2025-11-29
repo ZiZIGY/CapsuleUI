@@ -1,18 +1,25 @@
-class BreadcrumbSeparator extends HTMLElement {
+import { LitElement, html } from '../../lit';
+
+class CapsuleBreadcrumbSeparator extends LitElement {
   constructor() {
     super();
-    this.attachShadow({ mode: 'open' });
   }
 
   connectedCallback() {
-    this._render();
+    super.connectedCallback();
+    this.setAttribute('aria-hidden', 'true');
   }
 
-  _render() {
-    this.shadowRoot.innerHTML = `<slot>/</slot>`;
+  createRenderRoot() {
+    return super.createRenderRoot();
+  }
+
+  render() {
+    return html`<slot>/</slot>`;
   }
 }
+
 customElements.define(
   'capsule-breadcrumb-separator',
-  BreadcrumbSeparator
+  CapsuleBreadcrumbSeparator
 );

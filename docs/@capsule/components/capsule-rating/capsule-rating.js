@@ -334,4 +334,4 @@ class CapsuleRating extends LitElement {
   }
 }
 
-customElements.define('__PREFIX__-__COMPONENT__', CapsuleRating);
+customElements.define('capsule-rating', CapsuleRating);
