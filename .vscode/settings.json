@@ -11,6 +11,7 @@
     "docs/@capsule/components/capsule-accordion/vscode.data.json",
     "docs/@capsule/components/capsule-switch/vscode.data.json",
     "docs/@capsule/components/capsule-range/vscode.data.json",
-    "docs/@capsule/components/capsule-rating/vscode.data.json"
+    "docs/@capsule/components/capsule-rating/vscode.data.json",
+    "docs/@capsule/components/capsule-tooltip/vscode.data.json"
   ]
 }

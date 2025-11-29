@@ -1,6 +1,6 @@
 import { LitElement, html } from '../../lit';
 
-class Switch extends LitElement {
+class CapsuleSwitch extends LitElement {
   static properties = {
     checked: { type: Boolean, reflect: true },
     disabled: { type: Boolean, reflect: true },
@@ -152,4 +152,4 @@ class Switch extends LitElement {
   }
 }
 
-customElements.define('__PREFIX__-__COMPONENT__', Switch);
+customElements.define('__PREFIX__-__COMPONENT__', CapsuleSwitch);

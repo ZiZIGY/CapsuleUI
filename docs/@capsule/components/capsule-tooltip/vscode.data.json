@@ -2,7 +2,7 @@
   "version": 1.1,
   "tags": [
     {
-      "name": "__PREFIX__-__COMPONENT__",
+      "name": "capsule-tooltip",
       "attributes": [
         {
           "name": "placement",
@@ -30,11 +30,11 @@
       ]
     },
     {
-      "name": "__PREFIX__-__COMPONENT__-trigger",
+      "name": "capsule-tooltip-trigger",
       "attributes": []
     },
     {
-      "name": "__PREFIX__-__COMPONENT__-content",
+      "name": "capsule-tooltip-content",
       "attributes": []
     }
   ]

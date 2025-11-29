@@ -1,9 +1,12 @@
 __PREFIX__-__COMPONENT__ {
   position: relative;
-  overflow: hidden;
 }
 
-__PREFIX__-__COMPONENT__::part(tooltip) {
+__PREFIX__-__COMPONENT__[disabled] {
+  pointer-events: none;
+}
+
+__PREFIX__-__COMPONENT__-content {
   position: absolute;
   padding: 0.5rem 0.75rem;
   background-color: #1f2937;
@@ -15,83 +18,100 @@ __PREFIX__-__COMPONENT__::part(tooltip) {
   opacity: 0;
   transform: translate(-50%, 10px) scale(0.95);
   transition: all 0.2s ease-out;
+  pointer-events: none;
+  width: fit-content;
+  height: fit-content;
+  z-index: 50;
 }
 
-__PREFIX__-__COMPONENT__[disabled]::part(tooltip),
-__PREFIX__-__COMPONENT__[disabled]:hover::part(tooltip),
-__PREFIX__-__COMPONENT__[disabled]:focus-within::part(tooltip) {
+__PREFIX__-__COMPONENT__[disabled] __PREFIX__-__COMPONENT__-content,
+__PREFIX__-__COMPONENT__[disabled]:hover __PREFIX__-__COMPONENT__-content,
+__PREFIX__-__COMPONENT__[disabled]:focus-within
+  __PREFIX__-__COMPONENT__-content {
   opacity: 0 !important;
   visibility: hidden !important;
-  transform: translate(-50%, 10px) scale(0.95) !important;
 }
 
-__PREFIX__-__COMPONENT__:hover::part(tooltip),
-__PREFIX__-__COMPONENT__:focus-within::part(tooltip) {
+__PREFIX__-__COMPONENT__:hover __PREFIX__-__COMPONENT__-content,
+__PREFIX__-__COMPONENT__:focus-within __PREFIX__-__COMPONENT__-content {
   opacity: 1;
   transform: translate(-50%, 0) scale(1);
 }
 
 /* Top placement */
-__PREFIX__-__COMPONENT__::part(tooltip),
-__PREFIX__-__COMPONENT__[placement="top"]::part(tooltip) {
+__PREFIX__-__COMPONENT__-content,
+__PREFIX__-__COMPONENT__[placement='top'] __PREFIX__-__COMPONENT__-content {
   bottom: 100%;
   left: 50%;
   transform: translate(-50%, 10px) scale(0.95);
   margin-bottom: 0.5rem;
 }
 
-__PREFIX__-__COMPONENT__:hover::part(tooltip),
-__PREFIX__-__COMPONENT__:focus-within::part(tooltip),
-__PREFIX__-__COMPONENT__[placement="top"]:hover::part(tooltip),
-__PREFIX__-__COMPONENT__[placement="top"]:focus-within::part(tooltip) {
+__PREFIX__-__COMPONENT__:hover __PREFIX__-__COMPONENT__-content,
+__PREFIX__-__COMPONENT__:focus-within __PREFIX__-__COMPONENT__-content,
+__PREFIX__-__COMPONENT__[placement='top']:hover
+  __PREFIX__-__COMPONENT__-content,
+__PREFIX__-__COMPONENT__[placement='top']:focus-within
+  __PREFIX__-__COMPONENT__-content {
   transform: translate(-50%, 0) scale(1);
 }
 
 /* Bottom placement */
-__PREFIX__-__COMPONENT__[placement="bottom"]::part(tooltip) {
+__PREFIX__-__COMPONENT__[placement='bottom'] __PREFIX__-__COMPONENT__-content {
   top: 100%;
   left: 50%;
   transform: translate(-50%, -10px) scale(0.95);
   margin-top: 0.5rem;
 }
 
-__PREFIX__-__COMPONENT__[placement="bottom"]:hover::part(tooltip),
-__PREFIX__-__COMPONENT__[placement="bottom"]:focus-within::part(tooltip) {
+__PREFIX__-__COMPONENT__[placement='bottom']:hover
+  __PREFIX__-__COMPONENT__-content,
+__PREFIX__-__COMPONENT__[placement='bottom']:focus-within
+  __PREFIX__-__COMPONENT__-content {
   transform: translate(-50%, 0) scale(1);
 }
 
 /* Left placement */
-__PREFIX__-__COMPONENT__[placement="left"]::part(tooltip) {
+__PREFIX__-__COMPONENT__[placement='left'] __PREFIX__-__COMPONENT__-content {
   right: 100%;
   top: 50%;
+  left: auto;
   transform: translate(10px, -50%) scale(0.95);
   margin-right: 0.5rem;
 }
 
-__PREFIX__-__COMPONENT__[placement="left"]:hover::part(tooltip),
-__PREFIX__-__COMPONENT__[placement="left"]:focus-within::part(tooltip) {
+__PREFIX__-__COMPONENT__[placement='left']:hover
+  __PREFIX__-__COMPONENT__-content,
+__PREFIX__-__COMPONENT__[placement='left']:focus-within
+  __PREFIX__-__COMPONENT__-content {
   transform: translate(0, -50%) scale(1);
 }
 
 /* Right placement */
-__PREFIX__-__COMPONENT__[placement="right"]::part(tooltip) {
+__PREFIX__-__COMPONENT__[placement='right'] __PREFIX__-__COMPONENT__-content {
   left: 100%;
   top: 50%;
   transform: translate(-10px, -50%) scale(0.95);
   margin-left: 0.5rem;
 }
 
-__PREFIX__-__COMPONENT__[placement="right"]:hover::part(tooltip),
-__PREFIX__-__COMPONENT__[placement="right"]:focus-within::part(tooltip) {
+__PREFIX__-__COMPONENT__[placement='right']:hover
+  __PREFIX__-__COMPONENT__-content,
+__PREFIX__-__COMPONENT__[placement='right']:focus-within
+  __PREFIX__-__COMPONENT__-content {
   transform: translate(0, -50%) scale(1);
 }
 
-__PREFIX__-__COMPONENT__::part(tooltip)::before {
+__PREFIX__-__COMPONENT__-content::before {
+  content: '';
+  position: absolute;
   border-width: 4px;
+  border-style: solid;
   border-color: transparent;
 }
 
-__PREFIX__-__COMPONENT__[placement="top"]::part(tooltip)::before {
+__PREFIX__-__COMPONENT__[placement='top']
+  __PREFIX__-__COMPONENT__-content::before {
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
@@ -99,7 +119,8 @@ __PREFIX__-__COMPONENT__[placement="top"]::part(tooltip)::before {
   border-bottom-width: 0;
 }
 
-__PREFIX__-__COMPONENT__[placement="bottom"]::part(tooltip)::before {
+__PREFIX__-__COMPONENT__[placement='bottom']
+  __PREFIX__-__COMPONENT__-content::before {
   bottom: 100%;
   left: 50%;
   transform: translateX(-50%);
@@ -107,7 +128,8 @@ __PREFIX__-__COMPONENT__[placement="bottom"]::part(tooltip)::before {
   border-top-width: 0;
 }
 
-__PREFIX__-__COMPONENT__[placement="left"]::part(tooltip)::before {
+__PREFIX__-__COMPONENT__[placement='left']
+  __PREFIX__-__COMPONENT__-content::before {
   left: 100%;
   top: 50%;
   transform: translateY(-50%);
@@ -115,7 +137,8 @@ __PREFIX__-__COMPONENT__[placement="left"]::part(tooltip)::before {
   border-right-width: 0;
 }
 
-__PREFIX__-__COMPONENT__[placement="right"]::part(tooltip)::before {
+__PREFIX__-__COMPONENT__[placement='right']
+  __PREFIX__-__COMPONENT__-content::before {
   right: 100%;
   top: 50%;
   transform: translateY(-50%);

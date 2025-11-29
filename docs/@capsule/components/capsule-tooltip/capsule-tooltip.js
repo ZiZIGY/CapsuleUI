@@ -26,4 +26,4 @@ class CapsuleTooltip extends LitElement {
   }
 }
 
-customElements.define('__PREFIX__-__COMPONENT__', CapsuleTooltip);
+customElements.define('capsule-tooltip', CapsuleTooltip);
