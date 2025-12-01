@@ -22,7 +22,7 @@ npx @zizigy/capsule init --dir ./playground
 2. Add a component (installs into `@capsule/components/<prefix>-<component>`):
 
 ```bash
-capsule add Slider --prefix ui
+npx @zizigy/capsule add Slider --prefix ui
 ```
 
 This will also:
