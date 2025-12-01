@@ -5,7 +5,7 @@ A collapsible content component for organizing information into expandable/colla
 ## Installation
 
 ```bash
-npx capsule add Accordion
+npx @zizigy/capsule add Accordion
 ```
 
 ## Usage

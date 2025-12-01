@@ -1,6 +1,8 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import { copyDir, ensureDir } from '../filesystem';
+import { findTemplateDir } from '../utils';
 
 export const init = {
   command: 'init',
@@ -17,14 +19,15 @@ export const init = {
   action: async (options: { dir?: string }) => {
     const projectDir = process.cwd();
 
-    // Locate template folder: prefer src/@template, fallback to project root/@template
-    let templateCapsuleDir = path.join(projectDir, 'src', '@template');
-    if (!fs.existsSync(templateCapsuleDir)) {
-      templateCapsuleDir = path.join(projectDir, '@template');
-    }
+    // Get __dirname for the init command file
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(__filename);
+
+    // Locate @template folder in the package
+    const templateCapsuleDir = findTemplateDir(__dirname);
     if (!fs.existsSync(templateCapsuleDir)) {
       console.error(
-        'Template folder @template/ not found in src/ or project root!'
+        `Template folder @template/ not found in package. Expected at: ${templateCapsuleDir}`
       );
       process.exit(1);
     }

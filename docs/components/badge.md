@@ -5,7 +5,7 @@ A small status descriptor for labeling or counting items. Badges appear next to 
 ## Installation
 
 ```bash
-npx capsule add Badge
+npx @zizigy/capsule add Badge
 ```
 
 ## Usage

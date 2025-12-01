@@ -5,7 +5,7 @@ A divider component that creates a visual separator between content sections.
 ## Installation
 
 ```bash
-npx capsule add Divider
+npx @zizigy/capsule add Divider
 ```
 
 ## Usage

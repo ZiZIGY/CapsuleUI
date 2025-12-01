@@ -5,7 +5,7 @@
 ## Установка
 
 ```bash
-npx capsule add Switch
+npx @zizigy/capsule add Switch
 ```
 
 ## Использование
@@ -39,7 +39,10 @@ npx capsule add Switch
 
 ```html
 <capsule-switch disabled></capsule-switch>
-<capsule-switch checked disabled></capsule-switch>
+<capsule-switch
+  checked
+  disabled
+></capsule-switch>
 ```
 
 ### Размеры
@@ -86,7 +89,10 @@ npx capsule add Switch
 <form>
   <label>
     Включить уведомления
-    <capsule-switch name="notifications" checked></capsule-switch>
+    <capsule-switch
+      name="notifications"
+      checked
+    ></capsule-switch>
   </label>
   <button type="submit">Сохранить</button>
 </form>
@@ -100,12 +106,12 @@ npx capsule add Switch
 
 ## Атрибуты
 
-| Атрибут         | Тип     | По умолчанию | Описание                                   |
-| --------------- | ------- | ------------ | ------------------------------------------ |
-| `checked`       | boolean | `false`      | Управляет состоянием вкл/выкл              |
-| `disabled`      | boolean | `false`      | Отключает переключатель                    |
-| `size`          | string  | `md`         | Размер переключателя                       |
-| `orientation`   | string  | `horizontal` | Ориентация переключателя                   |
+| Атрибут       | Тип     | По умолчанию | Описание                      |
+| ------------- | ------- | ------------ | ----------------------------- |
+| `checked`     | boolean | `false`      | Управляет состоянием вкл/выкл |
+| `disabled`    | boolean | `false`      | Отключает переключатель       |
+| `size`        | string  | `md`         | Размер переключателя          |
+| `orientation` | string  | `horizontal` | Ориентация переключателя      |
 
 ### Значения размера
 
@@ -194,6 +200,7 @@ switchElement.addEventListener('change', (event) => {
 ```
 
 **Данные события:**
+
 - `checked` (boolean) — Текущее состояние переключателя
 
 ### Пример: Программное управление
@@ -234,4 +241,3 @@ switchElement.disabled = false; // Включить
 - ✅ Правильное управление фокусом
 - ✅ Поддержка интеграции с формами
 - ✅ Семантическая структура для screen readers
-

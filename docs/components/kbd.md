@@ -5,7 +5,7 @@ A visual component for displaying keyboard keys. Perfect for showing keyboard sh
 ## Installation
 
 ```bash
-npx capsule add Kbd
+npx @zizigy/capsule add Kbd
 ```
 
 ## Usage
@@ -72,7 +72,8 @@ Press <capsule-kbd>Ctrl</capsule-kbd> + <capsule-kbd>C</capsule-kbd> to copy
 </div>
 
 ```html
-Use <capsule-kbd>↑</capsule-kbd> <capsule-kbd>↓</capsule-kbd> <capsule-kbd>←</capsule-kbd> <capsule-kbd>→</capsule-kbd> to navigate
+Use <capsule-kbd>↑</capsule-kbd> <capsule-kbd>↓</capsule-kbd>
+<capsule-kbd>←</capsule-kbd> <capsule-kbd>→</capsule-kbd> to navigate
 ```
 
 ### Function Keys
@@ -94,9 +95,9 @@ Use <capsule-kbd>↑</capsule-kbd> <capsule-kbd>↓</capsule-kbd> <capsule-kbd>�
 
 ### Properties
 
-| Property | Type | Default | Description |
-|----------|------|---------|-------------|
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Size of the keyboard key |
+| Property | Type                                   | Default | Description              |
+| -------- | -------------------------------------- | ------- | ------------------------ |
+| `size`   | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'`  | Size of the keyboard key |
 
 ## Styling
 

@@ -5,7 +5,7 @@ A flexible calendar component for date selection. Perfect for date pickers, sche
 ## Installation
 
 ```bash
-npx capsule add Calendar
+npx @zizigy/capsule add Calendar
 ```
 
 ## Usage
@@ -37,7 +37,10 @@ npx capsule add Calendar
 </div>
 
 ```html
-<capsule-calendar display-year="2024" display-month="5"></capsule-calendar>
+<capsule-calendar
+  display-year="2024"
+  display-month="5"
+></capsule-calendar>
 ```
 
 ### Date Range Restrictions
@@ -52,9 +55,10 @@ You can restrict selectable dates using `min-date` and `max-date` attributes.
 </div>
 
 ```html
-<capsule-calendar 
-  min-date="2024-01-01" 
-  max-date="2024-12-31">
+<capsule-calendar
+  min-date="2024-01-01"
+  max-date="2024-12-31"
+>
 </capsule-calendar>
 ```
 
@@ -69,8 +73,7 @@ Disable specific dates by providing a comma-separated list.
 </div>
 
 ```html
-<capsule-calendar 
-  disabled-dates="2024-03-10,2024-03-15,2024-03-20">
+<capsule-calendar disabled-dates="2024-03-10,2024-03-15,2024-03-20">
 </capsule-calendar>
 ```
 
@@ -175,15 +178,15 @@ calendar.addEventListener('change', (e) => {
 
 The calendar exposes several CSS parts for styling:
 
-| Part           | Description                              |
-| -------------- | ---------------------------------------- |
-| `weekdays`     | Container for weekday headers            |
-| `days-grid`    | Grid container for day buttons           |
-| `day`          | Individual day button                    |
-| `day today`    | Current day button                       |
-| `day selected` | Selected day button                      |
-| `day disabled` | Disabled day button                      |
-| `day other-month` | Days from previous/next month         |
+| Part              | Description                    |
+| ----------------- | ------------------------------ |
+| `weekdays`        | Container for weekday headers  |
+| `days-grid`       | Grid container for day buttons |
+| `day`             | Individual day button          |
+| `day today`       | Current day button             |
+| `day selected`    | Selected day button            |
+| `day disabled`    | Disabled day button            |
+| `day other-month` | Days from previous/next month  |
 
 ### Custom Styling Example
 

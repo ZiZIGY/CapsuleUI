@@ -5,7 +5,7 @@ A compact element representing an attribute, category, or action. Chips are used
 ## Installation
 
 ```bash
-npx capsule add Chip
+npx @zizigy/capsule add Chip
 ```
 
 ## Usage

@@ -13,13 +13,13 @@ CapsuleUI modules are reusable functionality packages that extend the capabiliti
 To add a module to your project, use:
 
 ```bash
-npx capsule module add <module-name>
+npx @zizigy/capsule module add <module-name>
 ```
 
 For example, to add the Form module:
 
 ```bash
-npx capsule module add form
+npx @zizigy/capsule module add form
 ```
 
 See the [CLI Commands](/cli-commands) documentation for more information about module management.

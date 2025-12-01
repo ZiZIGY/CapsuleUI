@@ -5,7 +5,7 @@
 ## Установка
 
 ```bash
-npx capsule add Kbd
+npx @zizigy/capsule add Kbd
 ```
 
 ## Использование
@@ -29,7 +29,8 @@ npx capsule add Kbd
 </div>
 
 ```html
-Нажмите <capsule-kbd>Ctrl</capsule-kbd> + <capsule-kbd>C</capsule-kbd> для копирования
+Нажмите <capsule-kbd>Ctrl</capsule-kbd> + <capsule-kbd>C</capsule-kbd> для
+копирования
 ```
 
 ### Разные размеры
@@ -61,8 +62,14 @@ npx capsule add Kbd
 </div>
 
 ```html
-<div>Сохранить: <capsule-kbd>Ctrl</capsule-kbd> + <capsule-kbd>S</capsule-kbd></div>
-<div>Копировать: <capsule-kbd>Ctrl</capsule-kbd> + <capsule-kbd>C</capsule-kbd></div>
+<div
+  >Сохранить: <capsule-kbd>Ctrl</capsule-kbd> +
+  <capsule-kbd>S</capsule-kbd></div
+>
+<div
+  >Копировать: <capsule-kbd>Ctrl</capsule-kbd> +
+  <capsule-kbd>C</capsule-kbd></div
+>
 ```
 
 ### Клавиши стрелок
@@ -72,7 +79,8 @@ npx capsule add Kbd
 </div>
 
 ```html
-Используйте <capsule-kbd>↑</capsule-kbd> <capsule-kbd>↓</capsule-kbd> <capsule-kbd>←</capsule-kbd> <capsule-kbd>→</capsule-kbd> для навигации
+Используйте <capsule-kbd>↑</capsule-kbd> <capsule-kbd>↓</capsule-kbd>
+<capsule-kbd>←</capsule-kbd> <capsule-kbd>→</capsule-kbd> для навигации
 ```
 
 ### Функциональные клавиши
@@ -94,9 +102,9 @@ npx capsule add Kbd
 
 ### Свойства
 
-| Свойство | Тип | По умолчанию | Описание |
-|----------|-----|--------------|----------|
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Размер клавиши клавиатуры |
+| Свойство | Тип                                    | По умолчанию | Описание                  |
+| -------- | -------------------------------------- | ------------ | ------------------------- |
+| `size`   | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'`       | Размер клавиши клавиатуры |
 
 ## Стилизация
 

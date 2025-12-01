@@ -7,7 +7,7 @@ CapsuleUI — это коллекция современных веб-компо
 Чтобы начать работу с CapsuleUI, инициализируйте его в своем проекте:
 
 ```bash
-npx capsule init
+npx @zizigy/capsule init
 ```
 
 Эта команда создает папку `@capsule` в вашем проекте с глобальными стилями и утилитами.
@@ -17,7 +17,7 @@ npx capsule init
 Вы можете указать пользовательскую директорию, где будет создана папка `@capsule`:
 
 ```bash
-npx capsule init -d src
+npx @zizigy/capsule init -d src
 ```
 
 Это создаст папку `@capsule` в директории `src`.
@@ -27,13 +27,13 @@ npx capsule init -d src
 После инициализации вы можете добавить любой компонент в свой проект:
 
 ```bash
-npx capsule add <имя-компонента>
+npx @zizigy/capsule add <имя-компонента>
 ```
 
 Например, чтобы добавить компонент Button:
 
 ```bash
-npx capsule add Button
+npx @zizigy/capsule add Button
 ```
 
 ### Префикс пользовательского элемента
@@ -41,7 +41,7 @@ npx capsule add Button
 По умолчанию компоненты используют префикс `capsule` (например, `capsule-button`). Вы можете настроить это с помощью опции `--prefix`:
 
 ```bash
-npx capsule add Button --prefix ui
+npx @zizigy/capsule add Button --prefix ui
 ```
 
 Это создаст компоненты с префиксом `ui` (например, `ui-button`).
@@ -52,7 +52,7 @@ npx capsule add Button --prefix ui
 
 ## Как это работает
 
-Когда вы запускаете `npx capsule add <компонент>`, CLI:
+Когда вы запускаете `npx @zizigy/capsule add <компонент>`, CLI:
 
 1. Копирует файлы компонента из директории шаблонов
 2. Импортирует CSS файлы в ваши глобальные стили

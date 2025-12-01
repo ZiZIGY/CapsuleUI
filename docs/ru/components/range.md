@@ -5,7 +5,7 @@
 ## Установка
 
 ```bash
-npx capsule add Range
+npx @zizigy/capsule add Range
 ```
 
 ## Использование

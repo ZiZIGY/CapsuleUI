@@ -5,7 +5,7 @@
 ## Установка
 
 ```bash
-npx capsule add Alert
+npx @zizigy/capsule add Alert
 ```
 
 ## Использование

@@ -5,7 +5,7 @@ A multi-step form component for breaking down complex processes into manageable 
 ## Installation
 
 ```bash
-npx capsule add Stepper
+npx @zizigy/capsule add Stepper
 ```
 
 ## Usage

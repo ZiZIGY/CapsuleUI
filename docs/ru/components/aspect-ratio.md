@@ -5,7 +5,7 @@
 ## Установка
 
 ```bash
-npx capsule add AspectRatio
+npx @zizigy/capsule add AspectRatio
 ```
 
 ## Использование
@@ -20,7 +20,10 @@ npx capsule add AspectRatio
 
 ```html
 <capsule-aspect-ratio ratio="16/9">
-  <img src="https://picsum.photos/800/450" alt="Изображение" />
+  <img
+    src="https://picsum.photos/800/450"
+    alt="Изображение"
+  />
 </capsule-aspect-ratio>
 ```
 
@@ -56,17 +59,26 @@ npx capsule add AspectRatio
 ```html
 <!-- 16:9 -->
 <capsule-aspect-ratio ratio="16/9">
-  <img src="https://picsum.photos/800/450" alt="Изображение" />
+  <img
+    src="https://picsum.photos/800/450"
+    alt="Изображение"
+  />
 </capsule-aspect-ratio>
 
 <!-- 4:3 -->
 <capsule-aspect-ratio ratio="4/3">
-  <img src="https://picsum.photos/800/600" alt="Изображение" />
+  <img
+    src="https://picsum.photos/800/600"
+    alt="Изображение"
+  />
 </capsule-aspect-ratio>
 
 <!-- 1:1 (Квадрат) -->
 <capsule-aspect-ratio ratio="1/1">
-  <img src="https://picsum.photos/600/600" alt="Изображение" />
+  <img
+    src="https://picsum.photos/600/600"
+    alt="Изображение"
+  />
 </capsule-aspect-ratio>
 ```
 
@@ -76,7 +88,10 @@ npx capsule add AspectRatio
 
 ```html
 <capsule-aspect-ratio ratio="16:9">
-  <img src="https://picsum.photos/800/450" alt="Изображение" />
+  <img
+    src="https://picsum.photos/800/450"
+    alt="Изображение"
+  />
 </capsule-aspect-ratio>
 ```
 
@@ -93,7 +108,10 @@ npx capsule add AspectRatio
 ```html
 <capsule-aspect-ratio ratio="16/9">
   <video controls>
-    <source src="video.mp4" type="video/mp4" />
+    <source
+      src="video.mp4"
+      type="video/mp4"
+    />
   </video>
 </capsule-aspect-ratio>
 ```
@@ -124,7 +142,10 @@ npx capsule add AspectRatio
 
 ```html
 <capsule-aspect-ratio ratio="3/4">
-  <img src="https://picsum.photos/300/400" alt="Портрет" />
+  <img
+    src="https://picsum.photos/300/400"
+    alt="Портрет"
+  />
 </capsule-aspect-ratio>
 ```
 
@@ -132,13 +153,14 @@ npx capsule add AspectRatio
 
 ### Свойства
 
-| Свойство | Тип | По умолчанию | Описание |
-|----------|-----|--------------|----------|
-| `ratio` | `string` | `''` | Соотношение сторон (например, `'16/9'`, `'16:9'`, `'4/3'`, `'1'`) |
+| Свойство | Тип      | По умолчанию | Описание                                                          |
+| -------- | -------- | ------------ | ----------------------------------------------------------------- |
+| `ratio`  | `string` | `''`         | Соотношение сторон (например, `'16/9'`, `'16:9'`, `'4/3'`, `'1'`) |
 
 ### Формат
 
 Атрибут `ratio` принимает значения в следующих форматах:
+
 - `"16/9"` - Формат со слэшем (рекомендуется)
 - `"16:9"` - Формат с двоеточием (тоже поддерживается)
 - `"1"` - Одно число (интерпретируется как `1/1`)

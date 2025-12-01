@@ -5,7 +5,7 @@ A star rating component for collecting and displaying user ratings. Supports pre
 ## Installation
 
 ```bash
-npx capsule add Rating
+npx @zizigy/capsule add Rating
 ```
 
 ## Usage
@@ -37,7 +37,10 @@ npx capsule add Rating
 </div>
 
 ```html
-<capsule-rating max="10" value="7"></capsule-rating>
+<capsule-rating
+  max="10"
+  value="7"
+></capsule-rating>
 ```
 
 ### Precision
@@ -49,7 +52,10 @@ npx capsule add Rating
 </div>
 
 ```html
-<capsule-rating precision="1" value="3"></capsule-rating>
+<capsule-rating
+  precision="1"
+  value="3"
+></capsule-rating>
 ```
 
 #### Half Stars
@@ -59,7 +65,10 @@ npx capsule add Rating
 </div>
 
 ```html
-<capsule-rating precision="0.5" value="3.5"></capsule-rating>
+<capsule-rating
+  precision="0.5"
+  value="3.5"
+></capsule-rating>
 ```
 
 #### Decimal Precision
@@ -69,7 +78,10 @@ npx capsule add Rating
 </div>
 
 ```html
-<capsule-rating precision="0.1" value="3.7"></capsule-rating>
+<capsule-rating
+  precision="0.1"
+  value="3.7"
+></capsule-rating>
 ```
 
 ### Sizes
@@ -81,9 +93,18 @@ npx capsule add Rating
 </div>
 
 ```html
-<capsule-rating size="sm" value="3"></capsule-rating>
-<capsule-rating size="md" value="3"></capsule-rating>
-<capsule-rating size="lg" value="3"></capsule-rating>
+<capsule-rating
+  size="sm"
+  value="3"
+></capsule-rating>
+<capsule-rating
+  size="md"
+  value="3"
+></capsule-rating>
+<capsule-rating
+  size="lg"
+  value="3"
+></capsule-rating>
 ```
 
 ### Colors
@@ -98,12 +119,30 @@ npx capsule add Rating
 </div>
 
 ```html
-<capsule-rating color="warning" value="3"></capsule-rating>
-<capsule-rating color="primary" value="3"></capsule-rating>
-<capsule-rating color="error" value="3"></capsule-rating>
-<capsule-rating color="success" value="3"></capsule-rating>
-<capsule-rating color="info" value="3"></capsule-rating>
-<capsule-rating color="secondary" value="3"></capsule-rating>
+<capsule-rating
+  color="warning"
+  value="3"
+></capsule-rating>
+<capsule-rating
+  color="primary"
+  value="3"
+></capsule-rating>
+<capsule-rating
+  color="error"
+  value="3"
+></capsule-rating>
+<capsule-rating
+  color="success"
+  value="3"
+></capsule-rating>
+<capsule-rating
+  color="info"
+  value="3"
+></capsule-rating>
+<capsule-rating
+  color="secondary"
+  value="3"
+></capsule-rating>
 ```
 
 ### Readonly
@@ -113,7 +152,10 @@ npx capsule add Rating
 </div>
 
 ```html
-<capsule-rating readonly value="4"></capsule-rating>
+<capsule-rating
+  readonly
+  value="4"
+></capsule-rating>
 ```
 
 ### Disabled
@@ -123,7 +165,10 @@ npx capsule add Rating
 </div>
 
 ```html
-<capsule-rating disabled value="3"></capsule-rating>
+<capsule-rating
+  disabled
+  value="3"
+></capsule-rating>
 ```
 
 ### Form Integration
@@ -134,7 +179,10 @@ The rating component can be used within HTML forms and will submit its value.
 <form>
   <label>
     Rate this product
-    <capsule-rating name="rating" value="0"></capsule-rating>
+    <capsule-rating
+      name="rating"
+      value="0"
+    ></capsule-rating>
   </label>
   <button type="submit">Submit</button>
 </form>
@@ -160,7 +208,10 @@ You can provide custom star icons using slots. For example, using emoji:
 </div>
 
 ```html
-<capsule-rating value="3" size="lg">
+<capsule-rating
+  value="3"
+  size="lg"
+>
   <span slot="star-1-filled">⭐</span>
   <span slot="star-1-empty">☆</span>
   <span slot="star-2-filled">⭐</span>
@@ -178,10 +229,18 @@ You can also use custom SVG icons:
 
 ```html
 <capsule-rating value="3">
-  <svg slot="star-1-filled" viewBox="0 0 24 24" style="width: 100%; height: 100%;">
+  <svg
+    slot="star-1-filled"
+    viewBox="0 0 24 24"
+    style="width: 100%; height: 100%;"
+  >
     <!-- Custom filled star icon -->
   </svg>
-  <svg slot="star-1-empty" viewBox="0 0 24 24" style="width: 100%; height: 100%;">
+  <svg
+    slot="star-1-empty"
+    viewBox="0 0 24 24"
+    style="width: 100%; height: 100%;"
+  >
     <!-- Custom empty star icon -->
   </svg>
   <!-- Repeat for other stars (star-2-filled, star-2-empty, etc.) -->
@@ -196,15 +255,15 @@ The main rating component.
 
 ## Attributes
 
-| Attribute    | Type    | Default | Description                                      |
-| ------------ | ------- | ------- | ------------------------------------------------ |
-| `value`      | number  | `0`     | Current rating value                             |
-| `max`        | number  | `5`     | Maximum rating value (number of stars)           |
-| `precision`  | number  | `1`     | Precision of rating (1, 0.5, or 0.1)            |
-| `readonly`   | boolean | `false` | Makes the rating read-only                       |
-| `disabled`   | boolean | `false` | Disables the rating                              |
-| `size`       | string  | `md`    | Size of the stars                                |
-| `color`      | string  | `warning` | Color of filled stars                          |
+| Attribute   | Type    | Default   | Description                            |
+| ----------- | ------- | --------- | -------------------------------------- |
+| `value`     | number  | `0`       | Current rating value                   |
+| `max`       | number  | `5`       | Maximum rating value (number of stars) |
+| `precision` | number  | `1`       | Precision of rating (1, 0.5, or 0.1)   |
+| `readonly`  | boolean | `false`   | Makes the rating read-only             |
+| `disabled`  | boolean | `false`   | Disables the rating                    |
+| `size`      | string  | `md`      | Size of the stars                      |
+| `color`     | string  | `warning` | Color of filled stars                  |
 
 ### Size Values
 
@@ -346,6 +405,7 @@ rating.addEventListener('change', (event) => {
 ```
 
 **Event Detail:**
+
 - `value` (number) — The new rating value
 
 #### `input`
@@ -360,6 +420,7 @@ rating.addEventListener('input', (event) => {
 ```
 
 **Event Detail:**
+
 - `value` (number) — The hover rating value
 
 ### Example: Programmatic Control
@@ -408,4 +469,3 @@ rating.readonly = true;
 - ✅ Form association support
 - ✅ Semantic structure for screen readers
 - ✅ Proper focus management
-

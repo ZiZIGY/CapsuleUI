@@ -5,7 +5,7 @@
 ## Установка
 
 ```bash
-npx capsule add Rating
+npx @zizigy/capsule add Rating
 ```
 
 ## Использование
@@ -37,7 +37,10 @@ npx capsule add Rating
 </div>
 
 ```html
-<capsule-rating max="10" value="7"></capsule-rating>
+<capsule-rating
+  max="10"
+  value="7"
+></capsule-rating>
 ```
 
 ### Точность
@@ -49,7 +52,10 @@ npx capsule add Rating
 </div>
 
 ```html
-<capsule-rating precision="1" value="3"></capsule-rating>
+<capsule-rating
+  precision="1"
+  value="3"
+></capsule-rating>
 ```
 
 #### Половины звёзд
@@ -59,7 +65,10 @@ npx capsule add Rating
 </div>
 
 ```html
-<capsule-rating precision="0.5" value="3.5"></capsule-rating>
+<capsule-rating
+  precision="0.5"
+  value="3.5"
+></capsule-rating>
 ```
 
 #### Десятичная точность
@@ -69,7 +78,10 @@ npx capsule add Rating
 </div>
 
 ```html
-<capsule-rating precision="0.1" value="3.7"></capsule-rating>
+<capsule-rating
+  precision="0.1"
+  value="3.7"
+></capsule-rating>
 ```
 
 ### Размеры
@@ -81,9 +93,18 @@ npx capsule add Rating
 </div>
 
 ```html
-<capsule-rating size="sm" value="3"></capsule-rating>
-<capsule-rating size="md" value="3"></capsule-rating>
-<capsule-rating size="lg" value="3"></capsule-rating>
+<capsule-rating
+  size="sm"
+  value="3"
+></capsule-rating>
+<capsule-rating
+  size="md"
+  value="3"
+></capsule-rating>
+<capsule-rating
+  size="lg"
+  value="3"
+></capsule-rating>
 ```
 
 ### Цвета
@@ -98,12 +119,30 @@ npx capsule add Rating
 </div>
 
 ```html
-<capsule-rating color="warning" value="3"></capsule-rating>
-<capsule-rating color="primary" value="3"></capsule-rating>
-<capsule-rating color="error" value="3"></capsule-rating>
-<capsule-rating color="success" value="3"></capsule-rating>
-<capsule-rating color="info" value="3"></capsule-rating>
-<capsule-rating color="secondary" value="3"></capsule-rating>
+<capsule-rating
+  color="warning"
+  value="3"
+></capsule-rating>
+<capsule-rating
+  color="primary"
+  value="3"
+></capsule-rating>
+<capsule-rating
+  color="error"
+  value="3"
+></capsule-rating>
+<capsule-rating
+  color="success"
+  value="3"
+></capsule-rating>
+<capsule-rating
+  color="info"
+  value="3"
+></capsule-rating>
+<capsule-rating
+  color="secondary"
+  value="3"
+></capsule-rating>
 ```
 
 ### Только для чтения
@@ -113,7 +152,10 @@ npx capsule add Rating
 </div>
 
 ```html
-<capsule-rating readonly value="4"></capsule-rating>
+<capsule-rating
+  readonly
+  value="4"
+></capsule-rating>
 ```
 
 ### Отключённый
@@ -123,7 +165,10 @@ npx capsule add Rating
 </div>
 
 ```html
-<capsule-rating disabled value="3"></capsule-rating>
+<capsule-rating
+  disabled
+  value="3"
+></capsule-rating>
 ```
 
 ### Интеграция с формами
@@ -134,7 +179,10 @@ npx capsule add Rating
 <form>
   <label>
     Оцените этот продукт
-    <capsule-rating name="rating" value="0"></capsule-rating>
+    <capsule-rating
+      name="rating"
+      value="0"
+    ></capsule-rating>
   </label>
   <button type="submit">Отправить</button>
 </form>
@@ -160,7 +208,10 @@ npx capsule add Rating
 </div>
 
 ```html
-<capsule-rating value="3" size="lg">
+<capsule-rating
+  value="3"
+  size="lg"
+>
   <span slot="star-1-filled">⭐</span>
   <span slot="star-1-empty">☆</span>
   <span slot="star-2-filled">⭐</span>
@@ -178,10 +229,18 @@ npx capsule add Rating
 
 ```html
 <capsule-rating value="3">
-  <svg slot="star-1-filled" viewBox="0 0 24 24" style="width: 100%; height: 100%;">
+  <svg
+    slot="star-1-filled"
+    viewBox="0 0 24 24"
+    style="width: 100%; height: 100%;"
+  >
     <!-- Пользовательская заполненная иконка звезды -->
   </svg>
-  <svg slot="star-1-empty" viewBox="0 0 24 24" style="width: 100%; height: 100%;">
+  <svg
+    slot="star-1-empty"
+    viewBox="0 0 24 24"
+    style="width: 100%; height: 100%;"
+  >
     <!-- Пользовательская пустая иконка звезды -->
   </svg>
   <!-- Повторите для других звёзд (star-2-filled, star-2-empty и т.д.) -->
@@ -196,15 +255,15 @@ npx capsule add Rating
 
 ## Атрибуты
 
-| Атрибут      | Тип      | По умолчанию | Описание                                      |
-| ------------ | -------- | ------------ | --------------------------------------------- |
-| `value`      | number   | `0`          | Текущее значение рейтинга                     |
-| `max`        | number   | `5`          | Максимальное значение рейтинга (количество звёзд) |
-| `precision`  | number   | `1`          | Точность рейтинга (1, 0.5 или 0.1)           |
-| `readonly`   | boolean  | `false`      | Делает рейтинг доступным только для чтения    |
-| `disabled`   | boolean  | `false`      | Отключает рейтинг                             |
-| `size`       | string   | `md`         | Размер звёзд                                  |
-| `color`      | string   | `warning`    | Цвет заполненных звёзд                        |
+| Атрибут     | Тип     | По умолчанию | Описание                                          |
+| ----------- | ------- | ------------ | ------------------------------------------------- |
+| `value`     | number  | `0`          | Текущее значение рейтинга                         |
+| `max`       | number  | `5`          | Максимальное значение рейтинга (количество звёзд) |
+| `precision` | number  | `1`          | Точность рейтинга (1, 0.5 или 0.1)                |
+| `readonly`  | boolean | `false`      | Делает рейтинг доступным только для чтения        |
+| `disabled`  | boolean | `false`      | Отключает рейтинг                                 |
+| `size`      | string  | `md`         | Размер звёзд                                      |
+| `color`     | string  | `warning`    | Цвет заполненных звёзд                            |
 
 ### Значения размера
 
@@ -346,6 +405,7 @@ rating.addEventListener('change', (event) => {
 ```
 
 **Детали события:**
+
 - `value` (number) — Новое значение рейтинга
 
 #### `input`
@@ -360,6 +420,7 @@ rating.addEventListener('input', (event) => {
 ```
 
 **Детали события:**
+
 - `value` (number) — Значение рейтинга при наведении
 
 ### Пример: Программное управление
@@ -408,4 +469,3 @@ rating.readonly = true;
 - ✅ Поддержка ассоциации с формами
 - ✅ Семантическая структура для экранных читалок
 - ✅ Правильное управление фокусом
-

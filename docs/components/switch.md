@@ -5,7 +5,7 @@ A toggle switch component for representing on/off states. Fully accessible with 
 ## Installation
 
 ```bash
-npx capsule add Switch
+npx @zizigy/capsule add Switch
 ```
 
 ## Usage
@@ -39,7 +39,10 @@ npx capsule add Switch
 
 ```html
 <capsule-switch disabled></capsule-switch>
-<capsule-switch checked disabled></capsule-switch>
+<capsule-switch
+  checked
+  disabled
+></capsule-switch>
 ```
 
 ### Sizes
@@ -86,7 +89,10 @@ The switch can be used within HTML forms and will submit its value.
 <form>
   <label>
     Enable notifications
-    <capsule-switch name="notifications" checked></capsule-switch>
+    <capsule-switch
+      name="notifications"
+      checked
+    ></capsule-switch>
   </label>
   <button type="submit">Save</button>
 </form>
@@ -100,12 +106,12 @@ The main switch component.
 
 ## Attributes
 
-| Attribute       | Type    | Default     | Description                                    |
-| --------------- | ------- | ----------- | ---------------------------------------------- |
-| `checked`       | boolean | `false`     | Controls the checked state (on/off)            |
-| `disabled`      | boolean | `false`     | Disables the switch                            |
-| `size`          | string  | `md`        | Size of the switch                             |
-| `orientation`   | string  | `horizontal`| Orientation of the switch                      |
+| Attribute     | Type    | Default      | Description                         |
+| ------------- | ------- | ------------ | ----------------------------------- |
+| `checked`     | boolean | `false`      | Controls the checked state (on/off) |
+| `disabled`    | boolean | `false`      | Disables the switch                 |
+| `size`        | string  | `md`         | Size of the switch                  |
+| `orientation` | string  | `horizontal` | Orientation of the switch           |
 
 ### Size Values
 
@@ -194,6 +200,7 @@ switchElement.addEventListener('change', (event) => {
 ```
 
 **Event Detail:**
+
 - `checked` (boolean) — The current checked state of the switch
 
 ### Example: Programmatic Control
@@ -234,4 +241,3 @@ switchElement.disabled = false; // Enable
 - ✅ Proper focus management
 - ✅ Form association support
 - ✅ Semantic structure for screen readers
-

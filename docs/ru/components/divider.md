@@ -5,7 +5,7 @@
 ## Установка
 
 ```bash
-npx capsule add Divider
+npx @zizigy/capsule add Divider
 ```
 
 ## Использование

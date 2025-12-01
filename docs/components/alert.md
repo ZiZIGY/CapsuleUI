@@ -5,7 +5,7 @@ A component for displaying important messages with different variants (error, wa
 ## Installation
 
 ```bash
-npx capsule add Alert
+npx @zizigy/capsule add Alert
 ```
 
 ## Usage

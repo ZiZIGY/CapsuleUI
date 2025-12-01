@@ -5,7 +5,7 @@ A navigation component that shows the user's location in a site's hierarchy. Bre
 ## Installation
 
 ```bash
-npx capsule add Breadcrumb
+npx @zizigy/capsule add Breadcrumb
 ```
 
 ## Usage
@@ -38,9 +38,7 @@ npx capsule add Breadcrumb
     <a href="#">Category</a>
   </capsule-breadcrumb-item>
   <capsule-breadcrumb-separator></capsule-breadcrumb-separator>
-  <capsule-breadcrumb-item>
-    Current Page
-  </capsule-breadcrumb-item>
+  <capsule-breadcrumb-item> Current Page </capsule-breadcrumb-item>
 </capsule-breadcrumb>
 ```
 
@@ -76,9 +74,7 @@ npx capsule add Breadcrumb
     <a href="#">Page 5</a>
   </capsule-breadcrumb-item>
   <capsule-breadcrumb-separator></capsule-breadcrumb-separator>
-  <capsule-breadcrumb-item>
-    Current Page
-  </capsule-breadcrumb-item>
+  <capsule-breadcrumb-item> Current Page </capsule-breadcrumb-item>
 </capsule-breadcrumb>
 ```
 
@@ -106,7 +102,17 @@ You can place any content inside <capsule-breadcrumb-separator></capsule-breadcr
 <capsule-breadcrumb-separator>➡️</capsule-breadcrumb-separator>
 <!-- any content: Emoji, Icon, SVG, etc. -->
 <capsule-breadcrumb-separator>
-  <svg width="12" height="12"><circle cx="6" cy="6" r="5" fill="#888"/></svg>
+  <svg
+    width="12"
+    height="12"
+  >
+    <circle
+      cx="6"
+      cy="6"
+      r="5"
+      fill="#888"
+    />
+  </svg>
 </capsule-breadcrumb-separator>
 ```
 
@@ -134,7 +140,11 @@ A separator between breadcrumb items (typically `/`, `>`, emoji, SVG or any cust
 
 ```html
 <capsule-breadcrumb-separator>></capsule-breadcrumb-separator>
-<capsule-breadcrumb-separator> A<svg width="12" height="12"></svg>
+<capsule-breadcrumb-separator>
+  A<svg
+    width="12"
+    height="12"
+  ></svg>
 </capsule-breadcrumb-separator>
 ```
 
@@ -152,4 +162,3 @@ An ellipsis (`...`) used to indicate hidden breadcrumb items.
 - ✅ ARIA navigation landmarks
 - ✅ Keyboard navigation support
 - ✅ Screen reader support
-

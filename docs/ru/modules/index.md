@@ -13,13 +13,13 @@
 Чтобы добавить модуль в ваш проект, используйте:
 
 ```bash
-npx capsule module add <module-name>
+npx @zizigy/capsule module add <module-name>
 ```
 
 Например, чтобы добавить модуль Form:
 
 ```bash
-npx capsule module add form
+npx @zizigy/capsule module add form
 ```
 
 См. документацию [Команды CLI](/ru/cli-commands) для получения дополнительной информации об управлении модулями.

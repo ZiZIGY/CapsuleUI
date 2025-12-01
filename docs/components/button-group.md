@@ -5,7 +5,7 @@ A component that groups buttons together with seamless borders. Perfect for grou
 ## Installation
 
 ```bash
-npx capsule add ButtonGroup
+npx @zizigy/capsule add ButtonGroup
 ```
 
 ## Usage
@@ -154,9 +154,9 @@ npx capsule add ButtonGroup
 
 ## Attributes
 
-| Attribute     | Type   | Default       | Description                      |
-| ------------- | ------ | ------------- | --------------------------------- |
-| `orientation` | string | `horizontal`  | Button group orientation          |
+| Attribute     | Type   | Default      | Description              |
+| ------------- | ------ | ------------ | ------------------------ |
+| `orientation` | string | `horizontal` | Button group orientation |
 
 ### Orientation Values
 
@@ -174,4 +174,3 @@ npx capsule add ButtonGroup
 - ButtonGroup automatically handles border radius to create seamless connections
 - All buttons inside should be consistent in size for best appearance
 - Works with all button variants and sizes
-

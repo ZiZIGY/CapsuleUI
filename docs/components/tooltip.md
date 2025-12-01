@@ -5,7 +5,7 @@ A tooltip component that displays helpful information when hovering over or focu
 ## Installation
 
 ```bash
-npx capsule add Tooltip
+npx @zizigy/capsule add Tooltip
 ```
 
 ## Usage
@@ -28,9 +28,7 @@ npx capsule add Tooltip
   <capsule-tooltip-trigger>
     <capsule-button>Hover me</capsule-button>
   </capsule-tooltip-trigger>
-  <capsule-tooltip-content>
-    This is a tooltip
-  </capsule-tooltip-content>
+  <capsule-tooltip-content> This is a tooltip </capsule-tooltip-content>
 </capsule-tooltip>
 ```
 
@@ -56,9 +54,7 @@ Tooltips can be positioned in four directions:
   <capsule-tooltip-trigger>
     <capsule-button>Top</capsule-button>
   </capsule-tooltip-trigger>
-  <capsule-tooltip-content>
-    Tooltip on top
-  </capsule-tooltip-content>
+  <capsule-tooltip-content> Tooltip on top </capsule-tooltip-content>
 </capsule-tooltip>
 ```
 
@@ -80,9 +76,7 @@ Tooltips can be positioned in four directions:
   <capsule-tooltip-trigger>
     <capsule-button>Bottom</capsule-button>
   </capsule-tooltip-trigger>
-  <capsule-tooltip-content>
-    Tooltip on bottom
-  </capsule-tooltip-content>
+  <capsule-tooltip-content> Tooltip on bottom </capsule-tooltip-content>
 </capsule-tooltip>
 ```
 
@@ -104,9 +98,7 @@ Tooltips can be positioned in four directions:
   <capsule-tooltip-trigger>
     <capsule-button>Left</capsule-button>
   </capsule-tooltip-trigger>
-  <capsule-tooltip-content>
-    Tooltip on left
-  </capsule-tooltip-content>
+  <capsule-tooltip-content> Tooltip on left </capsule-tooltip-content>
 </capsule-tooltip>
 ```
 
@@ -128,9 +120,7 @@ Tooltips can be positioned in four directions:
   <capsule-tooltip-trigger>
     <capsule-button>Right</capsule-button>
   </capsule-tooltip-trigger>
-  <capsule-tooltip-content>
-    Tooltip on right
-  </capsule-tooltip-content>
+  <capsule-tooltip-content> Tooltip on right </capsule-tooltip-content>
 </capsule-tooltip>
 ```
 
@@ -152,9 +142,7 @@ Tooltips can be positioned in four directions:
   <capsule-tooltip-trigger>
     <capsule-button>Disabled</capsule-button>
   </capsule-tooltip-trigger>
-  <capsule-tooltip-content>
-    This tooltip won't show
-  </capsule-tooltip-content>
+  <capsule-tooltip-content> This tooltip won't show </capsule-tooltip-content>
 </capsule-tooltip>
 ```
 
@@ -186,9 +174,7 @@ The trigger can be any element:
   <capsule-tooltip-trigger>
     <span style="text-decoration: underline; cursor: pointer;">Text link</span>
   </capsule-tooltip-trigger>
-  <capsule-tooltip-content>
-    Hover over text
-  </capsule-tooltip-content>
+  <capsule-tooltip-content> Hover over text </capsule-tooltip-content>
 </capsule-tooltip>
 ```
 
@@ -212,9 +198,9 @@ The tooltip content that is displayed. Contains the text or HTML to show in the 
 
 ### `capsule-tooltip`
 
-| Attribute   | Type    | Default | Description                                    |
-| ----------- | ------- | ------- | ---------------------------------------------- |
-| `placement` | string  | `top`   | Tooltip placement direction                    |
+| Attribute   | Type    | Default | Description                                     |
+| ----------- | ------- | ------- | ----------------------------------------------- |
+| `placement` | string  | `top`   | Tooltip placement direction                     |
 | `disabled`  | boolean | `false` | Disables the tooltip (prevents it from showing) |
 
 #### Placement Values
@@ -238,4 +224,3 @@ No attributes. This component serves as a wrapper for the tooltip content.
 - ✅ Keyboard focus support (tooltip shows on focus-within)
 - ✅ Proper semantic structure for screen readers
 - ✅ Pointer events handling for hover interactions
-

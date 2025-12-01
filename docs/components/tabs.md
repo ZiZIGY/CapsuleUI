@@ -5,7 +5,7 @@ A tabs component for organizing content into multiple sections that can be switc
 ## Installation
 
 ```bash
-npx capsule add Tabs
+npx @zizigy/capsule add Tabs
 ```
 
 ## Usage
@@ -201,10 +201,10 @@ Container for tab triggers. Should wrap all `capsule-tabs-trigger` elements.
 
 A clickable tab button. The `value` attribute must match the corresponding panel's `value`.
 
-| Attribute | Type   | Default | Description                     |
-| --------- | ------ | ------- | ------------------------------- |
-| `value`   | string | —       | Unique identifier for this tab  |
-| `active`  | boolean| false   | Indicates if this tab is active |
+| Attribute | Type    | Default | Description                     |
+| --------- | ------- | ------- | ------------------------------- |
+| `value`   | string  | —       | Unique identifier for this tab  |
+| `active`  | boolean | false   | Indicates if this tab is active |
 
 ```html
 <capsule-tabs-trigger value="account">Account</capsule-tabs-trigger>
@@ -214,9 +214,9 @@ A clickable tab button. The `value` attribute must match the corresponding panel
 
 Container for tab panels. Should wrap all `capsule-tabs-panel` elements.
 
-| Attribute   | Type   | Default | Description                          |
-| ----------- | ------ | ------- | ------------------------------------ |
-| `animation` | string | —       | Animation type (x, y, or fade)       |
+| Attribute   | Type   | Default | Description                    |
+| ----------- | ------ | ------- | ------------------------------ |
+| `animation` | string | —       | Animation type (x, y, or fade) |
 
 ```html
 <capsule-tabs-panels animation="x">
@@ -228,23 +228,21 @@ Container for tab panels. Should wrap all `capsule-tabs-panel` elements.
 
 An individual tab panel. The `value` attribute must match the corresponding trigger's `value`.
 
-| Attribute | Type   | Default | Description                      |
-| --------- | ------ | ------- | -------------------------------- |
-| `value`   | string | —       | Unique identifier for this panel |
-| `active`  | boolean| false   | Indicates if this panel is active|
+| Attribute | Type    | Default | Description                       |
+| --------- | ------- | ------- | --------------------------------- |
+| `value`   | string  | —       | Unique identifier for this panel  |
+| `active`  | boolean | false   | Indicates if this panel is active |
 
 ```html
-<capsule-tabs-panel value="account">
-  Panel content here
-</capsule-tabs-panel>
+<capsule-tabs-panel value="account"> Panel content here </capsule-tabs-panel>
 ```
 
 ## Attributes
 
 ### `capsule-tabs`
 
-| Attribute | Type   | Default | Description                         |
-| --------- | ------ | ------- | ----------------------------------- |
+| Attribute | Type   | Default | Description                           |
+| --------- | ------ | ------- | ------------------------------------- |
 | `value`   | string | —       | The value of the currently active tab |
 
 ## API Reference
@@ -321,7 +319,7 @@ const observer = new MutationObserver((mutations) => {
 
 observer.observe(tabs, {
   attributes: true,
-  attributeFilter: ['value']
+  attributeFilter: ['value'],
 });
 ```
 

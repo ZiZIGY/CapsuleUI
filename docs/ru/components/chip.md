@@ -5,7 +5,7 @@
 ## Установка
 
 ```bash
-npx capsule add Chip
+npx @zizigy/capsule add Chip
 ```
 
 ## Использование

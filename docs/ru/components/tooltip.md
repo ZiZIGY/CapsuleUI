@@ -5,7 +5,7 @@
 ## Установка
 
 ```bash
-npx capsule add Tooltip
+npx @zizigy/capsule add Tooltip
 ```
 
 ## Использование
@@ -28,9 +28,7 @@ npx capsule add Tooltip
   <capsule-tooltip-trigger>
     <capsule-button>Наведите на меня</capsule-button>
   </capsule-tooltip-trigger>
-  <capsule-tooltip-content>
-    Это подсказка
-  </capsule-tooltip-content>
+  <capsule-tooltip-content> Это подсказка </capsule-tooltip-content>
 </capsule-tooltip>
 ```
 
@@ -56,9 +54,7 @@ npx capsule add Tooltip
   <capsule-tooltip-trigger>
     <capsule-button>Сверху</capsule-button>
   </capsule-tooltip-trigger>
-  <capsule-tooltip-content>
-    Подсказка сверху
-  </capsule-tooltip-content>
+  <capsule-tooltip-content> Подсказка сверху </capsule-tooltip-content>
 </capsule-tooltip>
 ```
 
@@ -80,9 +76,7 @@ npx capsule add Tooltip
   <capsule-tooltip-trigger>
     <capsule-button>Снизу</capsule-button>
   </capsule-tooltip-trigger>
-  <capsule-tooltip-content>
-    Подсказка снизу
-  </capsule-tooltip-content>
+  <capsule-tooltip-content> Подсказка снизу </capsule-tooltip-content>
 </capsule-tooltip>
 ```
 
@@ -104,9 +98,7 @@ npx capsule add Tooltip
   <capsule-tooltip-trigger>
     <capsule-button>Слева</capsule-button>
   </capsule-tooltip-trigger>
-  <capsule-tooltip-content>
-    Подсказка слева
-  </capsule-tooltip-content>
+  <capsule-tooltip-content> Подсказка слева </capsule-tooltip-content>
 </capsule-tooltip>
 ```
 
@@ -128,9 +120,7 @@ npx capsule add Tooltip
   <capsule-tooltip-trigger>
     <capsule-button>Справа</capsule-button>
   </capsule-tooltip-trigger>
-  <capsule-tooltip-content>
-    Подсказка справа
-  </capsule-tooltip-content>
+  <capsule-tooltip-content> Подсказка справа </capsule-tooltip-content>
 </capsule-tooltip>
 ```
 
@@ -184,11 +174,11 @@ npx capsule add Tooltip
 ```html
 <capsule-tooltip>
   <capsule-tooltip-trigger>
-    <span style="text-decoration: underline; cursor: pointer;">Текстовая ссылка</span>
+    <span style="text-decoration: underline; cursor: pointer;"
+      >Текстовая ссылка</span
+    >
   </capsule-tooltip-trigger>
-  <capsule-tooltip-content>
-    Наведите на текст
-  </capsule-tooltip-content>
+  <capsule-tooltip-content> Наведите на текст </capsule-tooltip-content>
 </capsule-tooltip>
 ```
 
@@ -212,10 +202,10 @@ npx capsule add Tooltip
 
 ### `capsule-tooltip`
 
-| Атрибут    | Тип      | По умолчанию | Описание                                     |
-| ---------- | -------- | ------------ | -------------------------------------------- |
-| `placement` | string   | `top`        | Направление размещения тултипа               |
-| `disabled`  | boolean  | `false`      | Отключает тултип (предотвращает его показ)   |
+| Атрибут     | Тип     | По умолчанию | Описание                                   |
+| ----------- | ------- | ------------ | ------------------------------------------ |
+| `placement` | string  | `top`        | Направление размещения тултипа             |
+| `disabled`  | boolean | `false`      | Отключает тултип (предотвращает его показ) |
 
 #### Значения размещения
 
@@ -238,4 +228,3 @@ npx capsule add Tooltip
 - ✅ Поддержка фокуса с клавиатуры (тултип показывается при focus-within)
 - ✅ Правильная семантическая структура для экранных читалок
 - ✅ Обработка событий указателя для взаимодействий при наведении
-

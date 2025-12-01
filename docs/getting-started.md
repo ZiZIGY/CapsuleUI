@@ -7,7 +7,7 @@ CapsuleUI is a collection of modern, unstyled web components that you can add to
 To get started with CapsuleUI, initialize it in your project:
 
 ```bash
-npx capsule init
+npx @zizigy/capsule init
 ```
 
 This command creates an `@capsule` folder in your project with global styles and utilities.
@@ -17,7 +17,7 @@ This command creates an `@capsule` folder in your project with global styles and
 You can specify a custom directory where `@capsule` will be created:
 
 ```bash
-npx capsule init -d src
+npx @zizigy/capsule init -d src
 ```
 
 This will create the `@capsule` folder in the `src` directory.
@@ -27,13 +27,13 @@ This will create the `@capsule` folder in the `src` directory.
 Once initialized, you can add any component to your project:
 
 ```bash
-npx capsule add <component-name>
+npx @zizigy/capsule add <component-name>
 ```
 
 For example, to add a Button component:
 
 ```bash
-npx capsule add Button
+npx @zizigy/capsule add Button
 ```
 
 ### Custom Element Prefix
@@ -41,7 +41,7 @@ npx capsule add Button
 By default, components use the `capsule` prefix (e.g., `capsule-button`). You can customize this with the `--prefix` option:
 
 ```bash
-npx capsule add Button --prefix ui
+npx @zizigy/capsule add Button --prefix ui
 ```
 
 This will create components with the `ui` prefix (e.g., `ui-button`).
@@ -52,7 +52,7 @@ For a complete list of all available CLI commands, options, and examples, see th
 
 ## How It Works
 
-When you run `npx capsule add <component>`, the CLI:
+When you run `npx @zizigy/capsule add <component>`, the CLI:
 
 1. Copies the component files from the templates directory
 2. Imports CSS files into your global styles

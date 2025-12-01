@@ -5,7 +5,7 @@
 ## Установка
 
 ```bash
-npx capsule add Breadcrumb
+npx @zizigy/capsule add Breadcrumb
 ```
 
 ## Использование
@@ -38,9 +38,7 @@ npx capsule add Breadcrumb
     <a href="#">Категория</a>
   </capsule-breadcrumb-item>
   <capsule-breadcrumb-separator></capsule-breadcrumb-separator>
-  <capsule-breadcrumb-item>
-    Текущая страница
-  </capsule-breadcrumb-item>
+  <capsule-breadcrumb-item> Текущая страница </capsule-breadcrumb-item>
 </capsule-breadcrumb>
 ```
 
@@ -76,9 +74,7 @@ npx capsule add Breadcrumb
     <a href="#">Страница 5</a>
   </capsule-breadcrumb-item>
   <capsule-breadcrumb-separator></capsule-breadcrumb-separator>
-  <capsule-breadcrumb-item>
-    Текущая страница
-  </capsule-breadcrumb-item>
+  <capsule-breadcrumb-item> Текущая страница </capsule-breadcrumb-item>
 </capsule-breadcrumb>
 ```
 
@@ -106,7 +102,17 @@ npx capsule add Breadcrumb
 <capsule-breadcrumb-separator>➡️</capsule-breadcrumb-separator>
 <!-- любой контент: эмодзи, иконка, SVG и т.п. -->
 <capsule-breadcrumb-separator>
-  <svg width="12" height="12"><circle cx="6" cy="6" r="5" fill="#888"/></svg>
+  <svg
+    width="12"
+    height="12"
+  >
+    <circle
+      cx="6"
+      cy="6"
+      r="5"
+      fill="#888"
+    />
+  </svg>
 </capsule-breadcrumb-separator>
 ```
 
@@ -135,7 +141,10 @@ Breadcrumb состоит из нескольких подкомпонентов
 ```html
 <capsule-breadcrumb-separator>></capsule-breadcrumb-separator>
 <capsule-breadcrumb-separator>
-  <svg width="12" height="12"></svg>
+  <svg
+    width="12"
+    height="12"
+  ></svg>
 </capsule-breadcrumb-separator>
 ```
 
@@ -153,4 +162,3 @@ Breadcrumb состоит из нескольких подкомпонентов
 - ✅ ARIA-навигационные ориентиры
 - ✅ Навигация с клавиатуры
 - ✅ Поддержка для screen readers
-

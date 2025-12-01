@@ -76,3 +76,79 @@ export function findTemplatesDir(startDir: string): string {
   // If not found, return first path (for error output)
   return paths[0];
 }
+
+// Find @template directory (for init command)
+export function findTemplateDir(startDir: string): string {
+  // Start with current directory
+  let currentDir = startDir;
+
+  // In development mode
+  const devTemplatePath = path.join(currentDir, '..', '..', 'src', '@template');
+  if (fs.existsSync(devTemplatePath)) {
+    return devTemplatePath;
+  }
+
+  // In published package
+  // Get base package path
+  let pkgPath = currentDir;
+  // Move up to package root
+  for (let i = 0; i < 10; i++) {
+    if (fs.existsSync(path.join(pkgPath, 'package.json'))) {
+      break;
+    }
+    pkgPath = path.join(pkgPath, '..');
+  }
+
+  // Check different paths relative to package root
+  const paths = [
+    path.join(pkgPath, 'src', '@template'),
+    path.join(pkgPath, '@template'),
+  ];
+
+  for (const p of paths) {
+    if (fs.existsSync(p)) {
+      return p;
+    }
+  }
+
+  // If not found, return first path (for error output)
+  return paths[0];
+}
+
+// Find modules directory (for module command)
+export function findModulesDir(startDir: string): string {
+  // Start with current directory
+  let currentDir = startDir;
+
+  // In development mode
+  const devModulesPath = path.join(currentDir, '..', '..', 'src', 'modules');
+  if (fs.existsSync(devModulesPath)) {
+    return devModulesPath;
+  }
+
+  // In published package
+  // Get base package path
+  let pkgPath = currentDir;
+  // Move up to package root
+  for (let i = 0; i < 10; i++) {
+    if (fs.existsSync(path.join(pkgPath, 'package.json'))) {
+      break;
+    }
+    pkgPath = path.join(pkgPath, '..');
+  }
+
+  // Check different paths relative to package root
+  const paths = [
+    path.join(pkgPath, 'src', 'modules'),
+    path.join(pkgPath, 'modules'),
+  ];
+
+  for (const p of paths) {
+    if (fs.existsSync(p)) {
+      return p;
+    }
+  }
+
+  // If not found, return first path (for error output)
+  return paths[0];
+}

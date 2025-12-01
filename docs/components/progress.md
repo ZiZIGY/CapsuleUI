@@ -5,7 +5,7 @@ A progress indicator component that displays the progress of a task or operation
 ## Installation
 
 ```bash
-npx capsule add Progress
+npx @zizigy/capsule add Progress
 ```
 
 ## Usage

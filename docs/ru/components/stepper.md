@@ -5,7 +5,7 @@
 ## Установка
 
 ```bash
-npx capsule add Stepper
+npx @zizigy/capsule add Stepper
 ```
 
 ## Использование

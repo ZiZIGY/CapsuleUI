@@ -5,7 +5,7 @@
 ## Установка
 
 ```bash
-npx capsule add Badge
+npx @zizigy/capsule add Badge
 ```
 
 ## Использование

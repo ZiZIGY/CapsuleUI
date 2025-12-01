@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { ensureDir, copyDir } from '../../filesystem';
-import { createSpinner } from '../../utils';
+import { createSpinner, findModulesDir } from '../../utils';
 import { importModule, removeModuleImport } from './module-importer';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -25,7 +25,7 @@ function printHelp() {
   );
   console.log(
     '  capsule module list           ' +
-      colors.blue('- List available modules (from src/modules)')
+      colors.blue('- List available modules')
   );
 }
 
@@ -79,20 +79,20 @@ export const moduleCmd = {
           spinner.fail('Please specify module name: module add <name>');
           return;
         }
-        // Источник берём из src/modules/<name>
-        const sourceModuleDir = path.join(projectDir, 'src', 'modules', name);
+        // Источник берём из пакета (src/modules/<name>)
+        const modulesDirPath = findModulesDir(__dirname);
+        const sourceModuleDir = path.join(modulesDirPath, name);
         if (!fs.existsSync(sourceModuleDir)) {
-          spinner.fail(`Module template not found in src/modules/${name}.`);
+          spinner.fail(`Module template not found: ${name}`);
           // Показать доступные исходные модули
           try {
-            const srcModulesRoot = path.join(projectDir, 'src', 'modules');
-            if (fs.existsSync(srcModulesRoot)) {
+            if (fs.existsSync(modulesDirPath)) {
               const available = fs
-                .readdirSync(srcModulesRoot, { withFileTypes: true })
+                .readdirSync(modulesDirPath, { withFileTypes: true })
                 .filter((d) => d.isDirectory())
                 .map((d) => d.name);
               if (available.length) {
-                console.log(colors.yellow('Available modules in src/modules:'));
+                console.log(colors.yellow('Available modules:'));
                 available.forEach((m) => console.log('  - ' + colors.blue(m)));
               }
             }
@@ -121,21 +121,21 @@ export const moduleCmd = {
         break;
       }
       case 'list': {
-        // Доступные модули из src/modules
-        const srcModulesRoot = path.join(projectDir, 'src', 'modules');
+        // Доступные модули из пакета
+        const modulesDirPath = findModulesDir(__dirname);
         spinner.stop();
-        if (!fs.existsSync(srcModulesRoot)) {
-          console.log(colors.yellow('No src/modules directory found.'));
+        if (!fs.existsSync(modulesDirPath)) {
+          console.log(colors.yellow('No modules directory found in package.'));
           return;
         }
         const modules = fs
-          .readdirSync(srcModulesRoot, { withFileTypes: true })
+          .readdirSync(modulesDirPath, { withFileTypes: true })
           .filter((d) => d.isDirectory())
           .map((d) => d.name);
         if (modules.length === 0) {
-          console.log(colors.yellow('No available modules in src/modules.'));
+          console.log(colors.yellow('No available modules.'));
         } else {
-          console.log(colors.green('Available modules (src/modules):'));
+          console.log(colors.green('Available modules:'));
           modules.forEach((m) => console.log('  - ' + colors.blue(m)));
         }
         break;

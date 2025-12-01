@@ -5,7 +5,7 @@ Interactive button component with multiple style variants, sizes, and states. Bu
 ## Quick Start
 
 ```bash
-npx capsule add Button
+npx @zizigy/capsule add Button
 ```
 
 ```html

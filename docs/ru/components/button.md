@@ -5,7 +5,7 @@
 ## Быстрый старт
 
 ```bash
-npx capsule add Button
+npx @zizigy/capsule add Button
 ```
 
 ```html

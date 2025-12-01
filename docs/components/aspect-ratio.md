@@ -5,7 +5,7 @@ A simple component for maintaining aspect ratios. Perfect for images, videos, or
 ## Installation
 
 ```bash
-npx capsule add AspectRatio
+npx @zizigy/capsule add AspectRatio
 ```
 
 ## Usage
@@ -20,7 +20,10 @@ npx capsule add AspectRatio
 
 ```html
 <capsule-aspect-ratio ratio="16/9">
-  <img src="https://picsum.photos/800/450" alt="Image" />
+  <img
+    src="https://picsum.photos/800/450"
+    alt="Image"
+  />
 </capsule-aspect-ratio>
 ```
 
@@ -56,17 +59,26 @@ npx capsule add AspectRatio
 ```html
 <!-- 16:9 -->
 <capsule-aspect-ratio ratio="16/9">
-  <img src="https://picsum.photos/800/450" alt="Image" />
+  <img
+    src="https://picsum.photos/800/450"
+    alt="Image"
+  />
 </capsule-aspect-ratio>
 
 <!-- 4:3 -->
 <capsule-aspect-ratio ratio="4/3">
-  <img src="https://picsum.photos/800/600" alt="Image" />
+  <img
+    src="https://picsum.photos/800/600"
+    alt="Image"
+  />
 </capsule-aspect-ratio>
 
 <!-- 1:1 (Square) -->
 <capsule-aspect-ratio ratio="1/1">
-  <img src="https://picsum.photos/600/600" alt="Image" />
+  <img
+    src="https://picsum.photos/600/600"
+    alt="Image"
+  />
 </capsule-aspect-ratio>
 ```
 
@@ -76,7 +88,10 @@ You can also use colon format instead of slash:
 
 ```html
 <capsule-aspect-ratio ratio="16:9">
-  <img src="https://picsum.photos/800/450" alt="Image" />
+  <img
+    src="https://picsum.photos/800/450"
+    alt="Image"
+  />
 </capsule-aspect-ratio>
 ```
 
@@ -93,7 +108,10 @@ You can also use colon format instead of slash:
 ```html
 <capsule-aspect-ratio ratio="16/9">
   <video controls>
-    <source src="video.mp4" type="video/mp4" />
+    <source
+      src="video.mp4"
+      type="video/mp4"
+    />
   </video>
 </capsule-aspect-ratio>
 ```
@@ -108,9 +126,7 @@ You can also use colon format instead of slash:
 
 ```html
 <capsule-aspect-ratio ratio="3/2">
-  <div style="background: linear-gradient(...);">
-    Custom content
-  </div>
+  <div style="background: linear-gradient(...);"> Custom content </div>
 </capsule-aspect-ratio>
 ```
 
@@ -124,7 +140,10 @@ You can also use colon format instead of slash:
 
 ```html
 <capsule-aspect-ratio ratio="3/4">
-  <img src="https://picsum.photos/300/400" alt="Portrait" />
+  <img
+    src="https://picsum.photos/300/400"
+    alt="Portrait"
+  />
 </capsule-aspect-ratio>
 ```
 
@@ -132,13 +151,14 @@ You can also use colon format instead of slash:
 
 ### Properties
 
-| Property | Type | Default | Description |
-|----------|------|---------|-------------|
-| `ratio` | `string` | `''` | Aspect ratio value (e.g., `'16/9'`, `'16:9'`, `'4/3'`, `'1'`) |
+| Property | Type     | Default | Description                                                   |
+| -------- | -------- | ------- | ------------------------------------------------------------- |
+| `ratio`  | `string` | `''`    | Aspect ratio value (e.g., `'16/9'`, `'16:9'`, `'4/3'`, `'1'`) |
 
 ### Format
 
 The `ratio` attribute accepts values in these formats:
+
 - `"16/9"` - Slash format (recommended)
 - `"16:9"` - Colon format (also supported)
 - `"1"` - Single number (treated as `1/1`)

@@ -5,7 +5,7 @@
 ## Установка
 
 ```bash
-npx capsule add Calendar
+npx @zizigy/capsule add Calendar
 ```
 
 ## Использование
@@ -37,7 +37,10 @@ npx capsule add Calendar
 </div>
 
 ```html
-<capsule-calendar display-year="2024" display-month="5"></capsule-calendar>
+<capsule-calendar
+  display-year="2024"
+  display-month="5"
+></capsule-calendar>
 ```
 
 ### Ограничение диапазона дат
@@ -54,7 +57,8 @@ npx capsule add Calendar
 ```html
 <capsule-calendar
   min-date="2024-01-01"
-  max-date="2024-12-31">
+  max-date="2024-12-31"
+>
 </capsule-calendar>
 ```
 
@@ -69,8 +73,7 @@ npx capsule add Calendar
 </div>
 
 ```html
-<capsule-calendar
-  disabled-dates="2024-03-10,2024-03-15,2024-03-20">
+<capsule-calendar disabled-dates="2024-03-10,2024-03-15,2024-03-20">
 </capsule-calendar>
 ```
 
@@ -96,15 +99,15 @@ npx capsule add Calendar
 
 ## Атрибуты
 
-| Атрибут          | Тип    | По умолчанию | Описание                                       |
-| ---------------- | ------ | ------------ | ---------------------------------------------- |
-| `value`          | string | ''           | Выбранная дата в формате YYYY-MM-DD            |
-| `display-year`   | number | текущий      | Отображаемый год                               |
-| `display-month`  | number | текущий      | Отображаемый месяц (0-11)                      |
-| `min-date`       | string | null         | Минимальная доступная дата (YYYY-MM-DD)        |
-| `max-date`       | string | null         | Максимальная доступная дата (YYYY-MM-DD)       |
-| `disabled-dates` | string | ''           | Список отключенных дат через запятую           |
-| `locale`         | string | en-US        | Локаль для названий дней недели ('ru-RU', 'de')|
+| Атрибут          | Тип    | По умолчанию | Описание                                        |
+| ---------------- | ------ | ------------ | ----------------------------------------------- |
+| `value`          | string | ''           | Выбранная дата в формате YYYY-MM-DD             |
+| `display-year`   | number | текущий      | Отображаемый год                                |
+| `display-month`  | number | текущий      | Отображаемый месяц (0-11)                       |
+| `min-date`       | string | null         | Минимальная доступная дата (YYYY-MM-DD)         |
+| `max-date`       | string | null         | Максимальная доступная дата (YYYY-MM-DD)        |
+| `disabled-dates` | string | ''           | Список отключенных дат через запятую            |
+| `locale`         | string | en-US        | Локаль для названий дней недели ('ru-RU', 'de') |
 
 ## Методы
 
@@ -175,15 +178,15 @@ calendar.addEventListener('change', (e) => {
 
 Календарь предоставляет несколько CSS parts для стилизации:
 
-| Part              | Описание                                 |
-| ----------------- | ---------------------------------------- |
-| `weekdays`        | Контейнер для заголовков дней недели     |
-| `days-grid`       | Grid-контейнер для кнопок дней           |
-| `day`             | Отдельная кнопка дня                     |
-| `day today`       | Кнопка текущего дня                      |
-| `day selected`    | Кнопка выбранного дня                    |
-| `day disabled`    | Кнопка отключенного дня                  |
-| `day other-month` | Дни из предыдущего/следующего месяца     |
+| Part              | Описание                             |
+| ----------------- | ------------------------------------ |
+| `weekdays`        | Контейнер для заголовков дней недели |
+| `days-grid`       | Grid-контейнер для кнопок дней       |
+| `day`             | Отдельная кнопка дня                 |
+| `day today`       | Кнопка текущего дня                  |
+| `day selected`    | Кнопка выбранного дня                |
+| `day disabled`    | Кнопка отключенного дня              |
+| `day other-month` | Дни из предыдущего/следующего месяца |
 
 ### Пример кастомной стилизации
 
