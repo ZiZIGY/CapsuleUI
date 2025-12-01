@@ -86,7 +86,7 @@ export const add = {
       const capsuleRoot = findCapsuleRoot(projectDir);
       if (!capsuleRoot) {
         spinner.fail(
-          `Could not find '@capsule' folder in the project. Run 'capsule init' first.`
+          `Could not find '@capsule' folder in the project. Run 'npx @zizigy/capsule init' first.`
         );
         process.exit(1);
       }

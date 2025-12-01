@@ -69,7 +69,7 @@ export const vscode = {
       const capsuleRoot = findCapsuleRoot(baseDir);
       if (!capsuleRoot) {
         spinner.fail(
-          "Could not find '@capsule' folder in the selected directory. Run 'capsule init' first or provide --dir."
+          "Could not find '@capsule' folder in the selected directory. Run 'npx @zizigy/capsule init' first or provide --dir."
         );
         process.exit(1);
       }

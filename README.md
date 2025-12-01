@@ -14,9 +14,9 @@
 1. Initialize global Capsule folder (templates and globals):
 
 ```bash
-capsule init
+npx @zizigy/capsule init
 # or choose a custom base directory
-capsule init --dir ./playground
+npx @zizigy/capsule init --dir ./playground
 ```
 
 2. Add a component (installs into `@capsule/components/<prefix>-<component>`):
@@ -58,7 +58,7 @@ Open the dev server and experiment with components right away.
 
 ## Commands
 
-- `capsule init [-d, --dir <dir>]` — create `@capsule` folder from template
+- `npx @zizigy/capsule init [-d, --dir <dir>]` — create `@capsule` folder from template
 - `capsule add <Component> [-p, --prefix <prefix>] [-m, --minify]` — install a component
 - `npm run play` — run Vite dev server for `playground`
 

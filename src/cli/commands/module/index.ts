@@ -24,8 +24,7 @@ function printHelp() {
     '  capsule module remove <name>  ' + colors.blue('- Remove a module')
   );
   console.log(
-    '  capsule module list           ' +
-      colors.blue('- List available modules')
+    '  capsule module list           ' + colors.blue('- List available modules')
   );
 }
 
@@ -66,7 +65,7 @@ export const moduleCmd = {
       if (action !== 'list') {
         // Для add/remove требуется @capsule
         spinner.fail(
-          "Could not find '@capsule' folder in the project. Run 'capsule init' first."
+          "Could not find '@capsule' folder in the project. Run 'npx @zizigy/capsule init' first."
         );
         return;
       }
@@ -108,12 +107,12 @@ export const moduleCmd = {
         }
         try {
           copyDir(sourceModuleDir, newModuleDir);
-          
+
           // Импортируем index.js модуля в главный index.js
           if (capsuleRoot) {
             importModule(capsuleRoot, name);
           }
-          
+
           spinner.succeed(`Module ${name} added to @capsule/modules/`);
         } catch (e) {
           spinner.fail('Failed to copy module: ' + (e as Error).message);
@@ -150,12 +149,12 @@ export const moduleCmd = {
           spinner.fail(`Module ${name} not found.`);
           return;
         }
-        
+
         // Удаляем импорт из главного index.js
         if (capsuleRoot) {
           removeModuleImport(capsuleRoot, name);
         }
-        
+
         fs.rmSync(target, { recursive: true, force: true });
         spinner.succeed(`Module ${name} removed from @capsule/modules/`);
         break;
