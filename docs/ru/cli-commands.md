@@ -103,22 +103,30 @@ npx capsule list
 
 ---
 
-### `npx capsule module [module]`
+### `npx capsule module <action> [name]`
 
 Управляет модулями в вашем проекте (например, утилитами валидации форм).
 
 **Использование:**
 ```bash
-npx capsule module [имя-модуля]
+npx capsule module <action> [name]
 ```
+
+**Действия:**
+- `add <name>` - Добавить модуль в ваш проект
+- `remove <name>` - Удалить модуль из вашего проекта
+- `list` - Показать список всех доступных модулей
 
 **Примеры:**
 ```bash
 # Показать доступные модули
-npx capsule module
+npx capsule module list
 
 # Добавить конкретный модуль
-npx capsule module form
+npx capsule module add form
+
+# Удалить модуль
+npx capsule module remove form
 ```
 
 **Доступные модули:**

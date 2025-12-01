@@ -1,0 +1,64 @@
+__PREFIX__-__COMPONENT__ {
+  display: block;
+  width: 100%;
+  position: relative;
+  background: var(--capsule-color-surface-variant);
+  border-radius: var(--capsule-radius-full);
+  overflow: hidden;
+}
+
+__PREFIX__-__COMPONENT__ .progress-bar {
+  display: block;
+  height: 100%;
+  width: var(--progress, 0%);
+  background: var(--capsule-color-primary);
+  border-radius: var(--capsule-radius-full);
+  transition: var(--capsule-transition);
+}
+
+/* Sizes */
+__PREFIX__-__COMPONENT__[size='xs'] {
+  height: 0.25rem;
+}
+
+__PREFIX__-__COMPONENT__[size='sm'] {
+  height: 0.5rem;
+}
+
+__PREFIX__-__COMPONENT__[size='md'] {
+  height: 0.75rem;
+}
+
+__PREFIX__-__COMPONENT__[size='lg'] {
+  height: 1rem;
+}
+
+__PREFIX__-__COMPONENT__[size='xl'] {
+  height: 1.25rem;
+}
+
+/* Colors */
+__PREFIX__-__COMPONENT__[color='primary'] .progress-bar {
+  background: var(--capsule-color-primary);
+}
+
+__PREFIX__-__COMPONENT__[color='success'] .progress-bar {
+  background: var(--capsule-color-success);
+}
+
+__PREFIX__-__COMPONENT__[color='error'] .progress-bar {
+  background: var(--capsule-color-error);
+}
+
+__PREFIX__-__COMPONENT__[color='warning'] .progress-bar {
+  background: var(--capsule-color-warning);
+}
+
+__PREFIX__-__COMPONENT__[color='info'] .progress-bar {
+  background: var(--capsule-color-info);
+}
+
+__PREFIX__-__COMPONENT__[color='accent'] .progress-bar {
+  background: var(--capsule-color-accent);
+}
+

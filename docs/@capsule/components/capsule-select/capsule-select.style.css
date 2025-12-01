@@ -1,0 +1,161 @@
+capsule-select {
+  display: inline-flex;
+  position: relative;
+  flex-direction: column;
+  width: 100%;
+  font-family: var(--capsule-font-family);
+}
+
+capsule-select[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+capsule-select-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 2.5rem;
+  padding: var(--capsule-padding-sm);
+  background: var(--capsule-color-surface);
+  border: 1px solid var(--capsule-color-outline);
+  border-radius: var(--capsule-radius-md);
+  cursor: pointer;
+  font-size: var(--capsule-font-size);
+  color: var(--capsule-color-text);
+  transition: var(--capsule-transition);
+  gap: 0.5rem;
+}
+
+capsule-select-trigger:hover:not([disabled]) {
+  border-color: var(--capsule-color-outline-variant);
+  background: var(--capsule-color-surface-variant);
+}
+
+capsule-select-trigger:focus-visible {
+  outline: none;
+  border-color: var(--capsule-color-primary);
+  box-shadow: var(--capsule-shadow-focus);
+}
+
+capsule-select[open] capsule-select-trigger {
+  border-color: var(--capsule-color-primary);
+  box-shadow: var(--capsule-shadow-focus);
+}
+
+capsule-select-value {
+  flex: 1;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+capsule-select-content {
+  position: absolute;
+  top: calc(100% + 0.25rem);
+  left: 0;
+  right: 0;
+  z-index: var(--capsule-z-dropdown);
+  max-height: 20rem;
+  overflow-y: auto;
+  background: var(--capsule-color-surface);
+  border: 1px solid var(--capsule-color-outline);
+  border-radius: var(--capsule-radius-md);
+  box-shadow: var(--capsule-shadow-lg);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-0.5rem);
+  transition: opacity var(--capsule-transition),
+    transform var(--capsule-transition), visibility var(--capsule-transition);
+  pointer-events: none;
+}
+
+capsule-select-content:not([hidden]) {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+capsule-select-item {
+  display: block;
+  padding: var(--capsule-padding-sm);
+  cursor: pointer;
+  color: var(--capsule-color-text);
+  font-size: var(--capsule-font-size);
+  transition: var(--capsule-transition);
+  border-radius: var(--capsule-radius-sm);
+  margin: 0.125rem;
+}
+
+capsule-select-item:hover:not([disabled]),
+capsule-select-item[active]:not([disabled]) {
+  background: var(--capsule-color-surface-variant);
+  color: var(--capsule-color-text);
+}
+
+capsule-select-item[selected]:not([disabled]) {
+  background: var(--capsule-color-primary);
+  color: white;
+}
+
+capsule-select-item[selected]:not([disabled]):hover,
+capsule-select-item[selected]:not([disabled])[active] {
+  background: color-mix(in srgb, var(--capsule-color-primary) 90%, black);
+}
+
+capsule-select-item[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+capsule-select-group {
+  display: block;
+}
+
+capsule-select-label {
+  padding: var(--capsule-padding-xs) var(--capsule-padding-sm);
+  font-size: var(--capsule-font-size-xs);
+  font-weight: var(--capsule-font-weight-semibold);
+  color: var(--capsule-color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--capsule-color-outline-variant);
+  margin-bottom: 0.25rem;
+  position: sticky;
+  top: 0;
+  background: var(--capsule-color-surface);
+  z-index: 1;
+}
+
+capsule-select-group[disabled] capsule-select-label {
+  opacity: 0.5;
+}
+
+capsule-select[size='xs'] capsule-select-trigger {
+  min-height: 2rem;
+  padding: var(--capsule-padding-xs);
+  font-size: var(--capsule-font-size-xs);
+}
+
+capsule-select[size='sm'] capsule-select-trigger {
+  min-height: 2.25rem;
+  padding: var(--capsule-padding-xs);
+  font-size: var(--capsule-font-size-sm);
+}
+
+capsule-select[size='lg'] capsule-select-trigger {
+  min-height: 3rem;
+  padding: var(--capsule-padding-md);
+  font-size: var(--capsule-font-size-lg);
+}
+
+capsule-select[size='xl'] capsule-select-trigger {
+  min-height: 3.5rem;
+  padding: var(--capsule-padding-lg);
+  font-size: var(--capsule-font-size-xl);
+}

@@ -37,3 +37,10 @@ import './components/capsule-range/register.js';
 import './components/capsule-rating/register.js';
 import './components/capsule-tooltip/register.js';
 import './components/capsule-tabs/register.js';
+import './components/capsule-select/register.js';
+import './components/capsule-kbd/register.js';
+import './components/capsule-aspect-ratio/register.js';
+import './components/capsule-progress/register.js';
+
+// Import all modules
+import './modules/form/index.js';

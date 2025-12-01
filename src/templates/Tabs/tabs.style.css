@@ -15,7 +15,6 @@ __PREFIX__-__COMPONENT__-list {
   gap: 1rem;
 }
 
-/* Стили для __PREFIX__-__COMPONENT__-trigger */
 __PREFIX__-__COMPONENT__-trigger::part(trigger) {
   background: none;
   border: none;
@@ -55,14 +54,12 @@ __PREFIX__-__COMPONENT__-panel {
   opacity: 0;
 }
 
-/* Активная панель */
 __PREFIX__-__COMPONENT__-panel[active] {
   opacity: 1;
   pointer-events: auto;
   position: relative;
 }
 
-/* X-анимация с братьями */
 __PREFIX__-__COMPONENT__-panels[animation='x']
   __PREFIX__-__COMPONENT__-panel[active] {
   transform: translateX(0);
@@ -85,7 +82,6 @@ __PREFIX__-__COMPONENT__-panels[animation='x']
   opacity: 0;
 }
 
-/* Y-анимация с братьями */
 __PREFIX__-__COMPONENT__-panels[animation='y']
   __PREFIX__-__COMPONENT__-panel[active] {
   transform: translateY(0);
@@ -108,7 +104,6 @@ __PREFIX__-__COMPONENT__-panels[animation='y']
   opacity: 0;
 }
 
-/* Fade-анимация */
 __PREFIX__-__COMPONENT__-panels[animation='fade']
   __PREFIX__-__COMPONENT__-panel {
   opacity: 0;

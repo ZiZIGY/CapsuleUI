@@ -13,6 +13,10 @@
     "docs/@capsule/components/capsule-range/vscode.data.json",
     "docs/@capsule/components/capsule-rating/vscode.data.json",
     "docs/@capsule/components/capsule-tooltip/vscode.data.json",
-    "docs/@capsule/components/capsule-tabs/vscode.data.json"
+    "docs/@capsule/components/capsule-tabs/vscode.data.json",
+    "docs/@capsule/components/capsule-select/vscode.data.json",
+    "docs/@capsule/components/capsule-kbd/vscode.data.json",
+    "docs/@capsule/components/capsule-aspect-ratio/vscode.data.json",
+    "docs/@capsule/components/capsule-progress/vscode.data.json"
   ]
 }

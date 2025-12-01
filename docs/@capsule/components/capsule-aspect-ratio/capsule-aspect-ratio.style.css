@@ -1,0 +1,13 @@
+capsule-aspect-ratio {
+  display: block;
+  width: 100%;
+  --aspect-ratio: initial;
+}
+
+capsule-aspect-ratio > img,
+capsule-aspect-ratio > video {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+  aspect-ratio: var(--aspect-ratio);
+}

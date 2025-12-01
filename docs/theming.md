@@ -13,16 +13,22 @@ In `@capsule/global.css`, you'll find color, radius, shadow, etc. definitions—
   --capsule-color-error: light-dark(#dc2626, #ef4444);
   /* ... */
 }
-:root.light { color-scheme: light; }
-:root.dark { color-scheme: dark; }
+:root.light {
+  color-scheme: light;
+}
+:root.dark {
+  color-scheme: dark;
+}
 ```
 
 ## Customizing the theme
+
 - **Override any variable** in `:root {}` in your project or via a separate CSS file.
 - **Switch between themes** using `.light`/`.dark` classes on `<html>` or `<body>`, variables update automatically.
 - **Tweak specific tokens** (radii, fonts, colors, etc).
 
 ## Per-component customization
+
 Every component includes its own CSS file, loaded automatically—no need to copy or edit it.
 To customize a specific component, just override variables or write styles in your own CSS:
 

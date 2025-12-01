@@ -1,3 +1,7 @@
+@import url('./components/capsule-progress/capsule-progress.style.css');
+@import url('./components/capsule-aspect-ratio/capsule-aspect-ratio.style.css');
+@import url('./components/capsule-kbd/capsule-kbd.style.css');
+@import url('./components/capsule-select/capsule-select.style.css');
 @import url('./components/capsule-tabs/capsule-tabs.style.css');
 @import url('./components/capsule-tooltip/capsule-tooltip.style.css');
 @import url('./components/capsule-rating/capsule-rating.style.css');

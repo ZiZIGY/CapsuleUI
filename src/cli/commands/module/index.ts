@@ -1,8 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { ensureDir, copyDir } from '../filesystem';
-import { createSpinner } from '../utils';
+import { ensureDir, copyDir } from '../../filesystem';
+import { createSpinner } from '../../utils';
+import { importModule, removeModuleImport } from './module-importer';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -107,6 +108,12 @@ export const moduleCmd = {
         }
         try {
           copyDir(sourceModuleDir, newModuleDir);
+          
+          // Импортируем index.js модуля в главный index.js
+          if (capsuleRoot) {
+            importModule(capsuleRoot, name);
+          }
+          
           spinner.succeed(`Module ${name} added to @capsule/modules/`);
         } catch (e) {
           spinner.fail('Failed to copy module: ' + (e as Error).message);
@@ -143,6 +150,12 @@ export const moduleCmd = {
           spinner.fail(`Module ${name} not found.`);
           return;
         }
+        
+        // Удаляем импорт из главного index.js
+        if (capsuleRoot) {
+          removeModuleImport(capsuleRoot, name);
+        }
+        
         fs.rmSync(target, { recursive: true, force: true });
         spinner.succeed(`Module ${name} removed from @capsule/modules/`);
         break;

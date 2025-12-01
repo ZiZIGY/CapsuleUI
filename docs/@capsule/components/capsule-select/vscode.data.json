@@ -1,0 +1,80 @@
+{
+  "version": 1.1,
+  "tags": [
+    {
+      "name": "capsule-select",
+      "attributes": [
+        {
+          "name": "value",
+          "description": "The value of the selected option"
+        },
+        {
+          "name": "disabled",
+          "description": "Disables the select component",
+          "valueSet": "v"
+        },
+        {
+          "name": "open",
+          "description": "Controls the open/closed state of the dropdown",
+          "valueSet": "v"
+        }
+      ]
+    },
+    {
+      "name": "capsule-select-trigger",
+      "attributes": []
+    },
+    {
+      "name": "capsule-select-value",
+      "attributes": [
+        {
+          "name": "placeholder",
+          "description": "Placeholder text when no option is selected"
+        }
+      ]
+    },
+    {
+      "name": "capsule-select-content",
+      "attributes": []
+    },
+    {
+      "name": "capsule-select-item",
+      "attributes": [
+        {
+          "name": "value",
+          "description": "The value of this option (used when selected)",
+          "required": true
+        },
+        {
+          "name": "disabled",
+          "description": "Disables this option",
+          "valueSet": "v"
+        },
+        {
+          "name": "selected",
+          "description": "Indicates if this option is selected",
+          "valueSet": "v"
+        },
+        {
+          "name": "active",
+          "description": "Indicates if this option is currently focused/hovered",
+          "valueSet": "v"
+        }
+      ]
+    },
+    {
+      "name": "capsule-select-group",
+      "attributes": [
+        {
+          "name": "disabled",
+          "description": "Disables all options in this group",
+          "valueSet": "v"
+        }
+      ]
+    },
+    {
+      "name": "capsule-select-label",
+      "attributes": []
+    }
+  ]
+}

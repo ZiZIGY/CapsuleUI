@@ -4,7 +4,6 @@ import { fileURLToPath } from 'url';
 import { createSpinner, findTemplatesDir } from '../../utils';
 import { copyDir, ensureDir } from '../../filesystem';
 
-import { minifyJs } from './minification';
 import {
   toKebabCase,
   walkDirAndReplace,
@@ -133,10 +132,7 @@ export const add = {
       }
 
       // Обработка JS файлов (минификация и удаление import/export)
-      processJsFiles(
-        destComponentDir,
-        jsFiles,
-      );
+      processJsFiles(destComponentDir, jsFiles);
 
       // Обработка CSS: автоимпорт в global.css
       importCssFiles(capsuleRoot, cssFiles, prefix, kebabComponent);

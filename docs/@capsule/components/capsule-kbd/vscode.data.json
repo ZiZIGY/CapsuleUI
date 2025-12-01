@@ -1,0 +1,31 @@
+{
+  "version": 1.1,
+  "tags": [
+    {
+      "name": "capsule-kbd",
+      "attributes": [
+        {
+          "name": "size",
+          "description": "Size of the keyboard key",
+          "values": [
+            {
+              "name": "xs"
+            },
+            {
+              "name": "sm"
+            },
+            {
+              "name": "md"
+            },
+            {
+              "name": "lg"
+            },
+            {
+              "name": "xl"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

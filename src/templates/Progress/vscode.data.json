@@ -1,0 +1,31 @@
+{
+  "version": 1.1,
+  "tags": [
+    {
+      "name": "__PREFIX__-__COMPONENT__",
+      "description": "A progress indicator component that displays the progress of a task or operation.",
+      "attributes": [
+        {
+          "name": "value",
+          "description": "The current progress value (0 to max).",
+          "valueSet": "v"
+        },
+        {
+          "name": "max",
+          "description": "The maximum value of the progress (default: 100).",
+          "valueSet": "v"
+        },
+        {
+          "name": "size",
+          "description": "The size of the progress bar.",
+          "valueSet": "xs|sm|md|lg|xl"
+        },
+        {
+          "name": "color",
+          "description": "The color theme of the progress bar.",
+          "valueSet": "primary|success|error|warning|info|accent"
+        }
+      ]
+    }
+  ]
+}

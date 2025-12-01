@@ -1,0 +1,13 @@
+__PREFIX__-__COMPONENT__ {
+  display: block;
+  width: 100%;
+  --aspect-ratio: initial;
+}
+
+__PREFIX__-__COMPONENT__ > img,
+__PREFIX__-__COMPONENT__ > video {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+  aspect-ratio: var(--aspect-ratio);
+}

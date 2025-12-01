@@ -60,6 +60,7 @@ export default defineConfig({
             ],
           },
           { text: 'Components', link: '/components/' },
+          { text: 'Modules', link: '/modules/' },
         ],
 
         sidebar: [
@@ -80,10 +81,12 @@ export default defineConfig({
               { text: 'Button Group', link: '/components/button-group' },
               { text: 'Badge', link: '/components/badge' },
               { text: 'Chip', link: '/components/chip' },
+              { text: 'Kbd', link: '/components/kbd' },
               { text: 'Breadcrumb', link: '/components/breadcrumb' },
               { text: 'Skeleton', link: '/components/skeleton' },
               { text: 'Divider', link: '/components/divider' },
               { text: 'Alert', link: '/components/alert' },
+              { text: 'AspectRatio', link: '/components/aspect-ratio' },
               { text: 'Accordion', link: '/components/accordion' },
               { text: 'Tabs', link: '/components/tabs' },
               { text: 'Calendar', link: '/components/calendar' },
@@ -91,7 +94,15 @@ export default defineConfig({
               { text: 'Switch', link: '/components/switch' },
               { text: 'Range', link: '/components/range' },
               { text: 'Rating', link: '/components/rating' },
+              { text: 'Progress', link: '/components/progress' },
               { text: 'Tooltip', link: '/components/tooltip' },
+            ],
+          },
+          {
+            text: 'Modules',
+            items: [
+              { text: 'Overview', link: '/modules/' },
+              { text: 'Form', link: '/modules/form' },
             ],
           },
         ],
@@ -114,6 +125,7 @@ export default defineConfig({
             ],
           },
           { text: 'Компоненты', link: '/ru/components/' },
+          { text: 'Модули', link: '/ru/modules/' },
         ],
 
         sidebar: [
@@ -134,10 +146,12 @@ export default defineConfig({
               { text: 'Button Group', link: '/ru/components/button-group' },
               { text: 'Badge', link: '/ru/components/badge' },
               { text: 'Chip', link: '/ru/components/chip' },
+              { text: 'Kbd', link: '/ru/components/kbd' },
               { text: 'Breadcrumb', link: '/ru/components/breadcrumb' },
               { text: 'Skeleton', link: '/ru/components/skeleton' },
               { text: 'Divider', link: '/ru/components/divider' },
               { text: 'Alert', link: '/ru/components/alert' },
+              { text: 'AspectRatio', link: '/ru/components/aspect-ratio' },
               { text: 'Accordion', link: '/ru/components/accordion' },
               { text: 'Tabs', link: '/ru/components/tabs' },
               { text: 'Calendar', link: '/ru/components/calendar' },
@@ -145,7 +159,15 @@ export default defineConfig({
               { text: 'Switch', link: '/ru/components/switch' },
               { text: 'Range', link: '/ru/components/range' },
               { text: 'Rating', link: '/ru/components/rating' },
+              { text: 'Progress', link: '/ru/components/progress' },
               { text: 'Tooltip', link: '/ru/components/tooltip' },
+            ],
+          },
+          {
+            text: 'Модули',
+            items: [
+              { text: 'Обзор', link: '/ru/modules/' },
+              { text: 'Form', link: '/ru/modules/form' },
             ],
           },
         ],

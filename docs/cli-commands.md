@@ -103,22 +103,30 @@ Available components:
 
 ---
 
-### `npx capsule module [module]`
+### `npx capsule module <action> [name]`
 
 Manages modules in your project (like form validation utilities).
 
 **Usage:**
 ```bash
-npx capsule module [module-name]
+npx capsule module <action> [name]
 ```
+
+**Actions:**
+- `add <name>` - Add a module to your project
+- `remove <name>` - Remove a module from your project
+- `list` - List all available modules
 
 **Examples:**
 ```bash
 # List available modules
-npx capsule module
+npx capsule module list
 
 # Add a specific module
-npx capsule module form
+npx capsule module add form
+
+# Remove a module
+npx capsule module remove form
 ```
 
 **Available modules:**

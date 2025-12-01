@@ -53,6 +53,7 @@ class CapsuleRating extends LitElement {
   }
 
   firstUpdated() {
+    this._precision = this.precision || 1;
     this._updateFilledWidth();
     this._attachEventListeners();
   }
@@ -201,13 +202,10 @@ class CapsuleRating extends LitElement {
     const clickX = clientX - containerRect.left;
     let percentage = Math.max(0, Math.min(clickX / containerWidth, 1));
 
-    if (this._precision === 1) {
-      percentage = Math.round(percentage * this._max) / this._max;
-    } else if (this._precision === 0.5) {
-      percentage = Math.round(percentage * this._max * 2) / (this._max * 2);
-    } else {
-      percentage = Math.round(percentage * this._max * 10) / (this._max * 10);
-    }
+    // Вычисляем rawValue и округляем его с учетом precision (как при клике)
+    const rawValue = percentage * this._max;
+    const roundedValue = this._roundValue(rawValue);
+    percentage = roundedValue / this._max;
 
     return percentage;
   }

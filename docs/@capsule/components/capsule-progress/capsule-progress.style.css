@@ -1,0 +1,64 @@
+capsule-progress {
+  display: block;
+  width: 100%;
+  position: relative;
+  background: var(--capsule-color-surface-variant);
+  border-radius: var(--capsule-radius-full);
+  overflow: hidden;
+}
+
+capsule-progress .progress-bar {
+  display: block;
+  height: 100%;
+  width: var(--progress, 0%);
+  background: var(--capsule-color-primary);
+  border-radius: var(--capsule-radius-full);
+  transition: var(--capsule-transition);
+}
+
+/* Sizes */
+capsule-progress[size='xs'] {
+  height: 0.25rem;
+}
+
+capsule-progress[size='sm'] {
+  height: 0.5rem;
+}
+
+capsule-progress[size='md'] {
+  height: 0.75rem;
+}
+
+capsule-progress[size='lg'] {
+  height: 1rem;
+}
+
+capsule-progress[size='xl'] {
+  height: 1.25rem;
+}
+
+/* Colors */
+capsule-progress[color='primary'] .progress-bar {
+  background: var(--capsule-color-primary);
+}
+
+capsule-progress[color='success'] .progress-bar {
+  background: var(--capsule-color-success);
+}
+
+capsule-progress[color='error'] .progress-bar {
+  background: var(--capsule-color-error);
+}
+
+capsule-progress[color='warning'] .progress-bar {
+  background: var(--capsule-color-warning);
+}
+
+capsule-progress[color='info'] .progress-bar {
+  background: var(--capsule-color-info);
+}
+
+capsule-progress[color='accent'] .progress-bar {
+  background: var(--capsule-color-accent);
+}
+

@@ -1,0 +1,1 @@
+import './capsule-kbd.js';
