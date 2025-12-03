@@ -18,6 +18,9 @@
     "docs/@capsule/components/capsule-kbd/vscode.data.json",
     "docs/@capsule/components/capsule-aspect-ratio/vscode.data.json",
     "docs/@capsule/components/capsule-progress/vscode.data.json",
-    "docs/@capsule/components/capsule-comparison/vscode.data.json"
+    "docs/@capsule/components/capsule-comparison/vscode.data.json",
+    "docs/@capsule/components/capsule-pagination/vscode.data.json",
+    "docs/@capsule/components/capsule-circular-progress/vscode.data.json",
+    "docs/@capsule/components/capsule-tour/vscode.data.json"
   ]
 }

@@ -83,6 +83,7 @@ export default defineConfig({
               { text: 'Chip', link: '/components/chip' },
               { text: 'Kbd', link: '/components/kbd' },
               { text: 'Breadcrumb', link: '/components/breadcrumb' },
+              { text: 'Pagination', link: '/components/pagination' },
               { text: 'Skeleton', link: '/components/skeleton' },
               { text: 'Divider', link: '/components/divider' },
               { text: 'Alert', link: '/components/alert' },
@@ -97,6 +98,7 @@ export default defineConfig({
               { text: 'Progress', link: '/components/progress' },
               { text: 'Comparison', link: '/components/comparison' },
               { text: 'Tooltip', link: '/components/tooltip' },
+              { text: 'Tour', link: '/components/tour' },
             ],
           },
           {
@@ -149,6 +151,7 @@ export default defineConfig({
               { text: 'Chip', link: '/ru/components/chip' },
               { text: 'Kbd', link: '/ru/components/kbd' },
               { text: 'Breadcrumb', link: '/ru/components/breadcrumb' },
+              { text: 'Pagination', link: '/ru/components/pagination' },
               { text: 'Skeleton', link: '/ru/components/skeleton' },
               { text: 'Divider', link: '/ru/components/divider' },
               { text: 'Alert', link: '/ru/components/alert' },
@@ -163,6 +166,7 @@ export default defineConfig({
               { text: 'Progress', link: '/ru/components/progress' },
               { text: 'Comparison', link: '/ru/components/comparison' },
               { text: 'Tooltip', link: '/ru/components/tooltip' },
+              { text: 'Tour', link: '/ru/components/tour' },
             ],
           },
           {

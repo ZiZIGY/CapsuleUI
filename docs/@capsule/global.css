@@ -1,3 +1,6 @@
+@import url('./components/capsule-tour/capsule-tour.style.css');
+@import url('./components/capsule-circular-progress/capsule-circular-progress.style.css');
+@import url('./components/capsule-pagination/capsule-pagination.style.css');
 @import url('./components/capsule-comparison/capsule-comparison.style.css');
 @import url('./components/capsule-progress/capsule-progress.style.css');
 @import url('./components/capsule-aspect-ratio/capsule-aspect-ratio.style.css');

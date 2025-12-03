@@ -1,0 +1,2 @@
+import './capsule-pagination.js';
+

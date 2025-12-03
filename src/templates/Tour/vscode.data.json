@@ -1,0 +1,49 @@
+{
+  "version": 1.1,
+  "tags": [
+    {
+      "name": "__PREFIX__-__COMPONENT__",
+      "attributes": [
+        {
+          "name": "value",
+          "description": "Current active step number (1-based). If empty or invalid, tour is hidden",
+          "valueSet": "number"
+        }
+      ]
+    },
+    {
+      "name": "__PREFIX__-__COMPONENT__-step",
+      "attributes": [
+        {
+          "name": "value",
+          "description": "Step number (1-based)",
+          "valueSet": "number"
+        },
+        {
+          "name": "target",
+          "description": "CSS selector for the target element to highlight",
+          "valueSet": "string"
+        },
+        {
+          "name": "position",
+          "description": "Position of the tooltip relative to target",
+          "values": [
+            {
+              "name": "top"
+            },
+            {
+              "name": "bottom"
+            },
+            {
+              "name": "left"
+            },
+            {
+              "name": "right"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+

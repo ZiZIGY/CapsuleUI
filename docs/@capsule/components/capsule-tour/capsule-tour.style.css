@@ -1,0 +1,67 @@
+capsule-tour {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+capsule-tour:not([hidden]) {
+  display: block;
+}
+
+capsule-tour-step {
+  position: fixed;
+  z-index: 10000;
+  pointer-events: auto;
+  max-width: 300px;
+  background: var(--capsule-color-surface, #fff);
+  border: 1px solid var(--capsule-color-outline, #e2e8f0);
+  border-radius: var(--capsule-radius, 8px);
+  box-shadow: var(--capsule-shadow-lg, 0 10px 15px -3px rgba(0, 0, 0, 0.1));
+  padding: var(--capsule-margin-md, 1rem);
+}
+
+capsule-tour-step[hidden] {
+  display: none !important;
+}
+
+/* Overlay class that will be added to target elements */
+/* This class is applied to target elements by the tour component */
+/* You can customize this class in your own CSS */
+.tour-active {
+  position: relative;
+  z-index: 9998;
+}
+
+/* Example overlay effect - customize as needed */
+.tour-active::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+  pointer-events: none;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+}
+
+/* Position variants - these will be calculated dynamically, but provide base styles */
+capsule-tour-step[position='top'] {
+  /* Positioned above target */
+}
+
+capsule-tour-step[position='bottom'] {
+  /* Positioned below target */
+}
+
+capsule-tour-step[position='left'] {
+  /* Positioned to the left of target */
+}
+
+capsule-tour-step[position='right'] {
+  /* Positioned to the right of target */
+}

@@ -305,4 +305,4 @@ class CapsulePagination extends LitElement {
   }
 }
 
-customElements.define('__PREFIX__-__COMPONENT__', CapsulePagination);
+customElements.define('capsule-pagination', CapsulePagination);

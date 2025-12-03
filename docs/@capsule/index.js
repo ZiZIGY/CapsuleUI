@@ -45,3 +45,6 @@ import './components/capsule-progress/register.js';
 // Import all modules
 import './modules/form/index.js';
 import './components/capsule-comparison/register.js';
+import './components/capsule-pagination/register.js';
+import './components/capsule-circular-progress/register.js';
+import './components/capsule-tour/register.js';

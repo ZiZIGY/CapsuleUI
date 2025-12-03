@@ -1,0 +1,73 @@
+capsule-circular-progress {
+  display: inline-block;
+  position: relative;
+  width: 1em;
+  height: 1em;
+  font-size: 48px;
+}
+
+capsule-circular-progress .circular-progress-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  transform: rotate(-90deg);
+}
+
+capsule-circular-progress .circular-progress-circle-bg {
+  stroke: var(--capsule-color-surface-variant);
+  opacity: 0.3;
+}
+
+capsule-circular-progress .circular-progress-circle {
+  stroke: var(--capsule-color-primary);
+  stroke-dasharray: var(--progress-circumference, 126.92px);
+  stroke-dashoffset: var(--progress-offset, 126.92px);
+  transition: stroke-dashoffset var(--capsule-transition);
+}
+
+/* Sizes */
+capsule-circular-progress[size='xs'] {
+  font-size: 24px;
+}
+
+capsule-circular-progress[size='sm'] {
+  font-size: 32px;
+}
+
+capsule-circular-progress[size='md'] {
+  font-size: 48px;
+}
+
+capsule-circular-progress[size='lg'] {
+  font-size: 64px;
+}
+
+capsule-circular-progress[size='xl'] {
+  font-size: 80px;
+}
+
+/* Colors */
+capsule-circular-progress[color='primary'] .circular-progress-circle {
+  stroke: var(--capsule-color-primary);
+}
+
+capsule-circular-progress[color='secondary'] .circular-progress-circle {
+  stroke: var(--capsule-color-secondary);
+}
+
+capsule-circular-progress[color='success'] .circular-progress-circle {
+  stroke: var(--capsule-color-success);
+}
+
+capsule-circular-progress[color='error'] .circular-progress-circle {
+  stroke: var(--capsule-color-error);
+}
+
+capsule-circular-progress[color='warning'] .circular-progress-circle {
+  stroke: var(--capsule-color-warning);
+}
+
+capsule-circular-progress[color='info'] .circular-progress-circle {
+  stroke: var(--capsule-color-info);
+}
+
