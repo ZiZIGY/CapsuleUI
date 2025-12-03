@@ -3,6 +3,7 @@
 </p>
 
 <h2 align="center">CapsuleUI</h2>
+
 <p align="center">
   Native Web Components • Unstyled-by-design • Bring your own design system
 </p>

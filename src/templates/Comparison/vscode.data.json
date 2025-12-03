@@ -1,0 +1,28 @@
+{
+  "version": 1.1,
+  "tags": [
+    {
+      "name": "__PREFIX__-__COMPONENT__",
+      "attributes": [
+        {
+          "name": "position",
+          "description": "Initial position of the divider line as a percentage (0-100)",
+          "valueSet": "number"
+        }
+      ]
+    },
+    {
+      "name": "__PREFIX__-__COMPONENT__-before",
+      "attributes": []
+    },
+    {
+      "name": "__PREFIX__-__COMPONENT__-after",
+      "attributes": []
+    },
+    {
+      "name": "__PREFIX__-__COMPONENT__-line",
+      "attributes": []
+    }
+  ]
+}
+

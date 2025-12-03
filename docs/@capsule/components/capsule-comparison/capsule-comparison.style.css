@@ -1,0 +1,91 @@
+capsule-comparison {
+  display: block;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  user-select: none;
+}
+
+capsule-comparison-before,
+capsule-comparison-after {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+capsule-comparison-before {
+  clip-path: inset(0 calc(100% - var(--comparison-position, 50%)) 0 0);
+}
+
+capsule-comparison-after {
+  clip-path: inset(0 0 0 var(--comparison-position, 50%));
+}
+
+capsule-comparison-before > img,
+capsule-comparison-after > img,
+capsule-comparison-before > video,
+capsule-comparison-after > video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+capsule-comparison-line {
+  position: absolute;
+  top: 0;
+  left: var(--comparison-position, 50%);
+  transform: translateX(-50%);
+  width: 4px;
+  height: 100%;
+  background: var(--capsule-color-surface);
+  cursor: ew-resize;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: none;
+}
+
+capsule-comparison-line:focus-visible {
+  outline: 2px solid var(--capsule-color-primary);
+  outline-offset: 2px;
+}
+
+capsule-comparison-line .line {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+capsule-comparison-line .icon {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--capsule-color-surface);
+  border: 2px solid var(--capsule-color-outline);
+  border-radius: var(--capsule-radius-full);
+  box-shadow: var(--capsule-shadow-md);
+  color: var(--capsule-color-on-surface);
+}
+
+capsule-comparison-line .icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+capsule-comparison-line[aria-pressed='true'] .icon {
+  background: var(--capsule-color-primary);
+  color: var(--capsule-color-on-primary);
+  border-color: var(--capsule-color-primary);
+}

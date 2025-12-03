@@ -44,3 +44,4 @@ import './components/capsule-progress/register.js';
 
 // Import all modules
 import './modules/form/index.js';
+import './components/capsule-comparison/register.js';

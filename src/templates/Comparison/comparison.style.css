@@ -1,0 +1,91 @@
+__PREFIX__-__COMPONENT__ {
+  display: block;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  user-select: none;
+}
+
+__PREFIX__-__COMPONENT__-before,
+__PREFIX__-__COMPONENT__-after {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+__PREFIX__-__COMPONENT__-before {
+  clip-path: inset(0 calc(100% - var(--comparison-position, 50%)) 0 0);
+}
+
+__PREFIX__-__COMPONENT__-after {
+  clip-path: inset(0 0 0 var(--comparison-position, 50%));
+}
+
+__PREFIX__-__COMPONENT__-before > img,
+__PREFIX__-__COMPONENT__-after > img,
+__PREFIX__-__COMPONENT__-before > video,
+__PREFIX__-__COMPONENT__-after > video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+__PREFIX__-__COMPONENT__-line {
+  position: absolute;
+  top: 0;
+  left: var(--comparison-position, 50%);
+  transform: translateX(-50%);
+  width: 4px;
+  height: 100%;
+  background: var(--capsule-color-surface);
+  cursor: ew-resize;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: none;
+}
+
+__PREFIX__-__COMPONENT__-line:focus-visible {
+  outline: 2px solid var(--capsule-color-primary);
+  outline-offset: 2px;
+}
+
+__PREFIX__-__COMPONENT__-line .line {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+__PREFIX__-__COMPONENT__-line .icon {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--capsule-color-surface);
+  border: 2px solid var(--capsule-color-outline);
+  border-radius: var(--capsule-radius-full);
+  box-shadow: var(--capsule-shadow-md);
+  color: var(--capsule-color-on-surface);
+}
+
+__PREFIX__-__COMPONENT__-line .icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+__PREFIX__-__COMPONENT__-line[aria-pressed='true'] .icon {
+  background: var(--capsule-color-primary);
+  color: var(--capsule-color-on-primary);
+  border-color: var(--capsule-color-primary);
+}

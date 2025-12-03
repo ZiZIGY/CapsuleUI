@@ -1,0 +1,28 @@
+{
+  "version": 1.1,
+  "tags": [
+    {
+      "name": "capsule-comparison",
+      "attributes": [
+        {
+          "name": "position",
+          "description": "Initial position of the divider line as a percentage (0-100)",
+          "valueSet": "number"
+        }
+      ]
+    },
+    {
+      "name": "capsule-comparison-before",
+      "attributes": []
+    },
+    {
+      "name": "capsule-comparison-after",
+      "attributes": []
+    },
+    {
+      "name": "capsule-comparison-line",
+      "attributes": []
+    }
+  ]
+}
+
